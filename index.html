@@ -1,5 +1,453 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><title>bobot</title></head>
-<body><h1>bobot</h1></body>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawBot — AI Agent 学习导航</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a26;
+      --border: #2a2a3e;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --accent3: #ff6b6b;
+      --text: #e8e8f0;
+      --muted: #7a7a9a;
+      --glow: rgba(108, 99, 255, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .logo { font-size: 1.2rem; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+    .logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(108,99,255,0.12), transparent),
+                  radial-gradient(ellipse 60% 40% at 80% 70%, rgba(0,212,170,0.07), transparent);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.3);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.8rem; color: var(--accent); margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem; color: var(--muted); max-width: 600px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn {
+      padding: 0.75rem 1.75rem; border-radius: 8px; font-size: 0.95rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 30px rgba(108,99,255,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(108,99,255,0.6); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* GRID BACKGROUND */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: -1;
+      background-image: linear-gradient(rgba(108,99,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(108,99,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* STATS */
+    .stats {
+      display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent2); }
+    .stat-label { font-size: 0.85rem; color: var(--muted); }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
+
+    /* PROJECT CARDS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover { border-color: rgba(108,99,255,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .card:hover::before { opacity: 1; }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem; }
+    .card-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .tag {
+      font-size: 0.75rem; padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(108,99,255,0.1);
+      border: 1px solid rgba(108,99,255,0.2);
+      color: var(--accent);
+    }
+    .tag.green { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.2); color: var(--accent2); }
+    .tag.red { background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.2); color: var(--accent3); }
+    .card-link {
+      font-size: 0.875rem; color: var(--accent); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-weight: 600;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* FEATURED (big card) */
+    .card-featured {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      align-items: center;
+    }
+    @media(max-width:640px) { .card-featured { grid-template-columns: 1fr; } }
+    .card-featured .card-title { font-size: 1.6rem; }
+    .card-featured .card-desc { font-size: 1rem; }
+    .card-visual {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .cv-green { color: var(--accent2); }
+    .cv-purple { color: var(--accent); }
+    .cv-yellow { color: #ffd93d; }
+    .cv-red { color: var(--accent3); }
+
+    /* LEARNING PATH */
+    .path { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .path::before {
+      content: '';
+      position: absolute; left: 24px; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .path-item {
+      display: flex; gap: 1.5rem; padding: 1.5rem 0;
+      position: relative;
+    }
+    .path-dot {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .path-item:nth-child(2) .path-dot { border-color: var(--accent2); }
+    .path-item:nth-child(3) .path-dot { border-color: #ffd93d; }
+    .path-item:nth-child(4) .path-dot { border-color: var(--accent3); }
+    .path-content { padding-top: 0.25rem; }
+    .path-step { font-size: 0.75rem; color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .path-name { font-size: 1.1rem; font-weight: 700; margin: 0.25rem 0; }
+    .path-desc { color: var(--muted); font-size: 0.9rem; }
+    .path-items { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .path-tag {
+      font-size: 0.75rem; padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--surface2); color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Claw<span>Bot</span></div>
+  <div class="nav-links">
+    <a href="#projects">项目</a>
+    <a href="#path">学习路径</a>
+    <a href="https://github.com/clawbobot" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">AI Agent 学习导航站</div>
+  <h1>系统学习<br><span class="grad">AI Agent</span> 技术</h1>
+  <p>收录 OpenClaw、Hermes 等顶尖 Agent 框架，提供从入门到实战的完整学习路径</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">探索项目 →</a>
+    <a href="#path" class="btn btn-ghost">学习路径</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">收录框架</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">学习阶段</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">可能性</div></div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">精选项目</div>
+  <h2 class="section-title">顶尖 Agent 框架</h2>
+  <p class="section-sub">从这里开始，系统了解当前最优秀的 AI Agent 开源项目</p>
+
+  <div class="projects-grid">
+
+    <!-- OpenClaw - Featured -->
+    <div class="card card-featured">
+      <div>
+        <div class="card-icon">🦞</div>
+        <div class="card-title">OpenClaw</div>
+        <div class="card-desc">全平台 AI 网关，支持 Telegram、Discord、WhatsApp 等 10+ 消息平台。内置技能系统、记忆管理、Cron 调度，是个人 AI 助手的最佳基础设施。</div>
+        <div class="card-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag green">多平台</span>
+          <span class="tag green">技能系统</span>
+          <span class="tag">记忆管理</span>
+        </div>
+        <a class="card-link" href="https://docs.openclaw.ai" target="_blank">查看文档 →</a>
+      </div>
+      <div class="card-visual">
+        <span class="cv-green">$</span> openclaw setup<br>
+        <span class="cv-purple">✓</span> Gateway started on :18789<br>
+        <span class="cv-purple">✓</span> Telegram connected<br>
+        <span class="cv-purple">✓</span> Agent: claude-sonnet-4-6<br>
+        <span class="cv-yellow">→</span> Skills loaded: 82<br>
+        <span class="cv-green">●</span> Ready — say hi to your agent
+      </div>
+    </div>
+
+    <!-- Hermes -->
+    <div class="card">
+      <div class="card-icon">⚕️</div>
+      <div class="card-title">Hermes Agent</div>
+      <div class="card-desc">Nous Research 出品的开源 Agent 框架。支持 15+ 模型提供商、自我学习 Skills、多平台网关，内置 MoA 多模型协作推理。</div>
+      <div class="card-tags">
+        <span class="tag">Python</span>
+        <span class="tag green">自学习</span>
+        <span class="tag red">MoA</span>
+      </div>
+      <a class="card-link" href="https://github.com/NousResearch/hermes-agent" target="_blank">GitHub →</a>
+    </div>
+
+    <!-- Claude Code -->
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">Claude Code</div>
+      <div class="card-desc">Anthropic 官方编码 Agent。直接在终端运行，理解整个代码库，自主完成功能实现、重构、debug，是开发者的 AI 结对编程神器。</div>
+      <div class="card-tags">
+        <span class="tag">CLI</span>
+        <span class="tag green">编码专项</span>
+        <span class="tag">Anthropic</span>
+      </div>
+      <a class="card-link" href="https://docs.anthropic.com/claude-code" target="_blank">查看文档 →</a>
+    </div>
+
+    <!-- OpenAI Codex -->
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">OpenAI Codex CLI</div>
+      <div class="card-desc">OpenAI 出品的终端 Agent，专注代码生成与执行。支持本地沙箱运行，适合自动化脚本、代码审查、批量任务处理。</div>
+      <div class="card-tags">
+        <span class="tag">CLI</span>
+        <span class="tag green">沙箱执行</span>
+        <span class="tag">OpenAI</span>
+      </div>
+      <a class="card-link" href="https://github.com/openai/codex" target="_blank">GitHub →</a>
+    </div>
+
+    <!-- LangChain -->
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <div class="card-title">LangChain</div>
+      <div class="card-desc">最流行的 LLM 应用开发框架。提供 Chain、Agent、RAG、Memory 等核心抽象，是构建 AI 应用的乐高积木。</div>
+      <div class="card-tags">
+        <span class="tag">Python / JS</span>
+        <span class="tag green">RAG</span>
+        <span class="tag">生态丰富</span>
+      </div>
+      <a class="card-link" href="https://langchain.com" target="_blank">官网 →</a>
+    </div>
+
+    <!-- AutoGen -->
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <div class="card-title">AutoGen</div>
+      <div class="card-desc">微软出品的多 Agent 对话框架。让多个 AI 角色相互对话、协作完成复杂任务，是实现 Agent 团队协作的强大工具。</div>
+      <div class="card-tags">
+        <span class="tag">Python</span>
+        <span class="tag red">多 Agent</span>
+        <span class="tag">Microsoft</span>
+      </div>
+      <a class="card-link" href="https://github.com/microsoft/autogen" target="_blank">GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEARNING PATH -->
+<section id="path">
+  <div class="section-label">学习路径</div>
+  <h2 class="section-title">从零到实战</h2>
+  <p class="section-sub">按阶段系统学习，每个阶段都有具体的项目实践</p>
+
+  <div class="path">
+    <div class="path-item">
+      <div class="path-dot">🌱</div>
+      <div class="path-content">
+        <div class="path-step">第一阶段</div>
+        <div class="path-name">理解 LLM 基础</div>
+        <div class="path-desc">了解大语言模型的工作原理、API 调用、Prompt 工程基础</div>
+        <div class="path-items">
+          <span class="path-tag">OpenAI API</span>
+          <span class="path-tag">Anthropic Claude</span>
+          <span class="path-tag">Prompt 工程</span>
+          <span class="path-tag">Token & 上下文</span>
+        </div>
+      </div>
+    </div>
+    <div class="path-item">
+      <div class="path-dot">🔧</div>
+      <div class="path-content">
+        <div class="path-step">第二阶段</div>
+        <div class="path-name">Agent 核心概念</div>
+        <div class="path-desc">掌握 Tool Use、ReAct、记忆管理、RAG 检索增强生成</div>
+        <div class="path-items">
+          <span class="path-tag">Function Calling</span>
+          <span class="path-tag">ReAct 模式</span>
+          <span class="path-tag">Memory</span>
+          <span class="path-tag">RAG</span>
+        </div>
+      </div>
+    </div>
+    <div class="path-item">
+      <div class="path-dot">🚀</div>
+      <div class="path-content">
+        <div class="path-step">第三阶段</div>
+        <div class="path-name">框架实战</div>
+        <div class="path-desc">使用 OpenClaw 或 Hermes 搭建个人 AI 助手，跑通完整工作流</div>
+        <div class="path-items">
+          <span class="path-tag">OpenClaw 部署</span>
+          <span class="path-tag">Hermes 配置</span>
+          <span class="path-tag">Skills 开发</span>
+          <span class="path-tag">多平台接入</span>
+        </div>
+      </div>
+    </div>
+    <div class="path-item">
+      <div class="path-dot">🏆</div>
+      <div class="path-content">
+        <div class="path-step">第四阶段</div>
+        <div class="path-name">多 Agent 协作</div>
+        <div class="path-desc">设计多角色 Agent 系统，实现复杂任务的并行分解与协同交付</div>
+        <div class="path-items">
+          <span class="path-tag">AutoGen</span>
+          <span class="path-tag">MoA 架构</span>
+          <span class="path-tag">任务编排</span>
+          <span class="path-tag">角色设计</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with 🤖 by <a href="https://github.com/clawbobot">clawbobot</a> · Powered by AI Agents</p>
+</footer>
+
+</body>
 </html>
