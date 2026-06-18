@@ -1,0 +1,16 @@
+{
+  "name": "Bob Pan | Software Developer",
+  "short_name": "Bob Pan",
+  "description": "Practical, bilingual AI developer tools and agent workflows.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090a0f",
+  "theme_color": "#090a0f",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}

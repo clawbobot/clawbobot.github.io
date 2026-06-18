@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <title>Page not found | Bob Pan</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a0f;
+      --surface: #11131b;
+      --border: #292d3d;
+      --text: #f1f3f8;
+      --muted: #a0a7b8;
+      --purple: #8b7cff;
+      --green: #48d6b0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(139, 124, 255, 0.14), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(100%, 620px);
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    p { color: var(--muted); line-height: 1.7; }
+    .code { color: var(--green); font: 800 0.8rem ui-monospace, monospace; }
+    h1 { margin: 0.6rem 0 1rem; font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: -0.06em; }
+
+    a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1.1rem;
+      border-radius: 9px;
+      background: var(--purple);
+      color: white;
+      text-decoration: none;
+      font-weight: 750;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="code">404 / PAGE_NOT_FOUND</div>
+    <h1>This path does not exist.</h1>
+    <p>这个页面不存在。返回主页继续查看 Bob Pan 的开源 AI 开发工具与项目。</p>
+    <a href="/">Back to bobot.is-a.dev</a>
+  </main>
+</body>
+</html>

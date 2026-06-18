@@ -3,10 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Bob Pan is a software developer building open-source AI developer tools and bilingual developer experiences.">
+  <meta name="description" content="Bob Pan builds practical, bilingual AI developer tools, terminal applications, and agent workflows.">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bobot.is-a.dev/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:title" content="Bob Pan | Software Developer">
-  <meta property="og:description" content="Open-source AI developer tools, bilingual interfaces, diagnostics, and agent workflows.">
+  <meta property="og:description" content="Practical, bilingual AI developer tools, terminal applications, and agent workflows.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/">
+  <meta property="og:image" content="https://bobot.is-a.dev/assets/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Bob Pan software developer portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bob Pan | Software Developer">
+  <meta name="twitter:description" content="Practical, bilingual AI developer tools, terminal applications, and agent workflows.">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/assets/social-card.jpg">
   <title>Bob Pan | Software Developer</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Bob Pan",
+      "alternateName": "clawbobot",
+      "url": "https://bobot.is-a.dev/",
+      "image": "https://bobot.is-a.dev/assets/favicon.png",
+      "sameAs": [
+        "https://github.com/clawbobot"
+      ],
+      "knowsAbout": [
+        "AI developer tools",
+        "Python",
+        "terminal applications",
+        "AI agents",
+        "Model Context Protocol",
+        "bilingual developer experience"
+      ]
+    }
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -78,6 +116,7 @@
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 1.25rem;
       color: var(--muted);
       font-size: 0.9rem;
@@ -90,6 +129,23 @@
     .nav-links a:hover,
     .nav-links a:focus-visible {
       color: var(--text);
+    }
+
+    .language-toggle {
+      min-width: 42px;
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .language-toggle:hover,
+    .language-toggle:focus-visible {
+      border-color: var(--green);
     }
 
     main {
@@ -324,6 +380,13 @@
       padding-left: 1.2rem;
     }
 
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
     footer {
       padding: 3rem 0 4rem;
       border-top: 1px solid var(--border);
@@ -338,7 +401,7 @@
     }
 
     @media (max-width: 760px) {
-      .nav-links a:not(:last-child) {
+      .nav-links a {
         display: none;
       }
 
@@ -383,9 +446,11 @@
     <div class="container nav-inner">
       <a class="wordmark" href="#top">Bob<span>Pan</span></a>
       <div class="nav-links">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
+        <a href="#projects" data-i18n="navProjects">Projects</a>
+        <a href="#about" data-i18n="navAbout">About</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
         <a href="https://github.com/clawbobot" rel="me">GitHub</a>
+        <button class="language-toggle" type="button" aria-label="切换到中文" title="切换到中文">中</button>
       </div>
     </div>
   </nav>
@@ -394,15 +459,15 @@
     <div class="container">
       <header class="hero">
         <div>
-          <p class="eyebrow">Software Developer / Open Source Builder</p>
-          <h1>Hi, I'm <span>Bob Pan.</span></h1>
-          <p class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">Software Developer / Open Source Builder</p>
+          <h1 data-i18n-html="heroTitle">Hi, I'm <span>Bob Pan.</span></h1>
+          <p class="hero-copy" data-i18n="heroCopy">
             I build open-source AI developer tools, bilingual interfaces, and practical
             agent workflows. 我专注于让 AI 编程工具对中文开发者更易配置、更易诊断，也更可靠。
           </p>
           <div class="actions">
-            <a class="button primary" href="#projects">View my projects</a>
-            <a class="button" href="https://github.com/clawbobot">GitHub profile</a>
+            <a class="button primary" href="#projects" data-i18n="viewProjects">View my projects</a>
+            <a class="button" href="https://github.com/clawbobot" data-i18n="githubProfile">GitHub profile</a>
           </div>
         </div>
 
@@ -425,10 +490,10 @@ Building in public</pre>
       <section id="projects">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Selected work</p>
-            <h2>Projects I build.</h2>
+            <p class="eyebrow" data-i18n="selectedWork">Selected work</p>
+            <h2 data-i18n="projectsTitle">Projects I build.</h2>
           </div>
-          <p>
+          <p data-i18n="projectsIntro">
             These are personal, non-commercial software projects published openly on
             GitHub. Each one explores a practical problem in AI-assisted development.
           </p>
@@ -443,13 +508,13 @@ Building in public</pre>
               <span class="tag">AI Coding</span>
             </div>
             <h3>Code Puppy CN</h3>
-            <p>
+            <p data-i18n="codePuppyDescription">
               A bilingual terminal AI coding assistant optimized for Chinese developers.
               It adds Chinese and English interfaces, setup flows for commonly used model
               providers, environment diagnostics, and support for Agent, Skill and MCP
               workflows.
             </p>
-            <a class="project-link" href="https://github.com/clawbobot/code-puppy-cn">
+            <a class="project-link" href="https://github.com/clawbobot/code-puppy-cn" data-i18n="readSource">
               Read the source and documentation
             </a>
           </article>
@@ -461,12 +526,12 @@ Building in public</pre>
               <span class="tag">Developer Education</span>
             </div>
             <h3>AI Agent Learning Guide</h3>
-            <p>
+            <p data-i18n="guideDescription">
               A self-directed web experiment that organizes agent frameworks and core
               concepts into a practical learning path. It was the first version of this
               site and remains part of my exploration of developer education.
             </p>
-            <a class="project-link" href="https://github.com/clawbobot/clawbobot.github.io">
+            <a class="project-link" href="https://github.com/clawbobot/clawbobot.github.io" data-i18n="viewSource">
               View the website source
             </a>
           </article>
@@ -476,10 +541,10 @@ Building in public</pre>
       <section id="about">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">About</p>
-            <h2>Useful software, clearly explained.</h2>
+            <p class="eyebrow" data-i18n="aboutEyebrow">About</p>
+            <h2 data-i18n="aboutTitle">Useful software, clearly explained.</h2>
           </div>
-          <p>
+          <p data-i18n="aboutCopy">
             My current interests sit where developer experience meets AI agents:
             local-first tools, model configuration, reliable diagnostics, and workflows
             that remain understandable to the person running them.
@@ -488,21 +553,28 @@ Building in public</pre>
 
         <div class="about">
           <div class="panel">
-            <h3>What I work with</h3>
+            <h3 data-i18n="workWithTitle">What I work with</h3>
             <ul>
-              <li>Python and terminal applications</li>
-              <li>Agent, Skill and MCP integrations</li>
-              <li>Model provider setup and diagnostics</li>
-              <li>Responsive HTML and CSS</li>
+              <li data-i18n="skillPython">Python and terminal applications</li>
+              <li data-i18n="skillAgents">Agent, Skill and MCP integrations</li>
+              <li data-i18n="skillModels">Model provider setup and diagnostics</li>
+              <li data-i18n="skillWeb">Responsive HTML and CSS</li>
             </ul>
           </div>
-          <div class="panel">
-            <h3>Contact and source</h3>
-            <p>
-              The best place to follow my work, inspect the code, or open a technical
-              discussion is my public GitHub profile.
+          <div class="panel" id="contact">
+            <h3 data-i18n="contactTitle">Contact and feedback</h3>
+            <p data-i18n="contactCopy">
+              Follow the work on GitHub, open a technical discussion, or send focused
+              feedback about this site.
             </p>
-            <a class="project-link" href="https://github.com/clawbobot">github.com/clawbobot</a>
+            <div class="contact-actions">
+              <a class="button primary" href="https://github.com/clawbobot" data-i18n="followGithub">Follow on GitHub</a>
+              <a
+                class="button"
+                href="https://github.com/clawbobot/clawbobot.github.io/issues/new?template=portfolio-feedback.yml"
+                data-i18n="sendFeedback"
+              >Send feedback</a>
+            </div>
           </div>
         </div>
       </section>
@@ -512,8 +584,101 @@ Building in public</pre>
   <footer>
     <div class="container footer-inner">
       <span>Bob Pan / clawbobot</span>
-      <span>Personal, non-commercial software development portfolio.</span>
+      <span data-i18n="footerCopy">Personal, non-commercial software development portfolio.</span>
     </div>
   </footer>
+  <script>
+    const translations = {
+      en: {
+        navProjects: "Projects",
+        navAbout: "About",
+        navContact: "Contact",
+        heroEyebrow: "Software Developer / Open Source Builder",
+        heroTitle: "Hi, I'm <span>Bob Pan.</span>",
+        heroCopy: "I build open-source AI developer tools, bilingual interfaces, and practical agent workflows. I focus on making AI coding tools easier to configure, diagnose, and trust.",
+        viewProjects: "View my projects",
+        githubProfile: "GitHub profile",
+        selectedWork: "Selected work",
+        projectsTitle: "Projects I build.",
+        projectsIntro: "These are personal, non-commercial software projects published openly on GitHub. Each one explores a practical problem in AI-assisted development.",
+        codePuppyDescription: "A bilingual terminal AI coding assistant optimized for Chinese developers. It adds Chinese and English interfaces, setup flows for commonly used model providers, environment diagnostics, and support for Agent, Skill and MCP workflows.",
+        readSource: "Read the source and documentation",
+        guideDescription: "A self-directed web experiment that organizes agent frameworks and core concepts into a practical learning path. It was the first version of this site and remains part of my exploration of developer education.",
+        viewSource: "View the website source",
+        aboutEyebrow: "About",
+        aboutTitle: "Useful software, clearly explained.",
+        aboutCopy: "My current interests sit where developer experience meets AI agents: local-first tools, model configuration, reliable diagnostics, and workflows that remain understandable to the person running them.",
+        workWithTitle: "What I work with",
+        skillPython: "Python and terminal applications",
+        skillAgents: "Agent, Skill and MCP integrations",
+        skillModels: "Model provider setup and diagnostics",
+        skillWeb: "Responsive HTML and CSS",
+        contactTitle: "Contact and feedback",
+        contactCopy: "Follow the work on GitHub, open a technical discussion, or send focused feedback about this site.",
+        followGithub: "Follow on GitHub",
+        sendFeedback: "Send feedback",
+        footerCopy: "Personal, non-commercial software development portfolio."
+      },
+      zh: {
+        navProjects: "项目",
+        navAbout: "关于",
+        navContact: "联系",
+        heroEyebrow: "软件开发者 / 开源项目作者",
+        heroTitle: "你好，我是 <span>Bob Pan。</span>",
+        heroCopy: "我构建开源 AI 开发工具、双语界面和实用的 Agent 工作流，重点让 AI 编程工具更易配置、更易诊断，也更值得信赖。",
+        viewProjects: "查看项目",
+        githubProfile: "GitHub 主页",
+        selectedWork: "代表项目",
+        projectsTitle: "我正在构建的项目。",
+        projectsIntro: "这些是公开发布在 GitHub 上的个人非商业软件项目，每个项目都在解决 AI 辅助开发中的一个具体问题。",
+        codePuppyDescription: "面向中文开发者优化的双语终端 AI 编程助手，提供中英文界面、常用模型服务配置、环境诊断，以及 Agent、Skill 和 MCP 工作流支持。",
+        readSource: "查看源码与文档",
+        guideDescription: "一个自主学习型网页实验，将 Agent 框架和核心概念整理成可实践的学习路径。它是本站的早期版本，也是我对开发者教育的持续探索。",
+        viewSource: "查看网站源码",
+        aboutEyebrow: "关于我",
+        aboutTitle: "实用的软件，清楚的表达。",
+        aboutCopy: "我目前关注开发者体验与 AI Agent 的交汇点：本地优先工具、模型配置、可靠诊断，以及让使用者能够理解和掌控的工作流。",
+        workWithTitle: "我的技术方向",
+        skillPython: "Python 与终端应用",
+        skillAgents: "Agent、Skill 与 MCP 集成",
+        skillModels: "模型服务配置与诊断",
+        skillWeb: "响应式 HTML 与 CSS",
+        contactTitle: "联系与反馈",
+        contactCopy: "你可以在 GitHub 关注项目、发起技术讨论，或针对这个网站提交明确的改进建议。",
+        followGithub: "关注 GitHub",
+        sendFeedback: "提交反馈",
+        footerCopy: "个人、非商业的软件开发者作品集。"
+      }
+    };
+
+    const languageButton = document.querySelector(".language-toggle");
+
+    function applyLanguage(language) {
+      const selected = translations[language] ? language : "en";
+      document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = translations[selected][element.dataset.i18n];
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        element.innerHTML = translations[selected][element.dataset.i18nHtml];
+      });
+
+      const nextLanguage = selected === "en" ? "zh" : "en";
+      languageButton.textContent = selected === "en" ? "中" : "EN";
+      languageButton.setAttribute("aria-label", nextLanguage === "zh" ? "切换到中文" : "Switch to English");
+      languageButton.title = nextLanguage === "zh" ? "切换到中文" : "Switch to English";
+      localStorage.setItem("portfolio-language", selected);
+    }
+
+    languageButton.addEventListener("click", () => {
+      applyLanguage(document.documentElement.lang.startsWith("zh") ? "en" : "zh");
+    });
+
+    const savedLanguage = localStorage.getItem("portfolio-language");
+    const preferredLanguage = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+    applyLanguage(savedLanguage || preferredLanguage);
+  </script>
 </body>
 </html>

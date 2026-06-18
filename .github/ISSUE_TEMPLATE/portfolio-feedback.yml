@@ -1,0 +1,36 @@
+name: Portfolio feedback
+description: Suggest a focused improvement for bobot.is-a.dev.
+title: "Portfolio feedback: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the portfolio. Please keep the suggestion specific and actionable.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Project information
+        - Chinese or English copy
+        - Mobile or desktop layout
+        - Accessibility
+        - Search or social preview
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: What should change, and why would it make the site more useful?
+      placeholder: Describe one focused improvement.
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Relevant page or section
+      placeholder: "https://bobot.is-a.dev/#projects"
