@@ -17,3 +17,10 @@ under the [`clawbobot`](https://github.com/clawbobot) GitHub account.
 - Search and social metadata
 - Structured data, sitemap, and robots policy
 - GitHub-based feedback workflow
+- Playable science strategy game at [`/play/`](https://bobot.is-a.dev/play/)
+
+## Codex handoff
+
+See [`CODEX_HANDOFF.md`](CODEX_HANDOFF.md) for the complete product, engineering,
+testing, and deployment context needed to continue this project in a new Codex
+workspace.
