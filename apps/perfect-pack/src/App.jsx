@@ -15,7 +15,7 @@ import {
   Warning,
 } from "@phosphor-icons/react";
 import QRCode from "qrcode";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const GAME_NAME = "这也能装？";
 const DEFAULT_MOTTO = "没有装不下，只有没转对。";
@@ -176,6 +176,13 @@ function getInitialChallenge() {
   return decodeChallenge(new URLSearchParams(window.location.search).get("challenge"));
 }
 
+function isWeChatBrowser() {
+  return (
+    /MicroMessenger/i.test(navigator.userAgent) ||
+    (import.meta.env.DEV && new URLSearchParams(window.location.search).get("wechat-preview") === "1")
+  );
+}
+
 function upsertMeta(property, content) {
   let element = document.head.querySelector(`meta[property="${property}"]`);
   if (!element) {
@@ -199,6 +206,26 @@ function loadImage(source) {
     image.onerror = reject;
     image.src = source;
   });
+}
+
+async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch {
+      // Fall through for older embedded browsers.
+    }
+  }
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
 }
 
 function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines = 2) {
@@ -343,6 +370,9 @@ export function App() {
   const [shareAsset, setShareAsset] = useState(null);
   const [shareBusy, setShareBusy] = useState(false);
   const [shareNotice, setShareNotice] = useState("");
+  const [imageFocusOpen, setImageFocusOpen] = useState(false);
+  const [isWeChat] = useState(isWeChatBrowser);
+  const shareEntryUrlRef = useRef(window.location.href);
   const level = LEVELS[levelIndex];
   const selected = pieces.find((piece) => piece.uid === selectedId) ?? null;
 
@@ -440,7 +470,10 @@ export function App() {
     url.searchParams.set("challenge", encodeChallenge(payload));
     renderShareCard({ challengeUrl: url.toString(), identity, result: lastResult })
       .then((asset) => {
-        if (active) setShareAsset({ ...asset, url: url.toString(), payload });
+        if (active) {
+          setShareAsset({ ...asset, url: url.toString(), payload });
+          if (isWeChat) window.history.replaceState({}, "", url);
+        }
       })
       .finally(() => active && setShareBusy(false));
     try {
@@ -451,7 +484,7 @@ export function App() {
     return () => {
       active = false;
     };
-  }, [identity, lastResult, shareOpen]);
+  }, [identity, isWeChat, lastResult, shareOpen]);
 
   const canPlace = (piece, row, col) => {
     if (!piece) return false;
@@ -588,8 +621,29 @@ export function App() {
 
   const copyChallenge = async () => {
     if (!shareAsset) return;
-    await navigator.clipboard.writeText(`${shareTitle}\n${shareText}\n${shareAsset.url}`);
+    await copyText(`${shareTitle}\n${shareText}\n${shareAsset.url}`);
     setShareNotice("挑战文案和链接已复制");
+  };
+
+  const copyChallengeLink = async () => {
+    if (!shareAsset) return;
+    await copyText(shareAsset.url);
+    setShareNotice("挑战链接已复制");
+  };
+
+  const openShareStudio = () => {
+    shareEntryUrlRef.current = window.location.href;
+    setShareOpen(true);
+  };
+
+  const closeShareStudio = () => {
+    setImageFocusOpen(false);
+    setShareOpen(false);
+    if (isWeChat) window.history.replaceState({}, "", shareEntryUrlRef.current);
+  };
+
+  const showWeChatShareGuide = () => {
+    setShareNotice("请点右上角 ···，选择“发送给朋友”或“分享到朋友圈”");
   };
 
   const shareLink = async () => {
@@ -843,7 +897,7 @@ export function App() {
             ) : (
               <p>用时 {lastResult.elapsed} 秒，获得 {lastResult.roundScore.toLocaleString()} 分，连击 x{lastResult.combo}。</p>
             )}
-            <button className="primary-action share-cta" type="button" onClick={() => setShareOpen(true)}>
+            <button className="primary-action share-cta" type="button" onClick={openShareStudio}>
               生成我的装箱战绩 <ShareNetwork weight="bold" />
             </button>
             <button className="text-action" type="button" onClick={nextLevel}>
@@ -872,13 +926,29 @@ export function App() {
                   <span>分享战绩</span>
                   <h2>让朋友挑战同一箱</h2>
                 </div>
-                <button type="button" onClick={() => setShareOpen(false)} aria-label="关闭分享">×</button>
+                <button type="button" onClick={closeShareStudio} aria-label="关闭分享">×</button>
               </header>
 
               <div className="share-card-preview">
                 {shareBusy && <div className="share-loading">正在生成战绩图…</div>}
-                {shareAsset && <img src={shareAsset.dataUrl} alt="带二维码的完美装箱战绩卡" />}
+                {shareAsset && (
+                  <button
+                    className="share-preview-button"
+                    type="button"
+                    onClick={() => isWeChat && setImageFocusOpen(true)}
+                    aria-label={isWeChat ? "打开高清战绩图" : "战绩图预览"}
+                  >
+                    <img src={shareAsset.dataUrl} alt="带二维码的完美装箱战绩卡" />
+                  </button>
+                )}
               </div>
+
+              {isWeChat && (
+                <div className="wechat-tip">
+                  <strong>微信内分享</strong>
+                  <span>打开大图后长按，可保存图片或直接发送给朋友。</span>
+                </div>
+              )}
 
               <div className="share-fields">
                 <label>
@@ -906,21 +976,52 @@ export function App() {
               </div>
 
               <div className="share-actions">
-                <button className="share-primary" type="button" onClick={shareCard} disabled={!shareAsset}>
-                  <ShareNetwork weight="bold" /> 分享图片
-                </button>
-                <button type="button" onClick={shareLink} disabled={!shareAsset}>
-                  <QrCode weight="bold" /> 分享挑战链接
-                </button>
-                <button type="button" onClick={downloadCard} disabled={!shareAsset}>
-                  <DownloadSimple weight="bold" /> 保存图片
-                </button>
+                {isWeChat ? (
+                  <>
+                    <button className="share-primary" type="button" onClick={() => setImageFocusOpen(true)} disabled={!shareAsset}>
+                      <QrCode weight="bold" /> 打开大图并长按
+                    </button>
+                    <button type="button" onClick={showWeChatShareGuide} disabled={!shareAsset}>
+                      <ShareNetwork weight="bold" /> 右上角分享挑战
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="share-primary" type="button" onClick={shareCard} disabled={!shareAsset}>
+                      <ShareNetwork weight="bold" /> 分享图片
+                    </button>
+                    <button type="button" onClick={shareLink} disabled={!shareAsset}>
+                      <QrCode weight="bold" /> 分享挑战链接
+                    </button>
+                    <button type="button" onClick={downloadCard} disabled={!shareAsset}>
+                      <DownloadSimple weight="bold" /> 保存图片
+                    </button>
+                  </>
+                )}
+                {isWeChat && (
+                  <button type="button" onClick={copyChallengeLink} disabled={!shareAsset}>
+                    <Copy weight="bold" /> 复制挑战链接
+                  </button>
+                )}
                 <button type="button" onClick={copyChallenge} disabled={!shareAsset}>
                   <Copy weight="bold" /> 复制文案
                 </button>
               </div>
               {shareNotice && <p className="share-notice">{shareNotice}</p>}
             </section>
+          </div>
+        )}
+
+        {imageFocusOpen && shareAsset && (
+          <div className="wechat-image-viewer">
+            <header>
+              <strong>长按图片保存或发送给朋友</strong>
+              <button type="button" onClick={() => setImageFocusOpen(false)} aria-label="关闭高清图片">完成</button>
+            </header>
+            <div className="wechat-image-scroll">
+              <img src={shareAsset.dataUrl} alt="高清完美装箱战绩卡，长按可保存或发送" />
+            </div>
+            <p>若长按菜单没有出现，请轻点图片后再长按。</p>
           </div>
         )}
       </section>

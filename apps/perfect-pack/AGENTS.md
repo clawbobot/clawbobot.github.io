@@ -16,3 +16,4 @@ When implementing from a selected generated mock, treat that image as the source
 - Selected visual direction: `artifacts/mobile-direction-selected.png`.
 - Public game name is `这也能装？`.
 - Sharing MVP uses a generated portrait result card with QR code, a local nickname/short mark, optional motto, and a same-level challenge URL.
+- In WeChat WebView, use a full-screen real image and long-press instructions instead of programmatic file download or Web Share file APIs. Temporarily expose the challenge URL as the current URL for the top-right WeChat share action.

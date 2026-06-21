@@ -492,6 +492,25 @@ button { font: inherit; }
   display: block;
   object-fit: cover;
 }
+.share-preview-button {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.wechat-tip {
+  display: grid;
+  gap: 2px;
+  margin: -2px 0 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(101, 219, 114, 0.28);
+  border-radius: 8px;
+  background: rgba(101, 219, 114, 0.07);
+}
+.wechat-tip strong { color: var(--green); font-size: 11px; }
+.wechat-tip span { color: #a9b8c1; font-size: 10px; line-height: 1.5; }
 .share-loading {
   position: absolute;
   inset: 0;
@@ -568,6 +587,52 @@ button { font: inherit; }
   margin: 8px 0 0;
   color: var(--green);
   text-align: center;
+  font-size: 10px;
+}
+.wechat-image-viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr) 42px;
+  background: #020507;
+}
+.wechat-image-viewer > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid #1c2c37;
+}
+.wechat-image-viewer > header strong { font-size: 12px; }
+.wechat-image-viewer > header button {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--cyan);
+  color: #041214;
+  font-size: 11px;
+  font-weight: 800;
+}
+.wechat-image-scroll {
+  min-height: 0;
+  overflow: auto;
+  padding: 12px 26px;
+  -webkit-overflow-scrolling: touch;
+}
+.wechat-image-scroll img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  -webkit-touch-callout: default;
+  user-select: auto;
+}
+.wechat-image-viewer > p {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
   font-size: 10px;
 }
 

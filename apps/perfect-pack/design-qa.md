@@ -6,6 +6,7 @@
 - Implementation screenshot: `artifacts/mobile-redesign-active.png`
 - Full-view comparison: `artifacts/mobile-redesign-comparison.jpg`
 - Share studio screenshot: `artifacts/share-studio-mobile.png`
+- WeChat long-press screen: `artifacts/wechat-long-press-share.png`
 - Link preview fallback image: `public/assets/share-preview.jpg`
 - Viewport: `390 x 844`
 - State: active round with two pieces placed and a third valid placement preview
@@ -44,6 +45,7 @@ Focused region comparison was not required because the combined full-view image 
 - Layout measures exactly `390 x 844` with no overflow; `360 x 800` also passes.
 - Result card generation produces a PNG containing the actual completed layout, nickname, short mark, optional declaration, score, time, combo, and QR code.
 - A copied challenge URL restores the correct player claim and level, starts the same order, and shows time/score comparison after completion.
+- WeChat mode removes unsupported download/file-share buttons, exposes a full-screen PNG for long press, guides top-right sharing, temporarily uses the challenge URL, and restores the original URL when the studio closes.
 
 ## Follow-up polish
 
