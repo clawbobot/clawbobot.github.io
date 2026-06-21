@@ -1,16 +1,24 @@
 import {
   ArrowClockwise,
   ArrowCounterClockwise,
+  ArrowRight,
   CheckCircle,
+  Copy,
+  DownloadSimple,
   Lightbulb,
   Package,
   Pause,
   Play,
+  QrCode,
+  ShareNetwork,
   Timer,
   Warning,
 } from "@phosphor-icons/react";
+import QRCode from "qrcode";
 import { useEffect, useMemo, useState } from "react";
 
+const GAME_NAME = "这也能装？";
+const DEFAULT_MOTTO = "没有装不下，只有没转对。";
 const COLORS = ["#ff6b6b", "#ffad32", "#55d68b", "#4d9cff", "#a56bff", "#24c8d8", "#f06fb5", "#c4dd45", "#ff8058"];
 const NAMES = ["易碎件", "长条盒", "收纳盒", "工具包", "文件箱", "水壶组", "服装袋", "配件盒", "应急包"];
 
@@ -128,8 +136,191 @@ function emptyGrid(level) {
   );
 }
 
-function shapeSize(shape) {
-  return shape.flat().filter(Boolean).length;
+function randomMark() {
+  return Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+
+function getIdentity() {
+  const fallback = { name: "神秘装箱师", mark: randomMark(), motto: "" };
+  try {
+    return { ...fallback, ...JSON.parse(localStorage.getItem("pack-share-identity") || "{}") };
+  } catch {
+    return fallback;
+  }
+}
+
+function encodeChallenge(payload) {
+  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+}
+
+function decodeChallenge(value) {
+  if (!value) return null;
+  try {
+    const padded = value.replaceAll("-", "+").replaceAll("_", "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
+    const binary = atob(padded);
+    const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+    const parsed = JSON.parse(new TextDecoder().decode(bytes));
+    if (!Number.isInteger(parsed.level) || !LEVELS[parsed.level]) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function getInitialChallenge() {
+  return decodeChallenge(new URLSearchParams(window.location.search).get("challenge"));
+}
+
+function upsertMeta(property, content) {
+  let element = document.head.querySelector(`meta[property="${property}"]`);
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute("property", property);
+    document.head.appendChild(element);
+  }
+  element.setAttribute("content", content);
+}
+
+function roundedRect(context, x, y, width, height, radius) {
+  context.beginPath();
+  context.roundRect(x, y, width, height, radius);
+  context.fill();
+}
+
+function loadImage(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
+}
+
+function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines = 2) {
+  const characters = [...text];
+  let line = "";
+  let lineCount = 0;
+  for (const character of characters) {
+    const test = line + character;
+    if (context.measureText(test).width > maxWidth && line) {
+      context.fillText(line, x, y + lineCount * lineHeight);
+      line = character;
+      lineCount += 1;
+      if (lineCount === maxLines - 1) break;
+    } else {
+      line = test;
+    }
+  }
+  context.fillText(line, x, y + lineCount * lineHeight);
+}
+
+async function renderShareCard({ challengeUrl, identity, result }) {
+  await document.fonts?.ready;
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1440;
+  const context = canvas.getContext("2d");
+  const level = LEVELS[result.levelIndex];
+  const cardLayout = result.layout || level.layout;
+  const ids = [...new Set(cardLayout.flat())];
+  const colorById = Object.fromEntries(ids.map((id) => [id, COLORS[id.charCodeAt(0) - 65]]));
+
+  const background = context.createLinearGradient(0, 0, 0, 1440);
+  background.addColorStop(0, "#101e29");
+  background.addColorStop(0.42, "#071018");
+  background.addColorStop(1, "#03070b");
+  context.fillStyle = background;
+  context.fillRect(0, 0, 1080, 1440);
+
+  context.fillStyle = "rgba(50, 216, 223, 0.08)";
+  context.beginPath();
+  context.arc(920, 90, 260, 0, Math.PI * 2);
+  context.fill();
+
+  context.fillStyle = "#32d8df";
+  context.font = "800 42px 'Noto Sans SC', sans-serif";
+  context.fillText("PERFECT PACK", 72, 88);
+  context.fillStyle = "#eef7fb";
+  context.font = "900 74px 'Noto Sans SC', sans-serif";
+  context.fillText(GAME_NAME, 72, 170);
+  context.fillStyle = "#8293a2";
+  context.font = "600 30px 'Noto Sans SC', sans-serif";
+  context.fillText(`${level.name} · ${level.difficulty}`, 74, 218);
+
+  context.fillStyle = "#101b25";
+  roundedRect(context, 66, 270, 948, 710, 34);
+  context.strokeStyle = "#354a59";
+  context.lineWidth = 4;
+  context.strokeRect(84, 288, 912, 674);
+
+  const boardSize = 620;
+  const rows = cardLayout.length;
+  const cols = cardLayout[0].length;
+  const cell = Math.min(boardSize / cols, boardSize / rows);
+  const gridWidth = cell * cols;
+  const gridHeight = cell * rows;
+  const gridX = 540 - gridWidth / 2;
+  const gridY = 305 + (640 - gridHeight) / 2;
+  cardLayout.forEach((row, r) => {
+    row.forEach((id, c) => {
+      const x = gridX + c * cell;
+      const y = gridY + r * cell;
+      context.fillStyle = colorById[id];
+      context.beginPath();
+      context.roundRect(x + 4, y + 4, cell - 8, cell - 8, 12);
+      context.fill();
+      context.fillStyle = "rgba(255,255,255,0.18)";
+      context.fillRect(x + 12, y + 12, cell - 24, 5);
+      context.strokeStyle = "rgba(4,10,15,0.42)";
+      context.lineWidth = 4;
+      context.stroke();
+    });
+  });
+
+  context.fillStyle = "#65db72";
+  context.font = "900 56px 'Noto Sans SC', sans-serif";
+  context.fillText("100% 完美装箱", 72, 1055);
+
+  context.fillStyle = "#eef7fb";
+  context.font = "800 38px 'Noto Sans SC', sans-serif";
+  context.fillText(`${identity.name} · #${identity.mark}`, 72, 1110);
+  context.fillStyle = "#9fb0bc";
+  context.font = "600 29px 'Noto Sans SC', sans-serif";
+  wrapCanvasText(context, `“${identity.motto || DEFAULT_MOTTO}”`, 72, 1160, 650, 40);
+
+  context.fillStyle = "#32d8df";
+  context.font = "800 48px 'Chakra Petch', sans-serif";
+  context.fillText(`${result.roundScore.toLocaleString()} 分`, 72, 1288);
+  context.fillStyle = "#eef7fb";
+  context.font = "700 29px 'Noto Sans SC', sans-serif";
+  context.fillText(`用时 ${result.elapsed} 秒   ·   连击 x${result.combo}`, 72, 1332);
+
+  const qrDataUrl = await QRCode.toDataURL(challengeUrl, {
+    width: 244,
+    margin: 2,
+    color: { dark: "#071018", light: "#ffffff" },
+    errorCorrectionLevel: "M",
+  });
+  const qrImage = await loadImage(qrDataUrl);
+  context.fillStyle = "#ffffff";
+  roundedRect(context, 764, 1084, 252, 252, 18);
+  context.drawImage(qrImage, 768, 1088, 244, 244);
+  context.fillStyle = "#eef7fb";
+  context.font = "700 25px 'Noto Sans SC', sans-serif";
+  context.textAlign = "center";
+  context.fillText("扫码挑战同一订单", 890, 1376);
+  context.textAlign = "start";
+
+  return {
+    dataUrl: canvas.toDataURL("image/png"),
+    blob: await new Promise((resolve) => canvas.toBlob(resolve, "image/png")),
+    qrDataUrl,
+  };
 }
 
 export function App() {
@@ -144,6 +335,14 @@ export function App() {
   const [history, setHistory] = useState([]);
   const [timeLeft, setTimeLeft] = useState(LEVELS[0].time);
   const [hintVisible, setHintVisible] = useState(false);
+  const [identity, setIdentity] = useState(getIdentity);
+  const [challenge, setChallenge] = useState(getInitialChallenge);
+  const [challengeAccepted, setChallengeAccepted] = useState(false);
+  const [lastResult, setLastResult] = useState(null);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareAsset, setShareAsset] = useState(null);
+  const [shareBusy, setShareBusy] = useState(false);
+  const [shareNotice, setShareNotice] = useState("");
   const level = LEVELS[levelIndex];
   const selected = pieces.find((piece) => piece.uid === selectedId) ?? null;
 
@@ -163,8 +362,23 @@ export function App() {
     setHistory([]);
     setTimeLeft(nextLevel.time);
     setHintVisible(false);
+    setLastResult(null);
+    setShareOpen(false);
     setPhase(nextPhase);
   };
+
+  useEffect(() => {
+    document.title = challenge
+      ? `${challenge.name || "好友"}用 ${challenge.elapsed} 秒装满了，你能更快吗？`
+      : `${GAME_NAME} · 空间装箱挑战`;
+    const description = challenge
+      ? `同一箱子、同一组物品。挑战 ${challenge.name || "好友"} 的 ${challenge.roundScore} 分。`
+      : "旋转物品，填满箱子。每一关都有唯一的空间挑战。";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    upsertMeta("og:title", document.title);
+    upsertMeta("og:description", description);
+    upsertMeta("og:type", "website");
+  }, [challenge]);
 
   useEffect(() => {
     if (phase !== "playing") return undefined;
@@ -182,18 +396,62 @@ export function App() {
 
   useEffect(() => {
     if (phase !== "playing" || fillPercent !== 100) return;
+    const elapsed = level.time - timeLeft;
     const timeBonus = timeLeft * 18;
     const nextCombo = combo + 1;
-    const levelPoints = 1000 + timeBonus + nextCombo * 250;
-    setScore((current) => current + levelPoints);
+    const roundScore = 1000 + timeBonus + nextCombo * 250;
+    const nextScore = score + roundScore;
+    setScore(nextScore);
     setCombo(nextCombo);
+    setLastResult({
+      levelIndex,
+      elapsed,
+      remaining: timeLeft,
+      roundScore,
+      totalScore: nextScore,
+      combo: nextCombo,
+      layout: grid.map((row) => row.map((cell) => cell.id)),
+    });
     setPhase("won");
     try {
       window.navigator.vibrate?.([25, 40, 25]);
     } catch {
       // Haptics are optional.
     }
-  }, [combo, fillPercent, phase, timeLeft]);
+  }, [combo, fillPercent, grid, level.time, levelIndex, phase, score, timeLeft]);
+
+  useEffect(() => {
+    if (!shareOpen || !lastResult) return;
+    let active = true;
+    setShareBusy(true);
+    setShareNotice("");
+    const payload = {
+      v: 1,
+      level: lastResult.levelIndex,
+      name: identity.name.trim() || "神秘装箱师",
+      mark: identity.mark,
+      motto: identity.motto.trim(),
+      roundScore: lastResult.roundScore,
+      elapsed: lastResult.elapsed,
+      combo: lastResult.combo,
+    };
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.searchParams.set("challenge", encodeChallenge(payload));
+    renderShareCard({ challengeUrl: url.toString(), identity, result: lastResult })
+      .then((asset) => {
+        if (active) setShareAsset({ ...asset, url: url.toString(), payload });
+      })
+      .finally(() => active && setShareBusy(false));
+    try {
+      localStorage.setItem("pack-share-identity", JSON.stringify(identity));
+    } catch {
+      // Identity persistence is optional.
+    }
+    return () => {
+      active = false;
+    };
+  }, [identity, lastResult, shareOpen]);
 
   const canPlace = (piece, row, col) => {
     if (!piece) return false;
@@ -290,6 +548,11 @@ export function App() {
     resetLevel(levelIndex, "playing");
   };
   const nextLevel = () => {
+    if (challengeAccepted) {
+      setChallengeAccepted(false);
+      setChallenge(null);
+      window.history.replaceState({}, "", window.location.pathname);
+    }
     if (levelIndex === LEVELS.length - 1) {
       setPhase("complete");
       return;
@@ -302,8 +565,77 @@ export function App() {
     setScore(0);
     setCombo(0);
     setLevelIndex(0);
+    setChallengeAccepted(false);
+    setChallenge(null);
+    window.history.replaceState({}, "", window.location.pathname);
     resetLevel(0, "ready");
   };
+  const acceptChallenge = () => {
+    const challengeLevel = challenge.level;
+    setLevelIndex(challengeLevel);
+    setScore(0);
+    setCombo(0);
+    setChallengeAccepted(true);
+    resetLevel(challengeLevel, "playing");
+  };
+
+  const shareTitle = shareAsset
+    ? `${shareAsset.payload.name}用 ${shareAsset.payload.elapsed} 秒装满了，你能更快吗？`
+    : `${GAME_NAME}挑战`;
+  const shareText = shareAsset
+    ? `${shareAsset.payload.name}在《${GAME_NAME}》拿到 ${shareAsset.payload.roundScore.toLocaleString()} 分。打开挑战同一订单！`
+    : `来挑战《${GAME_NAME}》`;
+
+  const copyChallenge = async () => {
+    if (!shareAsset) return;
+    await navigator.clipboard.writeText(`${shareTitle}\n${shareText}\n${shareAsset.url}`);
+    setShareNotice("挑战文案和链接已复制");
+  };
+
+  const shareLink = async () => {
+    if (!shareAsset) return;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: shareTitle, text: shareText, url: shareAsset.url });
+        setShareNotice("分享面板已打开");
+      } else {
+        await copyChallenge();
+      }
+    } catch (error) {
+      if (error?.name !== "AbortError") await copyChallenge();
+    }
+  };
+
+  const downloadCard = () => {
+    if (!shareAsset) return;
+    const anchor = document.createElement("a");
+    anchor.href = shareAsset.dataUrl;
+    anchor.download = `这也能装-${shareAsset.payload.name}-${LEVELS[lastResult.levelIndex].name}.png`;
+    anchor.click();
+    setShareNotice("战绩图片已保存");
+  };
+
+  const shareCard = async () => {
+    if (!shareAsset) return;
+    const file = new File([shareAsset.blob], "这也能装-完美装箱.png", { type: "image/png" });
+    try {
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ title: shareTitle, text: shareText, files: [file] });
+        setShareNotice("图片分享面板已打开");
+      } else {
+        downloadCard();
+      }
+    } catch (error) {
+      if (error?.name !== "AbortError") downloadCard();
+    }
+  };
+
+  const comparison = challenge && lastResult
+    ? {
+        faster: challenge.elapsed - lastResult.elapsed,
+        scoreLead: lastResult.roundScore - challenge.roundScore,
+      }
+    : null;
 
   return (
     <main className="game-shell">
@@ -336,7 +668,7 @@ export function App() {
         <section className="mission-panel" aria-label="本轮物品清单">
           <div className="mission-heading">
             <div>
-              <span>订单 {levelIndex + 1}/{LEVELS.length}</span>
+              <span>{challengeAccepted ? `${challenge.name} 的挑战` : `订单 ${levelIndex + 1}/${LEVELS.length}`}</span>
               <strong><CheckCircle weight="fill" /> 可完美装箱</strong>
             </div>
             <b>目标 {level.target}%</b>
@@ -355,10 +687,7 @@ export function App() {
         <section className="board-section">
           <div
             className="packing-board"
-            style={{
-              "--cols": level.layout[0].length,
-              "--rows": level.layout.length,
-            }}
+            style={{ "--cols": level.layout[0].length, "--rows": level.layout.length }}
             aria-label={`${level.layout[0].length}列${level.layout.length}行装箱网格`}
           >
             {grid.map((row, r) =>
@@ -438,7 +767,7 @@ export function App() {
         </footer>
 
         <div className="next-preview">
-          <span>下一关预告</span>
+          <span>{GAME_NAME}</span>
           <b>{levelIndex < LEVELS.length - 1 ? LEVELS[levelIndex + 1].name : "终极结算"}</b>
           <small>{levelIndex < LEVELS.length - 1 ? "箱子增大 · 组合更复杂 · 时间更短" : "完成全部五轮订单"}</small>
         </div>
@@ -447,9 +776,9 @@ export function App() {
           <div className="toast">提示：先处理面积最大的物品，边角留给 L 形和短条。</div>
         )}
 
-        {phase === "ready" && (
+        {phase === "ready" && !challenge && (
           <Overlay>
-            <div className="overlay-kicker">{level.difficulty} · 第 {levelIndex + 1} 关</div>
+            <div className="overlay-kicker">{GAME_NAME}</div>
             <h1>{level.name}</h1>
             <p>本轮有 {pieces.length} 件不同形状的物品。点击选择，旋转后点箱格定位，再按“放入箱子”。</p>
             <div className="round-facts">
@@ -460,6 +789,22 @@ export function App() {
             <button className="primary-action" type="button" onClick={start}>
               开始装箱 <Play weight="fill" />
             </button>
+          </Overlay>
+        )}
+
+        {challenge && !challengeAccepted && (
+          <Overlay>
+            <div className="challenge-mark">#{challenge.mark || "PACK"}</div>
+            <div className="overlay-kicker">{challenge.name || "好友"} 的完美装箱挑战</div>
+            <h1>{challenge.roundScore.toLocaleString()} 分</h1>
+            <div className="challenge-stats">
+              <span>100% 填充</span><span>{challenge.elapsed} 秒</span><span>连击 x{challenge.combo}</span>
+            </div>
+            <p>“{challenge.motto || DEFAULT_MOTTO}”</p>
+            <button className="primary-action" type="button" onClick={acceptChallenge}>
+              挑战同一订单 <ArrowRight weight="bold" />
+            </button>
+            <button className="text-action" type="button" onClick={restart}>先自己玩一局</button>
           </Overlay>
         )}
 
@@ -485,14 +830,24 @@ export function App() {
           </Overlay>
         )}
 
-        {phase === "won" && (
+        {phase === "won" && lastResult && !shareOpen && (
           <Overlay compact>
             <CheckCircle className="overlay-symbol success" weight="fill" />
-            <div className="overlay-kicker">PERFECT PACK</div>
+            <div className="overlay-kicker">这也能装！</div>
             <h2>100% 完美装箱</h2>
-            <p>剩余 {timeLeft} 秒，连击提升至 x{combo}。</p>
-            <button className="primary-action" type="button" onClick={nextLevel}>
-              {levelIndex === LEVELS.length - 1 ? "查看成绩" : "进入下一关"} <Play weight="fill" />
+            {comparison ? (
+              <div className="comparison-result">
+                <strong>{comparison.faster > 0 ? `你快了 ${comparison.faster} 秒` : comparison.faster < 0 ? `慢了 ${Math.abs(comparison.faster)} 秒` : "用时打平"}</strong>
+                <span>{comparison.scoreLead >= 0 ? `得分领先 ${comparison.scoreLead}` : `得分落后 ${Math.abs(comparison.scoreLead)}`}</span>
+              </div>
+            ) : (
+              <p>用时 {lastResult.elapsed} 秒，获得 {lastResult.roundScore.toLocaleString()} 分，连击 x{lastResult.combo}。</p>
+            )}
+            <button className="primary-action share-cta" type="button" onClick={() => setShareOpen(true)}>
+              生成我的装箱战绩 <ShareNetwork weight="bold" />
+            </button>
+            <button className="text-action" type="button" onClick={nextLevel}>
+              {challengeAccepted ? "继续普通关卡" : levelIndex === LEVELS.length - 1 ? "查看最终成绩" : "暂不分享，进入下一关"}
             </button>
           </Overlay>
         )}
@@ -500,13 +855,73 @@ export function App() {
         {phase === "complete" && (
           <Overlay>
             <CheckCircle className="overlay-symbol success" weight="fill" />
-            <div className="overlay-kicker">五轮订单完成</div>
+            <div className="overlay-kicker">{GAME_NAME}</div>
             <h1>{score.toLocaleString()} 分</h1>
             <p>你完成了从基础装箱到专家订单的全部可解组合。</p>
             <button className="primary-action" type="button" onClick={restart}>
               再挑战一次 <ArrowCounterClockwise weight="bold" />
             </button>
           </Overlay>
+        )}
+
+        {shareOpen && lastResult && (
+          <div className="share-backdrop">
+            <section className="share-studio" aria-label="装箱战绩分享">
+              <header>
+                <div>
+                  <span>分享战绩</span>
+                  <h2>让朋友挑战同一箱</h2>
+                </div>
+                <button type="button" onClick={() => setShareOpen(false)} aria-label="关闭分享">×</button>
+              </header>
+
+              <div className="share-card-preview">
+                {shareBusy && <div className="share-loading">正在生成战绩图…</div>}
+                {shareAsset && <img src={shareAsset.dataUrl} alt="带二维码的完美装箱战绩卡" />}
+              </div>
+
+              <div className="share-fields">
+                <label>
+                  <span>用户标记</span>
+                  <div className="identity-row">
+                    <input
+                      value={identity.name}
+                      maxLength={12}
+                      onChange={(event) => setIdentity((current) => ({ ...current, name: event.target.value }))}
+                      aria-label="用户昵称"
+                    />
+                    <b>#{identity.mark}</b>
+                  </div>
+                </label>
+                <label>
+                  <span>一句话宣言（可选）</span>
+                  <input
+                    value={identity.motto}
+                    maxLength={24}
+                    placeholder={DEFAULT_MOTTO}
+                    onChange={(event) => setIdentity((current) => ({ ...current, motto: event.target.value.replace(/[\r\n]/g, "") }))}
+                    aria-label="一句话宣言"
+                  />
+                </label>
+              </div>
+
+              <div className="share-actions">
+                <button className="share-primary" type="button" onClick={shareCard} disabled={!shareAsset}>
+                  <ShareNetwork weight="bold" /> 分享图片
+                </button>
+                <button type="button" onClick={shareLink} disabled={!shareAsset}>
+                  <QrCode weight="bold" /> 分享挑战链接
+                </button>
+                <button type="button" onClick={downloadCard} disabled={!shareAsset}>
+                  <DownloadSimple weight="bold" /> 保存图片
+                </button>
+                <button type="button" onClick={copyChallenge} disabled={!shareAsset}>
+                  <Copy weight="bold" /> 复制文案
+                </button>
+              </div>
+              {shareNotice && <p className="share-notice">{shareNotice}</p>}
+            </section>
+          </div>
         )}
       </section>
     </main>

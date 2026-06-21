@@ -390,6 +390,186 @@ button { font: inherit; }
   font-weight: 900;
 }
 .primary-action svg { width: 18px; height: 18px; }
+.text-action {
+  display: block;
+  margin: 13px auto 0;
+  padding: 5px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+}
+.share-cta { width: 100%; }
+.challenge-mark {
+  width: max-content;
+  margin: 0 auto 10px;
+  padding: 5px 10px;
+  border: 1px solid rgba(50, 216, 223, 0.44);
+  border-radius: 99px;
+  background: rgba(50, 216, 223, 0.08);
+  color: var(--cyan);
+  font: 700 12px "Chakra Petch", sans-serif;
+}
+.challenge-stats {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 13px;
+}
+.challenge-stats span {
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: #b8c7d0;
+  font-size: 10px;
+}
+.comparison-result {
+  display: grid;
+  gap: 4px;
+  margin: 4px 0 17px;
+}
+.comparison-result strong { color: var(--green); font-size: 18px; }
+.comparison-result span { color: #a0b0bc; font-size: 12px; }
+
+.share-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: end center;
+  background: rgba(2, 6, 9, 0.82);
+  backdrop-filter: blur(9px);
+}
+.share-studio {
+  width: 100%;
+  max-height: 94%;
+  overflow-y: auto;
+  padding: 14px 16px max(16px, env(safe-area-inset-bottom));
+  border-top: 1px solid #385062;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(180deg, #111f2b, #081119);
+  box-shadow: 0 -22px 50px rgba(0, 0, 0, 0.5);
+}
+.share-studio > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.share-studio > header span {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.share-studio > header h2 {
+  margin: 2px 0 0;
+  font-size: 18px;
+}
+.share-studio > header button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #101b25;
+  color: var(--muted);
+  font-size: 22px;
+}
+.share-card-preview {
+  position: relative;
+  width: 174px;
+  aspect-ratio: 3 / 4;
+  margin: 0 auto 11px;
+  overflow: hidden;
+  border: 1px solid #3b5262;
+  border-radius: 11px;
+  background: #071018;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+}
+.share-card-preview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.share-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+.share-fields {
+  display: grid;
+  gap: 8px;
+}
+.share-fields label { display: grid; gap: 4px; }
+.share-fields label > span { color: var(--muted); font-size: 10px; }
+.share-fields input {
+  width: 100%;
+  min-width: 0;
+  height: 39px;
+  padding: 0 10px;
+  border: 1px solid #304555;
+  border-radius: 8px;
+  outline: none;
+  background: #0a141d;
+  color: var(--text);
+  font-size: 12px;
+  user-select: text;
+}
+.share-fields input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(50, 216, 223, 0.12);
+}
+.identity-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+}
+.identity-row b {
+  min-width: 70px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #304555;
+  border-radius: 8px;
+  background: #0a141d;
+  color: var(--cyan);
+  font: 700 12px "Chakra Petch", sans-serif;
+}
+.share-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 11px;
+}
+.share-actions button {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #344858;
+  border-radius: 9px;
+  background: #13212c;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+}
+.share-actions button svg { width: 16px; height: 16px; }
+.share-actions .share-primary {
+  border-color: #2ccfd6;
+  background: linear-gradient(180deg, #2cd7de, #158e99);
+  color: #041214;
+}
+.share-actions button:disabled { opacity: 0.35; }
+.share-notice {
+  margin: 8px 0 0;
+  color: var(--green);
+  text-align: center;
+  font-size: 10px;
+}
 
 @media (min-width: 700px) {
   .game-frame {
@@ -412,6 +592,12 @@ button { font: inherit; }
   .piece-shape.belt { width: 34px; height: 34px; }
   .controls button { min-height: 44px; }
   .next-preview { height: 32px; }
+  .share-card-preview { width: 138px; }
+  .share-studio { padding-top: 10px; }
+  .share-studio > header { margin-bottom: 6px; }
+  .share-fields { gap: 5px; }
+  .share-actions { margin-top: 7px; }
+  .share-actions button { min-height: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

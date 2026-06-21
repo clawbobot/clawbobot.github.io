@@ -5,6 +5,8 @@
 - Source visual truth: `artifacts/mobile-direction-selected.png`
 - Implementation screenshot: `artifacts/mobile-redesign-active.png`
 - Full-view comparison: `artifacts/mobile-redesign-comparison.jpg`
+- Share studio screenshot: `artifacts/share-studio-mobile.png`
+- Link preview fallback image: `public/assets/share-preview.jpg`
 - Viewport: `390 x 844`
 - State: active round with two pieces placed and a third valid placement preview
 
@@ -18,6 +20,7 @@ No actionable P0, P1, or P2 findings remain.
 - Image quality and asset fidelity: the source direction contains no photographic or illustrative assets that need extraction. Product shapes are functional game-state geometry; all UI controls use the existing Phosphor icon library.
 - Copy and content: labels explain the touch workflow, explicitly state that each combination is solvable, and preview how the next round becomes harder.
 - Interaction states: ready, active, selected, valid preview, invalid preview, placed, undo, paused, failed, round complete, next round, and final completion are implemented.
+- Sharing states: editable local identity, optional declaration, generated QR result card, challenge-copy fallback, same-order landing page, and post-challenge comparison are implemented.
 - Accessibility and responsiveness: controls are semantic buttons with accessible labels, reduced motion is supported, and both `390 x 844` and `360 x 800` render without document overflow.
 
 Focused region comparison was not required because the combined full-view image preserves readable typography and controls at native target scale.
@@ -28,6 +31,8 @@ Focused region comparison was not required because the combined full-view image 
 - Added five distinct layouts generated into exact solvable piece sets.
 - Added valid/invalid placement previews, undo, pause, hints, timers, scoring, combos, failure/retry, and round progression.
 - Fixed the second-round horizontal offset caused by intrinsic button widths.
+- Renamed the public game to `这也能装？` and added the result-card sharing MVP.
+- Added a `1200 × 630` Open Graph fallback image and `1080 × 1440` generated result cards.
 
 ## Verification
 
@@ -37,6 +42,8 @@ Focused region comparison was not required because the combined full-view image 
 - Left/right rotation, valid placement, invalid edge blocking, undo, pause/resume, and next-round transition pass.
 - Browser console reports no warnings or errors.
 - Layout measures exactly `390 x 844` with no overflow; `360 x 800` also passes.
+- Result card generation produces a PNG containing the actual completed layout, nickname, short mark, optional declaration, score, time, combo, and QR code.
+- A copied challenge URL restores the correct player claim and level, starts the same order, and shows time/score comparison after completion.
 
 ## Follow-up polish
 

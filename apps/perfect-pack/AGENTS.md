@@ -14,3 +14,5 @@ When implementing from a selected generated mock, treat that image as the source
 - Difficulty increases through grid size, piece count, irregular shapes, and shorter timers.
 - Preserve the dark industrial interface with cyan telemetry, green success, amber urgency, and restrained coral errors.
 - Selected visual direction: `artifacts/mobile-direction-selected.png`.
+- Public game name is `这也能装？`.
+- Sharing MVP uses a generated portrait result card with QR code, a local nickname/short mark, optional motto, and a same-level challenge URL.
