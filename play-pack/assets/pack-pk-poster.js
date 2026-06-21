@@ -3,6 +3,9 @@
   const GAME_NAME = "谁最能装？";
   const W = 1080;
   const H = 1440;
+  const FONT = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif";
+  const ITEM_COLORS = ["#ff4d5f", "#ffb22e", "#35d967", "#39a8ff", "#a66cff", "#26d7e4", "#ff66bf"];
+  const ITEM_ICONS = ["📦", "🧸", "🎒", "📚", "👕", "🧃", "🧰"];
 
   function injectPkButtonStyle() {
     if (document.getElementById("pack-pk-poster-style")) return;
@@ -36,9 +39,7 @@
         background: rgba(255,255,255,.42);
         pointer-events: none;
       }
-      .pack-pk-retry:active {
-        transform: translateY(2px) scale(.99) !important;
-      }
+      .pack-pk-retry:active { transform: translateY(2px) scale(.99) !important; }
       @keyframes packPkButtonBounce {
         0%, 100% { transform: translateY(0) scale(1); }
         50% { transform: translateY(-2px) scale(1.025); }
@@ -52,8 +53,7 @@
     if (!value) return null;
     try {
       const padded = value.replaceAll("-", "+").replaceAll("_", "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
-      const binary = atob(padded);
-      const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+      const bytes = Uint8Array.from(atob(padded), (character) => character.charCodeAt(0));
       return JSON.parse(new TextDecoder().decode(bytes));
     } catch {
       return null;
@@ -66,9 +66,7 @@
     try {
       const saved = JSON.parse(localStorage.getItem("pack-share-identity") || "{}");
       if (saved.name?.trim()) return saved.name.trim();
-    } catch {
-      // optional storage
-    }
+    } catch {}
     return "我";
   }
 
@@ -77,34 +75,32 @@
     const challenge = decodeChallengeFromUrl();
     if (!comparison || !challenge) return null;
     const text = comparison.textContent || "";
-    const isFaster = text.includes("你快了");
-    const isSlower = text.includes("慢了");
-    const isTie = text.includes("打平");
+    const isFaster = /快了|更快|反超|赢/.test(text);
+    const isSlower = /慢了|更慢|差一点|追/.test(text);
+    const isTie = /打平|平局/.test(text);
     if (!isFaster && !isSlower && !isTie) return null;
     const delta = Number.parseFloat(text.match(/(\d+(?:\.\d+)?)\s*秒/)?.[1] || "0");
-    const opponent = challenge.name || "分享者";
     const targetElapsed = Number(challenge.elapsed) || 0;
     const myElapsed = isFaster ? Math.max(0, targetElapsed - delta) : isSlower ? targetElapsed + delta : targetElapsed;
     const round = Number.isInteger(challenge.level) ? Math.min(challenge.level + 1, TOTAL_LEVELS) : 1;
-    return {
+    const context = {
       myName: readMyName(),
-      opponent,
+      opponent: challenge.name || "分享者",
       round,
       targetElapsed,
       myElapsed,
       delta,
       state: isFaster ? "faster" : isSlower ? "slower" : "tie",
     };
+    try { sessionStorage.setItem("pack-last-pk-context", JSON.stringify(context)); } catch {}
+    return context;
   }
 
   function readPkContext() {
     const current = readPkContextFromDom();
-    if (current) {
-      try { sessionStorage.setItem("pack-last-pk-context", JSON.stringify(current)); } catch {}
-      return current;
-    }
+    if (current) return current;
     try {
-      const stored = JSON.parse(sessionStorage.getItem("pack-last-pk-context") || "null");
+      const stored = JSON.parse(sessionStorage.getItem("pack-last-pk-context") || sessionStorage.getItem("pack-current-pk-context") || "null");
       return stored?.opponent ? { ...stored, myName: readMyName() } : null;
     } catch {
       return null;
@@ -117,12 +113,12 @@
   }
 
   function roundRect(ctx, x, y, width, height, radius) {
+    const r = Math.min(radius, width / 2, height / 2);
     if (typeof ctx.roundRect === "function") {
       ctx.beginPath();
-      ctx.roundRect(x, y, width, height, radius);
+      ctx.roundRect(x, y, width, height, r);
       return;
     }
-    const r = Math.min(radius, width / 2, height / 2);
     ctx.beginPath();
     ctx.moveTo(x + r, y);
     ctx.lineTo(x + width - r, y);
@@ -136,34 +132,132 @@
     ctx.closePath();
   }
 
-  function fillRoundRect(ctx, x, y, width, height, radius, fillStyle) {
+  function fillRoundRect(ctx, x, y, width, height, radius, fill) {
     roundRect(ctx, x, y, width, height, radius);
-    ctx.fillStyle = fillStyle;
+    ctx.fillStyle = fill;
     ctx.fill();
   }
 
-  function fitText(ctx, text, x, y, maxWidth, fontSize, weight = 1000, color = "#fff", align = "center") {
-    const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif";
+  function fitText(ctx, text, x, y, maxWidth, fontSize, color = "#fff", weight = 1000, align = "center") {
     let size = fontSize;
     ctx.textAlign = align;
     ctx.textBaseline = "middle";
     ctx.fillStyle = color;
     do {
-      ctx.font = `${weight} ${size}px ${fontFamily}`;
-      if (ctx.measureText(text).width <= maxWidth || size <= 24) break;
+      ctx.font = `${weight} ${size}px ${FONT}`;
+      if (ctx.measureText(text).width <= maxWidth || size <= 22) break;
       size -= 3;
-    } while (size > 24);
+    } while (size > 22);
     ctx.fillText(text, x, y);
+  }
+
+  function drawLightning(ctx) {
+    ctx.save();
+    ctx.fillStyle = "#ffe14a";
+    ctx.shadowColor = "rgba(255,225,74,.55)";
+    ctx.shadowBlur = 26;
+    ctx.beginPath();
+    ctx.moveTo(501, 0);
+    ctx.lineTo(618, 0);
+    ctx.lineTo(552, 438);
+    ctx.lineTo(638, 438);
+    ctx.lineTo(463, 1440);
+    ctx.lineTo(515, 744);
+    ctx.lineTo(431, 744);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawCaution(ctx) {
+    ctx.fillStyle = "#ffe14a";
+    ctx.fillRect(0, 0, W, 42);
+    ctx.fillStyle = "#111218";
+    for (let x = -80; x < W; x += 64) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x + 34, 0);
+      ctx.lineTo(x + 86, 42);
+      ctx.lineTo(x + 52, 42);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+
+  function drawCard(ctx, { x, y, color, icon, label, rotate = 0, scale = 1 }) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotate);
+    const w = 170 * scale;
+    const h = 132 * scale;
+    ctx.shadowColor = "rgba(0,0,0,.35)";
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 12;
+    fillRoundRect(ctx, -w / 2, -h / 2, w, h, 28 * scale, color);
+    ctx.shadowColor = "transparent";
+    ctx.strokeStyle = "rgba(255,255,255,.34)";
+    ctx.lineWidth = 3 * scale;
+    roundRect(ctx, -w / 2 + 5, -h / 2 + 5, w - 10, h - 10, 24 * scale);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,.32)";
+    ctx.fillRect(-w / 2 + 20 * scale, -h / 2 + 18 * scale, w - 40 * scale, 8 * scale);
+    ctx.font = `${46 * scale}px system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#fff";
+    ctx.fillText(icon, 0, -2 * scale);
+    fitText(ctx, label, 0, h / 2 - 28 * scale, w - 28 * scale, 22 * scale, "#11142b", 1000);
+    ctx.restore();
+  }
+
+  function drawPlayerStack(ctx, side, context, winner) {
+    const left = side === "left";
+    const baseX = left ? 248 : 832;
+    const name = left ? context.myName || "我" : context.opponent || "TA";
+    const label = left ? "挑战者" : "守擂者";
+    const panelColor = left ? "rgba(255,44,66,.92)" : "rgba(30,78,225,.92)";
+    const accent = winner ? "#fff36b" : "rgba(255,255,255,.78)";
+
+    ctx.save();
+    ctx.shadowColor = left ? "rgba(255,44,66,.45)" : "rgba(40,110,255,.45)";
+    ctx.shadowBlur = winner ? 34 : 18;
+    fillRoundRect(ctx, left ? 64 : 586, 314, 430, 540, 42, panelColor);
+    ctx.restore();
+    ctx.strokeStyle = winner ? "#fff36b" : "rgba(255,255,255,.34)";
+    ctx.lineWidth = winner ? 8 : 4;
+    roundRect(ctx, left ? 64 : 586, 314, 430, 540, 42);
+    ctx.stroke();
+
+    fillRoundRect(ctx, left ? 96 : 618, 346, 150, 54, 27, accent);
+    fitText(ctx, label, left ? 171 : 693, 374, 126, 25, winner ? "#15122d" : "#1f2d5f", 1000);
+    fitText(ctx, name, baseX, 450, 330, 50, "#fff", 1000);
+
+    const cards = left
+      ? [
+          ["🧸", "我", -98, 54, -0.18, 1.02, ITEM_COLORS[1]],
+          ["📦", "反超", 30, 112, 0.12, 1.08, ITEM_COLORS[0]],
+          ["🧰", "出手", -74, 230, 0.1, 0.96, ITEM_COLORS[6]],
+          ["🎒", "加速", 82, 258, -0.1, 1, ITEM_COLORS[2]],
+        ]
+      : [
+          ["📦", "TA", 94, 54, 0.18, 1.02, ITEM_COLORS[3]],
+          ["📚", "守擂", -30, 112, -0.12, 1.08, ITEM_COLORS[4]],
+          ["👕", "接招", 74, 230, -0.1, 0.96, ITEM_COLORS[5]],
+          ["🧃", "再战", -82, 258, 0.1, 1, ITEM_COLORS[2]],
+        ];
+    cards.forEach(([icon, text, dx, dy, rotate, scale, color]) => drawCard(ctx, { x: baseX + dx, y: 510 + dy, color, icon, label: text, rotate, scale }));
   }
 
   function drawBurst(ctx, x, y, radius, color) {
     ctx.save();
     ctx.translate(x, y);
     ctx.fillStyle = color;
+    ctx.shadowColor = "rgba(255,255,255,.45)";
+    ctx.shadowBlur = 20;
     ctx.beginPath();
-    for (let i = 0; i < 24; i += 1) {
-      const angle = (Math.PI * 2 * i) / 24;
-      const r = i % 2 === 0 ? radius : radius * 0.76;
+    for (let i = 0; i < 34; i += 1) {
+      const angle = (Math.PI * 2 * i) / 34;
+      const r = i % 2 ? radius * 0.63 : radius;
       const px = Math.cos(angle) * r;
       const py = Math.sin(angle) * r;
       if (i === 0) ctx.moveTo(px, py);
@@ -174,131 +268,76 @@
     ctx.restore();
   }
 
-  function drawPlayerCard(ctx, { x, y, name, label, time, colorA, colorB, winner }) {
-    const gradient = ctx.createLinearGradient(x, y, x + 390, y + 360);
-    gradient.addColorStop(0, colorA);
-    gradient.addColorStop(1, colorB);
-    ctx.save();
-    ctx.shadowColor = `${colorB}88`;
-    ctx.shadowBlur = winner ? 34 : 18;
-    ctx.shadowOffsetY = 16;
-    fillRoundRect(ctx, x, y, 390, 360, 44, gradient);
-    ctx.restore();
-
-    ctx.strokeStyle = winner ? "rgba(255,255,255,.85)" : "rgba(255,255,255,.32)";
-    ctx.lineWidth = winner ? 6 : 3;
-    roundRect(ctx, x + 8, y + 8, 374, 344, 38);
-    ctx.stroke();
-
-    fillRoundRect(ctx, x + 34, y + 34, 116, 48, 24, winner ? "rgba(255,255,255,.92)" : "rgba(5,12,38,.42)");
-    fitText(ctx, label, x + 92, y + 59, 90, 22, 1000, winner ? "#14122d" : "#fff7c8");
-
-    fitText(ctx, name, x + 195, y + 140, 310, 48, 1000, "#ffffff");
-    ctx.fillStyle = "rgba(0,0,0,.22)";
-    ctx.beginPath();
-    ctx.ellipse(x + 195, y + 229, 116, 22, 0, 0, Math.PI * 2);
-    ctx.fill();
-    fitText(ctx, `${formatSeconds(time)}秒`, x + 195, y + 218, 300, 74, 1000, winner ? "#fff36b" : "#dce8ff");
-
-    if (winner) {
-      ctx.font = "56px system-ui, sans-serif";
-      ctx.fillText("👑", x + 323, y + 66);
+  function drawBottomQr(ctx, qr) {
+    fillRoundRect(ctx, 730, 1170, 290, 190, 32, "rgba(0,0,0,.42)");
+    if (qr) {
+      ctx.save();
+      fillRoundRect(ctx, 780, 1138, 220, 220, 26, "#fff");
+      ctx.putImageData(qr, 730, 1036);
+      ctx.restore();
+      fitText(ctx, "扫码继续 PK", 890, 1380, 220, 24, "#fff", 1000);
+    } else {
+      fitText(ctx, "点链接继续 PK", 875, 1258, 240, 30, "#fff", 1000);
     }
   }
 
-  function drawFlyingItem(ctx, icon, x, y, rotate, scale, color) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rotate);
-    const w = 112 * scale;
-    const h = 90 * scale;
-    fillRoundRect(ctx, -w / 2, -h / 2, w, h, 22 * scale, color);
-    ctx.fillStyle = "rgba(255,255,255,.3)";
-    ctx.fillRect(-w / 2 + 14 * scale, -h / 2 + 12 * scale, w - 28 * scale, 7 * scale);
-    ctx.font = `${42 * scale}px system-ui, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = "#fff";
-    ctx.fillText(icon, 0, 4 * scale);
-    ctx.restore();
-  }
-
-  function drawPkPoster(ctx, context) {
+  function drawDuelPkPoster(canvas, context, options = {}) {
+    const ctx = canvas.getContext("2d");
+    if (!ctx || !context) return false;
     const faster = context.state === "faster";
     const slower = context.state === "slower";
     const tie = context.state === "tie";
-    const deltaText = formatSeconds(context.delta || 0);
-    const resultText = tie ? "用时打平" : faster ? `快 ${deltaText} 秒` : `慢 ${deltaText} 秒`;
-    const headline = faster ? "反超成功！" : slower ? "差一点，继续追！" : "打平了，再战！";
+    const delta = formatSeconds(context.delta || 0);
     const myWinner = faster || tie;
     const opponentWinner = slower || tie;
+    const resultText = tie ? "用时打平" : faster ? `我快 ${delta} 秒` : `我慢 ${delta} 秒`;
+    const headline = faster ? "反超成功！" : slower ? "差一点，继续追！" : "平手，再战！";
 
-    const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0, faster ? "#1422a8" : slower ? "#45105f" : "#13258c");
-    bg.addColorStop(0.48, "#121347");
-    bg.addColorStop(1, faster ? "#00d4ff" : slower ? "#ff6bc8" : "#ffcf48");
-    ctx.fillStyle = bg;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#12122a";
     ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = faster ? "#ed3048" : slower ? "#d72f62" : "#d6334d";
+    ctx.fillRect(0, 0, W / 2, H);
+    ctx.fillStyle = faster ? "#2451d7" : slower ? "#2444c8" : "#2252d8";
+    ctx.fillRect(W / 2, 0, W / 2, H);
+    drawCaution(ctx);
+    drawLightning(ctx);
 
-    ctx.fillStyle = faster ? "#22f5ff" : slower ? "#ff6bc8" : "#fff06a";
-    ctx.beginPath();
-    ctx.arc(105, 100, 210, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 0.18;
-    ctx.fillStyle = faster ? "#ff4ec8" : "#32e6ff";
-    ctx.beginPath();
-    ctx.arc(980, 70, 290, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.globalAlpha = 0.16;
+    ctx.fillStyle = "#fff";
+    ctx.beginPath(); ctx.arc(84, 190, 260, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(1000, 160, 310, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 1;
 
-    ["📦", "🧸", "🎒", "📚", "👕", "🧃"].forEach((icon, index) => {
-      drawFlyingItem(ctx, icon, 118 + index * 170, 1010 + (index % 2) * 75, (index - 2) * 0.13, 0.95, ["#ff5b76", "#ffb22e", "#63df76", "#3aa7ff", "#a970ff", "#26d7e4"][index]);
-    });
+    fitText(ctx, "PACK BATTLE", 540, 96, 760, 44, "#fff36b", 1000);
+    fitText(ctx, "PK 回击战", 540, 166, 850, 72, "#fff", 1000);
+    fitText(ctx, `第 ${context.round}/${TOTAL_LEVELS} 关 · ${GAME_NAME}`, 540, 224, 820, 30, "#e9f8ff", 900);
 
-    ctx.fillStyle = "rgba(4,8,34,.62)";
-    fillRoundRect(ctx, 70, 70, 940, 1230, 62, "rgba(5, 9, 38, .62)");
-    ctx.strokeStyle = faster ? "rgba(50,230,255,.62)" : slower ? "rgba(255,107,200,.7)" : "rgba(255,240,106,.66)";
+    drawPlayerStack(ctx, "left", context, myWinner);
+    drawPlayerStack(ctx, "right", context, opponentWinner);
+
+    drawBurst(ctx, 540, 612, 166, faster ? "#fff36b" : slower ? "#ff73d1" : "#35f2ff");
+    fitText(ctx, "VS", 540, 606, 260, 126, "#15122d", 1000);
+
+    fillRoundRect(ctx, 126, 890, 828, 152, 46, "rgba(8,8,26,.78)");
+    ctx.strokeStyle = "rgba(255,255,255,.88)";
     ctx.lineWidth = 5;
-    roundRect(ctx, 70, 70, 940, 1230, 62);
+    roundRect(ctx, 126, 890, 828, 152, 46);
     ctx.stroke();
+    fitText(ctx, headline, 540, 936, 760, 42, faster ? "#73ff78" : slower ? "#fff36b" : "#35f2ff", 1000);
+    fitText(ctx, resultText, 540, 1004, 760, 80, "#fff", 1000);
 
-    fitText(ctx, "PACK BATTLE", 540, 130, 760, 48, 1000, "#38f4ff");
-    fitText(ctx, "PK 回击战", 540, 205, 760, 84, 1000, "#ffffff");
-    fitText(ctx, `第 ${context.round}/${TOTAL_LEVELS} 关`, 540, 274, 760, 34, 900, "#c8f7ff");
+    fillRoundRect(ctx, 92, 1098, 420, 208, 36, "rgba(255,255,255,.13)");
+    fillRoundRect(ctx, 568, 1098, 420, 208, 36, "rgba(255,255,255,.13)");
+    fitText(ctx, context.myName || "我", 302, 1148, 330, 34, "#fff", 1000);
+    fitText(ctx, context.opponent || "TA", 778, 1148, 330, 34, "#fff", 1000);
+    fitText(ctx, `${formatSeconds(context.myElapsed)} 秒`, 302, 1228, 330, 64, myWinner ? "#fff36b" : "#dfe8ff", 1000);
+    fitText(ctx, `${formatSeconds(context.targetElapsed)} 秒`, 778, 1228, 330, 64, opponentWinner ? "#fff36b" : "#dfe8ff", 1000);
 
-    drawBurst(ctx, 540, 445, 170, faster ? "#fff06a" : slower ? "#ff6bc8" : "#32e6ff");
-    fitText(ctx, "VS", 540, 445, 290, 128, 1000, "#15122d");
-    fitText(ctx, headline, 540, 610, 820, 72, 1000, faster ? "#6cff77" : slower ? "#fff06a" : "#32e6ff");
-    fitText(ctx, resultText, 540, 696, 780, 96, 1000, "#ffffff");
-
-    drawPlayerCard(ctx, {
-      x: 105,
-      y: 770,
-      name: context.myName || "我",
-      label: "我",
-      time: context.myElapsed,
-      colorA: faster ? "#15dfff" : slower ? "#9c62ff" : "#32e6ff",
-      colorB: faster ? "#57ff74" : slower ? "#ff6bc8" : "#fff06a",
-      winner: myWinner,
-    });
-    drawPlayerCard(ctx, {
-      x: 585,
-      y: 770,
-      name: context.opponent || "分享者",
-      label: "TA",
-      time: context.targetElapsed,
-      colorA: slower ? "#ffe95f" : "#ff5b76",
-      colorB: slower ? "#ff9f1c" : "#a970ff",
-      winner: opponentWinner,
-    });
-
-    const slogan = faster
-      ? "我已经反超，轮到你追我。"
-      : slower
-        ? "这局我先认输，下一局追回来。"
-        : "谁也没赢，下一局见真章。";
-    fitText(ctx, slogan, 540, 1200, 860, 42, 1000, "#fff6c7");
-    fitText(ctx, "扫码/点链接继续 PK，看谁才是装箱王", 540, 1265, 860, 30, 900, "#c8f7ff");
+    const slogan = faster ? "我已反超，轮到你追我！" : slower ? "这局先认输，下一把追回来！" : "完全打平，再来一局！";
+    fitText(ctx, slogan, 380, 1358, 610, 34, "#fff6c7", 1000);
+    if (options.qr) drawBottomQr(ctx, options.qr);
+    return true;
   }
 
   function createPkPosterFile(context) {
@@ -306,9 +345,7 @@
       const canvas = document.createElement("canvas");
       canvas.width = W;
       canvas.height = H;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return resolve(null);
-      drawPkPoster(ctx, context);
+      drawDuelPkPoster(canvas, context);
       canvas.toBlob((blob) => {
         if (!blob || typeof File === "undefined") return resolve(null);
         resolve(new File([blob], "谁最能装-PK回击.png", { type: "image/png" }));
@@ -338,7 +375,7 @@
   }
 
   function wrapNavigatorShare() {
-    if (!navigator.share || navigator.share.__packPkPosterWrapped) return;
+    if (!navigator.share || navigator.share.__packPkPosterWrappedV2) return;
     const previousShare = navigator.share.bind(navigator);
     const wrappedShare = async (payload = {}) => {
       const context = readPkContext();
@@ -347,18 +384,13 @@
       const poster = await createPkPosterFile(context);
       if (poster) {
         const filePayload = { ...nextPayload, files: [poster] };
-        if (!navigator.canShare || navigator.canShare({ files: [poster] })) {
-          return previousShare(filePayload);
-        }
+        if (!navigator.canShare || navigator.canShare({ files: [poster] })) return previousShare(filePayload);
       }
       return previousShare(nextPayload);
     };
-    wrappedShare.__packPkPosterWrapped = true;
-    try {
-      Object.defineProperty(navigator, "share", { configurable: true, value: wrappedShare });
-    } catch {
-      navigator.share = wrappedShare;
-    }
+    wrappedShare.__packPkPosterWrappedV2 = true;
+    try { Object.defineProperty(navigator, "share", { configurable: true, value: wrappedShare }); }
+    catch { navigator.share = wrappedShare; }
   }
 
   function run() {
@@ -367,15 +399,9 @@
     readPkContext();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run, { once: true });
-  } else {
-    run();
-  }
+  window.__packDuelPoster = { W, H, readPkContext, drawDuelPkPoster, createPkPosterFile, enhancePayloadText };
 
-  new MutationObserver(() => requestAnimationFrame(run)).observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
+  else run();
+  new MutationObserver(() => requestAnimationFrame(run)).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 })();
