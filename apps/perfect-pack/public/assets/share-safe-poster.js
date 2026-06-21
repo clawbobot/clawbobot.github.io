@@ -2,6 +2,7 @@
   const POSTER_WIDTH = 1080;
   const POSTER_HEIGHT = 1440;
   const GAME_TITLE = "谁最能装？";
+  const TOTAL_LEVELS = 5;
   const QR_CAPTION = "扫码来比谁更能装";
   const SPOILER_LINE = "别偷看摆法，自己来装一局";
   const COLORS = ["#ff6b6b", "#ffad32", "#55d68b", "#4d9cff", "#a56bff", "#24c8d8", "#f06fb5", "#c4dd45", "#ff8058"];
@@ -16,6 +17,11 @@
     ["限时调度", "手速爆箱"],
     ["空间装箱挑战", "装箱 Battle"],
     ["100% 完美装箱", "满格！这都塞进去了"],
+    ["订单 ", "第 "],
+    ["完成全部五轮订单", "五关全塞完，装箱王登场"],
+    ["专家订单", "终极塞箱王"],
+    ["挑战同一订单", "挑战同一箱"],
+    ["打开挑战同一订单", "打开挑战同一箱"],
     ["同一箱子、同一组物品。挑战", "同一箱、同一堆东西，来挑战"],
     ["旋转物品，填满箱子。每一关都有唯一的空间挑战。", "旋一旋、塞一塞，每一局都像在跟箱子斗智斗勇。"],
     ["旋转物品，填满箱子。你能完成 100% 完美装箱吗？", "旋一旋、塞一塞，看看谁才是装箱天才。"],
@@ -97,12 +103,23 @@
     ctx.quadraticCurveTo(x, y, x + r, y);
   }
 
+  function readRoundNumber() {
+    const value = Number.parseInt(document.querySelector(".level-readout strong")?.textContent || "", 10);
+    if (!Number.isFinite(value) || value < 1) return null;
+    return Math.min(value, TOTAL_LEVELS);
+  }
+
+  function getRoundCopy() {
+    const round = readRoundNumber();
+    return round ? `已玩到第 ${round}/${TOTAL_LEVELS} 关` : `${TOTAL_LEVELS} 关连装挑战`;
+  }
+
   function drawHeaderCopy(ctx) {
     const headerBackground = ctx.createLinearGradient(64, 45, 64, 195);
     headerBackground.addColorStop(0, "#101e29");
     headerBackground.addColorStop(1, "#071018");
     ctx.fillStyle = headerBackground;
-    ctx.fillRect(58, 42, 620, 165);
+    ctx.fillRect(58, 42, 670, 165);
 
     ctx.fillStyle = "#32d8df";
     ctx.font = "800 42px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -111,6 +128,17 @@
     ctx.fillStyle = "#eef7fb";
     ctx.font = "900 78px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
     ctx.fillText(GAME_TITLE, 72, 170);
+
+    roundRect(ctx, 762, 72, 248, 76, 38);
+    ctx.fillStyle = "rgba(50,216,223,0.14)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(50,216,223,0.42)";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.fillStyle = "#eef7fb";
+    ctx.font = "800 30px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(getRoundCopy(), 886, 120);
   }
 
   function coverSpoilerLayout(canvas) {
@@ -168,7 +196,10 @@
     ctx.font = "900 38px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "alphabetic";
-    ctx.fillText(SPOILER_LINE, 540, 920);
+    ctx.fillText(SPOILER_LINE, 540, 910);
+    ctx.fillStyle = "#32d8df";
+    ctx.font = "900 34px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    ctx.fillText(`${getRoundCopy()} · 这局满格`, 540, 955);
 
     ctx.fillStyle = "#03070b";
     ctx.fillRect(730, 1348, 320, 48);
