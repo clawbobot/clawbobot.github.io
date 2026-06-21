@@ -100,6 +100,55 @@
         font-weight: 800;
         text-align: center;
       }
+      .comparison-result.pack-pk-win,
+      .comparison-result.pack-pk-loss,
+      .comparison-result.pack-pk-tie {
+        position: relative;
+        overflow: hidden;
+        border-radius: 22px !important;
+        border: 2px solid rgba(255, 255, 255, .18) !important;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, .2) !important;
+      }
+      .comparison-result.pack-pk-win {
+        background:
+          radial-gradient(circle at 8% 18%, rgba(255, 239, 91, .35), transparent 36%),
+          linear-gradient(135deg, rgba(41, 235, 255, .22), rgba(75, 255, 128, .18)) !important;
+        border-color: rgba(105, 255, 126, .62) !important;
+      }
+      .comparison-result.pack-pk-loss {
+        background:
+          radial-gradient(circle at 12% 20%, rgba(255, 93, 200, .28), transparent 34%),
+          linear-gradient(135deg, rgba(255, 182, 65, .16), rgba(166, 107, 255, .18)) !important;
+        border-color: rgba(255, 213, 89, .55) !important;
+      }
+      .comparison-result.pack-pk-tie {
+        background: linear-gradient(135deg, rgba(50, 230, 255, .18), rgba(255, 230, 107, .18)) !important;
+        border-color: rgba(50, 230, 255, .55) !important;
+      }
+      .pack-pk-prompt {
+        margin: 12px 0 2px;
+        color: #fff6c7;
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.45;
+        text-align: center;
+      }
+      .pack-pk-retry {
+        width: 100%;
+        margin-top: 10px;
+        border: 2px solid rgba(50, 230, 255, .55) !important;
+        color: #eefbff !important;
+        background: rgba(14, 22, 62, .82) !important;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 10px 22px rgba(50,230,255,.12) !important;
+      }
+      .share-cta.pack-pk-share-win {
+        color: #221000 !important;
+        background: linear-gradient(135deg, #fff06a, #38f96f 54%, #32e6ff) !important;
+        animation: packSharePulse 1.18s ease-in-out infinite;
+      }
+      .share-cta.pack-pk-share-loss {
+        background: linear-gradient(135deg, #ffcf48, #ff6bc8 58%, #a66bff) !important;
+      }
       .pack-confetti {
         position: absolute;
         top: -18px;
@@ -207,6 +256,46 @@
     }
   }
 
+  function boostPkComparisonOverlay() {
+    document.querySelectorAll(".overlay-panel").forEach((panel) => {
+      const comparison = panel.querySelector(".comparison-result");
+      if (!comparison || panel.dataset.packPkBoosted === "1") return;
+
+      const comparisonText = comparison.textContent || "";
+      const isFaster = comparisonText.includes("你快了");
+      const isSlower = comparisonText.includes("慢了");
+      const isTie = comparisonText.includes("打平");
+
+      panel.dataset.packPkBoosted = "1";
+      comparison.classList.add(isFaster ? "pack-pk-win" : isSlower ? "pack-pk-loss" : "pack-pk-tie");
+
+      const prompt = document.createElement("p");
+      prompt.className = "pack-pk-prompt";
+      prompt.textContent = isFaster
+        ? "反超成功！把战绩发回去，让 TA 下一局追你。"
+        : isSlower
+          ? "就差一点，重新挑战这一局，把秒数压下去。"
+          : "完全打平！再来一次，抢下第一名。";
+      comparison.insertAdjacentElement("afterend", prompt);
+
+      const shareButton = panel.querySelector(".share-cta");
+      if (shareButton) {
+        shareButton.classList.add(isFaster ? "pack-pk-share-win" : "pack-pk-share-loss");
+        const icon = shareButton.querySelector("svg");
+        shareButton.textContent = isFaster ? "我更快，发回去" : isSlower ? "先晒战绩，再追一次" : "打平了，喊 TA 再战";
+        if (icon) shareButton.appendChild(icon);
+      }
+
+      const retryButton = document.createElement("button");
+      retryButton.type = "button";
+      retryButton.className = "pack-pk-retry";
+      retryButton.textContent = isFaster ? "再挑战一次，继续压秒" : "重新挑战这一局";
+      retryButton.addEventListener("click", () => window.location.reload());
+      const nextAction = Array.from(panel.querySelectorAll("button")).find((button) => button.classList.contains("text-action"));
+      panel.insertBefore(retryButton, nextAction || null);
+    });
+  }
+
   function polishFinalLevelWin() {
     document.querySelectorAll("button").forEach((button) => {
       const text = button.textContent?.trim() || "";
@@ -221,6 +310,7 @@
     polishChallengeCta();
     polishFinalLevelWin();
     boostCompletionOverlay();
+    boostPkComparisonOverlay();
   }
 
   if (document.readyState === "loading") {
