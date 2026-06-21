@@ -1,9 +1,27 @@
 (() => {
   const POSTER_WIDTH = 1080;
   const POSTER_HEIGHT = 1440;
+  const GAME_TITLE = "谁最能装？";
+  const QR_CAPTION = "扫码来比谁更能装";
+  const SPOILER_LINE = "别偷看摆法，自己来装一局";
   const COLORS = ["#ff6b6b", "#ffad32", "#55d68b", "#4d9cff", "#a56bff", "#24c8d8", "#f06fb5", "#c4dd45", "#ff8058"];
-  const NAMES = ["易碎件", "长条盒", "收纳盒", "工具包", "文件箱", "水壶组", "服装袋", "配件盒", "应急包"];
+  const NAMES = ["方块怪", "长条君", "收纳仔", "工具侠", "箱子怪", "水壶团", "衣服包", "配件宝", "救急包"];
   const ICONS = ["📦", "🧸", "🎒", "🧃", "👕", "📚", "🧰", "🎁", "🛟"];
+  const TEXT_REPLACEMENTS = [
+    ["这也能装？", GAME_TITLE],
+    ["完美订单", "终极塞箱王"],
+    ["基础装箱", "新手开塞"],
+    ["转向练习", "拧一拧试试"],
+    ["错位拼合", "歪打正着"],
+    ["限时调度", "手速爆箱"],
+    ["空间装箱挑战", "装箱 Battle"],
+    ["100% 完美装箱", "满格！这都塞进去了"],
+    ["同一箱子、同一组物品。挑战", "同一箱、同一堆东西，来挑战"],
+    ["旋转物品，填满箱子。每一关都有唯一的空间挑战。", "旋一旋、塞一塞，每一局都像在跟箱子斗智斗勇。"],
+    ["旋转物品，填满箱子。你能完成 100% 完美装箱吗？", "旋一旋、塞一塞，看看谁才是装箱天才。"],
+    ["同一箱子、同一组物品。打开即玩，挑战朋友的完美装箱成绩。", "同一箱、同一堆东西，打开就塞，看看谁才是装箱王。"],
+    ["旋转物品，填满每一格，再挑战朋友的完美装箱成绩。", "转一转、塞一塞，发给朋友比比谁更能装。"],
+  ];
   const SLOTS = [
     [190, 735, -0.12, 1.04],
     [310, 690, 0.1, 1.12],
@@ -18,6 +36,47 @@
     [465, 420, 0.08, 0.96],
     [610, 420, -0.08, 0.94],
   ];
+
+  function replaceCopy(value) {
+    if (!value) return value;
+    return TEXT_REPLACEMENTS.reduce((current, [from, to]) => current.replaceAll(from, to), value);
+  }
+
+  function polishPageCopy() {
+    document.title = replaceCopy(document.title);
+    document.querySelectorAll('meta[content]').forEach((meta) => {
+      meta.setAttribute("content", replaceCopy(meta.getAttribute("content")));
+    });
+
+    if (!document.body) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const next = replaceCopy(node.nodeValue);
+      if (next !== node.nodeValue) node.nodeValue = next;
+    });
+  }
+
+  function schedulePolish() {
+    if (schedulePolish.pending) return;
+    schedulePolish.pending = true;
+    requestAnimationFrame(() => {
+      schedulePolish.pending = false;
+      polishPageCopy();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", polishPageCopy, { once: true });
+  } else {
+    polishPageCopy();
+  }
+  new MutationObserver(schedulePolish).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+  });
 
   function roundRect(ctx, x, y, width, height, radius) {
     if (typeof ctx.roundRect === "function") {
@@ -38,6 +97,22 @@
     ctx.quadraticCurveTo(x, y, x + r, y);
   }
 
+  function drawHeaderCopy(ctx) {
+    const headerBackground = ctx.createLinearGradient(64, 45, 64, 195);
+    headerBackground.addColorStop(0, "#101e29");
+    headerBackground.addColorStop(1, "#071018");
+    ctx.fillStyle = headerBackground;
+    ctx.fillRect(58, 42, 620, 165);
+
+    ctx.fillStyle = "#32d8df";
+    ctx.font = "800 42px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    ctx.textAlign = "start";
+    ctx.fillText("PACK BATTLE", 72, 88);
+    ctx.fillStyle = "#eef7fb";
+    ctx.font = "900 78px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    ctx.fillText(GAME_TITLE, 72, 170);
+  }
+
   function coverSpoilerLayout(canvas) {
     if (canvas.__packSharePosterSafe || canvas.width !== POSTER_WIDTH || canvas.height !== POSTER_HEIGHT) return;
     const ctx = canvas.getContext("2d");
@@ -45,6 +120,8 @@
     canvas.__packSharePosterSafe = true;
 
     ctx.save();
+    drawHeaderCopy(ctx);
+
     roundRect(ctx, 66, 270, 948, 710, 34);
     ctx.fillStyle = "#101b25";
     ctx.fill();
@@ -91,7 +168,13 @@
     ctx.font = "900 38px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "alphabetic";
-    ctx.fillText("战绩已达成，摆法留给你挑战", 540, 920);
+    ctx.fillText(SPOILER_LINE, 540, 920);
+
+    ctx.fillStyle = "#03070b";
+    ctx.fillRect(730, 1348, 320, 48);
+    ctx.fillStyle = "#eef7fb";
+    ctx.font = "800 25px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    ctx.fillText(QR_CAPTION, 890, 1376);
     ctx.restore();
   }
 
