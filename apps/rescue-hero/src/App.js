@@ -7,12 +7,13 @@ import { copyText, createShareAsset, saveImage, shareChallengeLink, shareImage }
 
 const app = document.querySelector('#app');
 const storedName = localStorage.getItem('rescue-player-name') || GAME_CONFIG.defaultPlayerName;
+const initialChallenge = getChallengeFromLocation();
 
 let state = {
   screen: 'home',
   playerName: storedName,
-  currentLevelId: getChallengeFromLocation()?.levelId || 1,
-  challenge: getChallengeFromLocation(),
+  currentLevelId: initialChallenge?.levelId || 1,
+  challenge: initialChallenge,
   round: null,
   result: null,
   comparison: null,
@@ -49,6 +50,7 @@ function startLevel(levelId = state.currentLevelId, seed) {
   state.currentLevelId = level.id;
   state.result = null;
   state.comparison = null;
+  state.shareAsset = null;
   state.round = createRound(level, seed || state.challenge?.seed || makeSeed());
   state.round = selectAction(state.round, ACTIONS[0].id);
   startTimer();
@@ -100,6 +102,7 @@ function goHome() {
   state.screen = 'home';
   state.round = null;
   state.result = null;
+  state.comparison = null;
   render();
 }
 
@@ -128,24 +131,26 @@ function updateMotto(value) {
   state.shareMotto = value;
 }
 
+function getCurrentIncident(round) {
+  return round.incidents.find((incident) => incident.status !== 'done') || round.incidents[0];
+}
+
 function renderHome() {
   const challenge = state.challenge;
   app.innerHTML = `
-    <main class="page home-page">
-      <section class="hero-card">
-        <div class="eyebrow">${GAME_CONFIG.englishTitle}</div>
+    <main class="home-shell">
+      <section class="rescue-hero">
+        <div class="alarm-badge">${GAME_CONFIG.englishTitle}</div>
         <h1>${GAME_CONFIG.title}</h1>
-        <p class="lead">突发状况砸过来，点对工具，最快稳住全场。</p>
-        ${challenge ? `<div class="challenge-banner">${challenge.playerName || '好友'} 用 ${challenge.elapsed} 秒救完第 ${challenge.levelId}/5 关，来追 TA。</div>` : ''}
-        <div class="hero-actions">
-          <button class="primary-btn" data-action="start">${challenge ? '开始挑战 TA' : '开始救场'}</button>
-          <button class="ghost-btn" data-action="start-l1">从第 1 关开始</button>
-        </div>
+        <p>状况一个个砸过来，选对工具，点一下救回全场。</p>
+        ${challenge ? `<div class="challenge-card"><b>${challenge.playerName || '好友'} 发来挑战</b><span>第 ${challenge.levelId}/5 关 · ${challenge.elapsed} 秒 · ${challenge.accuracy}% 正确</span></div>` : ''}
+        <button class="start-button" data-action="start">${challenge ? '接招，救同一场' : '开始救场'}</button>
+        <button class="subtle-button" data-action="start-l1">从第 1 关练手</button>
       </section>
-      <section class="rule-strip">
-        <div><b>1</b><span>先选工具</span></div>
-        <div><b>2</b><span>点状况卡</span></div>
-        <div><b>3</b><span>比谁更快</span></div>
+      <section class="how-to-play">
+        <div><strong>1</strong><span>先看大状况</span></div>
+        <div><strong>2</strong><span>点底部工具</span></div>
+        <div><strong>3</strong><span>按下救场</span></div>
       </section>
     </main>`;
 }
@@ -156,36 +161,47 @@ function renderPlaying() {
   const left = Math.max(0, round.level.timeLimit - elapsed);
   const progress = getProgress(round);
   const accuracy = getAccuracy(round);
+  const current = getCurrentIncident(round);
+  const selected = ACTION_BY_ID[round.selectedActionId] || ACTIONS[0];
+  const remaining = round.incidents.filter((incident) => incident.status !== 'done').length;
   app.innerHTML = `
-    <main class="page game-page">
-      <header class="topbar">
-        <div><span>关卡</span><b>${round.level.id}/5</b></div>
-        <div><span>得分</span><b>${round.score}</b></div>
-        <div class="wide"><span>救场进度</span><i><em style="width:${progress}%"></em></i></div>
+    <main class="rescue-console">
+      <header class="console-top">
+        <div><span>第 ${round.level.id}/5 关</span><b>${round.level.name}</b></div>
         <div><span>剩余</span><b>${left}s</b></div>
+        <div><span>正确</span><b>${accuracy}%</b></div>
       </header>
-      <section class="level-card">
-        <div>
-          <small>${round.level.badge}</small>
-          <h2>第 ${round.level.id}/5 关 · ${round.level.name}</h2>
-          <p>${round.lastMessage}</p>
+
+      <section class="progress-console">
+        <div class="progress-copy"><b>${round.level.badge}</b><span>${round.lastMessage}</span></div>
+        <div class="progress-bar"><i style="width:${progress}%"></i></div>
+      </section>
+
+      <section class="rescue-stage">
+        <div class="stage-label">当前最急</div>
+        <button class="active-incident ${current.status}" data-incident="${current.id}">
+          <span class="panic-rings"></span>
+          <span class="active-icon">${current.icon}</span>
+          <strong>${current.title}</strong>
+          <small>${current.tip}</small>
+          <em>用「${selected.label}」救它</em>
+        </button>
+        <div class="rescue-meta">
+          <span>${remaining} 个待救</span>
+          <span>${round.score} 分</span>
+          <span>${progress}% 稳住</span>
         </div>
-        <strong>${accuracy}% 正确</strong>
       </section>
-      <section class="incident-grid">
-        ${round.incidents.map((incident) => {
-          const action = ACTION_BY_ID[incident.actionId];
-          return `<button class="incident-card ${incident.status}" data-incident="${incident.id}">
-            <span class="incident-icon">${incident.icon}</span>
-            <b>${incident.title}</b>
-            <small>${incident.tip}</small>
-            <i>${incident.status === 'done' ? '已救回' : action.label}</i>
-          </button>`;
-        }).join('')}
+
+      <section class="queue-strip" aria-label="待救队列">
+        ${round.incidents.map((incident) => `<button class="queue-chip ${incident.status}" data-incident="${incident.id}"><span>${incident.icon}</span><b>${incident.status === 'done' ? '已救' : ACTION_BY_ID[incident.actionId].label}</b></button>`).join('')}
       </section>
-      <section class="action-dock">
-        <p>救场工具</p>
-        <div>${ACTIONS.map((action) => `<button class="tool-btn ${round.selectedActionId === action.id ? 'selected' : ''}" style="--tool:${action.color}" data-tool="${action.id}"><span>${action.icon}</span><b>${action.label}</b></button>`).join('')}</div>
+
+      <section class="tool-panel">
+        <div class="tool-panel-title"><b>救场工具</b><span>选一个，再点大状况</span></div>
+        <div class="tool-grid">
+          ${ACTIONS.map((action) => `<button class="tool-choice ${round.selectedActionId === action.id ? 'selected' : ''}" style="--tool:${action.color}" data-tool="${action.id}"><span>${action.icon}</span><b>${action.label}</b></button>`).join('')}
+        </div>
       </section>
     </main>`;
 }
@@ -195,7 +211,7 @@ function renderResult() {
   const comparison = state.comparison;
   const copy = getResultCopy(result, comparison);
   app.innerHTML = `
-    <main class="page result-page">
+    <main class="result-page">
       <section class="result-card ${comparison?.status || ''}">
         <div class="trophy">🏆 救场王登场</div>
         <h1>${copy.title}</h1>
