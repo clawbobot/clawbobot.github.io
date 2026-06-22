@@ -5,10 +5,12 @@
     "install:app": "cd apps/moon-energy-crisis && npm install",
     "dev": "cd apps/moon-energy-crisis && npm run dev",
     "build:app": "cd apps/moon-energy-crisis && npm run build",
-    "deploy:local": "npm run build:app && rm -rf play/* && cp -R apps/moon-energy-crisis/dist/. play/ && npm run build:pack && rm -rf play-pack/* && mkdir -p play-pack && cp -R apps/perfect-pack/dist/. play-pack/",
+    "deploy:local": "npm run build:app && rm -rf play/* && cp -R apps/moon-energy-crisis/dist/. play/ && npm run build:pack && rm -rf play-pack/* && mkdir -p play-pack && cp -R apps/perfect-pack/dist/. play-pack/ && npm run build:rescue",
     "build": "npm run deploy:local",
     "install:pack": "cd apps/perfect-pack && npm install",
     "dev:pack": "cd apps/perfect-pack && npm run dev",
-    "build:pack": "cd apps/perfect-pack && npm run build"
+    "build:pack": "cd apps/perfect-pack && npm run build",
+    "dev:rescue": "cd apps/rescue-hero && python3 -m http.server 5176",
+    "build:rescue": "rm -rf play-rescue && mkdir -p play-rescue && cp -R apps/rescue-hero/. play-rescue/"
   }
 }
