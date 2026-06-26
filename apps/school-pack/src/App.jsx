@@ -123,13 +123,16 @@ function createPuzzle(diff, seed) {
 }
 
 function encodeChallenge(payload) {
-  return btoa(JSON.stringify(payload)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  return btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
 }
 
 function decodeChallenge(str) {
   try {
     const padded = str.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(str.length / 4) * 4, "=");
-    return JSON.parse(atob(padded));
+    const bytes = Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+    return JSON.parse(new TextDecoder().decode(bytes));
   } catch { return null; }
 }
 
