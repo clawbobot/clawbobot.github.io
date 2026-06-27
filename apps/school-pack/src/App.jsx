@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import QRCode from "qrcode";
 
 // ── THEME DATA ──────────────────────────────────────────────
@@ -20,10 +20,7 @@ const DIFFICULTY = {
   hard:   { label: "高手场", sub: "12岁以上", icon: "🔥", timeLimit: 45, desc: "45 秒极限挑战" },
 };
 
-// ── PUZZLE LAYOUTS (all verified: each letter set is a connected polyomino) ──
-// Easy: 4×4 = 16 cells
-// Medium: 4×5 = 20 cells
-// Hard: 5×5 = 25 cells
+// ── PUZZLE LAYOUTS ───────────────────────────────────────────
 const LAYOUTS = {
   easy: [
     [["A","A","B","B"],["A","A","B","B"],["C","C","C","D"],["E","E","E","D"]],
@@ -42,6 +39,23 @@ const LAYOUTS = {
     [["A","A","B","C","C"],["A","D","B","B","C"],["A","D","D","E","C"],["F","F","D","E","E"],["F","G","G","G","E"]],
   ],
 };
+
+// 首页迷你拼图预览（layout easy[0] 对应颜色）
+const DEMO = [
+  ["#ff6b6b","#ff6b6b","#4d9cff","#4d9cff"],
+  ["#ff6b6b","#ff6b6b","#4d9cff","#4d9cff"],
+  ["#ffad32","#ffad32","#ffad32","#55d68b"],
+  ["#a56bff","#a56bff","#a56bff","#55d68b"],
+];
+
+// 胜利彩花数据（预计算，避免渲染时 random）
+const CONFETTI = Array.from({ length: 22 }, (_, i) => ({
+  ch: ["🎉","⭐","✨","🎊","🎈","🌟","💫","🏆","🎁","🥳"][i % 10],
+  x:  3 + (i * 4.3) % 93,
+  delay: (i * 0.08) % 1.5,
+  dur:  1.2 + (i * 0.09) % 1.4,
+  size: 14 + (i * 3) % 18,
+}));
 
 // ── PURE GAME FUNCTIONS ──────────────────────────────────────
 function rng(seed) {
@@ -157,8 +171,9 @@ export function App() {
   const [shareBusy, setShareBusy] = useState(false);
   const [toast, setToast] = useState("");
   const [toastTimer, setToastTimer] = useState(null);
-  const [playerName, setPlayerName] = useState(() => localStorage.getItem("sp-name") || "同学");
+  const [playerName] = useState(() => localStorage.getItem("sp-name") || "同学");
   const [challenge, setChallenge] = useState(null);
+  const [freshCells, setFreshCells] = useState(new Set());
 
   // Derived
   const placed = useMemo(() => {
@@ -249,6 +264,7 @@ export function App() {
     setSeed(s);
     setScreen("game");
     setShareAsset(null);
+    setFreshCells(new Set());
   }
 
   function selectPiece(uid) {
@@ -279,7 +295,12 @@ export function App() {
       row, col,
     );
     setGrid(newGrid);
-    // Auto-select next unplaced piece
+    // 记录新放置的格子，播放弹出动画
+    const fresh = new Set();
+    selShape.forEach((sr, r) => sr.forEach((v, c) => { if (v) fresh.add(`${row + r},${col + c}`); }));
+    setFreshCells(fresh);
+    setTimeout(() => setFreshCells(new Set()), 420);
+    // 自动选下一个未放置的物品
     const nextPiece = pieces.find((p) => p.uid !== selPiece.uid && !placed.has(p.uid));
     if (nextPiece) { setSelId(nextPiece.uid); setSelShape(nextPiece.shape); }
     else { setSelId(null); setSelShape(null); }
@@ -316,17 +337,13 @@ export function App() {
     catch { showToast("请手动复制上方链接"); }
   }
 
-  // ── HOME SCREEN ──────────────────────────────────────────
+  // ── HOME SCREEN ──────────────────────────────────────────────
   if (screen === "home") {
     return (
       <div className="shell">
         <div className="home">
-          <div className="home-header">
-            <div className="home-badge">SCHOOL PACK</div>
-            <h1 className="home-title">书包装满它！</h1>
-            <p className="home-sub">旋转物品，填满书包，看谁装得最快 🎒</p>
-          </div>
 
+          {/* 好友挑战横幅 */}
           {challenge && (
             <div className="challenge-banner">
               <div>
@@ -337,6 +354,28 @@ export function App() {
             </div>
           )}
 
+          {/* 英雄区 */}
+          <div className="home-hero">
+            <span className="hero-emoji" aria-hidden="true">🎒</span>
+            <h1 className="home-title">书包装满它！</h1>
+            <p className="home-sub">旋转拼块，填满书包，看谁装得最快</p>
+          </div>
+
+          {/* 拼图预览 */}
+          <div className="demo-row">
+            <div className="demo-puzzle">
+              {DEMO.flat().map((color, i) => (
+                <div key={i} className="demo-cell" style={{ background: color }} />
+              ))}
+            </div>
+            <div className="demo-labels">
+              <span>🔄 旋转拼块</span>
+              <span>🎯 填满格子</span>
+              <span>⚡ 比拼速度</span>
+            </div>
+          </div>
+
+          {/* 今日挑战 */}
           <button className="daily-btn" onClick={() => startGame("medium", todaySeed())}>
             <div>
               <span className="daily-title">📅 今日挑战 #{todayNumber()}</span>
@@ -384,14 +423,14 @@ export function App() {
     );
   }
 
-  // ── GAME SCREEN ──────────────────────────────────────────
+  // ── GAME SCREEN ──────────────────────────────────────────────
   if (screen === "game") {
     const cfg = DIFFICULTY[diff];
 
     return (
       <div className="shell">
         <div className="game">
-          {/* Header */}
+          {/* 顶部栏 */}
           <header className="game-header">
             <button className="btn-icon" onClick={() => setScreen("home")}>←</button>
             <div className="header-center">
@@ -410,7 +449,7 @@ export function App() {
             <div className="progress-fill" style={{ width: `${fillPct}%` }} />
           </div>
 
-          {/* Grid */}
+          {/* 格子 */}
           <div className="grid-wrap">
             <div
               className="grid"
@@ -421,13 +460,14 @@ export function App() {
                 row.map((cell, c) => {
                   const key = `${r},${c}`;
                   const isGhost = ghostCells.has(key);
+                  const isFresh = freshCells.has(key);
                   return (
                     <div
                       key={key}
-                      className={`cell${cell ? " filled" : ""}${isGhost ? " ghost" : ""}${!cell && selShape ? " hoverable" : ""}`}
+                      className={`cell${cell ? " filled" : ""}${isGhost ? " ghost" : ""}${!cell && selShape ? " hoverable" : ""}${isFresh ? " popping" : ""}`}
                       style={{
                         background: cell ? cell.color : isGhost ? `${selPiece?.color}44` : undefined,
-                        borderColor: cell ? `${cell.color}bb` : isGhost ? `${selPiece?.color}99` : undefined,
+                        borderColor: cell ? `${cell.color}cc` : isGhost ? `${selPiece?.color}99` : undefined,
                       }}
                       onMouseEnter={() => setCursor({ row: r, col: c })}
                       onClick={() => clickCell(r, c)}
@@ -441,7 +481,7 @@ export function App() {
             </div>
           </div>
 
-          {/* Rotate controls + selected piece hint */}
+          {/* 旋转 + 当前选中 */}
           <div className="controls">
             <button className="rotate-btn" onClick={() => rotate("left")}>↺ 左转</button>
             {selPiece ? (
@@ -449,11 +489,13 @@ export function App() {
                 <span className="sel-emoji">{selPiece.emoji}</span>
                 <span className="sel-name">{selPiece.name}</span>
               </div>
-            ) : <div className="sel-hint"><span className="sel-name sel-done">全部装入！</span></div>}
+            ) : (
+              <div className="sel-hint"><span className="sel-name sel-done">全部装入！</span></div>
+            )}
             <button className="rotate-btn" onClick={() => rotate("right")}>右转 ↻</button>
           </div>
 
-          {/* Shape preview of selected piece */}
+          {/* 当前形状预览 */}
           {selShape && (
             <div className="shape-preview-wrap">
               {selShape.map((row, r) => (
@@ -470,13 +512,14 @@ export function App() {
             </div>
           )}
 
-          {/* Piece tray */}
+          {/* 物品托盘 */}
           <div className="tray">
             <div className="tray-label">选一件 → 点格子放进去</div>
             <div className="tray-scroll">
               {pieces.map((p) => {
                 const isDone = placed.has(p.uid);
                 const isSel = selId === p.uid;
+                const displayShape = isSel && selShape ? selShape : p.shape;
                 return (
                   <button
                     key={p.uid}
@@ -485,6 +528,20 @@ export function App() {
                     onClick={() => selectPiece(p.uid)}
                     disabled={isDone}
                   >
+                    {/* 拼块形状预览 */}
+                    <div className="piece-shape-preview">
+                      {displayShape.map((row, r) => (
+                        <div key={r} className="piece-shape-row">
+                          {row.map((cell, c) => (
+                            <div
+                              key={c}
+                              className="piece-shape-cell"
+                              style={{ background: cell ? p.color : "transparent" }}
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                     <span className="piece-emoji">{p.emoji}</span>
                     <span className="piece-name">{p.name}</span>
                     {isDone && <span className="piece-check">✓</span>}
@@ -496,10 +553,28 @@ export function App() {
 
           <div className="seed-display">题号 #{seed} · 告诉同学，一起比比谁更快</div>
 
-          {/* Overlays */}
+          {/* 胜利弹窗 */}
           {phase === "won" && (
             <div className="overlay">
               <div className="overlay-card won-card">
+                {/* 彩花 */}
+                <div className="confetti-box" aria-hidden="true">
+                  {CONFETTI.map((cf, i) => (
+                    <span
+                      key={i}
+                      className="conf-item"
+                      style={{
+                        left: `${cf.x}%`,
+                        fontSize: `${cf.size}px`,
+                        animationDelay: `${cf.delay}s`,
+                        animationDuration: `${cf.dur}s`,
+                      }}
+                    >
+                      {cf.ch}
+                    </span>
+                  ))}
+                </div>
+
                 <div className="overlay-big">🎉</div>
                 <h2>装满了！</h2>
                 <div className="stat-row">
@@ -529,6 +604,7 @@ export function App() {
             </div>
           )}
 
+          {/* 失败弹窗 */}
           {phase === "failed" && (
             <div className="overlay">
               <div className="overlay-card fail-card">
