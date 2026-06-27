@@ -400,6 +400,229 @@
       gap: 1rem;
     }
 
+    /* ── Courses ── */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .course-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      cursor: pointer;
+      transition: border-color 200ms ease, background 200ms ease;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      width: 100%;
+    }
+
+    .course-card:hover,
+    .course-card.active {
+      border-color: var(--purple);
+      background: var(--surface-strong);
+    }
+
+    .course-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+      font-size: 1.4rem;
+    }
+
+    .course-level {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      flex: 1;
+    }
+
+    .course-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .course-meta svg {
+      flex-shrink: 0;
+    }
+
+    .course-detail {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      overflow: hidden;
+      display: none;
+    }
+
+    .course-detail.visible {
+      display: block;
+    }
+
+    .course-detail-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      padding: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(139,124,255,0.1), transparent 60%);
+    }
+
+    .course-detail-header h3 {
+      font-size: 1.8rem;
+      letter-spacing: -0.035em;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-detail-header p {
+      color: var(--muted);
+      margin-bottom: 0;
+      max-width: 520px;
+    }
+
+    .course-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .course-stats span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .modules-list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .module-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .module-item:last-child {
+      border-bottom: none;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 2.5rem;
+      cursor: pointer;
+      transition: background 150ms ease;
+    }
+
+    .module-header:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .module-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--surface-strong);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .module-header h4 {
+      flex: 1;
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 650;
+    }
+
+    .module-toggle {
+      color: var(--muted);
+      font-size: 1rem;
+      transition: transform 200ms ease;
+      flex-shrink: 0;
+    }
+
+    .module-item.open .module-toggle {
+      transform: rotate(180deg);
+    }
+
+    .module-item.open .module-num {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: #fff;
+    }
+
+    .lessons-list {
+      display: none;
+      padding: 0 2.5rem 1.25rem 4.5rem;
+    }
+
+    .module-item.open .lessons-list {
+      display: block;
+    }
+
+    .lesson-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(41,45,61,0.4);
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .lesson-item:last-child {
+      border-bottom: none;
+    }
+
+    .lesson-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .lesson-duration {
+      margin-left: auto;
+      font-size: 0.76rem;
+      color: rgba(160,167,184,0.6);
+    }
+
     @media (max-width: 760px) {
       .nav-links a {
         display: none;
@@ -409,6 +632,31 @@
       .section-heading,
       .about {
         grid-template-columns: 1fr;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-detail-header {
+        grid-template-columns: 1fr;
+      }
+
+      .course-stats {
+        text-align: left;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .module-header,
+      .lessons-list {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      .lessons-list {
+        padding-left: 3rem;
       }
 
       .hero {
@@ -447,6 +695,7 @@
       <a class="wordmark" href="#top">Bob<span>Pan</span></a>
       <div class="nav-links">
         <a href="#projects" data-i18n="navProjects">Projects</a>
+        <a href="#courses" data-i18n="navCourses">Courses</a>
         <a href="#about" data-i18n="navAbout">About</a>
         <a href="#contact" data-i18n="navContact">Contact</a>
         <a href="https://github.com/clawbobot" rel="me">GitHub</a>
@@ -571,6 +820,91 @@ Building in public</pre>
         </div>
       </section>
 
+      <section id="courses">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="coursesEyebrow">Anthropic 学院</p>
+            <h2 data-i18n="coursesTitle">课程目录</h2>
+          </div>
+          <p data-i18n="coursesIntro">
+            从 Claude API 基础到生产级 Agent 系统，系统学习 Anthropic 生态下的 AI 开发技能。每门课程均包含概念讲解、代码示例与实战练习。
+          </p>
+        </div>
+
+        <div class="courses-grid" id="courses-grid">
+          <button class="course-card active" data-course="api-basics" onclick="showCourse('api-basics', this)">
+            <div class="course-icon" style="background:rgba(139,124,255,0.15);">🔑</div>
+            <div class="course-level" style="color:var(--green)" data-i18n="levelBeginner">入门</div>
+            <h3 data-i18n="course1Title">Claude API 基础</h3>
+            <p data-i18n="course1Desc">从零开始掌握 Claude API，学会构建消息、处理响应，并理解模型选择与定价策略。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course1Duration">5 模块 · 约 3 小时</span>
+            </div>
+          </button>
+
+          <button class="course-card" data-course="prompt-eng" onclick="showCourse('prompt-eng', this)">
+            <div class="course-icon" style="background:rgba(72,214,176,0.12);">✍️</div>
+            <div class="course-level" style="color:var(--purple)" data-i18n="levelIntermediate">进阶</div>
+            <h3 data-i18n="course2Title">提示词工程</h3>
+            <p data-i18n="course2Desc">系统掌握提示词设计原则，包括角色设定、思维链、少样本学习与结构化输出控制。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course2Duration">6 模块 · 约 4 小时</span>
+            </div>
+          </button>
+
+          <button class="course-card" data-course="tool-use" onclick="showCourse('tool-use', this)">
+            <div class="course-icon" style="background:rgba(255,180,0,0.12);">🛠️</div>
+            <div class="course-level" style="color:var(--purple)" data-i18n="levelIntermediate">进阶</div>
+            <h3 data-i18n="course3Title">工具调用与 Function Calling</h3>
+            <p data-i18n="course3Desc">让 Claude 调用外部工具和 API，构建能够搜索、计算、写文件的智能应用。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course3Duration">5 模块 · 约 4 小时</span>
+            </div>
+          </button>
+
+          <button class="course-card" data-course="agents" onclick="showCourse('agents', this)">
+            <div class="course-icon" style="background:rgba(139,124,255,0.15);">🤖</div>
+            <div class="course-level" style="color:#f97316" data-i18n="levelAdvanced">高级</div>
+            <h3 data-i18n="course4Title">Agent 系统开发</h3>
+            <p data-i18n="course4Desc">构建具备规划、记忆与多步执行能力的 Agent，掌握任务分解、错误恢复与人机协作设计。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course4Duration">7 模块 · 约 6 小时</span>
+            </div>
+          </button>
+
+          <button class="course-card" data-course="mcp" onclick="showCourse('mcp', this)">
+            <div class="course-icon" style="background:rgba(72,214,176,0.12);">🔌</div>
+            <div class="course-level" style="color:#f97316" data-i18n="levelAdvanced">高级</div>
+            <h3 data-i18n="course5Title">MCP 协议与生态</h3>
+            <p data-i18n="course5Desc">深入理解 Model Context Protocol，学会开发自定义 MCP Server，并将 Claude 接入本地工具链。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course5Duration">6 模块 · 约 5 小时</span>
+            </div>
+          </button>
+
+          <button class="course-card" data-course="multimodal" onclick="showCourse('multimodal', this)">
+            <div class="course-icon" style="background:rgba(255,100,100,0.1);">🖼️</div>
+            <div class="course-level" style="color:var(--purple)" data-i18n="levelIntermediate">进阶</div>
+            <h3 data-i18n="course6Title">多模态与视觉理解</h3>
+            <p data-i18n="course6Desc">利用 Claude 的视觉能力处理图像、文档与截图，构建图文混合的智能应用。</p>
+            <div class="course-meta">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+              <span data-i18n="course6Duration">4 模块 · 约 3 小时</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Course detail panel -->
+        <div class="course-detail visible" id="course-detail">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
       <section id="about">
         <div class="section-heading">
           <div>
@@ -621,9 +955,454 @@ Building in public</pre>
     </div>
   </footer>
   <script>
+    const courseData = {
+      'api-basics': {
+        zh: {
+          title: 'Claude API 基础',
+          desc: '从零开始掌握 Claude API，理解模型能力边界，并在真实项目中灵活运用。',
+          lessons: 17, hours: 3,
+          modules: [
+            { title: '认识 Claude 与 Anthropic 生态', lessons: [
+              { name: '什么是 Claude？模型系列概览', dur: '12 分钟' },
+              { name: '申请 API Key 与账号配置', dur: '8 分钟' },
+              { name: '速率限制、定价与 Token 计算', dur: '15 分钟' },
+            ]},
+            { title: '第一个 API 调用', lessons: [
+              { name: '使用 Python SDK 发送消息', dur: '20 分钟' },
+              { name: '使用 Node.js SDK 发送消息', dur: '18 分钟' },
+              { name: '理解 Messages API 响应结构', dur: '12 分钟' },
+            ]},
+            { title: '模型选择策略', lessons: [
+              { name: 'Opus、Sonnet、Haiku 对比', dur: '15 分钟' },
+              { name: '根据任务选择合适模型', dur: '20 分钟' },
+            ]},
+            { title: '流式输出与异步处理', lessons: [
+              { name: '开启 Streaming 模式', dur: '18 分钟' },
+              { name: '处理流式响应与进度展示', dur: '22 分钟' },
+            ]},
+            { title: '生产环境最佳实践', lessons: [
+              { name: '错误处理与重试策略', dur: '20 分钟' },
+              { name: 'API Key 安全管理', dur: '10 分钟' },
+              { name: '监控用量与成本控制', dur: '15 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'Claude API Fundamentals',
+          desc: 'Master the Claude API from scratch — understand model capabilities and apply them in real projects.',
+          lessons: 17, hours: 3,
+          modules: [
+            { title: 'Claude & the Anthropic Ecosystem', lessons: [
+              { name: 'What is Claude? Model family overview', dur: '12 min' },
+              { name: 'Getting your API key & account setup', dur: '8 min' },
+              { name: 'Rate limits, pricing & token counting', dur: '15 min' },
+            ]},
+            { title: 'Your First API Call', lessons: [
+              { name: 'Sending messages with the Python SDK', dur: '20 min' },
+              { name: 'Sending messages with the Node.js SDK', dur: '18 min' },
+              { name: 'Understanding the Messages API response', dur: '12 min' },
+            ]},
+            { title: 'Model Selection Strategy', lessons: [
+              { name: 'Opus vs Sonnet vs Haiku compared', dur: '15 min' },
+              { name: 'Choosing the right model for your task', dur: '20 min' },
+            ]},
+            { title: 'Streaming & Async Patterns', lessons: [
+              { name: 'Enabling streaming mode', dur: '18 min' },
+              { name: 'Handling stream events & progress UI', dur: '22 min' },
+            ]},
+            { title: 'Production Best Practices', lessons: [
+              { name: 'Error handling & retry strategies', dur: '20 min' },
+              { name: 'Secure API key management', dur: '10 min' },
+              { name: 'Monitoring usage & cost control', dur: '15 min' },
+            ]},
+          ]
+        }
+      },
+      'prompt-eng': {
+        zh: {
+          title: '提示词工程',
+          desc: '系统掌握提示词设计原则，写出稳定、可控、高质量的提示词。',
+          lessons: 21, hours: 4,
+          modules: [
+            { title: '提示词设计基础', lessons: [
+              { name: '清晰指令的三要素', dur: '15 分钟' },
+              { name: '上下文窗口的合理利用', dur: '18 分钟' },
+              { name: '避免常见提示词陷阱', dur: '20 分钟' },
+            ]},
+            { title: '角色与人格设定', lessons: [
+              { name: 'System Prompt 最佳实践', dur: '22 分钟' },
+              { name: '角色一致性与边界控制', dur: '18 分钟' },
+            ]},
+            { title: '思维链（Chain of Thought）', lessons: [
+              { name: '什么是 CoT 及其工作原理', dur: '20 分钟' },
+              { name: '零样本 vs 少样本 CoT', dur: '25 分钟' },
+              { name: '扩展思维（Extended Thinking）', dur: '30 分钟' },
+            ]},
+            { title: '少样本学习', lessons: [
+              { name: '示例的选择与排列', dur: '18 分钟' },
+              { name: '动态少样本与检索增强', dur: '22 分钟' },
+            ]},
+            { title: '结构化输出控制', lessons: [
+              { name: '引导输出 JSON 与 XML', dur: '20 分钟' },
+              { name: '使用 Prefill 控制格式', dur: '15 分钟' },
+            ]},
+            { title: '评估与迭代', lessons: [
+              { name: '提示词版本管理', dur: '12 分钟' },
+              { name: '自动化评估框架', dur: '25 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'Prompt Engineering',
+          desc: 'Systematically master prompt design principles for stable, controllable, high-quality outputs.',
+          lessons: 21, hours: 4,
+          modules: [
+            { title: 'Prompt Design Fundamentals', lessons: [
+              { name: 'The three elements of clear instructions', dur: '15 min' },
+              { name: 'Making the most of the context window', dur: '18 min' },
+              { name: 'Avoiding common prompt pitfalls', dur: '20 min' },
+            ]},
+            { title: 'Role & Persona Design', lessons: [
+              { name: 'System prompt best practices', dur: '22 min' },
+              { name: 'Persona consistency & boundary control', dur: '18 min' },
+            ]},
+            { title: 'Chain of Thought', lessons: [
+              { name: 'What CoT is and how it works', dur: '20 min' },
+              { name: 'Zero-shot vs few-shot CoT', dur: '25 min' },
+              { name: 'Extended Thinking mode', dur: '30 min' },
+            ]},
+            { title: 'Few-Shot Learning', lessons: [
+              { name: 'Selecting and ordering examples', dur: '18 min' },
+              { name: 'Dynamic few-shot with retrieval', dur: '22 min' },
+            ]},
+            { title: 'Structured Output Control', lessons: [
+              { name: 'Guiding JSON & XML output', dur: '20 min' },
+              { name: 'Using prefill to control format', dur: '15 min' },
+            ]},
+            { title: 'Evaluation & Iteration', lessons: [
+              { name: 'Prompt version management', dur: '12 min' },
+              { name: 'Automated evaluation frameworks', dur: '25 min' },
+            ]},
+          ]
+        }
+      },
+      'tool-use': {
+        zh: {
+          title: '工具调用与 Function Calling',
+          desc: '让 Claude 与外部世界交互——调用 API、读写文件、执行代码，构建真正有行动力的应用。',
+          lessons: 18, hours: 4,
+          modules: [
+            { title: '工具调用基础概念', lessons: [
+              { name: '工具调用的工作流程', dur: '15 分钟' },
+              { name: '定义工具 Schema（JSON Schema）', dur: '20 分钟' },
+              { name: '解析模型返回的工具调用', dur: '18 分钟' },
+            ]},
+            { title: '实战：连接外部 API', lessons: [
+              { name: '天气查询工具实战', dur: '25 分钟' },
+              { name: '数据库查询工具实战', dur: '28 分钟' },
+            ]},
+            { title: '多工具并行调用', lessons: [
+              { name: '并行工具调用的设计', dur: '22 分钟' },
+              { name: '处理工具调用冲突与依赖', dur: '20 分钟' },
+            ]},
+            { title: '工具错误处理', lessons: [
+              { name: '优雅处理工具执行失败', dur: '18 分钟' },
+              { name: '工具重试与回退策略', dur: '15 分钟' },
+            ]},
+            { title: '安全与权限控制', lessons: [
+              { name: '工具调用的安全审计', dur: '20 分钟' },
+              { name: '用户确认与操作权限', dur: '18 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'Tool Use & Function Calling',
+          desc: 'Let Claude interact with the real world — call APIs, read files, run code, and build truly agentic apps.',
+          lessons: 18, hours: 4,
+          modules: [
+            { title: 'Tool Use Core Concepts', lessons: [
+              { name: 'How the tool use loop works', dur: '15 min' },
+              { name: 'Defining tool schemas with JSON Schema', dur: '20 min' },
+              { name: 'Parsing tool_use blocks from responses', dur: '18 min' },
+            ]},
+            { title: 'Hands-on: Connecting External APIs', lessons: [
+              { name: 'Weather lookup tool walkthrough', dur: '25 min' },
+              { name: 'Database query tool walkthrough', dur: '28 min' },
+            ]},
+            { title: 'Parallel Tool Calls', lessons: [
+              { name: 'Designing for parallel tool calls', dur: '22 min' },
+              { name: 'Handling conflicts and dependencies', dur: '20 min' },
+            ]},
+            { title: 'Error Handling', lessons: [
+              { name: 'Gracefully handling tool failures', dur: '18 min' },
+              { name: 'Retry and fallback strategies', dur: '15 min' },
+            ]},
+            { title: 'Security & Permissions', lessons: [
+              { name: 'Auditing tool calls for safety', dur: '20 min' },
+              { name: 'User confirmation and access control', dur: '18 min' },
+            ]},
+          ]
+        }
+      },
+      'agents': {
+        zh: {
+          title: 'Agent 系统开发',
+          desc: '构建具备规划、记忆与多步执行能力的自主 Agent，掌握生产级 Agent 系统的设计模式。',
+          lessons: 26, hours: 6,
+          modules: [
+            { title: 'Agent 架构设计', lessons: [
+              { name: '什么是 AI Agent？', dur: '15 分钟' },
+              { name: 'Agent 循环（Agentic Loop）详解', dur: '25 分钟' },
+              { name: '单 Agent vs 多 Agent 架构', dur: '20 分钟' },
+            ]},
+            { title: '规划与任务分解', lessons: [
+              { name: 'ReAct 范式（Reasoning + Acting）', dur: '25 分钟' },
+              { name: '任务图与依赖管理', dur: '22 分钟' },
+              { name: '动态规划与目标调整', dur: '20 分钟' },
+            ]},
+            { title: '记忆系统', lessons: [
+              { name: '短期记忆：对话窗口管理', dur: '18 分钟' },
+              { name: '长期记忆：向量数据库集成', dur: '30 分钟' },
+              { name: '语义检索与记忆召回', dur: '25 分钟' },
+            ]},
+            { title: '多 Agent 协作', lessons: [
+              { name: '编排者（Orchestrator）模式', dur: '25 分钟' },
+              { name: '子 Agent 通信协议', dur: '20 分钟' },
+            ]},
+            { title: '错误恢复与可靠性', lessons: [
+              { name: '检测并修复执行失败', dur: '22 分钟' },
+              { name: '人机协作（Human-in-the-loop）设计', dur: '25 分钟' },
+            ]},
+            { title: '安全与权限', lessons: [
+              { name: 'Agent 最小权限原则', dur: '18 分钟' },
+              { name: '操作审计与可解释性', dur: '20 分钟' },
+            ]},
+            { title: '实战项目', lessons: [
+              { name: '构建代码审查 Agent', dur: '40 分钟' },
+              { name: '构建研究摘要 Agent', dur: '35 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'Agent System Development',
+          desc: 'Build autonomous agents with planning, memory, and multi-step execution — master production-grade agent design patterns.',
+          lessons: 26, hours: 6,
+          modules: [
+            { title: 'Agent Architecture Design', lessons: [
+              { name: 'What is an AI Agent?', dur: '15 min' },
+              { name: 'The Agentic Loop explained', dur: '25 min' },
+              { name: 'Single-agent vs multi-agent architectures', dur: '20 min' },
+            ]},
+            { title: 'Planning & Task Decomposition', lessons: [
+              { name: 'The ReAct pattern (Reasoning + Acting)', dur: '25 min' },
+              { name: 'Task graphs and dependency management', dur: '22 min' },
+              { name: 'Dynamic planning and goal adjustment', dur: '20 min' },
+            ]},
+            { title: 'Memory Systems', lessons: [
+              { name: 'Short-term memory: conversation window management', dur: '18 min' },
+              { name: 'Long-term memory: vector database integration', dur: '30 min' },
+              { name: 'Semantic retrieval & memory recall', dur: '25 min' },
+            ]},
+            { title: 'Multi-Agent Collaboration', lessons: [
+              { name: 'The Orchestrator pattern', dur: '25 min' },
+              { name: 'Sub-agent communication protocols', dur: '20 min' },
+            ]},
+            { title: 'Error Recovery & Reliability', lessons: [
+              { name: 'Detecting and recovering from failures', dur: '22 min' },
+              { name: 'Human-in-the-loop design', dur: '25 min' },
+            ]},
+            { title: 'Safety & Permissions', lessons: [
+              { name: 'Principle of least privilege for agents', dur: '18 min' },
+              { name: 'Action auditing & explainability', dur: '20 min' },
+            ]},
+            { title: 'Capstone Projects', lessons: [
+              { name: 'Build a code review agent', dur: '40 min' },
+              { name: 'Build a research summarization agent', dur: '35 min' },
+            ]},
+          ]
+        }
+      },
+      'mcp': {
+        zh: {
+          title: 'MCP 协议与生态',
+          desc: '深入理解 Model Context Protocol 规范，开发自定义 MCP Server，将 Claude 无缝接入本地工具链。',
+          lessons: 22, hours: 5,
+          modules: [
+            { title: 'MCP 协议入门', lessons: [
+              { name: 'MCP 是什么？设计动机与核心概念', dur: '20 分钟' },
+              { name: 'MCP 与传统 Function Calling 的区别', dur: '15 分钟' },
+              { name: '协议架构：Client、Server 与 Transport', dur: '22 分钟' },
+            ]},
+            { title: '搭建你的第一个 MCP Server', lessons: [
+              { name: '使用 Python SDK 创建 MCP Server', dur: '30 分钟' },
+              { name: '使用 TypeScript SDK 创建 MCP Server', dur: '28 分钟' },
+              { name: '本地调试与测试', dur: '20 分钟' },
+            ]},
+            { title: 'Resources、Tools 与 Prompts', lessons: [
+              { name: '暴露 Resources（文件、数据库）', dur: '25 分钟' },
+              { name: '定义 Tools 与参数验证', dur: '22 分钟' },
+              { name: '复用 Prompt 模板', dur: '18 分钟' },
+            ]},
+            { title: '连接 Claude Code 与桌面客户端', lessons: [
+              { name: '在 Claude Code 中配置 MCP Server', dur: '20 分钟' },
+              { name: '在 Claude Desktop 中使用', dur: '15 分钟' },
+            ]},
+            { title: '实战：开发实用 MCP Server', lessons: [
+              { name: 'Git 仓库分析 Server', dur: '35 分钟' },
+              { name: '本地知识库搜索 Server', dur: '35 分钟' },
+            ]},
+            { title: '部署与生产化', lessons: [
+              { name: '远程 MCP Server 部署', dur: '25 分钟' },
+              { name: '认证、安全与访问控制', dur: '20 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'MCP Protocol & Ecosystem',
+          desc: 'Deep-dive into the Model Context Protocol spec, build custom MCP Servers, and connect Claude seamlessly to local toolchains.',
+          lessons: 22, hours: 5,
+          modules: [
+            { title: 'MCP Protocol Intro', lessons: [
+              { name: 'What is MCP? Design goals & core concepts', dur: '20 min' },
+              { name: 'MCP vs traditional function calling', dur: '15 min' },
+              { name: 'Architecture: Client, Server & Transport', dur: '22 min' },
+            ]},
+            { title: 'Build Your First MCP Server', lessons: [
+              { name: 'Creating an MCP Server with the Python SDK', dur: '30 min' },
+              { name: 'Creating an MCP Server with the TypeScript SDK', dur: '28 min' },
+              { name: 'Local debugging and testing', dur: '20 min' },
+            ]},
+            { title: 'Resources, Tools & Prompts', lessons: [
+              { name: 'Exposing Resources (files, databases)', dur: '25 min' },
+              { name: 'Defining Tools with parameter validation', dur: '22 min' },
+              { name: 'Reusable Prompt templates', dur: '18 min' },
+            ]},
+            { title: 'Connecting to Claude Code & Desktop', lessons: [
+              { name: 'Configuring MCP Servers in Claude Code', dur: '20 min' },
+              { name: 'Using MCP in Claude Desktop', dur: '15 min' },
+            ]},
+            { title: 'Hands-on: Build Useful MCP Servers', lessons: [
+              { name: 'Git repository analysis server', dur: '35 min' },
+              { name: 'Local knowledge base search server', dur: '35 min' },
+            ]},
+            { title: 'Deployment & Production', lessons: [
+              { name: 'Deploying a remote MCP Server', dur: '25 min' },
+              { name: 'Auth, security & access control', dur: '20 min' },
+            ]},
+          ]
+        }
+      },
+      'multimodal': {
+        zh: {
+          title: '多模态与视觉理解',
+          desc: '利用 Claude 的视觉能力分析图像、理解文档，构建图文混合的实用 AI 应用。',
+          lessons: 14, hours: 3,
+          modules: [
+            { title: '图像输入基础', lessons: [
+              { name: '向 Claude 发送图像：格式与限制', dur: '15 分钟' },
+              { name: 'Base64 vs URL 图像输入对比', dur: '12 分钟' },
+              { name: '多图像处理与排列', dur: '18 分钟' },
+            ]},
+            { title: '图像理解任务', lessons: [
+              { name: '图像描述与内容分析', dur: '20 分钟' },
+              { name: '图表、表格与可视化解读', dur: '25 分钟' },
+              { name: 'UI 截图分析与操作建议', dur: '22 分钟' },
+            ]},
+            { title: '文档处理', lessons: [
+              { name: 'PDF 与扫描文档的理解', dur: '25 分钟' },
+              { name: '表单识别与数据提取', dur: '22 分钟' },
+            ]},
+            { title: '实战应用', lessons: [
+              { name: '构建图片问答应用', dur: '30 分钟' },
+              { name: '构建自动截图分析工具', dur: '28 分钟' },
+            ]},
+          ]
+        },
+        en: {
+          title: 'Multimodal & Visual Understanding',
+          desc: "Leverage Claude's vision capabilities to analyze images and documents, and build practical mixed-media AI apps.",
+          lessons: 14, hours: 3,
+          modules: [
+            { title: 'Image Input Basics', lessons: [
+              { name: 'Sending images to Claude: formats & limits', dur: '15 min' },
+              { name: 'Base64 vs URL image input compared', dur: '12 min' },
+              { name: 'Multi-image handling and ordering', dur: '18 min' },
+            ]},
+            { title: 'Image Understanding Tasks', lessons: [
+              { name: 'Image description & content analysis', dur: '20 min' },
+              { name: 'Charts, tables & visualization interpretation', dur: '25 min' },
+              { name: 'UI screenshot analysis & action suggestions', dur: '22 min' },
+            ]},
+            { title: 'Document Processing', lessons: [
+              { name: 'Understanding PDFs & scanned documents', dur: '25 min' },
+              { name: 'Form recognition & data extraction', dur: '22 min' },
+            ]},
+            { title: 'Applied Projects', lessons: [
+              { name: 'Build an image Q&A application', dur: '30 min' },
+              { name: 'Build an automated screenshot analysis tool', dur: '28 min' },
+            ]},
+          ]
+        }
+      }
+    };
+
+    function renderCourseDetail(courseId, lang) {
+      const data = courseData[courseId];
+      if (!data) return '';
+      const d = data[lang] || data['zh'];
+      const modulesHtml = d.modules.map((mod, mi) => `
+        <li class="module-item${mi === 0 ? ' open' : ''}" onclick="toggleModule(this)">
+          <div class="module-header">
+            <div class="module-num">${String(mi + 1).padStart(2, '0')}</div>
+            <h4>${mod.title}</h4>
+            <span class="module-toggle">▾</span>
+          </div>
+          <ul class="lessons-list">
+            ${mod.lessons.map(l => `
+              <li class="lesson-item">
+                <div class="lesson-dot"></div>
+                <span>${l.name}</span>
+                <span class="lesson-duration">${l.dur}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </li>
+      `).join('');
+
+      const isChinese = lang === 'zh';
+      return `
+        <div class="course-detail-header">
+          <div>
+            <h3>${d.title}</h3>
+            <p>${d.desc}</p>
+          </div>
+          <div class="course-stats">
+            <span>${isChinese ? `${d.modules.length} 个模块` : `${d.modules.length} modules`}</span>
+            <span>${isChinese ? `${d.lessons} 节课` : `${d.lessons} lessons`}</span>
+            <span>${isChinese ? `约 ${d.hours} 小时` : `~${d.hours} hours`}</span>
+          </div>
+        </div>
+        <ul class="modules-list">${modulesHtml}</ul>
+      `;
+    }
+
+    function showCourse(courseId, btn) {
+      document.querySelectorAll('.course-card').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      const lang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
+      const detail = document.getElementById('course-detail');
+      detail.innerHTML = renderCourseDetail(courseId, lang);
+      detail.classList.add('visible');
+    }
+
+    function toggleModule(item) {
+      item.classList.toggle('open');
+    }
+
     const translations = {
       en: {
         navProjects: "Projects",
+        navCourses: "Courses",
         navAbout: "About",
         navContact: "Contact",
         heroEyebrow: "Software Developer / Open Source Builder",
@@ -655,10 +1434,35 @@ Building in public</pre>
         contactCopy: "Follow the work on GitHub, open a technical discussion, or send focused feedback about this site.",
         followGithub: "Follow on GitHub",
         sendFeedback: "Send feedback",
+        coursesEyebrow: "Anthropic Academy",
+        coursesTitle: "Course Catalog",
+        coursesIntro: "From Claude API basics to production-grade agent systems — a structured path through the Anthropic ecosystem. Every course includes concept explanations, code examples, and hands-on exercises.",
+        levelBeginner: "Beginner",
+        levelIntermediate: "Intermediate",
+        levelAdvanced: "Advanced",
+        course1Title: "Claude API Fundamentals",
+        course1Desc: "Master the Claude API from scratch, understand model capabilities, and apply them flexibly in real projects.",
+        course1Duration: "5 modules · ~3 hours",
+        course2Title: "Prompt Engineering",
+        course2Desc: "Systematically master prompt design principles — role setting, chain of thought, few-shot learning, and structured output control.",
+        course2Duration: "6 modules · ~4 hours",
+        course3Title: "Tool Use & Function Calling",
+        course3Desc: "Let Claude call external tools and APIs to build intelligent apps that can search, calculate, and write files.",
+        course3Duration: "5 modules · ~4 hours",
+        course4Title: "Agent System Development",
+        course4Desc: "Build agents with planning, memory, and multi-step execution — master task decomposition, error recovery, and human-in-the-loop design.",
+        course4Duration: "7 modules · ~6 hours",
+        course5Title: "MCP Protocol & Ecosystem",
+        course5Desc: "Deep-dive into Model Context Protocol, build custom MCP Servers, and connect Claude to your local toolchain.",
+        course5Duration: "6 modules · ~5 hours",
+        course6Title: "Multimodal & Visual Understanding",
+        course6Desc: "Leverage Claude's vision capabilities to process images, documents, and screenshots for mixed-media intelligent apps.",
+        course6Duration: "4 modules · ~3 hours",
         footerCopy: "Personal, non-commercial software development portfolio."
       },
       zh: {
         navProjects: "项目",
+        navCourses: "课程",
         navAbout: "关于",
         navContact: "联系",
         heroEyebrow: "软件开发者 / 开源项目作者",
@@ -690,6 +1494,30 @@ Building in public</pre>
         contactCopy: "你可以在 GitHub 关注项目、发起技术讨论，或针对这个网站提交明确的改进建议。",
         followGithub: "关注 GitHub",
         sendFeedback: "提交反馈",
+        coursesEyebrow: "Anthropic 学院",
+        coursesTitle: "课程目录",
+        coursesIntro: "从 Claude API 基础到生产级 Agent 系统，系统学习 Anthropic 生态下的 AI 开发技能。每门课程均包含概念讲解、代码示例与实战练习。",
+        levelBeginner: "入门",
+        levelIntermediate: "进阶",
+        levelAdvanced: "高级",
+        course1Title: "Claude API 基础",
+        course1Desc: "从零开始掌握 Claude API，学会构建消息、处理响应，并理解模型选择与定价策略。",
+        course1Duration: "5 模块 · 约 3 小时",
+        course2Title: "提示词工程",
+        course2Desc: "系统掌握提示词设计原则，包括角色设定、思维链、少样本学习与结构化输出控制。",
+        course2Duration: "6 模块 · 约 4 小时",
+        course3Title: "工具调用与 Function Calling",
+        course3Desc: "让 Claude 调用外部工具和 API，构建能够搜索、计算、写文件的智能应用。",
+        course3Duration: "5 模块 · 约 4 小时",
+        course4Title: "Agent 系统开发",
+        course4Desc: "构建具备规划、记忆与多步执行能力的 Agent，掌握任务分解、错误恢复与人机协作设计。",
+        course4Duration: "7 模块 · 约 6 小时",
+        course5Title: "MCP 协议与生态",
+        course5Desc: "深入理解 Model Context Protocol，学会开发自定义 MCP Server，并将 Claude 接入本地工具链。",
+        course5Duration: "6 模块 · 约 5 小时",
+        course6Title: "多模态与视觉理解",
+        course6Desc: "利用 Claude 的视觉能力处理图像、文档与截图，构建图文混合的智能应用。",
+        course6Duration: "4 模块 · 约 3 小时",
         footerCopy: "个人、非商业的软件开发者作品集。"
       }
     };
@@ -715,13 +1543,28 @@ Building in public</pre>
       localStorage.setItem("portfolio-language", selected);
     }
 
+    function getActiveCourse() {
+      const active = document.querySelector('.course-card.active');
+      return active ? active.dataset.course : 'api-basics';
+    }
+
     languageButton.addEventListener("click", () => {
-      applyLanguage(document.documentElement.lang.startsWith("zh") ? "en" : "zh");
+      const nextLang = document.documentElement.lang.startsWith("zh") ? "en" : "zh";
+      applyLanguage(nextLang);
+      const detail = document.getElementById('course-detail');
+      if (detail && detail.classList.contains('visible')) {
+        detail.innerHTML = renderCourseDetail(getActiveCourse(), nextLang);
+      }
     });
 
     const savedLanguage = localStorage.getItem("portfolio-language");
     const preferredLanguage = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
     applyLanguage(savedLanguage || preferredLanguage);
+
+    // Initialize default course panel
+    const initLang = (savedLanguage || preferredLanguage);
+    const detail = document.getElementById('course-detail');
+    if (detail) detail.innerHTML = renderCourseDetail('api-basics', initLang);
   </script>
 </body>
 </html>
