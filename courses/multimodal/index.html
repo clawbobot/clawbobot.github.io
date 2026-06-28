@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多模态与视觉理解 · Anthropic 学院</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/courses/style.css">
+</head>
+<body>
+<header class="header">
+  <a href="/courses/" class="header-logo"><span class="logo-badge">A</span> Anthropic 学院</a>
+  <div class="header-course-title">多模态与视觉理解</div>
+  <div class="header-progress">
+    <span id="progress-text">0 / N 节</span>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div id="sidebar-content"></div></nav>
+  <main class="main" id="main-content"></main>
+</div>
+<script>
+const COURSE = {
+  id: 'multimodal',
+  title: '多模态与视觉理解',
+  modules: [
+    {
+      title: "图像输入基础",
+      lessons: [
+        { id: "vision-capabilities", title: "Claude视觉能力支持范围", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块一</span><span>⏱ 10 分钟</span></div><h1>Claude视觉能力支持范围</h1><p class=\"lesson-lead\">Claude 不仅能理解文字，还能分析图像。本节带你了解 Claude 视觉能力的覆盖范围与边界。</p></div><div class=\"lesson-body\"><h2>支持的视觉任务</h2><p>Claude 的视觉能力涵盖了广泛的场景：图像内容描述与理解、图表和数据可视化解读、UI 截图分析、文字识别（OCR）、文档与表单处理，以及对多张图片的综合分析。</p><h2>支持的图像格式</h2><ul><li><code>JPEG / JPG</code>：最常用的照片格式，压缩比高。</li><li><code>PNG</code>：无损压缩，适合截图与图表。</li><li><code>GIF</code>：仅处理第一帧（不支持动画）。</li><li><code>WebP</code>：现代 Web 格式，同时支持有损与无损。</li></ul><div class=\"card card-key\"><div class=\"card-label\">能力边界</div><p>Claude 无法实时处理视频流，无法在图像上直接标注或绘图，也无法保证对极低分辨率或高度模糊图像的准确识别。了解边界有助于合理设计应用。</p></div><h2>图像大小限制</h2><p>单张图片的文件大小上限为 5 MB。对于超大图像，建议在发送前进行压缩或裁剪，以节省 token 并提升响应速度。Claude 会在内部将图片转换为合适的尺寸进行处理。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+
+client = anthropic.Anthropic()
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[
+        {
+            \"role\": \"user\",
+            \"content\": [
+                {
+                    \"type\": \"image\",
+                    \"source\": {
+                        \"type\": \"url\",
+                        \"url\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png\",
+                    },
+                },
+                {\"type\": \"text\", \"text\": \"请描述这张图片的内容。\"},
+            ],
+        }
+    ],
+)
+print(resp.content[0].text)</pre></div><div class=\"key-points\"><h3>本节要点</h3><ul><li>Claude 支持 JPEG、PNG、GIF（首帧）、WebP 格式</li><li>单张图片大小上限为 5 MB</li><li>不支持实时视频流和直接图像标注</li><li>了解边界是合理设计多模态应用的前提</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>关于 Claude 视觉能力，以下哪个说法正确？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q1\" value=\"a\"><span>Claude 可以实时处理视频流并逐帧分析</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q1\" value=\"b\"><span>Claude 支持 JPEG、PNG、GIF、WebP 格式，但单张图片上限为 5 MB，且不支持视频流</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q1\" value=\"c\"><span>Claude 只能处理 PNG 格式的图片</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q1\" value=\"d\"><span>Claude 可以直接在图像上绘图并返回修改后的图片</span></label></div><div class=\"quiz-result\" id=\"q1-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>探索视觉能力边界</h3><ol><li>选一张清晰的照片，通过 URL 方式发给 Claude，让它描述内容。</li><li>再发一张低分辨率或模糊图像，观察 Claude 的反应与置信度。</li><li>总结哪类图像 Claude 分析得最准确，哪类效果较差。</li></ol></div></div>" },
+        { id: "image-formats", title: "图像输入格式Base64 vs URL", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块一</span><span>⏱ 12 分钟</span></div><h1>图像输入格式Base64 vs URL</h1><p class=\"lesson-lead\">向 Claude 传递图像有两种方式：URL 直链和 Base64 编码。理解两者的区别，才能在正确场景选对方法。</p></div><div class=\"lesson-body\"><h2>URL 方式</h2><p>直接提供图片的公开 URL，Claude 会自动获取图片内容。优点是请求体小、简单快速；缺点是图片必须公开可访问，且受网络可靠性影响。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+
+client = anthropic.Anthropic()
+
+# URL 方式
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=512,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"url\",
+                    \"url\": \"https://example.com/chart.png\",
+                },
+            },
+            {\"type\": \"text\", \"text\": \"这张图表说明了什么趋势？\"},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><h2>Base64 方式</h2><p>将图片文件编码为 Base64 字符串直接嵌入请求体。适合私有图片、本地文件、或无法公开访问的图像；缺点是请求体较大（约增大 33%）。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+# Base64 方式
+with open(\"local_image.png\", \"rb\") as f:
+    image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=512,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/png\",
+                    \"data\": image_data,
+                },
+            },
+            {\"type\": \"text\", \"text\": \"请分析这张图片。\"},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-tip\"><div class=\"card-label\">选择建议</div><p>图片已公开在网络上 → 用 <strong>URL</strong>，简单高效。图片存储在本地或私有服务器 → 用 <strong>Base64</strong>，避免额外暴露图片 URL。</p></div><div class=\"key-points\"><h3>本节要点</h3><ul><li>URL 方式适合公开可访问的图片，请求体小</li><li>Base64 方式适合本地或私有图片</li><li>Base64 编码后体积约增大 33%</li><li>media_type 字段需与实际图片格式一致</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>处理用户上传到你服务器的私有图片时，应该用哪种方式传给 Claude？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q2\" value=\"a\"><span>URL 方式，把私有图片的内网地址直接传过去</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q2\" value=\"b\"><span>Base64 方式，将图片编码后嵌入请求体，无需图片公开可访问</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q2\" value=\"c\"><span>只能先把图片上传到公开 CDN 再用 URL</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q2\" value=\"d\"><span>Claude 无法处理私有图片</span></label></div><div class=\"quiz-result\" id=\"q2-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>两种方式对比</h3><ol><li>用同一张图片分别以 URL 和 Base64 方式发送给 Claude。</li><li>测量两种方式的请求体大小差异。</li><li>记录响应时间，总结各自适用场景。</li></ol></div></div>" },
+        { id: "multi-image", title: "多图像处理与顺序", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块一</span><span>⏱ 12 分钟</span></div><h1>多图像处理与顺序</h1><p class=\"lesson-lead\">一次请求中可以发送多张图片。理解图片顺序的意义，能帮你设计出更精准的多图分析应用。</p></div><div class=\"lesson-body\"><h2>多图请求结构</h2><p>在 content 数组中，图像块和文本块可以自由混排。Claude 会按照内容的排列顺序来理解上下文关系——先出现的图片会被先处理，文字描述紧跟在相关图片后面效果最好。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+
+client = anthropic.Anthropic()
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {\"type\": \"text\", \"text\": \"以下是两张产品图，请比较它们的差异：\"},
+            {
+                \"type\": \"image\",
+                \"source\": {\"type\": \"url\", \"url\": \"https://example.com/product_v1.png\"},
+            },
+            {\"type\": \"text\", \"text\": \"第一张：产品旧版本\"},
+            {
+                \"type\": \"image\",
+                \"source\": {\"type\": \"url\", \"url\": \"https://example.com/product_v2.png\"},
+            },
+            {\"type\": \"text\", \"text\": \"第二张：产品新版本。请详细说明两个版本的视觉差异。\"},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-key\"><div class=\"card-label\">顺序的重要性</div><p>Claude 按照 content 数组的顺序理解内容。将说明文字紧跟在对应图片后面，能让模型正确建立图片与描述的对应关系，避免混淆。</p></div><h2>多图的 Token 消耗</h2><p>每张图片都会消耗一定数量的 token（取决于图片尺寸）。一次请求中图片越多，输入 token 越多，成本越高。建议只发送分析所必需的图片，避免冗余。</p><div class=\"card card-note\"><div class=\"card-label\">图片 Token 计算</div><p>Claude 的图片 token 消耗与图片的像素数有关。较大的图片会消耗更多 token。在批量多图场景下，适当压缩图片尺寸可以显著降低成本。</p></div><div class=\"key-points\"><h3>本节要点</h3><ul><li>content 数组中图片与文字可以自由混排</li><li>Claude 按数组顺序理解内容关系</li><li>说明文字应紧跟对应图片以建立正确关联</li><li>多图会增加 token 消耗，应只发分析必需的图片</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>在多图请求中，让 Claude 正确理解每张图对应说明的最佳方式是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q3\" value=\"a\"><span>把所有说明文字放在最前面，再放所有图片</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q3\" value=\"b\"><span>将说明文字紧跟在对应图片之后，让图文按逻辑顺序交替排列在 content 数组中</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q3\" value=\"c\"><span>把所有图片放在最前面，再写说明</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q3\" value=\"d\"><span>顺序无关紧要，Claude 会自动匹配</span></label></div><div class=\"quiz-result\" id=\"q3-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>多图对比分析</h3><ol><li>找两张相似但有差异的图片（如同一场景的不同时间）。</li><li>构造一个多图请求，让 Claude 比较它们的异同。</li><li>调整图片和文字的顺序，观察输出质量的变化。</li></ol></div></div>" },
+      ]
+    },
+    {
+      title: "图像理解任务",
+      lessons: [
+        { id: "image-description", title: "图像描述与内容分析", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块二</span><span>⏱ 10 分钟</span></div><h1>图像描述与内容分析</h1><p class=\"lesson-lead\">图像描述是最基础的视觉任务。掌握如何引导 Claude 给出详细、结构化的图像描述，是构建视觉应用的第一步。</p></div><div class=\"lesson-body\"><h2>从简单描述到深度分析</h2><p>通过调整提示词，你可以控制描述的详细程度和角度。简单的"描述这张图"会得到概括性回答；加入具体指令则能引导 Claude 关注特定细节。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"scene.jpg\", \"rb\") as f:
+    image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+# 结构化描述提示
+prompt = \"\"\"请对这张图片进行结构化分析，包括：
+1. 主体内容（画面中最显著的元素）
+2. 背景环境
+3. 颜色与光线特征
+4. 情感氛围
+5. 任何值得注意的细节\"\"\"
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/jpeg\",
+                    \"data\": image_data,
+                },
+            },
+            {\"type\": \"text\", \"text\": prompt},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-tip\"><div class=\"card-label\">提示词技巧</div><p>用编号列表明确要求分析维度，比模糊的"描述图片"能得到更结构化、更有用的输出。针对特定领域（医疗、产品、建筑）加入专业角度效果更好。</p></div><h2>用于无障碍场景</h2><p>图像描述的一个重要应用是为视障用户生成图片的文字替代（Alt Text）。Claude 能生成简洁、信息丰富的 Alt Text，提升应用的无障碍水平。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>具体的结构化提示词能引导出更有价值的描述</li><li>可按主体、背景、色调、情感等维度分层分析</li><li>图像描述可用于生成 Alt Text 提升无障碍水平</li><li>针对垂直领域加入专业角度能显著提升输出质量</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>想让 Claude 对一张产品图进行多维度的结构化描述，最有效的做法是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q4\" value=\"a\"><span>只发图片，不加任何文字说明</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q4\" value=\"b\"><span>在提示词中用编号列出具体的分析维度（如主体、背景、色彩、氛围），引导 Claude 逐项分析</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q4\" value=\"c\"><span>发送图片并附上"描述一下"</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q4\" value=\"d\"><span>把图片发送多次以获取更多细节</span></label></div><div class=\"quiz-result\" id=\"q4-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>结构化图像分析</h3><ol><li>选一张风景或产品照片，用结构化提示词让 Claude 分析。</li><li>对同一张图片，再用"简单描述"和"专业产品摄影角度分析"对比效果。</li><li>为这张图片生成一段适合网页使用的 Alt Text。</li></ol></div></div>" },
+        { id: "chart-analysis", title: "图表表格数据可视化解读", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块二</span><span>⏱ 12 分钟</span></div><h1>图表表格数据可视化解读</h1><p class=\"lesson-lead\">Claude 能够读懂折线图、柱状图、饼图、散点图等各类数据可视化图表，以及结构化表格。本节讲解如何引导它提取关键数据与洞察。</p></div><div class=\"lesson-body\"><h2>图表解读能力</h2><p>Claude 可以识别图表类型、读取坐标轴信息、提取数据点、识别趋势，并将可视化内容转化为文字或结构化数据。这对于自动化报告分析、数据提取等场景非常有用。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"sales_chart.png\", \"rb\") as f:
+    chart_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+prompt = \"\"\"请分析这张图表：
+1. 图表类型是什么？
+2. X轴和Y轴分别代表什么？
+3. 列出主要的数据点或数值
+4. 描述数据的总体趋势
+5. 指出最高点、最低点或其他异常值
+6. 用一句话总结这张图表的核心洞察\"\"\"
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/png\",
+                    \"data\": chart_data,
+                },
+            },
+            {\"type\": \"text\", \"text\": prompt},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-key\"><div class=\"card-label\">表格数据提取</div><p>对于图片中的表格，可以要求 Claude 将数据转换为 Markdown 表格、CSV 格式或 JSON 结构，方便后续程序处理。</p></div><h2>数据提取为结构化格式</h2><p>让 Claude 把图表数据输出为 JSON 或 CSV，可以直接用于后续的数据处理流程，大大减少手动录入工作。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>Claude 能识别图表类型、坐标轴、数据点与趋势</li><li>结构化提示词能引导提取特定数据维度</li><li>可要求输出 JSON、CSV 等结构化格式便于程序处理</li><li>表格图片可直接转为 Markdown 表格</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>想从图表图片中自动提取数据并用于后续程序处理，最合理的做法是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q5\" value=\"a\"><span>让 Claude 描述图表，然后手动把数字复制出来</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q5\" value=\"b\"><span>在提示词中明确要求 Claude 将数据输出为 JSON 或 CSV 格式，直接供程序解析使用</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q5\" value=\"c\"><span>Claude 无法从图表中提取具体数值</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q5\" value=\"d\"><span>先用图像编辑软件处理，再让 Claude 分析</span></label></div><div class=\"quiz-result\" id=\"q5-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>图表数据提取</h3><ol><li>找一张包含折线图或柱状图的截图。</li><li>让 Claude 提取所有数据点并输出为 JSON 格式。</li><li>用 Python 解析这个 JSON，验证数据的准确性。</li></ol></div></div>" },
+        { id: "ui-screenshot", title: "UI截图分析与操作建议", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块二</span><span>⏱ 12 分钟</span></div><h1>UI截图分析与操作建议</h1><p class=\"lesson-lead\">Claude 能够理解应用界面截图，识别 UI 元素、布局结构，并给出操作建议或问题诊断。这是构建智能测试、用户支持等应用的基础。</p></div><div class=\"lesson-body\"><h2>UI 理解能力</h2><p>Claude 可以识别按钮、输入框、菜单、列表、对话框等常见 UI 组件，理解界面层级关系，并根据用户意图给出具体的操作步骤建议。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"app_screenshot.png\", \"rb\") as f:
+    screenshot_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+# 用户支持场景：分析截图并给出操作指引
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/png\",
+                    \"data\": screenshot_data,
+                },
+            },
+            {
+                \"type\": \"text\",
+                \"text\": \"这是一个电商应用的截图。用户想要完成退款申请，请根据截图中可见的界面元素，给出具体的操作步骤。\",
+            },
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-tip\"><div class=\"card-label\">应用场景</div><p>UI 截图分析可用于：自动化测试的错误诊断、用户支持的操作指导、无障碍审查、UI 评审反馈生成、以及构建视觉感知的 AI 助手。</p></div><h2>UI 问题诊断</h2><p>对于报错截图或异常状态，Claude 能识别错误信息、定位问题元素，并给出可能的解决方案。这在技术支持场景中极为实用。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>Claude 能识别按钮、输入框、菜单等 UI 元素</li><li>可根据用户意图给出具体操作步骤建议</li><li>适用于用户支持、自动化测试、无障碍审查等场景</li><li>报错截图可用于问题诊断和解决方案建议</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>在用户支持系统中，Claude 分析 UI 截图最核心的价值是什么？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q6\" value=\"a\"><span>自动修复用户界面的 bug</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q6\" value=\"b\"><span>根据截图识别界面状态，理解用户意图，给出具体可操作的步骤建议，无需用户文字描述问题</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q6\" value=\"c\"><span>替代人工客服的全部工作</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q6\" value=\"d\"><span>重新设计应用界面</span></label></div><div class=\"quiz-result\" id=\"q6-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>UI 操作指引生成</h3><ol><li>截一张你常用应用的界面图。</li><li>让 Claude 识别其中的主要 UI 元素并列出它们的功能。</li><li>给定一个具体任务（如"修改密码"），让 Claude 根据截图给出操作步骤。</li></ol></div></div>" },
+        { id: "ocr", title: "OCR从图像提取文字", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块二</span><span>⏱ 10 分钟</span></div><h1>OCR从图像提取文字</h1><p class=\"lesson-lead\">Claude 内置了强大的文字识别能力，无需单独的 OCR 引擎即可从图片中提取文本，并能理解文字的上下文含义。</p></div><div class=\"lesson-body\"><h2>OCR 的优势与适用场景</h2><p>与传统 OCR 工具相比，Claude 的文字提取不仅识别字符，还能理解文字含义、自动处理排版格式，并对图片中的文字进行结构化整理。适用场景包括：名片识别、菜单文字提取、路牌翻译、手写笔记数字化等。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"receipt.jpg\", \"rb\") as f:
+    image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/jpeg\",
+                    \"data\": image_data,
+                },
+            },
+            {
+                \"type\": \"text\",
+                \"text\": \"请提取这张收据图片中的所有文字，保留原始排版格式，并在最后用 JSON 格式输出：商家名称、日期、各项目金额、总金额。\",
+            },
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-key\"><div class=\"card-label\">中英文混排处理</div><p>Claude 能很好地处理中英文混排、数字与文字混合的情况。对于含有多种语言的图片，可以在提示词中指定目标语言，让 Claude 同时完成识别和翻译。</p></div><h2>手写文字识别</h2><p>Claude 对清晰的手写文字有一定识别能力，但准确率低于印刷体。建议在手写场景下明确告知 Claude 这是手写内容，并说明可能存在的不确定性。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>Claude 不依赖传统 OCR 引擎，直接理解图片中的文字</li><li>能同时识别文字并理解语义，支持结构化输出</li><li>适合名片、收据、菜单、路牌等场景</li><li>手写文字识别可行但准确率低于印刷体</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>Claude 的图像文字提取相比传统 OCR 工具最显著的优势是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q7\" value=\"a\"><span>处理速度更快</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q7\" value=\"b\"><span>不仅识别字符，还能理解文字含义并直接输出结构化结果，无需额外的自然语言处理步骤</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q7\" value=\"c\"><span>支持更多图片格式</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q7\" value=\"d\"><span>可以处理完全看不清的图片</span></label></div><div class=\"quiz-result\" id=\"q7-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>收据文字提取</h3><ol><li>拍一张购物小票或发票的照片。</li><li>让 Claude 提取所有文字并以 JSON 格式输出关键字段。</li><li>验证提取结果的准确性，记录识别失败的情况。</li></ol></div></div>" },
+      ]
+    },
+    {
+      title: "文档处理",
+      lessons: [
+        { id: "pdf-understanding", title: "PDF文档理解与内容提取", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块三</span><span>⏱ 12 分钟</span></div><h1>PDF文档理解与内容提取</h1><p class=\"lesson-lead\">Claude 支持直接处理 PDF 文档，能够理解文档结构、提取内容，并回答关于文档的问题。本节讲解 PDF 处理的核心技巧。</p></div><div class=\"lesson-body\"><h2>PDF 输入方式</h2><p>与图片类似，PDF 也可以通过 Base64 编码或 URL 方式传入。Claude 会自动处理 PDF 的多页内容，理解页眉页脚、标题层级、段落结构等文档元素。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"contract.pdf\", \"rb\") as f:
+    pdf_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=2048,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"document\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"application/pdf\",
+                    \"data\": pdf_data,
+                },
+            },
+            {
+                \"type\": \"text\",
+                \"text\": \"请分析这份合同，提取：1）合同双方；2）主要条款摘要；3）关键日期；4）违约责任条款。\",
+            },
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-key\"><div class=\"card-label\">文档问答模式</div><p>除了一次性提取所有内容，还可以采用问答模式：先发送 PDF，然后针对文档内容提出具体问题。Claude 会在文档范围内寻找答案，适合合同审查、法律文书分析等场景。</p></div><h2>处理技术文档</h2><p>对于技术规格书、API 文档、研究报告等结构复杂的文档，可以让 Claude 先生成文档大纲，再针对特定章节深入提问，有助于从长文档中快速获取所需信息。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>PDF 支持 Base64 和 URL 两种传入方式</li><li>Claude 能理解 PDF 的页面结构和内容层级</li><li>问答模式适合针对长文档的精准信息提取</li><li>适用于合同分析、研究报告、技术文档等场景</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>处理一份 50 页的合同 PDF，想快速找到违约责任条款，最高效的做法是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q8\" value=\"a\"><span>让 Claude 逐页朗读全部内容</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q8\" value=\"b\"><span>发送 PDF 后直接提问"请找出违约责任相关的所有条款并摘要说明"，让 Claude 在文档范围内定向检索</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q8\" value=\"c\"><span>先把 PDF 转成图片再一张张发给 Claude</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q8\" value=\"d\"><span>Claude 无法处理超过 10 页的 PDF</span></label></div><div class=\"quiz-result\" id=\"q8-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>合同要点提取</h3><ol><li>找一份公开的合同或协议 PDF（如用户协议）。</li><li>让 Claude 提取双方、主要义务、有效期等关键信息。</li><li>针对文档中的某个具体条款提问，验证 Claude 的定向检索能力。</li></ol></div></div>" },
+        { id: "form-extraction", title: "表单识别与结构化数据提取", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块三</span><span>⏱ 12 分钟</span></div><h1>表单识别与结构化数据提取</h1><p class=\"lesson-lead\">各类纸质表单的数字化是高频业务需求。Claude 能从表单图片或 PDF 中识别字段并提取结构化数据，大幅减少人工录入。</p></div><div class=\"lesson-body\"><h2>表单识别原理</h2><p>Claude 通过理解表单的视觉布局（标签与填写区域的位置关系），识别各个字段名称及其对应的填写内容。对于标准化表单效果最好，对于手写填写的内容也有一定识别能力。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+import json
+
+client = anthropic.Anthropic()
+
+with open(\"registration_form.jpg\", \"rb\") as f:
+    form_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/jpeg\",
+                    \"data\": form_data,
+                },
+            },
+            {
+                \"type\": \"text\",
+                \"text\": \"请识别这份表单中的所有字段，并以 JSON 格式输出字段名和对应的填写内容。如果某个字段为空白，用 null 表示。只输出 JSON，不要其他说明文字。\",
+            },
+        ],
+    }],
+)
+
+# 直接解析 JSON 输出
+result = json.loads(resp.content[0].text)
+print(json.dumps(result, ensure_ascii=False, indent=2))</pre></div><div class=\"card card-warn\"><div class=\"card-label\">准确率与验证</div><p>表单识别的准确率受图片质量和表单复杂度影响。在生产环境中，建议对提取结果进行人工抽检或设置关键字段的格式校验，避免因识别错误导致业务问题。</p></div><h2>多种表单类型</h2><p>Claude 能处理各类常见表单：入职登记表、报销凭证、调查问卷、申请表格等。对于需要频繁处理的固定格式表单，可以在提示词中描述表单结构以提升准确率。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>Claude 通过视觉布局识别表单字段与填写内容</li><li>要求 JSON 输出便于后续程序直接处理</li><li>生产环境需对提取结果进行校验</li><li>在提示词中描述表单结构可提升准确率</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>在生产环境中自动处理表单数据提取，为什么需要添加格式校验？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q9\" value=\"a\"><span>Claude 完全无法识别表单</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q9\" value=\"b\"><span>图片质量和表单复杂度会影响识别准确率，校验可以捕获格式异常并触发人工复核，避免错误数据进入业务系统</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q9\" value=\"c\"><span>校验只是为了让代码看起来更专业</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q9\" value=\"d\"><span>Claude 的输出格式不固定，所以无法校验</span></label></div><div class=\"quiz-result\" id=\"q9-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>表单数字化</h3><ol><li>拍一张手写或打印的简单表单（如报名表）。</li><li>让 Claude 以 JSON 格式提取所有字段。</li><li>编写简单的格式校验逻辑，检查必填字段是否为 null。</li></ol></div></div>" },
+        { id: "multi-page", title: "多页文档策略分页vs整合", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块三</span><span>⏱ 12 分钟</span></div><h1>多页文档策略分页vs整合</h1><p class=\"lesson-lead\">处理多页文档时，面临两种选择：逐页分析再汇总，还是整体传入一次处理。两种策略各有优劣，选择取决于文档长度和任务需求。</p></div><div class=\"lesson-body\"><h2>整合策略：一次性处理</h2><p>将整份文档（PDF 或多图）一次性发给 Claude，适合页数较少、需要跨页理解的任务（如合同理解、报告分析）。Claude 能理解跨页的上下文关系，给出连贯的分析。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+# 整合策略：直接发送完整 PDF
+with open(\"report.pdf\", \"rb\") as f:
+    pdf_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=2048,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"document\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"application/pdf\",
+                    \"data\": pdf_data,
+                },
+            },
+            {\"type\": \"text\", \"text\": \"请生成这份报告的完整摘要，包括主要发现和结论。\"},
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><h2>分页策略：逐页处理再汇总</h2><p>对于超长文档（超过上下文窗口限制），或需要对每页做独立处理的场景，分页策略更合适。逐页提取后，再用一次汇总请求整合所有页面的结果。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+from PIL import Image
+import io
+
+client = anthropic.Anthropic()
+
+def process_page(page_image_bytes, page_num):
+    img_data = base64.standard_b64encode(page_image_bytes).decode(\"utf-8\")
+    resp = client.messages.create(
+        model=\"claude-sonnet-4-20250514\",
+        max_tokens=512,
+        messages=[{
+            \"role\": \"user\",
+            \"content\": [
+                {
+                    \"type\": \"image\",
+                    \"source\": {
+                        \"type\": \"base64\",
+                        \"media_type\": \"image/png\",
+                        \"data\": img_data,
+                    },
+                },
+                {\"type\": \"text\", \"text\": f\"第{page_num}页：请提取本页的关键信息要点。\"},
+            ],
+        }],
+    )
+    return resp.content[0].text
+
+# 汇总所有页面结果
+page_summaries = []
+# for i, page in enumerate(pages):
+#     summary = process_page(page, i+1)
+#     page_summaries.append(summary)
+
+# 最终汇总
+# final_summary = summarize_all(page_summaries)</pre></div><div class=\"card card-key\"><div class=\"card-label\">选择原则</div><p>文档 &lt; 20页且需跨页理解 → <strong>整合策略</strong>。文档超长或需对每页独立处理 → <strong>分页策略</strong>。分页处理完后，用一次汇总请求整合所有页面的输出。</p></div><div class=\"key-points\"><h3>本节要点</h3><ul><li>整合策略适合短文档和需要跨页理解的任务</li><li>分页策略适合超长文档，避免超出上下文窗口</li><li>分页后可用一次汇总请求整合所有页面结果</li><li>选择策略取决于文档长度和任务类型</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>一份 100 页的年度报告需要提取每章的关键数据，应该选哪种策略？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q10\" value=\"a\"><span>整合策略，一次性发送全部 100 页</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q10\" value=\"b\"><span>分页策略，逐章或逐页提取关键数据，再汇总成最终结果，避免超出上下文窗口</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q10\" value=\"c\"><span>Claude 无法处理超过 50 页的文档</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q10\" value=\"d\"><span>把报告转成纯文本再处理</span></label></div><div class=\"quiz-result\" id=\"q10-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>长文档处理策略实践</h3><ol><li>找一份超过 20 页的 PDF（如产品手册）。</li><li>分别用整合和分页策略提取目录或关键章节摘要。</li><li>比较两种策略的输出质量和 token 消耗。</li></ol></div></div>" },
+        { id: "low-quality", title: "扫描件低质量图像处理技巧", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块三</span><span>⏱ 10 分钟</span></div><h1>扫描件低质量图像处理技巧</h1><p class=\"lesson-lead\">现实中的文档往往不完美：扫描件可能模糊、倾斜、有污渍。本节介绍处理低质量图像的实用技巧。</p></div><div class=\"lesson-body\"><h2>常见图像质量问题</h2><ul><li><strong>模糊</strong>：扫描分辨率低或拍摄时抖动</li><li><strong>倾斜</strong>：文档放置不正，文字行倾斜</li><li><strong>低对比度</strong>：墨迹淡、纸张泛黄</li><li><strong>部分遮挡</strong>：折叠、污渍覆盖部分文字</li></ul><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+
+client = anthropic.Anthropic()
+
+with open(\"blurry_scan.jpg\", \"rb\") as f:
+    image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+# 告知 Claude 图像质量情况，引导更谨慎的处理
+resp = client.messages.create(
+    model=\"claude-sonnet-4-20250514\",
+    max_tokens=1024,
+    messages=[{
+        \"role\": \"user\",
+        \"content\": [
+            {
+                \"type\": \"image\",
+                \"source\": {
+                    \"type\": \"base64\",
+                    \"media_type\": \"image/jpeg\",
+                    \"data\": image_data,
+                },
+            },
+            {
+                \"type\": \"text\",
+                \"text\": \"这是一张扫描质量较差的老旧文件，可能存在模糊和污渍。请尽力识别其中的文字，对于无法确认的内容用[unclear]标记，不要随意猜测。\",
+            },
+        ],
+    }],
+)
+print(resp.content[0].text)</pre></div><div class=\"card card-tip\"><div class=\"card-label\">预处理建议</div><p>在发送前用图像处理库对扫描件进行预处理，可以显著提升识别效果：提高对比度、二值化处理、去噪、自动纠偏。Python 的 Pillow 或 OpenCV 都能完成这些操作。</p></div><h2>不确定性处理</h2><p>在提示词中明确要求 Claude 对无法识别的内容用特定标记（如 [unclear]）而非随意猜测，有助于后续的人工复核流程——知道哪些地方需要重点检查。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>在提示词中告知图像质量情况引导更谨慎处理</li><li>要求对不确定内容用标记而非猜测</li><li>发送前预处理（增强对比度、去噪、纠偏）可提升效果</li><li>低质量图像结果应加入人工复核流程</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>处理模糊扫描件时，为什么要在提示词中要求 Claude 用 [unclear] 标记不确定内容？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q11\" value=\"a\"><span>让输出看起来更专业</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q11\" value=\"b\"><span>防止 Claude 对无法确认的文字进行错误猜测，确保不确定内容有明确标记以便人工复核，保障数据准确性</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q11\" value=\"c\"><span>减少输出的 token 数量</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q11\" value=\"d\"><span>Claude 默认就会这样处理</span></label></div><div class=\"quiz-result\" id=\"q11-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>低质量图像处理</h3><ol><li>找一张对比度较低或轻微模糊的文档图片。</li><li>直接发送并让 Claude 识别，记录 [unclear] 标记的位置。</li><li>用 Pillow 增强对比度后再试一次，对比两次的识别准确率。</li></ol></div></div>" },
+      ]
+    },
+    {
+      title: "综合应用实战",
+      lessons: [
+        { id: "image-qa-app", title: "构建图片问答应用", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块四</span><span>⏱ 15 分钟</span></div><h1>构建图片问答应用</h1><p class=\"lesson-lead\">将视觉理解能力包装成用户友好的图片问答应用，是多模态能力落地的典型场景。本节带你从零搭建一个可交互的图片问答系统。</p></div><div class=\"lesson-body\"><h2>应用设计思路</h2><p>图片问答应用的核心是：用户上传图片 + 输入问题 → 系统将图片与问题打包发给 Claude → 返回回答给用户。关键设计点在于会话管理（支持对同一图片的多轮追问）和响应格式优化。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+from pathlib import Path
+
+client = anthropic.Anthropic()
+
+class ImageQASession:
+    \"\"\"支持对同一图片进行多轮问答的会话类\"\"\"
+
+    def __init__(self, image_path: str):
+        self.history = []
+        # 加载图片并编码
+        with open(image_path, \"rb\") as f:
+            self.image_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+        suffix = Path(image_path).suffix.lower()
+        media_map = {\".jpg\": \"image/jpeg\", \".jpeg\": \"image/jpeg\",
+                     \".png\": \"image/png\", \".webp\": \"image/webp\"}
+        self.media_type = media_map.get(suffix, \"image/jpeg\")
+        # 图片只在第一轮发送，后续轮次省略以节省 token
+        self._image_sent = False
+
+    def ask(self, question: str) -> str:
+        if not self._image_sent:
+            user_content = [
+                {
+                    \"type\": \"image\",
+                    \"source\": {
+                        \"type\": \"base64\",
+                        \"media_type\": self.media_type,
+                        \"data\": self.image_data,
+                    },
+                },
+                {\"type\": \"text\", \"text\": question},
+            ]
+            self._image_sent = True
+        else:
+            user_content = question
+
+        self.history.append({\"role\": \"user\", \"content\": user_content})
+
+        resp = client.messages.create(
+            model=\"claude-sonnet-4-20250514\",
+            max_tokens=1024,
+            system=\"你是一个专业的图像分析助手，根据用户上传的图片回答问题。回答简洁准确，如果图片中没有相关信息请直说。\",
+            messages=self.history,
+        )
+
+        answer = resp.content[0].text
+        self.history.append({\"role\": \"assistant\", \"content\": answer})
+        return answer
+
+# 使用示例
+session = ImageQASession(\"product.jpg\")
+print(session.ask(\"这张图片里有什么产品？\"))
+print(session.ask(\"这个产品的颜色是什么？\"))
+print(session.ask(\"图片的背景是什么风格？\"))</pre></div><div class=\"card card-tip\"><div class=\"card-label\">Token 优化</div><p>在多轮对话中，图片只需在第一轮发送，后续轮次只发文字问题即可。Claude 会通过对话历史记住图片内容，这样能大幅减少后续轮次的 token 消耗。</p></div><h2>扩展方向</h2><p>在此基础上，可以扩展：支持用户上传多张图片进行对比问答、加入语音输入（语音转文字后再问图）、将回答结构化为 JSON 供前端渲染，以及实现流式输出提升用户体验。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>用会话类管理图片和对话历史支持多轮追问</li><li>图片只在第一轮发送，后续轮次只发文字</li><li>system prompt 设定助手角色和回答规范</li><li>可扩展为多图对比、语音输入、流式输出等</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>在图片多轮问答会话中，为什么图片只需在第一轮发送？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q12\" value=\"a\"><span>Claude 会自动忽略重复发送的图片</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q12\" value=\"b\"><span>通过在 messages 历史中保留第一轮的图片内容块，Claude 在后续轮次依然能访问图片信息，重复发送只会浪费 token</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q12\" value=\"c\"><span>第二轮之后 Claude 不再支持视觉</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q12\" value=\"d\"><span>图片不能在 messages 历史中保存</span></label></div><div class=\"quiz-result\" id=\"q12-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>搭建图片问答会话</h3><ol><li>实现上面的 ImageQASession 类并测试多轮问答。</li><li>测量图片在第一轮和后续轮次的 token 消耗差异。</li><li>添加流式输出支持，让回答逐字显示。</li></ol></div></div>" },
+        { id: "screenshot-analysis", title: "构建自动截图分析工具", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块四</span><span>⏱ 15 分钟</span></div><h1>构建自动截图分析工具</h1><p class=\"lesson-lead\">自动截图分析工具能定期截取屏幕并分析状态变化，适用于监控仪表盘、自动化测试验证、竞品监测等场景。</p></div><div class=\"lesson-body\"><h2>工具设计</h2><p>核心流程：定时截图 → 发送给 Claude 分析 → 提取关键指标 → 与历史状态对比 → 触发告警或记录。这个模式可以应用于监控网页状态、追踪数据变化等场景。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+import json
+from datetime import datetime
+
+client = anthropic.Anthropic()
+
+def analyze_screenshot(screenshot_path: str, analysis_focus: str) -> dict:
+    \"\"\"分析截图并返回结构化结果\"\"\"
+    with open(screenshot_path, \"rb\") as f:
+        img_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+    prompt = f\"\"\"分析这张截图，重点关注：{analysis_focus}
+
+请以 JSON 格式输出分析结果，包含：
+- summary: 整体状态摘要（一句话）
+- key_metrics: 关键指标字典（如有数字数据）
+- anomalies: 异常或需要注意的情况列表
+- status: 整体状态评估（normal/warning/error）\"\"\"
+
+    resp = client.messages.create(
+        model=\"claude-sonnet-4-20250514\",
+        max_tokens=1024,
+        messages=[{
+            \"role\": \"user\",
+            \"content\": [
+                {
+                    \"type\": \"image\",
+                    \"source\": {
+                        \"type\": \"base64\",
+                        \"media_type\": \"image/png\",
+                        \"data\": img_data,
+                    },
+                },
+                {\"type\": \"text\", \"text\": prompt},
+            ],
+        }],
+    )
+
+    try:
+        result = json.loads(resp.content[0].text)
+    except json.JSONDecodeError:
+        result = {\"summary\": resp.content[0].text, \"status\": \"unknown\"}
+
+    result[\"analyzed_at\"] = datetime.now().isoformat()
+    result[\"screenshot\"] = screenshot_path
+    return result
+
+# 使用示例
+result = analyze_screenshot(
+    \"dashboard.png\",
+    \"服务器CPU使用率、内存占用、错误日志数量\"
+)
+print(json.dumps(result, ensure_ascii=False, indent=2))
+
+if result.get(\"status\") == \"error\":
+    print(\"告警：检测到异常状态！\")</pre></div><div class=\"card card-key\"><div class=\"card-label\">差异对比</div><p>要检测状态变化，可以保存上一次的分析结果，与本次对比关键指标的差异。当差异超过阈值时触发告警，实现自动监控。</p></div><h2>批量截图处理</h2><p>对于需要分析多个页面或多个时间点截图的场景，可以结合异步调用批量处理，显著提升效率。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>截图分析工具核心流程：截图→分析→提取→对比→告警</li><li>要求 JSON 输出便于程序化处理分析结果</li><li>通过对比历史结果检测状态变化</li><li>异步批量处理可提升多截图场景的效率</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>构建自动截图监控工具时，要求 Claude 以 JSON 格式输出的主要目的是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q13\" value=\"a\"><span>让输出更易于人类阅读</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q13\" value=\"b\"><span>便于程序直接解析提取关键指标，实现与历史数据的自动对比和告警触发，无需人工解读</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q13\" value=\"c\"><span>JSON 格式的 token 消耗更少</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q13\" value=\"d\"><span>Claude 只能输出 JSON</span></label></div><div class=\"quiz-result\" id=\"q13-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>搭建截图分析工具</h3><ol><li>实现 analyze_screenshot 函数并测试一张真实的仪表盘截图。</li><li>连续分析同一页面的两张截图，编写对比逻辑找出变化的指标。</li><li>设置一个简单的告警条件（如某指标超过阈值），验证告警触发。</li></ol></div></div>" },
+        { id: "invoice-processing", title: "构建发票与单据自动处理系统", html: "<div class=\"lesson-header\"><div class=\"lesson-meta\"><span class=\"module-tag\">模块四</span><span>⏱ 15 分钟</span></div><h1>构建发票与单据自动处理系统</h1><p class=\"lesson-lead\">发票与单据处理是多模态视觉能力最具实际业务价值的应用之一。本节带你构建一个完整的发票自动识别与数据入库系统。</p></div><div class=\"lesson-body\"><h2>系统设计</h2><p>发票处理系统的核心流程：接收发票图片/PDF → Claude 识别并提取结构化字段 → 格式校验 → 数据入库/导出。关键在于定义好输出的数据结构，并加入完善的错误处理和人工复核机制。</p><div class=\"code-block\"><div class=\"cb-header\"><span class=\"cb-lang\">python</span><button class=\"copy-btn\" onclick=\"copyPrompt(this)\">复制</button></div><pre>import anthropic
+import base64
+import json
+from dataclasses import dataclass
+from typing import Optional
+
+client = anthropic.Anthropic()
+
+@dataclass
+class InvoiceData:
+    invoice_number: str
+    invoice_date: str
+    vendor_name: str
+    vendor_tax_id: Optional[str]
+    buyer_name: str
+    items: list
+    subtotal: float
+    tax_amount: float
+    total_amount: float
+    currency: str
+    confidence: str  # high/medium/low
+
+def extract_invoice(image_path: str) -> InvoiceData:
+    with open(image_path, \"rb\") as f:
+        img_data = base64.standard_b64encode(f.read()).decode(\"utf-8\")
+
+    schema = {
+        \"invoice_number\": \"发票号码\",
+        \"invoice_date\": \"开票日期 (YYYY-MM-DD)\",
+        \"vendor_name\": \"销售方名称\",
+        \"vendor_tax_id\": \"销售方税号（如无则 null）\",
+        \"buyer_name\": \"购买方名称\",
+        \"items\": [{\"name\": \"品名\", \"quantity\": \"数量\", \"unit_price\": \"单价\", \"amount\": \"金额\"}],
+        \"subtotal\": \"合计金额（不含税）\",
+        \"tax_amount\": \"税额\",
+        \"total_amount\": \"价税合计\",
+        \"currency\": \"货币单位（如 CNY）\",
+        \"confidence\": \"识别置信度 high/medium/low\"
+    }
+
+    resp = client.messages.create(
+        model=\"claude-sonnet-4-20250514\",
+        max_tokens=2048,
+        messages=[{
+            \"role\": \"user\",
+            \"content\": [
+                {
+                    \"type\": \"image\",
+                    \"source\": {
+                        \"type\": \"base64\",
+                        \"media_type\": \"image/jpeg\",
+                        \"data\": img_data,
+                    },
+                },
+                {
+                    \"type\": \"text\",
+                    \"text\": f\"请识别这张发票，按以下 JSON 结构输出数据，只输出 JSON：\\n{json.dumps(schema, ensure_ascii=False)}\",
+                },
+            ],
+        }],
+    )
+
+    data = json.loads(resp.content[0].text)
+    return InvoiceData(**data)
+
+def validate_invoice(invoice: InvoiceData) -> list:
+    \"\"\"校验发票数据，返回错误列表\"\"\"
+    errors = []
+    if not invoice.invoice_number:
+        errors.append(\"发票号码为空\")
+    if abs(invoice.subtotal + invoice.tax_amount - invoice.total_amount) > 0.01:
+        errors.append(\"金额合计不平衡\")
+    if invoice.confidence == \"low\":
+        errors.append(\"识别置信度低，建议人工复核\")
+    return errors
+
+# 使用示例
+invoice = extract_invoice(\"invoice.jpg\")
+errors = validate_invoice(invoice)
+if errors:
+    print(\"需要人工复核：\", errors)
+else:
+    print(\"发票识别成功：\", invoice.invoice_number, invoice.total_amount)</pre></div><div class=\"card card-warn\"><div class=\"card-label\">合规提示</div><p>发票数据涉及财务合规，自动处理系统必须保留原始图片存档，对识别结果设置审核流程，不建议完全无人工干预地自动入账。</p></div><h2>批量处理</h2><p>企业场景下往往需要批量处理大量发票。可以结合异步调用和队列系统，实现高吞吐的发票批处理流水线，同时对低置信度的结果自动路由到人工复核队列。</p><div class=\"key-points\"><h3>本节要点</h3><ul><li>用数据类定义发票结构确保字段完整性</li><li>在提示词中嵌入 JSON schema 引导结构化输出</li><li>格式校验和金额核对是必要的质量保障</li><li>置信度字段用于自动路由人工复核</li></ul></div><div class=\"quiz\"><div class=\"quiz-label\">随堂测验</div><h3>在发票自动处理系统中，设置"识别置信度"字段的主要作用是？</h3><div class=\"quiz-options\"><label class=\"quiz-option\"><input type=\"radio\" name=\"q14\" value=\"a\"><span>只是为了让输出更好看</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q14\" value=\"b\"><span>根据置信度自动路由处理流程：高置信度直接入库，低置信度触发人工复核，在自动化效率和数据准确性之间取得平衡</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q14\" value=\"c\"><span>置信度高的发票不需要存档</span></label><label class=\"quiz-option\"><input type=\"radio\" name=\"q14\" value=\"d\"><span>置信度字段影响 API 计费</span></label></div><div class=\"quiz-result\" id=\"q14-result\"></div></div><div class=\"exercise\"><div class=\"exercise-label\">动手练习</div><h3>构建发票处理流水线</h3><ol><li>实现 extract_invoice 和 validate_invoice 函数，用真实发票测试。</li><li>添加金额一致性校验：subtotal + tax_amount 应等于 total_amount。</li><li>模拟批量处理 5 张发票，统计高/中/低置信度的比例。</li></ol></div></div>" },
+      ]
+    },
+  ],
+  answers: { q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b', q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b', q11: 'b', q12: 'b', q13: 'b', q14: 'b' }
+};
+</script>
+<script src="/courses/engine.js"></script>
+</body>
+</html>
