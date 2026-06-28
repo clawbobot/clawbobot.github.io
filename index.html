@@ -176,7 +176,7 @@
           <h1 data-i18n-html="heroTitle">Hi, I'm <span>Bob Pan.</span></h1>
           <p class="hero-copy" data-i18n="heroCopy">I build open-source AI developer tools, bilingual interfaces, and practical agent workflows — and created the Anthropic 学院 Chinese course platform.</p>
           <div class="actions">
-            <a class="button primary" href="/courses/" data-i18n="viewCourses">探索 Anthropic 学院</a>
+            <a class="button primary" href="/play-ai-school/" data-i18n="viewCourses">探索 AI 学院</a>
             <a class="button" href="#projects" data-i18n="viewProjects">查看项目</a>
             <a class="button" href="https://github.com/clawbobot" data-i18n="githubProfile">GitHub</a>
           </div>
@@ -201,105 +201,125 @@ Building in public</pre>
       <section id="courses">
         <div class="section-heading">
           <div>
-            <p class="eyebrow" data-i18n="coursesEyebrow">Anthropic 学院</p>
-            <h2 data-i18n="coursesTitle">中文课程平台</h2>
+            <p class="eyebrow" data-i18n="coursesEyebrow">AI 学院</p>
+            <h2 data-i18n="coursesTitle">中文学习版</h2>
           </div>
-          <p data-i18n="coursesIntro">7 门体系化课程，118 节课，从 Claude 零基础到生产级 Agent 系统开发。每节课配代码示例、小测验与动手练习，全部免费开放。</p>
+          <p data-i18n="coursesIntro">6 门 Anthropic 官方课程 + 3 门 OpenAI Academy 课程，全中文讲解，94 节课，完全免费。</p>
         </div>
 
         <!-- Academy banner -->
         <div class="academy-banner">
           <div>
-            <div class="academy-badge">🎓 Anthropic 学院</div>
-            <h3 data-i18n="academyTitle">系统学习 Claude 与 AI 开发全栈技能</h3>
-            <p data-i18n="academyDesc">从零开始到构建自主 Agent，7 门中文课程覆盖 API 基础、提示词工程、工具调用、Agent 架构、MCP 协议与多模态应用。</p>
+            <div class="academy-badge">🎓 AI 学院 · 中文学习版</div>
+            <h3 data-i18n="academyTitle">掌握 AI，从基础到智能体</h3>
+            <p data-i18n="academyDesc">Claude 101、Claude Code、MCP、Agent Skills、Subagents，以及 OpenAI Academy 全套 AI 基础课程。进度自动保存，随时续学。</p>
             <div class="academy-stats">
-              <div class="a-stat"><span class="a-stat-num">7</span><span class="a-stat-label" data-i18n="statCourses">门课程</span></div>
-              <div class="a-stat"><span class="a-stat-num">118</span><span class="a-stat-label" data-i18n="statLessons">节课</span></div>
-              <div class="a-stat"><span class="a-stat-num">26h+</span><span class="a-stat-label" data-i18n="statHours">学习时长</span></div>
+              <div class="a-stat"><span class="a-stat-num">9</span><span class="a-stat-label" data-i18n="statCourses">门课程</span></div>
+              <div class="a-stat"><span class="a-stat-num">94</span><span class="a-stat-label" data-i18n="statLessons">节课</span></div>
+              <div class="a-stat"><span class="a-stat-num">33</span><span class="a-stat-label" data-i18n="statModules">个模块</span></div>
             </div>
           </div>
           <div class="academy-cta">
-            <a class="button primary" href="/courses/" data-i18n="enterAcademy">进入学院 →</a>
+            <a class="button primary" href="/play-ai-school/" data-i18n="enterAcademy">进入学院 →</a>
             <p style="font-size:0.78rem;color:var(--muted);margin-top:0.75rem;text-align:center" data-i18n="freeLabel">全部免费</p>
           </div>
         </div>
 
-        <!-- Course cards -->
+        <!-- Course cards — Anthropic -->
+        <p style="font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 0.75rem" data-i18n="anthropicLabel">🔶 Anthropic 学院</p>
         <div class="course-grid">
-          <a href="/courses/claude-101/" class="course-card">
+          <a href="/play-ai-school/" class="course-card">
             <div class="c-icon">🚀</div>
             <span class="c-level level-beginner" data-i18n="levelBeginner">入门</span>
-            <h3 data-i18n="c0Title">Claude 101 · 从入门到实战</h3>
-            <p data-i18n="c0Desc">零基础入门，掌握对话技巧、Projects、Artifacts、工具集成与研究模式。</p>
+            <h3 data-i18n="c0Title">Claude 101</h3>
+            <p data-i18n="c0Desc">用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</p>
             <div class="course-footer">
-              <span data-i18n="c0Stats">5 模块 · 14 节 · 约 2 小时</span>
+              <span data-i18n="c0Stats">5 模块 · 14 节</span>
               <span class="course-arrow">→</span>
             </div>
           </a>
-
-          <a href="/courses/api-basics/" class="course-card">
-            <div class="c-icon">🔑</div>
-            <span class="c-level level-beginner" data-i18n="levelBeginner">入门</span>
-            <h3 data-i18n="c1Title">Claude API 基础</h3>
-            <p data-i18n="c1Desc">SDK 安装、Messages API、流式输出、错误处理与成本控制全覆盖。</p>
-            <div class="course-footer">
-              <span data-i18n="c1Stats">5 模块 · 17 节 · 约 3 小时</span>
-              <span class="course-arrow">→</span>
-            </div>
-          </a>
-
-          <a href="/courses/prompt-engineering/" class="course-card">
-            <div class="c-icon">✍️</div>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">💻</div>
             <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
-            <h3 data-i18n="c2Title">提示词工程</h3>
-            <p data-i18n="c2Desc">角色设定、思维链、少样本学习、结构化输出与自动化评估。</p>
+            <h3 data-i18n="c1Title">Claude Code 101</h3>
+            <p data-i18n="c1Desc">在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</p>
             <div class="course-footer">
-              <span data-i18n="c2Stats">6 模块 · 21 节 · 约 4 小时</span>
+              <span data-i18n="c1Stats">5 模块 · 13 节</span>
               <span class="course-arrow">→</span>
             </div>
           </a>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">🔌</div>
+            <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
+            <h3 data-i18n="c2Title">MCP 入门</h3>
+            <p data-i18n="c2Desc">用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</p>
+            <div class="course-footer">
+              <span data-i18n="c2Stats">4 模块 · 13 节</span>
+              <span class="course-arrow">→</span>
+            </div>
+          </a>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">⚡</div>
+            <span class="c-level level-advanced" data-i18n="levelAdvanced">高级</span>
+            <h3 data-i18n="c3Title">MCP 进阶专题</h3>
+            <p data-i18n="c3Desc">生产级 MCP：采样 (sampling)、通知、Roots 与传输机制。</p>
+            <div class="course-footer">
+              <span data-i18n="c3Stats">4 模块 · 14 节</span>
+              <span class="course-arrow">→</span>
+            </div>
+          </a>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">🧩</div>
+            <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
+            <h3 data-i18n="c4Title">Agent Skills 入门</h3>
+            <p data-i18n="c4Desc">把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</p>
+            <div class="course-footer">
+              <span data-i18n="c4Stats">3 模块 · 7 节</span>
+              <span class="course-arrow">→</span>
+            </div>
+          </a>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">🤖</div>
+            <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
+            <h3 data-i18n="c5Title">Subagents 入门</h3>
+            <p data-i18n="c5Desc">用子代理拆分与委派任务，保持主上下文干净。</p>
+            <div class="course-footer">
+              <span data-i18n="c5Stats">3 模块 · 6 节</span>
+              <span class="course-arrow">→</span>
+            </div>
+          </a>
+        </div>
 
-          <a href="/courses/tool-use/" class="course-card">
+        <!-- Course cards — OpenAI -->
+        <p style="font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.75rem" data-i18n="openaiLabel">🟢 OpenAI Academy</p>
+        <div class="course-grid" style="grid-template-columns:repeat(3,1fr)">
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">🧠</div>
+            <span class="c-level level-beginner" data-i18n="levelBeginner">入门</span>
+            <h3 data-i18n="c6Title">AI 基础</h3>
+            <p data-i18n="c6Desc">搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</p>
+            <div class="course-footer">
+              <span data-i18n="c6Stats">4 模块 · 9 节</span>
+              <span class="course-arrow">→</span>
+            </div>
+          </a>
+          <a href="/play-ai-school/" class="course-card">
             <div class="c-icon">🛠️</div>
             <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
-            <h3 data-i18n="c3Title">工具调用与 Function Calling</h3>
-            <p data-i18n="c3Desc">连接外部 API、数据库、文件系统，掌握并行工具调用与安全设计。</p>
+            <h3 data-i18n="c7Title">应用 AI 基础</h3>
+            <p data-i18n="c7Desc">把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</p>
             <div class="course-footer">
-              <span data-i18n="c3Stats">5 模块 · 18 节 · 约 4 小时</span>
+              <span data-i18n="c7Stats">4 模块 · 9 节</span>
               <span class="course-arrow">→</span>
             </div>
           </a>
-
-          <a href="/courses/agents/" class="course-card">
-            <div class="c-icon">🤖</div>
+          <a href="/play-ai-school/" class="course-card">
+            <div class="c-icon">⚙️</div>
             <span class="c-level level-advanced" data-i18n="levelAdvanced">高级</span>
-            <h3 data-i18n="c4Title">Agent 系统开发</h3>
-            <p data-i18n="c4Desc">规划、记忆、多 Agent 协作、错误恢复与安全，构建生产级 Agent。</p>
+            <h3 data-i18n="c8Title">Agents 与工作流</h3>
+            <p data-i18n="c8Desc">让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</p>
             <div class="course-footer">
-              <span data-i18n="c4Stats">7 模块 · 26 节 · 约 6 小时</span>
-              <span class="course-arrow">→</span>
-            </div>
-          </a>
-
-          <a href="/courses/mcp/" class="course-card">
-            <div class="c-icon">🔌</div>
-            <span class="c-level level-advanced" data-i18n="levelAdvanced">高级</span>
-            <h3 data-i18n="c5Title">MCP 协议与生态</h3>
-            <p data-i18n="c5Desc">开发自定义 MCP Server，将 Claude 接入本地工具链与企业系统。</p>
-            <div class="course-footer">
-              <span data-i18n="c5Stats">6 模块 · 22 节 · 约 5 小时</span>
-              <span class="course-arrow">→</span>
-            </div>
-          </a>
-
-          <a href="/courses/multimodal/" class="course-card">
-            <div class="c-icon">🖼️</div>
-            <span class="c-level level-intermediate" data-i18n="levelIntermediate">进阶</span>
-            <h3 data-i18n="c6Title">多模态与视觉理解</h3>
-            <p data-i18n="c6Desc">图像输入、PDF 处理、OCR、截图分析与智能文档处理系统。</p>
-            <div class="course-footer">
-              <span data-i18n="c6Stats">4 模块 · 14 节 · 约 3 小时</span>
+              <span data-i18n="c8Stats">4 模块 · 9 节</span>
               <span class="course-arrow">→</span>
             </div>
           </a>
@@ -403,20 +423,23 @@ Building in public</pre>
         heroTitle: "Hi, I'm <span>Bob Pan.</span>",
         heroCopy: "I build open-source AI developer tools, bilingual interfaces, and practical agent workflows — and created the Anthropic 学院 Chinese course platform.",
         viewCourses: "Explore Anthropic 学院", viewProjects: "View Projects", githubProfile: "GitHub",
-        coursesEyebrow: "Anthropic 学院", coursesTitle: "Course Platform",
-        coursesIntro: "7 structured courses, 118 lessons, from Claude basics to production-grade Agent systems. Every lesson includes code examples, quizzes, and hands-on exercises — all free.",
-        academyTitle: "Master Claude & Full-Stack AI Development in Chinese",
-        academyDesc: "From zero to autonomous agents — 7 Chinese courses covering API basics, prompt engineering, tool use, agent architecture, MCP protocol, and multimodal applications.",
-        statCourses: "courses", statLessons: "lessons", statHours: "of content",
+        coursesEyebrow: "AI Academy", coursesTitle: "Chinese Edition",
+        coursesIntro: "6 Anthropic official courses + 3 OpenAI Academy courses, all in Chinese, 94 lessons, completely free.",
+        academyTitle: "Master AI — From Basics to Agents",
+        academyDesc: "Claude 101, Claude Code, MCP, Agent Skills, Subagents, plus the full OpenAI Academy AI foundations track. Progress auto-saved.",
+        statCourses: "courses", statLessons: "lessons", statModules: "modules",
         enterAcademy: "Enter Academy →", freeLabel: "All free",
+        anthropicLabel: "🔶 Anthropic Academy", openaiLabel: "🟢 OpenAI Academy",
         levelBeginner: "Beginner", levelIntermediate: "Intermediate", levelAdvanced: "Advanced",
-        c0Title: "Claude 101 · Getting Started", c0Desc: "Zero to proficient: conversation skills, Projects, Artifacts, tool integrations, and Research mode.", c0Stats: "5 modules · 14 lessons · ~2h",
-        c1Title: "Claude API Basics", c1Desc: "SDK setup, Messages API, streaming, error handling, and cost control.", c1Stats: "5 modules · 17 lessons · ~3h",
-        c2Title: "Prompt Engineering", c2Desc: "Role setting, chain of thought, few-shot, structured output, and automated evaluation.", c2Stats: "6 modules · 21 lessons · ~4h",
-        c3Title: "Tool Use & Function Calling", c3Desc: "Connect external APIs, databases, filesystems. Parallel calls and security design.", c3Stats: "5 modules · 18 lessons · ~4h",
-        c4Title: "Agent System Development", c4Desc: "Planning, memory, multi-agent collaboration, error recovery, and safety controls.", c4Stats: "7 modules · 26 lessons · ~6h",
-        c5Title: "MCP Protocol & Ecosystem", c5Desc: "Build custom MCP Servers and connect Claude to local toolchains and enterprise systems.", c5Stats: "6 modules · 22 lessons · ~5h",
-        c6Title: "Multimodal & Vision", c6Desc: "Image input, PDF processing, OCR, screenshot analysis, and intelligent document systems.", c6Stats: "4 modules · 14 lessons · ~3h",
+        c0Title: "Claude 101", c0Desc: "Use Claude for daily work: writing, summarizing, brainstorming, organizing. Beginner-friendly.", c0Stats: "5 modules · 14 lessons",
+        c1Title: "Claude Code 101", c1Desc: "AI coding agent in your terminal: read/write code, run commands, customize workflows.", c1Stats: "5 modules · 13 lessons",
+        c2Title: "Intro to MCP", c2Desc: "Build MCP servers and clients from scratch in Python, connecting Claude to external services.", c2Stats: "4 modules · 13 lessons",
+        c3Title: "MCP: Advanced Topics", c3Desc: "Production-grade MCP: sampling, notifications, Roots, and transport mechanisms.", c3Stats: "4 modules · 14 lessons",
+        c4Title: "Intro to Agent Skills", c4Desc: "Package standard task procedures into reusable Skills for consistent, professional Claude outputs.", c4Stats: "3 modules · 7 lessons",
+        c5Title: "Intro to Subagents", c5Desc: "Delegate tasks to subagents to keep your main context clean and focused.", c5Stats: "3 modules · 6 lessons",
+        c6Title: "AI Foundations", c6Desc: "Understand what generative AI is and how it works. Build a reliable mental model.", c6Stats: "4 modules · 9 lessons",
+        c7Title: "Applied AI Foundations", c7Desc: "Put AI to work in your daily workflow: find high-value use cases, build reliable habits.", c7Stats: "4 modules · 9 lessons",
+        c8Title: "Agents & Workflows", c8Desc: "Move beyond Q&A — build AI that completes multi-step tasks and automates your work.", c8Stats: "4 modules · 9 lessons",
         selectedWork: "Selected work", projectsTitle: "Projects I build.",
         projectsIntro: "Personal, non-commercial software projects published on GitHub. Each one solves a practical problem in AI-assisted development.",
         perfectPackTitle: "Can It Fit?",
@@ -445,20 +468,23 @@ Building in public</pre>
         heroTitle: "你好，我是 <span>Bob Pan。</span>",
         heroCopy: "我构建开源 AI 开发工具、双语界面和实用的 Agent 工作流，同时创建了 Anthropic 学院中文课程平台。",
         viewCourses: "探索 Anthropic 学院", viewProjects: "查看项目", githubProfile: "GitHub 主页",
-        coursesEyebrow: "Anthropic 学院", coursesTitle: "中文课程平台",
-        coursesIntro: "7 门体系化课程，118 节课，从 Claude 零基础到生产级 Agent 系统开发。每节课配代码示例、小测验与动手练习，全部免费开放。",
-        academyTitle: "系统学习 Claude 与 AI 开发全栈技能",
-        academyDesc: "从零开始到构建自主 Agent，7 门中文课程覆盖 API 基础、提示词工程、工具调用、Agent 架构、MCP 协议与多模态应用。",
-        statCourses: "门课程", statLessons: "节课", statHours: "学习时长",
+        coursesEyebrow: "AI 学院", coursesTitle: "中文学习版",
+        coursesIntro: "6 门 Anthropic 官方课程 + 3 门 OpenAI Academy 课程，全中文讲解，94 节课，完全免费。",
+        academyTitle: "掌握 AI，从基础到智能体",
+        academyDesc: "Claude 101、Claude Code、MCP、Agent Skills、Subagents，以及 OpenAI Academy 全套 AI 基础课程。进度自动保存，随时续学。",
+        statCourses: "门课程", statLessons: "节课", statModules: "个模块",
         enterAcademy: "进入学院 →", freeLabel: "全部免费",
+        anthropicLabel: "🔶 Anthropic 学院", openaiLabel: "🟢 OpenAI Academy",
         levelBeginner: "入门", levelIntermediate: "进阶", levelAdvanced: "高级",
-        c0Title: "Claude 101 · 从入门到实战", c0Desc: "零基础入门，掌握对话技巧、Projects、Artifacts、工具集成与研究模式。", c0Stats: "5 模块 · 14 节 · 约 2 小时",
-        c1Title: "Claude API 基础", c1Desc: "SDK 安装、Messages API、流式输出、错误处理与成本控制全覆盖。", c1Stats: "5 模块 · 17 节 · 约 3 小时",
-        c2Title: "提示词工程", c2Desc: "角色设定、思维链、少样本学习、结构化输出与自动化评估。", c2Stats: "6 模块 · 21 节 · 约 4 小时",
-        c3Title: "工具调用与 Function Calling", c3Desc: "连接外部 API、数据库、文件系统，掌握并行工具调用与安全设计。", c3Stats: "5 模块 · 18 节 · 约 4 小时",
-        c4Title: "Agent 系统开发", c4Desc: "规划、记忆、多 Agent 协作、错误恢复与安全，构建生产级 Agent。", c4Stats: "7 模块 · 26 节 · 约 6 小时",
-        c5Title: "MCP 协议与生态", c5Desc: "开发自定义 MCP Server，将 Claude 接入本地工具链与企业系统。", c5Stats: "6 模块 · 22 节 · 约 5 小时",
-        c6Title: "多模态与视觉理解", c6Desc: "图像输入、PDF 处理、OCR、截图分析与智能文档处理系统。", c6Stats: "4 模块 · 14 节 · 约 3 小时",
+        c0Title: "Claude 101", c0Desc: "用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。", c0Stats: "5 模块 · 14 节",
+        c1Title: "Claude Code 101", c1Desc: "在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。", c1Stats: "5 模块 · 13 节",
+        c2Title: "MCP 入门", c2Desc: "用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。", c2Stats: "4 模块 · 13 节",
+        c3Title: "MCP 进阶专题", c3Desc: "生产级 MCP：采样 (sampling)、通知、Roots 与传输机制。", c3Stats: "4 模块 · 14 节",
+        c4Title: "Agent Skills 入门", c4Desc: "把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。", c4Stats: "3 模块 · 7 节",
+        c5Title: "Subagents 入门", c5Desc: "用子代理拆分与委派任务，保持主上下文干净。", c5Stats: "3 模块 · 6 节",
+        c6Title: "AI 基础", c6Desc: "搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。", c6Stats: "4 模块 · 9 节",
+        c7Title: "应用 AI 基础", c7Desc: "把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。", c7Stats: "4 模块 · 9 节",
+        c8Title: "Agents 与工作流", c8Desc: "让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。", c8Stats: "4 模块 · 9 节",
         selectedWork: "代表项目", projectsTitle: "我正在构建的项目。",
         projectsIntro: "公开发布在 GitHub 上的个人非商业软件项目，每个项目解决 AI 辅助开发中的一个具体问题。",
         perfectPackTitle: "这也能装？",
