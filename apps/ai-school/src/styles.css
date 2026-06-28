@@ -1,0 +1,7 @@
+*{box-sizing:border-box;}
+html,body,#root{margin:0;padding:0;height:100%;}
+body{font-family:'Space Grotesk','Noto Sans SC',system-ui,sans-serif;background:#FBF9F5;color:#241E18;-webkit-font-smoothing:antialiased;}
+
+::-webkit-scrollbar{width:11px;height:11px;}
+::-webkit-scrollbar-thumb{background:#E2DACE;border-radius:9px;border:3px solid transparent;background-clip:padding-box;}
+::-webkit-scrollbar-thumb:hover{background:#D2C7B6;background-clip:padding-box;}
