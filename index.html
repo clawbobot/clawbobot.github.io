@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Bob Pan — AI 开发者，开源工具作者，Anthropic 学院中文课程创建者。">
+  <meta name="description" content="Bob Pan — 软件开发者，开源工具作者，互动游戏创作者，Anthropic 学院中文课程创建者。">
   <meta name="author" content="Bob Pan">
   <meta name="theme-color" content="#090a0f">
   <meta name="robots" content="index, follow">
@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="/assets/favicon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:title" content="Bob Pan | Software Developer">
-  <meta property="og:description" content="Practical, bilingual AI developer tools and the Anthropic 学院 Chinese course platform.">
+  <meta property="og:description" content="Interactive games, open-source AI tools, and the Anthropic 学院 Chinese course platform.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bobot.is-a.dev/">
   <meta property="og:image" content="https://bobot.is-a.dev/assets/social-card.jpg">
@@ -20,10 +20,10 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Bob Pan | Software Developer">
-  <meta name="twitter:description" content="Practical, bilingual AI developer tools and the Anthropic 学院 Chinese course platform.">
+  <meta name="twitter:description" content="Interactive games, open-source AI tools, and the Anthropic 学院 Chinese course platform.">
   <meta name="twitter:image" content="https://bobot.is-a.dev/assets/social-card.jpg">
   <title>Bob Pan | Software Developer</title>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Bob Pan","alternateName":"clawbobot","url":"https://bobot.is-a.dev/","sameAs":["https://github.com/clawbobot"],"knowsAbout":["AI developer tools","Python","Agent systems","Model Context Protocol","bilingual developer experience"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Bob Pan","alternateName":"clawbobot","url":"https://bobot.is-a.dev/","sameAs":["https://github.com/clawbobot"],"knowsAbout":["AI developer tools","Python","Agent systems","Model Context Protocol","interactive games","bilingual developer experience"]}</script>
   <style>
     :root {
       color-scheme: dark;
@@ -35,6 +35,7 @@
       --muted: #a0a7b8;
       --purple: #8b7cff;
       --green: #48d6b0;
+      --orange: #f97316;
       --max-width: 1080px;
     }
     * { box-sizing: border-box; }
@@ -83,6 +84,10 @@
     h2 { margin-bottom: 0; font-size: clamp(2rem,5vw,3.8rem); line-height: 1.05; letter-spacing: -0.045em; }
     .section-heading p { margin-bottom: 0; color: var(--muted); }
 
+    /* Sub-label (shared by academy and projects) */
+    .sub-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 1.75rem 0 0.75rem; }
+    .sub-label:first-of-type { margin-top: 0; }
+
     /* ── Academy banner ── */
     .academy-banner { position: relative; overflow: hidden; border: 1px solid rgba(139,124,255,0.3); border-radius: 20px; background: linear-gradient(135deg, rgba(139,124,255,0.12) 0%, rgba(72,214,176,0.06) 100%); padding: 2.5rem; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
     .academy-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 50%, rgba(139,124,255,0.08), transparent 60%); pointer-events: none; }
@@ -104,7 +109,7 @@
     .c-level { display: inline-flex; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.5rem; border-radius: 99px; margin-bottom: 0.6rem; }
     .level-beginner { background: rgba(72,214,176,0.15); color: var(--green); }
     .level-intermediate { background: rgba(139,124,255,0.15); color: var(--purple); }
-    .level-advanced { background: rgba(249,115,22,0.15); color: #f97316; }
+    .level-advanced { background: rgba(249,115,22,0.15); color: var(--orange); }
     .course-card h3 { font-size: 1rem; font-weight: 750; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
     .course-card p { font-size: 0.85rem; color: var(--muted); flex: 1; margin-bottom: 1rem; line-height: 1.6; }
     .course-footer { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: auto; }
@@ -112,15 +117,27 @@
 
     /* ── Projects ── */
     .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
-    .project { display: flex; min-height: 280px; flex-direction: column; padding: 2rem; border: 1px solid var(--border); border-radius: 18px; background: rgba(17,19,27,0.86); }
-    .project.featured { background: linear-gradient(145deg, rgba(139,124,255,0.14), transparent 52%), var(--surface); }
+    .project { display: flex; min-height: 240px; flex-direction: column; padding: 2rem; border: 1px solid var(--border); border-radius: 18px; background: rgba(17,19,27,0.86); text-decoration: none; transition: border-color 200ms, background 200ms, transform 160ms; }
+    .project:hover { border-color: var(--purple); background: var(--surface-strong); transform: translateY(-2px); }
+    .project.featured { grid-column: 1 / -1; min-height: auto; background: linear-gradient(145deg, rgba(139,124,255,0.14), transparent 52%), var(--surface); }
+    .project.featured:hover { border-color: var(--purple); }
     .project-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
     .tag { padding: 0.28rem 0.62rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 0.74rem; }
-    .project h3 { margin-bottom: 0.75rem; font-size: 1.45rem; letter-spacing: -0.025em; }
-    .project p { color: var(--muted); font-size: 0.92rem; }
-    .project-link { width: fit-content; margin-top: auto; color: var(--green); text-decoration: none; font-weight: 750; font-size: 0.9rem; }
-    .project-link:hover, .project-link:focus-visible { text-decoration: underline; text-underline-offset: 0.25rem; }
+    .project h3 { margin-bottom: 0.6rem; font-size: 1.3rem; letter-spacing: -0.025em; }
+    .project p { color: var(--muted); font-size: 0.92rem; flex: 1; }
+    .project-link { width: fit-content; margin-top: 1.25rem; color: var(--green); text-decoration: none; font-weight: 750; font-size: 0.9rem; }
+    .project:hover .project-link { text-decoration: underline; text-underline-offset: 0.25rem; }
     .project-year { font-size: 0.78rem; color: var(--muted); padding: 0.28rem 0.62rem; border: 1px solid var(--border); border-radius: 999px; }
+
+    /* Game accent colours */
+    .project.game-moon  { border-color: rgba(72,214,176,0.2); }
+    .project.game-pack  { border-color: rgba(139,124,255,0.2); }
+    .project.game-rescue { border-color: rgba(249,115,22,0.2); }
+    .project.game-school { border-color: rgba(56,189,248,0.2); }
+    .project.game-moon:hover  { border-color: var(--green); }
+    .project.game-pack:hover  { border-color: var(--purple); }
+    .project.game-rescue:hover { border-color: var(--orange); }
+    .project.game-school:hover { border-color: #38bdf8; }
 
     /* ── About ── */
     .about { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -141,13 +158,14 @@
       .hero { min-height: auto; gap: 3rem; padding: 5rem 0 3rem; }
       .terminal { transform: none; }
       .project-grid, .course-grid { grid-template-columns: 1fr; }
+      .project.featured { grid-column: auto; }
       .academy-banner { grid-template-columns: 1fr; }
       .academy-cta { text-align: left; }
       .footer-inner { flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .button { transition: none; }
+      .button, .project, .course-card { transition: none; }
     }
   </style>
 </head>
@@ -156,7 +174,7 @@
     <div class="container nav-inner">
       <a class="wordmark" href="#top">Bob<span>Pan</span></a>
       <div class="nav-links">
-        <a href="#projects" data-i18n="navProjects">Projects</a>
+        <a href="#games" data-i18n="navGames">Games</a>
         <a href="#courses" data-i18n="navCourses">Courses</a>
         <a href="#about" data-i18n="navAbout">About</a>
         <a href="#contact" data-i18n="navContact">Contact</a>
@@ -172,12 +190,12 @@
       <!-- ── Hero ── -->
       <header class="hero">
         <div>
-          <p class="eyebrow" data-i18n="heroEyebrow">Software Developer / Open Source Builder</p>
+          <p class="eyebrow" data-i18n="heroEyebrow">Software Developer / Game & Tool Maker</p>
           <h1 data-i18n-html="heroTitle">Hi, I'm <span>Bob Pan.</span></h1>
-          <p class="hero-copy" data-i18n="heroCopy">I build open-source AI developer tools, bilingual interfaces, and practical agent workflows — and created the Anthropic 学院 Chinese course platform.</p>
+          <p class="hero-copy" data-i18n="heroCopy">I build interactive games, open-source AI developer tools, and the Anthropic 学院 Chinese course platform.</p>
           <div class="actions">
-            <a class="button primary" href="/play-ai-school/" data-i18n="viewCourses">探索 AI 学院</a>
-            <a class="button" href="#projects" data-i18n="viewProjects">查看项目</a>
+            <a class="button primary" href="#games" data-i18n="viewGames">查看游戏</a>
+            <a class="button" href="/play-ai-school/" data-i18n="viewCourses">探索 AI 学院</a>
             <a class="button" href="https://github.com/clawbobot" data-i18n="githubProfile">GitHub</a>
           </div>
         </div>
@@ -187,15 +205,91 @@
 <span class="value">Bob Pan</span>, software developer
 
 <span class="command">$</span> focus --list
-AI developer tools
-Bilingual product experiences
-Agent, Skill and MCP workflows
+Interactive games
+Open-source AI tools
+Agent, Skill & MCP workflows
 Anthropic 学院 course platform
 
 <span class="command">$</span> status
 Building in public</pre>
         </aside>
       </header>
+
+      <!-- ── Games / Projects ── -->
+      <section id="games">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="gamesEyebrow">Games & Projects</p>
+            <h2 data-i18n="gamesTitle">Play. Compete. Share.</h2>
+          </div>
+          <p data-i18n="gamesIntro">Four complete games — spatial puzzles, strategy, and fast-paced action — all mobile-first, multiplayer-ready, and built to be shared.</p>
+        </div>
+
+        <!-- Games grid -->
+        <div class="project-grid">
+
+          <a class="project game-pack" href="/play-pack/">
+            <div class="project-meta">
+              <span class="project-year">2026</span>
+              <span class="tag" data-i18n="tagPuzzle">Puzzle</span>
+              <span class="tag" data-i18n="tagMultiplayer">Multiplayer</span>
+            </div>
+            <h3 data-i18n="packTitle">谁最能装？</h3>
+            <p data-i18n="packDesc">拖拽、旋转、塞满每一格，比比谁的空间感更强。发起挑战码，和朋友同台竞技。</p>
+            <span class="project-link" data-i18n="playNow">开始游戏 →</span>
+          </a>
+
+          <a class="project game-school" href="/play-school/">
+            <div class="project-meta">
+              <span class="project-year">2026</span>
+              <span class="tag" data-i18n="tagPuzzle">Puzzle</span>
+              <span class="tag" data-i18n="tagKids">亲子</span>
+            </div>
+            <h3 data-i18n="schoolTitle">书包装满它！</h3>
+            <p data-i18n="schoolDesc">帮孩子整理书包——课本、文具、午饭盒，全都得塞进去。三档难度，6 岁起可玩，支持联机 PK。</p>
+            <span class="project-link" data-i18n="playNow">开始游戏 →</span>
+          </a>
+
+          <a class="project game-rescue" href="/play-rescue/">
+            <div class="project-meta">
+              <span class="project-year">2026</span>
+              <span class="tag" data-i18n="tagAction">Action</span>
+              <span class="tag" data-i18n="tagMultiplayer">Multiplayer</span>
+            </div>
+            <h3 data-i18n="rescueTitle">谁最会救场？</h3>
+            <p data-i18n="rescueDesc">突发事件同时袭来，靠准确判断和最快反应力挽狂澜。生成专属挑战码，和朋友比比谁更能扛。</p>
+            <span class="project-link" data-i18n="playNow">开始游戏 →</span>
+          </a>
+
+          <a class="project game-moon" href="/play/">
+            <div class="project-meta">
+              <span class="project-year">2026</span>
+              <span class="tag" data-i18n="tagStrategy">Strategy</span>
+              <span class="tag" data-i18n="tagScience">Science</span>
+            </div>
+            <h3 data-i18n="moonTitle">月球能源危机</h3>
+            <p data-i18n="moonDesc">你是月球基地的能源调度员。面对层出不穷的突发事件，合理分配有限电力，维持氧气、通信与探测车的运转。</p>
+            <span class="project-link" data-i18n="playNow">开始游戏 →</span>
+          </a>
+
+        </div>
+
+        <!-- Open-source tools -->
+        <p class="sub-label" data-i18n="toolsLabel">🛠 Open Source</p>
+        <div class="project-grid">
+          <article class="project featured">
+            <div class="project-meta">
+              <span class="tag">Python</span>
+              <span class="tag">CLI</span>
+              <span class="tag">Open Source</span>
+              <span class="tag">AI Coding</span>
+            </div>
+            <h3>Code Puppy CN</h3>
+            <p data-i18n="codePuppyDesc">A bilingual terminal AI coding assistant optimized for Chinese developers. Adds Chinese and English interfaces, setup flows for common model providers, environment diagnostics, and support for Agent, Skill and MCP workflows.</p>
+            <a class="project-link" href="https://github.com/clawbobot/code-puppy-cn" data-i18n="readSource">Read the source and documentation</a>
+          </article>
+        </div>
+      </section>
 
       <!-- ── Academy ── -->
       <section id="courses">
@@ -226,7 +320,7 @@ Building in public</pre>
         </div>
 
         <!-- Course cards — Anthropic -->
-        <p style="font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 0.75rem" data-i18n="anthropicLabel">🔶 Anthropic 学院</p>
+        <p class="sub-label" data-i18n="anthropicLabel">🔶 Anthropic 学院</p>
         <div class="course-grid">
           <a href="/play-ai-school/" class="course-card">
             <div class="c-icon">🚀</div>
@@ -291,8 +385,8 @@ Building in public</pre>
         </div>
 
         <!-- Course cards — OpenAI -->
-        <p style="font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.75rem" data-i18n="openaiLabel">🟢 OpenAI Academy</p>
-        <div class="course-grid" style="grid-template-columns:repeat(3,1fr)">
+        <p class="sub-label" data-i18n="openaiLabel">🟢 OpenAI Academy</p>
+        <div class="course-grid">
           <a href="/play-ai-school/" class="course-card">
             <div class="c-icon">🧠</div>
             <span class="c-level level-beginner" data-i18n="levelBeginner">入门</span>
@@ -326,53 +420,6 @@ Building in public</pre>
         </div>
       </section>
 
-      <!-- ── Projects ── -->
-      <section id="projects">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="selectedWork">Selected work</p>
-            <h2 data-i18n="projectsTitle">Projects I build.</h2>
-          </div>
-          <p data-i18n="projectsIntro">Personal, non-commercial software projects published on GitHub. Each one solves a practical problem in AI-assisted development.</p>
-        </div>
-
-        <div class="project-grid">
-          <article class="project featured">
-            <div class="project-meta">
-              <span class="tag">Python</span>
-              <span class="tag">CLI</span>
-              <span class="tag">Open Source</span>
-              <span class="tag">AI Coding</span>
-            </div>
-            <h3>Code Puppy CN</h3>
-            <p data-i18n="codePuppyDescription">A bilingual terminal AI coding assistant optimized for Chinese developers. Adds Chinese and English interfaces, setup flows for common model providers, environment diagnostics, and support for Agent, Skill and MCP workflows.</p>
-            <a class="project-link" href="https://github.com/clawbobot/code-puppy-cn" data-i18n="readSource">Read the source and documentation</a>
-          </article>
-
-          <article class="project">
-            <div class="project-meta">
-              <span class="project-year">2026</span>
-              <span class="tag">Game</span>
-              <span class="tag">Puzzle</span>
-            </div>
-            <h3 data-i18n="perfectPackTitle">Can It Fit?</h3>
-            <p data-i18n="perfectPackDescription">A high-paced spatial puzzle game. Drag, drop, and rotate items to perfectly fill your boxes before they roll away.</p>
-            <a class="project-link" href="/play-pack/" data-i18n="playGame">Play the game →</a>
-          </article>
-
-          <article class="project">
-            <div class="project-meta">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">Developer Education</span>
-            </div>
-            <h3>AI Agent Learning Guide</h3>
-            <p data-i18n="guideDescription">A self-directed web experiment that organizes agent frameworks and core concepts into a practical learning path. Part of my ongoing exploration of developer education.</p>
-            <a class="project-link" href="https://github.com/clawbobot/clawbobot.github.io" data-i18n="viewSource">View the website source</a>
-          </article>
-        </div>
-      </section>
-
       <!-- ── About ── -->
       <section id="about">
         <div class="section-heading">
@@ -380,17 +427,17 @@ Building in public</pre>
             <p class="eyebrow" data-i18n="aboutEyebrow">About</p>
             <h2 data-i18n="aboutTitle">Useful software, clearly explained.</h2>
           </div>
-          <p data-i18n="aboutCopy">My current interests sit where developer experience meets AI agents: local-first tools, model configuration, reliable diagnostics, and workflows that remain understandable to the person running them.</p>
+          <p data-i18n="aboutCopy">I make things that are easy to pick up and fun to share — games, tools, and learning resources, all built in public.</p>
         </div>
 
         <div class="about">
           <div class="panel">
             <h3 data-i18n="workWithTitle">What I work with</h3>
             <ul>
+              <li data-i18n="skillGames">Interactive browser games (HTML / CSS / JS / React)</li>
               <li data-i18n="skillPython">Python and terminal applications</li>
               <li data-i18n="skillAgents">Agent, Skill and MCP integrations</li>
               <li data-i18n="skillModels">Model provider setup and diagnostics</li>
-              <li data-i18n="skillWeb">Responsive HTML and CSS</li>
               <li data-i18n="skillCourses">Chinese AI developer education</li>
             </ul>
           </div>
@@ -418,11 +465,33 @@ Building in public</pre>
   <script>
     const translations = {
       en: {
-        navProjects: "Projects", navCourses: "Courses", navAbout: "About", navContact: "Contact",
-        heroEyebrow: "Software Developer / Open Source Builder",
+        navGames: "Games", navCourses: "Courses", navAbout: "About", navContact: "Contact",
+        heroEyebrow: "Software Developer / Game & Tool Maker",
         heroTitle: "Hi, I'm <span>Bob Pan.</span>",
-        heroCopy: "I build open-source AI developer tools, bilingual interfaces, and practical agent workflows — and created the Anthropic 学院 Chinese course platform.",
-        viewCourses: "Explore Anthropic 学院", viewProjects: "View Projects", githubProfile: "GitHub",
+        heroCopy: "I build interactive games, open-source AI developer tools, and the Anthropic 学院 Chinese course platform.",
+        viewGames: "Play the games", viewCourses: "Explore AI Academy", githubProfile: "GitHub",
+
+        gamesEyebrow: "Games & Projects",
+        gamesTitle: "Play. Compete. Share.",
+        gamesIntro: "Four complete games — spatial puzzles, strategy, and fast-paced action — all mobile-first, multiplayer-ready, and built to be shared.",
+
+        tagPuzzle: "Puzzle", tagMultiplayer: "Multiplayer", tagKids: "Family",
+        tagAction: "Action", tagStrategy: "Strategy", tagScience: "Science",
+        playNow: "Play now →",
+
+        packTitle: "Can It Fit?",
+        packDesc: "Drag, rotate, and pack every last item into the box. Challenge a friend with a shareable code and see who packs best.",
+        schoolTitle: "Fill the Backpack!",
+        schoolDesc: "Pack the school bag — textbooks, pencils, lunchbox, all of it. Three difficulty tiers, playable from age 6, with multiplayer PK.",
+        rescueTitle: "Who Can Rescue Best?",
+        rescueDesc: "Multiple emergencies at once. React fast, make the right call, and save the day. Share your score code and challenge a friend.",
+        moonTitle: "Moon Energy Crisis",
+        moonDesc: "You're the power dispatcher on a lunar base. Allocate scarce electricity across oxygen, comms, and rovers while emergencies pile up.",
+
+        toolsLabel: "🛠 Open Source",
+        codePuppyDesc: "A bilingual terminal AI coding assistant optimized for Chinese developers. Adds Chinese and English interfaces, setup flows for common model providers, environment diagnostics, and support for Agent, Skill and MCP workflows.",
+        readSource: "Read the source and documentation",
+
         coursesEyebrow: "AI Academy", coursesTitle: "Chinese Edition",
         coursesIntro: "6 Anthropic official courses + 3 OpenAI Academy courses, all in Chinese, 94 lessons, completely free.",
         academyTitle: "Master AI — From Basics to Agents",
@@ -440,22 +509,14 @@ Building in public</pre>
         c6Title: "AI Foundations", c6Desc: "Understand what generative AI is and how it works. Build a reliable mental model.", c6Stats: "4 modules · 9 lessons",
         c7Title: "Applied AI Foundations", c7Desc: "Put AI to work in your daily workflow: find high-value use cases, build reliable habits.", c7Stats: "4 modules · 9 lessons",
         c8Title: "Agents & Workflows", c8Desc: "Move beyond Q&A — build AI that completes multi-step tasks and automates your work.", c8Stats: "4 modules · 9 lessons",
-        selectedWork: "Selected work", projectsTitle: "Projects I build.",
-        projectsIntro: "Personal, non-commercial software projects published on GitHub. Each one solves a practical problem in AI-assisted development.",
-        perfectPackTitle: "Can It Fit?",
-        perfectPackDescription: "A high-paced spatial puzzle game. Drag, drop, and rotate items to perfectly fill your boxes before they roll away.",
-        playGame: "Play the game →",
-        codePuppyDescription: "A bilingual terminal AI coding assistant optimized for Chinese developers. Adds Chinese and English interfaces, setup flows for common model providers, environment diagnostics, and support for Agent, Skill and MCP workflows.",
-        readSource: "Read the source and documentation",
-        guideDescription: "A self-directed web experiment organizing agent frameworks into a practical learning path.",
-        viewSource: "View the website source",
+
         aboutEyebrow: "About", aboutTitle: "Useful software, clearly explained.",
-        aboutCopy: "My current interests sit where developer experience meets AI agents: local-first tools, model configuration, reliable diagnostics, and workflows that remain understandable to the person running them.",
+        aboutCopy: "I make things that are easy to pick up and fun to share — games, tools, and learning resources, all built in public.",
         workWithTitle: "What I work with",
+        skillGames: "Interactive browser games (HTML / CSS / JS / React)",
         skillPython: "Python and terminal applications",
         skillAgents: "Agent, Skill and MCP integrations",
         skillModels: "Model provider setup and diagnostics",
-        skillWeb: "Responsive HTML and CSS",
         skillCourses: "Chinese AI developer education",
         contactTitle: "Contact and feedback",
         contactCopy: "Follow the work on GitHub, open a technical discussion, or send focused feedback about this site.",
@@ -463,11 +524,33 @@ Building in public</pre>
         footerCopy: "Personal, non-commercial software development portfolio."
       },
       zh: {
-        navProjects: "项目", navCourses: "课程", navAbout: "关于", navContact: "联系",
-        heroEyebrow: "软件开发者 / 开源项目作者",
+        navGames: "游戏", navCourses: "课程", navAbout: "关于", navContact: "联系",
+        heroEyebrow: "软件开发者 / 游戏与工具创作者",
         heroTitle: "你好，我是 <span>Bob Pan。</span>",
-        heroCopy: "我构建开源 AI 开发工具、双语界面和实用的 Agent 工作流，同时创建了 Anthropic 学院中文课程平台。",
-        viewCourses: "探索 Anthropic 学院", viewProjects: "查看项目", githubProfile: "GitHub 主页",
+        heroCopy: "我构建互动游戏、开源 AI 开发工具，以及 Anthropic 学院中文课程平台。",
+        viewGames: "查看游戏", viewCourses: "探索 AI 学院", githubProfile: "GitHub 主页",
+
+        gamesEyebrow: "游戏与项目",
+        gamesTitle: "玩。对决。分享。",
+        gamesIntro: "四款完整游戏——空间拼图、策略模拟与快节奏动作，全部移动端优先，支持多人联机，一键分享挑战。",
+
+        tagPuzzle: "Puzzle", tagMultiplayer: "联机", tagKids: "亲子",
+        tagAction: "Action", tagStrategy: "策略", tagScience: "科学",
+        playNow: "开始游戏 →",
+
+        packTitle: "谁最能装？",
+        packDesc: "拖拽、旋转、塞满每一格，比比谁的空间感更强。发起挑战码，和朋友同台竞技。",
+        schoolTitle: "书包装满它！",
+        schoolDesc: "帮孩子整理书包——课本、文具、午饭盒，全都得塞进去。三档难度，6 岁起可玩，支持联机 PK。",
+        rescueTitle: "谁最会救场？",
+        rescueDesc: "突发事件同时袭来，靠准确判断和最快反应力挽狂澜。生成专属挑战码，和朋友比比谁更能扛。",
+        moonTitle: "月球能源危机",
+        moonDesc: "你是月球基地的能源调度员。面对层出不穷的突发事件，合理分配有限电力，维持氧气、通信与探测车的运转。",
+
+        toolsLabel: "🛠 开源工具",
+        codePuppyDesc: "面向中文开发者优化的双语终端 AI 编程助手，提供中英文界面、常用模型服务配置、环境诊断，以及 Agent、Skill 和 MCP 工作流支持。",
+        readSource: "查看源码与文档",
+
         coursesEyebrow: "AI 学院", coursesTitle: "中文学习版",
         coursesIntro: "6 门 Anthropic 官方课程 + 3 门 OpenAI Academy 课程，全中文讲解，94 节课，完全免费。",
         academyTitle: "掌握 AI，从基础到智能体",
@@ -485,22 +568,14 @@ Building in public</pre>
         c6Title: "AI 基础", c6Desc: "搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。", c6Stats: "4 模块 · 9 节",
         c7Title: "应用 AI 基础", c7Desc: "把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。", c7Stats: "4 模块 · 9 节",
         c8Title: "Agents 与工作流", c8Desc: "让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。", c8Stats: "4 模块 · 9 节",
-        selectedWork: "代表项目", projectsTitle: "我正在构建的项目。",
-        projectsIntro: "公开发布在 GitHub 上的个人非商业软件项目，每个项目解决 AI 辅助开发中的一个具体问题。",
-        perfectPackTitle: "这也能装？",
-        perfectPackDescription: "移动优先的空间拼图挑战。旋转物品、填满每一格，分享战绩给朋友挑战。",
-        playGame: "开始游戏 →",
-        codePuppyDescription: "面向中文开发者优化的双语终端 AI 编程助手，提供中英文界面、常用模型服务配置、环境诊断，以及 Agent、Skill 和 MCP 工作流支持。",
-        readSource: "查看源码与文档",
-        guideDescription: "将 Agent 框架和核心概念整理成可实践的学习路径的自主学习型网页实验。",
-        viewSource: "查看网站源码",
+
         aboutEyebrow: "关于我", aboutTitle: "实用的软件，清楚的表达。",
-        aboutCopy: "我目前关注开发者体验与 AI Agent 的交汇点：本地优先工具、模型配置、可靠诊断，以及让使用者能理解和掌控的工作流。",
+        aboutCopy: "我做的东西都是为了让人容易上手、乐于分享——游戏、工具、学习资源，全部公开构建。",
         workWithTitle: "我的技术方向",
+        skillGames: "互动网页游戏（HTML / CSS / JS / React）",
         skillPython: "Python 与终端应用",
         skillAgents: "Agent、Skill 与 MCP 集成",
         skillModels: "模型服务配置与诊断",
-        skillWeb: "响应式 HTML 与 CSS",
         skillCourses: "中文 AI 开发者教育",
         contactTitle: "联系与反馈",
         contactCopy: "在 GitHub 关注项目、发起技术讨论，或针对这个网站提交改进建议。",
@@ -514,14 +589,20 @@ Building in public</pre>
     function applyLanguage(lang) {
       const l = translations[lang] ? lang : "en";
       document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
-      document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = translations[l][el.dataset.i18n] || el.textContent; });
-      document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = translations[l][el.dataset.i18nHtml] || el.innerHTML; });
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.textContent = translations[l][el.dataset.i18n] || el.textContent;
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach(el => {
+        el.innerHTML = translations[l][el.dataset.i18nHtml] || el.innerHTML;
+      });
       btn.textContent = l === "en" ? "中" : "EN";
       btn.setAttribute("aria-label", l === "en" ? "切换到中文" : "Switch to English");
       localStorage.setItem("portfolio-language", l);
     }
 
-    btn.addEventListener("click", () => applyLanguage(document.documentElement.lang.startsWith("zh") ? "en" : "zh"));
+    btn.addEventListener("click", () =>
+      applyLanguage(document.documentElement.lang.startsWith("zh") ? "en" : "zh")
+    );
     const saved = localStorage.getItem("portfolio-language");
     const preferred = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
     applyLanguage(saved || preferred);
