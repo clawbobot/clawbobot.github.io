@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo } from 'react';
+import { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -1490,6 +1490,14 @@ export default function App() {
   const mainRef = useRef(null);
   const copyTimerRef = useRef(null);
 
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   const save = useCallback((s) => {
     try { localStorage.setItem('academy_v1', JSON.stringify({ academy: s.academy, atCatalog: s.atCatalog, courseId: s.courseId, current: s.current, done: s.done })); } catch (e) {}
   }, []);
@@ -1499,22 +1507,26 @@ export default function App() {
   const openCatalog = useCallback(() => {
     setSt(s => { const ns = { ...s, atCatalog: true }; save(ns); return ns; });
     scrollTop();
+    setSidebarOpen(false);
   }, [save, scrollTop]);
 
   const openCourse = useCallback((id) => {
     const c = CATALOG.find(x => x.id === id);
     setSt(s => { const ns = { ...s, atCatalog: false, courseId: id, current: 'home', academy: c ? c.academy : s.academy }; save(ns); return ns; });
     scrollTop();
+    setSidebarOpen(false);
   }, [save, scrollTop]);
 
   const go = useCallback((id) => {
     setSt(s => { const ns = { ...s, atCatalog: false, current: id }; save(ns); return ns; });
     scrollTop();
+    setSidebarOpen(false);
   }, [save, scrollTop]);
 
   const switchAcademy = useCallback((id) => {
     setSt(s => { if (s.academy === id) return s; const ns = { ...s, academy: id, atCatalog: true }; save(ns); return ns; });
     scrollTop();
+    setSidebarOpen(false);
   }, [save, scrollTop]);
 
   const toggleDone = useCallback((gkey) => {
@@ -1552,13 +1564,20 @@ export default function App() {
 
   // ── Render: Sidebar ────────────────────────────────────────────────────────
 
-  const sidebarStyle = { width: '322px', flex: 'none', height: '100vh', overflowY: 'auto', background: '#FFFFFF', borderRight: '1px solid #ECE5DB', padding: '24px 16px 60px' };
+  const sidebarStyle = isMobile
+    ? { position: 'fixed', top: 0, left: 0, width: '290px', height: '100dvh', overflowY: 'auto', background: '#FFFFFF', borderRight: '1px solid #ECE5DB', padding: '24px 16px 60px', zIndex: 100, transform: sidebarOpen ? 'translateX(0)' : 'translateX(-100%)', transition: 'transform 0.25s ease', boxShadow: sidebarOpen ? '4px 0 24px rgba(0,0,0,0.12)' : 'none' }
+    : { width: '322px', flex: 'none', height: '100dvh', overflowY: 'auto', background: '#FFFFFF', borderRight: '1px solid #ECE5DB', padding: '24px 16px 60px' };
 
   const brandMarkStyle = { width: '30px', height: '30px', flex: 'none', borderRadius: '9px', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '15px' };
 
   function renderSidebar() {
     return (
       <aside style={sidebarStyle}>
+        {isMobile && (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
+            <button onClick={() => setSidebarOpen(false)} style={{ width: '32px', height: '32px', border: '1px solid #ECE5DB', borderRadius: '8px', background: '#F4F0E9', cursor: 'pointer', fontSize: '16px', color: '#6F665B', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'inherit', lineHeight: 1 }}>×</button>
+          </div>
+        )}
         <button onClick={openCatalog} style={{ display: 'flex', alignItems: 'center', gap: '11px', width: '100%', border: 'none', background: 'transparent', cursor: 'pointer', padding: '4px 8px', textAlign: 'left', fontFamily: 'inherit' }}>
           <span style={brandMarkStyle}>{academy.letter}</span>
           <span>
@@ -1655,11 +1674,11 @@ export default function App() {
     return (
       <div>
         <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '.14em', color: 'var(--accent-deep)', marginBottom: '16px' }}>{academy.kicker}</div>
-        <h1 style={{ fontSize: '44px', lineHeight: 1.12, fontWeight: 700, margin: '0 0 18px', letterSpacing: '-0.025em', color: '#1F1A14' }}>{academy.headline}</h1>
-        <p style={{ fontSize: '18px', lineHeight: 1.75, color: '#5A5047', maxWidth: '600px', margin: '0 0 30px' }}>{academy.intro}</p>
+        <h1 style={{ fontSize: isMobile ? '28px' : '44px', lineHeight: 1.12, fontWeight: 700, margin: '0 0 18px', letterSpacing: '-0.025em', color: '#1F1A14' }}>{academy.headline}</h1>
+        <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: 1.75, color: '#5A5047', maxWidth: '600px', margin: '0 0 30px' }}>{academy.intro}</p>
         <div style={{ fontSize: '14px', color: '#8A8071', marginBottom: '40px' }}>{academyCourses.length} 门课程 · {academyCourses.reduce((s, c) => s + totalLessons(c), 0)} 节课 · 完全免费</div>
         <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '.1em', color: '#A59A8C', marginBottom: '16px' }}>浏览课程</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' }}>
           {academyCourses.map(c => {
             const p = courseProgress(c, st.done);
             return (
@@ -1694,8 +1713,8 @@ export default function App() {
     return (
       <div>
         <div style={{ marginBottom: '16px' }}><span style={levelStyle(course.level)}>{course.level}</span></div>
-        <h1 style={{ fontSize: '40px', lineHeight: 1.14, fontWeight: 700, margin: '0 0 16px', letterSpacing: '-0.025em', color: '#1F1A14' }}>{course.title}</h1>
-        <p style={{ fontSize: '18px', lineHeight: 1.75, color: '#5A5047', maxWidth: '600px', margin: '0 0 28px' }}>{course.longDesc || course.desc}</p>
+        <h1 style={{ fontSize: isMobile ? '26px' : '40px', lineHeight: 1.14, fontWeight: 700, margin: '0 0 16px', letterSpacing: '-0.025em', color: '#1F1A14' }}>{course.title}</h1>
+        <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: 1.75, color: '#5A5047', maxWidth: '600px', margin: '0 0 28px' }}>{course.longDesc || course.desc}</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '48px', flexWrap: 'wrap' }}>
           <button onClick={() => go(firstAvail ? firstAvail.id : 'home')} style={{ padding: '14px 26px', borderRadius: '12px', border: 'none', background: 'var(--accent)', color: '#fff', fontWeight: 600, fontSize: '16px', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 6px 18px -8px var(--accent)' }}>
             {pr.done > 0 ? '继续学习 →' : '开始第一课 →'}
@@ -1744,7 +1763,7 @@ export default function App() {
         <div style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--accent-deep)', marginBottom: '12px' }}>
           {course.title} · 模块{CN[found.mi]} {found.mod.title}
         </div>
-        <h1 style={{ fontSize: '33px', lineHeight: 1.2, fontWeight: 700, margin: '0 0 10px', letterSpacing: '-0.02em', color: '#1F1A14' }}>{found.lesson.title}</h1>
+        <h1 style={{ fontSize: isMobile ? '24px' : '33px', lineHeight: 1.2, fontWeight: 700, margin: '0 0 10px', letterSpacing: '-0.02em', color: '#1F1A14' }}>{found.lesson.title}</h1>
         <div style={{ fontSize: '13.5px', color: '#9A9082', marginBottom: '30px', paddingBottom: '22px', borderBottom: '1px solid #ECE5DB' }}>
           第 {idx + 1} 课 / 共 {avail.length} 课 · 阅读约 {Math.max(3, Math.round((found.lesson.blocks || []).length * 0.9))} 分钟
         </div>
@@ -1771,7 +1790,7 @@ export default function App() {
           return null;
         })}
 
-        <div style={{ marginTop: '42px', paddingTop: '26px', borderTop: '1px solid #ECE5DB', display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ marginTop: '42px', paddingTop: '26px', borderTop: '1px solid #ECE5DB', display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
           <button onClick={hasPrev ? () => go(avail[idx - 1].id) : undefined} style={hasPrev ? navBase : { ...navBase, opacity: 0.38, cursor: 'default' }}>← 上一课</button>
           <button onClick={() => toggleDone(gk)} style={isDone
             ? { flex: 1, padding: '11px 18px', borderRadius: '11px', border: '1px solid #BFE0CC', background: '#EAF4EE', color: '#2C6B4F', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', fontSize: '14.5px' }
@@ -1798,10 +1817,21 @@ export default function App() {
   // ── Root ───────────────────────────────────────────────────────────────────
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#FBF9F5', ...acCss }}>
+    <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden', background: '#FBF9F5', ...acCss }}>
+      {isMobile && sidebarOpen && (
+        <div onClick={() => setSidebarOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.3)', zIndex: 99 }} />
+      )}
       {renderSidebar()}
-      <main ref={mainRef} style={{ flex: 1, height: '100vh', overflowY: 'auto' }}>
-        <div style={{ maxWidth: '780px', margin: '0 auto', padding: '52px 40px 110px' }}>
+      <main ref={mainRef} style={{ flex: 1, height: '100dvh', overflowY: 'auto' }}>
+        <div style={{ maxWidth: '780px', margin: '0 auto', padding: isMobile ? '0 18px 80px' : '52px 40px 110px' }}>
+          {isMobile && (
+            <div style={{ position: 'sticky', top: 0, zIndex: 50, background: '#FBF9F5', borderBottom: '1px solid #ECE5DB', padding: '10px 0', marginLeft: '-18px', marginRight: '-18px', paddingLeft: '18px', paddingRight: '18px', display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+              <button onClick={() => setSidebarOpen(s => !s)} style={{ width: '38px', height: '38px', border: '1px solid #ECE5DB', borderRadius: '10px', background: '#fff', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '5px', flex: 'none' }}>
+                {[0, 1, 2].map(i => <span key={i} style={{ width: '16px', height: '2px', background: '#473F38', borderRadius: '1px', display: 'block' }} />)}
+              </button>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#241E18', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{academy.name}</span>
+            </div>
+          )}
           {renderMain()}
         </div>
       </main>
