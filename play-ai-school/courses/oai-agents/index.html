@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agents 与工作流 中文课程 · AI 学院</title>
+  <meta name="description" content="让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/oai-agents/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Agents 与工作流 中文课程 · AI 学院">
+  <meta property="og:description" content="让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/oai-agents/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agents 与工作流 中文课程 · AI 学院">
+  <meta name="twitter:description" content="让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Agents 与工作流","alternateName":"Agents and Workflows","description":"让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。 4 个模块、9 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/oai-agents/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"},"syllabusSections":[{"@type":"Syllabus","name":"认识 Agents","description":"什么是 AI Agent；Agent 是怎么运转的；什么时候该用 Agent"},{"@type":"Syllabus","name":"构建工作流","description":"自动化一个流程；连接工具与数据；编排多个步骤"},{"@type":"Syllabus","name":"可靠与安全","description":"让 Agent 可控；评估与监控"},{"@type":"Syllabus","name":"测验","description":"课程测验"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Agents 与工作流","item":"https://bobot.is-a.dev/play-ai-school/courses/oai-agents/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 OpenAI 学院 · 中文学习版 · 完全免费</div>
+      <h1>Agents 与工作流</h1>
+      <p class="course-en">Agents and Workflows</p>
+      <div class="meta-line"><span>高级</span><span>4 个模块</span><span>9 节课</span><span>全中文讲解</span></div>
+      <p>这门课带你从「对话」走向「自动化」：理解 AI Agent 是什么、它和普通对话有何不同、什么时候该用，以及如何把多步骤的工作交给它自动完成。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识 Agents</strong><ul><li><a href="#m1-l1">什么是 AI Agent</a></li><li><a href="#m1-l2">Agent 是怎么运转的</a></li><li><a href="#m1-l3">什么时候该用 Agent</a></li></ul></li>
+      <li><strong>模块二 · 构建工作流</strong><ul><li><a href="#m2-l4">自动化一个流程</a></li><li><a href="#m2-l5">连接工具与数据</a></li><li><a href="#m2-l6">编排多个步骤</a></li></ul></li>
+      <li><strong>模块三 · 可靠与安全</strong><ul><li><a href="#m3-l7">让 Agent 可控</a></li><li><a href="#m3-l8">评估与监控</a></li></ul></li>
+      <li><strong>模块四 · 测验</strong><ul><li><a href="#m4-l9">课程测验</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识 Agents <span class="module-en">Meet AI Agents</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是 AI Agent</h3>
+        <p class="lead">AI Agent（智能体）是能「自己分步把任务做完」的 AI。你给它一个目标，它会自己规划步骤、调用需要的工具、一步步执行，而不只是给你一段文字建议。</p>
+        <h4>从「回答」到「行动」</h4>
+        <p>普通对话里，AI 给你建议，执行还得你来；Agent 则能真正去做：查资料、填表单、调用其他软件、把结果整理好。它把「想」和「做」连了起来。</p>
+        <ul><li>设定目标：你说清要达成什么</li><li>自主规划：它拆解成若干步骤</li><li>调用工具：搜索、读写文件、连接应用</li><li>交付结果：完成后把成果交给你</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 说明</span><p>本课讲的是 Agent 的通用概念与思路。具体产品的功能和界面会持续更新，请以 OpenAI 官方文档为准。</p></aside>
+        <details class="quiz"><summary>🧠 自测：AI Agent 和普通对话最大的区别是？</summary><ol type="A"><li>回答更长</li><li class="right">能自主分步执行任务、调用工具，而不只是给建议　✓</li><li>只能聊天</li><li>不需要你设定目标</li></ol><p class="explain">Agent 能自己规划步骤、调用工具并执行，把「给建议」升级为「把事做完」。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：分辨对话与 Agent</p><ol><li>想一件你常做、需要多步操作的任务（如整理一份资料）</li><li>哪些步骤现在是你手动做的</li><li>设想如果交给 Agent，它会怎样一步步替你完成</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>Agent 是怎么运转的</h3>
+        <p class="lead">Agent 的工作方式可以理解成一个循环：理解目标 → 想下一步 → 用一个工具 → 看结果 → 再决定下一步，直到完成。这个「边做边判断」的循环是它能完成复杂任务的关键。</p>
+        <h4>三个关键部件</h4>
+        <ul><li>目标：你交给它的最终结果</li><li>工具：它能动用的能力（搜索、读写、连接的应用）</li><li>判断：每一步根据结果决定接下来做什么</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Agent 越自主，越需要清晰的目标和边界。把「要达成什么」「不能做什么」说清楚，它才不会跑偏。</p></aside>
+        <details class="quiz"><summary>🧠 自测：下面哪一项「不是」Agent 运转的核心部件？</summary><ol type="A"><li>明确的目标</li><li>可调用的工具</li><li>根据结果做判断的能力</li><li class="right">更漂亮的界面　✓</li></ol><p class="explain">Agent 的核心是目标、工具和基于结果的判断循环；界面美观与否不影响它能否完成任务。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：画出一个循环</p><ol><li>为你上一节想到的任务设一个目标</li><li>列出它可能需要的 2-3 个工具</li><li>画出「想一步→做一步→看结果」的循环</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l3">
+        <h3>什么时候该用 Agent</h3>
+        <p class="lead">不是所有事都需要 Agent。简单的一问一答，普通对话更快更省；多步骤、要调用工具、要自动跑完的流程，才轮到 Agent 出场。</p>
+        <h4>适合 Agent 的信号</h4>
+        <ul><li>任务有明确的多个步骤</li><li>需要去「拿」外部信息或操作其他工具</li><li>你希望它自动跑完，而不是盯着每一步</li><li>流程会重复发生，值得自动化</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>先用普通对话把任务跑顺、把要求理清，再考虑把这套稳定的流程交给 Agent 自动化——这样更可控。</p></aside>
+        <details class="quiz"><summary>🧠 自测：下列哪种情况最适合用 Agent 而不是普通对话？</summary><ol type="A"><li>问一句话就能答的小问题</li><li class="right">一个需要多步、还要调用其他工具自动跑完的流程　✓</li><li>让它改一句文案</li><li>问一个定义</li></ol><p class="explain">多步骤、需调用工具、希望自动跑完且会重复的流程，才是 Agent 的用武之地。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：判断你的场景</p><ol><li>回看你列出的任务，判断它是「一问一答」还是「多步流程」</li><li>如果是多步流程，写下它的步骤</li><li>想想哪些步骤可以安全地交给 Agent 自动完成</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 构建工作流 <span class="module-en">Building workflows</span></h2>
+      
+      <article class="lesson" id="m2-l4">
+        <h3>自动化一个流程</h3>
+        <p class="lead">将一个现有的人工流程交给 AI Agent 来执行，需要先仔细拆解这个流程。本课教你如何识别适合自动化的流程，以及如何为 Agent 绘制清晰的执行地图。</p>
+        <h4>选择合适的自动化候选流程</h4>
+        <p>最适合自动化的流程具备以下特征：步骤固定、规则清晰、重复执行、不需要人类情感判断。如果一个流程每次执行方式都不同，或需要大量人际沟通和情境判断，自动化的效果会大打折扣。</p>
+        <ul><li>好的候选：每天自动摘要收件箱中的新文件</li><li>好的候选：将新提交的表单数据分类并路由到对应负责人</li><li>不适合：需要和客户深度沟通理解需求的销售谈判</li><li>不适合：需要创意和主观判断的品牌策略制定</li></ul>
+        <h4>以文件摘要流程为例</h4>
+        <p>以&quot;自动摘要新收到的文件&quot;为例，分解步骤：检查是否有新文件 → 读取文件内容 → 判断文件类型（合同/报告/邮件）→ 按模板生成摘要 → 将摘要存入指定位置。其中，&quot;判断文件类型&quot;是 AI 判断点，其余是确定性逻辑。</p>
+        <h4>标出决策点</h4>
+        <p>绘制流程图时，明确区分两类步骤：确定性步骤（总是做同一件事）和 AI 判断步骤（需要理解内容后做决定）。Agent 在判断步骤上最有价值，确定性步骤可以用普通代码完成。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>先将流程写成人类版本的操作手册，再思考哪些步骤可以由 AI 执行。自动化的前提是流程本身足够清晰。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪个流程最适合用 AI Agent 来自动化？</summary><ol type="A"><li>与重要客户进行年度战略规划会议</li><li class="right">每天从固定来源汇总行业新闻并生成简报　✓</li><li>为公司设计新品牌标志的创意方向</li><li>处理需要法律解释的合同纠纷</li></ol><p class="explain">每天汇总固定来源新闻是步骤固定、规则清晰、重复性高的任务，非常适合 Agent 自动化。其他选项都需要大量人类判断和创意。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：拆解一个自动化流程</p><ol><li>选择你工作中一个每周都要重复执行的任务</li><li>将它拆解为 5-8 个具体步骤</li><li>标注每个步骤：是确定性逻辑还是需要 AI 判断</li><li>评估：如果 AI 在判断步骤出错，后果是否可接受？</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>连接工具与数据</h3>
+        <p class="lead">AI Agent 的力量来自于它能调用工具采取行动，而不只是生成文字。本课介绍 function calling 和 Assistants API 的内置工具，理解 Agent 如何与现实世界交互。</p>
+        <h4>Function calling 是什么</h4>
+        <p>Function calling（函数调用）允许你给模型定义一组可以调用的函数。模型在对话中判断&quot;这里需要调用某个函数&quot;，然后返回调用指令（函数名和参数），由你的代码实际执行函数并将结果返回给模型。模型再基于结果继续生成回复。</p>
+        <ul><li>模型决定&quot;要调用什么函数&quot;</li><li>你的代码负责实际执行函数</li><li>函数结果返回给模型后，模型继续对话</li><li>典型用途：查询数据库、调用外部 API、操作文件</li></ul>
+        <h4>一个函数定义的例子</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>// 告诉模型你有一个&quot;查询天气&quot;的函数
+{
+  &quot;name&quot;: &quot;get_weather&quot;,
+  &quot;description&quot;: &quot;查询指定城市的当前天气&quot;,
+  &quot;parameters&quot;: {
+    &quot;city&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;城市名称，如'北京'或'上海'&quot;
+    }
+  }
+}
+
+// 用户说&quot;北京今天冷吗？&quot;后，模型会返回：
+// { &quot;function&quot;: &quot;get_weather&quot;, &quot;arguments&quot;: { &quot;city&quot;: &quot;北京&quot; } }</pre></div>
+        <h4>Assistants API 的内置工具</h4>
+        <ul><li>代码解释器（Code Interpreter）：运行 Python 代码，处理数据、生成图表</li><li>文件搜索（File Search）：从上传文件中检索信息（即 RAG）</li><li>网页浏览：访问互联网获取最新信息</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Function calling 让 Agent 能够&quot;行动&quot;，而不只是&quot;说话&quot;。设计工具时，每个函数只做一件明确的事，命名清晰，便于模型准确判断何时调用。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在 function calling 机制中，谁负责实际执行函数？</summary><ol type="A"><li>OpenAI 的服务器</li><li class="right">你的应用代码　✓</li><li>模型本身直接执行</li><li>用户手动触发</li></ol><p class="explain">模型只决定&quot;需要调用哪个函数并传入什么参数&quot;，实际的函数执行由开发者的应用代码完成。结果再返回给模型继续处理。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计一个工具定义</p><ol><li>选择一个你的 Agent 需要执行的操作（如&quot;发送通知&quot;或&quot;查询订单状态&quot;）</li><li>写出该工具的名称（英文）、描述（中文）、需要的参数</li><li>思考：这个工具调用后，结果应该如何返回给 Agent？</li><li>（可选）在 OpenAI Playground 的 Assistants 页面添加该工具定义</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>编排多个步骤</h3>
+        <p class="lead">真实的 Agent 工作流通常包含多个步骤。如何组织这些步骤的执行顺序，是构建可靠工作流的核心设计问题。</p>
+        <h4>三种基本编排模式</h4>
+        <ul><li>串行（Sequential）：步骤 1 → 步骤 2 → 步骤 3，前一步的输出是后一步的输入</li><li>并行（Parallel）：多个独立步骤同时执行，最后汇总结果</li><li>条件分支（Conditional）：如果 X 发生则执行 Y，否则执行 Z</li></ul>
+        <h4>串行模式：流水线处理</h4>
+        <p>串行模式适合有明确先后顺序的任务：提取数据 → 清洗数据 → 分析数据 → 生成报告。每一步都依赖前一步的结果。设计时要考虑：如果中间某一步失败，是重试、跳过还是终止整个流程？</p>
+        <h4>并行模式与条件分支</h4>
+        <p>并行模式适合独立子任务：同时分析 5 个不同部门的报告，最后汇总。条件分支让 Agent 能根据情况选择不同路径：如果文件是合同，执行合同审查流程；如果是发票，执行财务核对流程。</p>
+        <ul><li>串行：有依赖关系的步骤，保证顺序正确</li><li>并行：独立子任务，提升效率</li><li>条件分支：处理多种输入类型，增加灵活性</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>从最简单的串行流程开始设计，先跑通再优化。过早引入并行和条件分支会让调试变得困难。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪种场景最适合使用并行编排模式？</summary><ol type="A"><li>需要依次处理的数据清洗、分析、报告三个步骤</li><li class="right">同时处理来自 5 个城市的独立销售报告　✓</li><li>根据用户类型选择不同的回复策略</li><li>按固定顺序执行的系统初始化流程</li></ol><p class="explain">5 个城市的销售报告相互独立，没有依赖关系，非常适合并行处理以节省时间。其他选项更适合串行或条件分支模式。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计一个多步骤工作流</p><ol><li>选择一个包含 4 个以上步骤的实际工作流程</li><li>将步骤分类：哪些是串行、哪些可以并行、哪些有条件分支</li><li>画出流程图（可以用文字描述箭头关系）</li><li>标注每个步骤的失败处理策略：重试、跳过还是终止</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 可靠与安全 <span class="module-en">Reliability &amp; safety</span></h2>
+      
+      <article class="lesson" id="m3-l7">
+        <h3>让 Agent 可控</h3>
+        <p class="lead">Agent 越自主，出错的代价可能越大。设计可控的 Agent，意味着在关键节点保留人类干预的能力，而不是让 AI 完全自主运行。</p>
+        <h4>人在回路（Human-in-the-Loop）模式</h4>
+        <p>人在回路（Human-in-the-Loop）是一种设计模式：在 Agent 执行过程中，设定特定的检查点，要求人类确认后才能继续。不是所有步骤都需要人工确认，只在关键节点介入即可。</p>
+        <ul><li>不可逆操作前确认：删除文件、发送邮件、提交订单</li><li>批量操作后审查：处理完 100 条记录后，抽查 5 条验证质量</li><li>低置信度时升级：Agent 遇到不确定的情况，主动请求人工判断</li></ul>
+        <h4>设定清晰的行为边界</h4>
+        <p>在 Agent 的系统指令中，明确写出它可以自主执行的操作范围，以及哪些操作必须等待人工批准。边界越清晰，Agent 的行为越可预测，出错时也更容易定位原因。</p>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>对于不可逆操作（删除数据、转账、发送大批量邮件），永远要设置人工确认步骤，无论 Agent 的置信度有多高。一旦执行，这些操作很难撤销。</p></aside>
+        <h4>最小权限原则</h4>
+        <p>只给 Agent 完成当前任务必需的工具访问权限。如果任务只需要读取数据，不要给它写入权限。权限越少，意外破坏的可能性越低。</p>
+        <details class="quiz"><summary>🧠 自测：以下哪种情况最应该设置人工确认步骤？</summary><ol type="A"><li>Agent 从网页上阅读一篇新闻</li><li class="right">Agent 准备向 500 位客户发送营销邮件　✓</li><li>Agent 在本地临时文件夹中创建一个草稿</li><li>Agent 搜索数据库中的历史记录</li></ol><p class="explain">向 500 位客户发送邮件是不可逆的批量操作，一旦执行无法撤回。这类操作必须在执行前经过人工审查和确认。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为你的 Agent 设计控制点</p><ol><li>回顾你在上一模块设计的工作流</li><li>识别其中的不可逆操作</li><li>为每个不可逆操作设计确认机制（如：打印操作摘要，等待人工输入 yes/no）</li><li>在 Agent 指令中写明：遇到哪些情况需要主动暂停并请求人工判断</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l8">
+        <h3>评估与监控</h3>
+        <p class="lead">部署 Agent 只是开始。持续监控它的行为、评估输出质量，并建立反馈闭环，才能让 Agent 在长期运行中保持可靠。</p>
+        <h4>记录每一次工具调用</h4>
+        <p>每次 Agent 调用工具时，都应该记录：调用了什么工具、传入了什么参数、得到了什么结果、花费了多长时间。这些日志是调试问题和优化性能的基础。没有日志，出问题时你只能猜测。</p>
+        <h4>定义成功标准</h4>
+        <p>在部署前，明确定义什么算成功：准确率达到 X%、处理时间不超过 Y 秒、用户满意度评分高于 Z。有了量化标准，你才能判断 Agent 是否达到预期，以及何时需要干预和优化。</p>
+        <ul><li>准确率：正确完成任务的比例</li><li>覆盖率：能够处理（而不是放弃）的请求比例</li><li>延迟：完成任务所需的平均时间</li><li>升级率：需要人工介入的请求比例</li></ul>
+        <h4>识别偏轨的 Agent</h4>
+        <p>当 Agent 开始重复调用同一个工具、产生异常长的输出、或者对相似输入给出截然不同的结果时，这些都是偏轨的信号。设置自动告警阈值，当关键指标异常时及时通知人工审查。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>最好的 Agent 系统不是&quot;不出错&quot;，而是&quot;出错时能快速发现并修复&quot;。日志、监控和反馈机制是实现这一目标的三驾马车。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪项不是评估 Agent 性能的有效指标？</summary><ol type="A"><li>正确完成任务的准确率</li><li class="right">Agent 使用的模型版本号　✓</li><li>需要人工介入的请求比例</li><li>完成任务的平均响应时间</li></ol><p class="explain">模型版本号本身不能衡量 Agent 的性能，它只是一个配置参数。准确率、升级率和响应时间才是直接反映 Agent 工作质量的指标。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为 Agent 设计监控方案</p><ol><li>列出你 Agent 工作流中需要记录日志的关键操作</li><li>定义 3 个量化的成功指标（如：准确率 &gt; 90%）</li><li>设计偏轨检测规则：哪些异常行为应该触发告警</li><li>规划反馈闭环：如何将发现的问题转化为对 Agent 指令的改进</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 测验 <span class="module-en">Quiz</span></h2>
+      
+      <article class="lesson" id="m4-l9">
+        <h3>课程测验</h3>
+        <p class="lead">恭喜你完成了 Agents 与工作流课程！以下 6 道测验题覆盖了课程的核心知识点，检验你的掌握程度。</p>
+        <details class="quiz"><summary>🧠 自测：Function calling 让 AI Agent 能够做什么？</summary><ol type="A"><li>自动学习新的编程语言</li><li class="right">调用你定义的函数来与外部系统交互　✓</li><li>替代所有人工编写的代码</li><li>直接访问用户的本地文件系统</li></ol><p class="explain">Function calling 让模型能够在对话中判断&quot;需要调用哪个函数&quot;，由开发者的代码实际执行，从而让 Agent 能够与外部系统、数据库、API 等交互。</p></details>
+        <details class="quiz"><summary>🧠 自测：OpenAI Assistants API 中的持久线程（Persistent Threads）有什么作用？</summary><ol type="A"><li>让多个用户同时使用同一个 Assistant</li><li class="right">保存对话历史，让 Agent 在多次会话间维持上下文　✓</li><li>加快 API 的响应速度</li><li>自动备份 Agent 的配置文件</li></ol><p class="explain">持久线程存储了对话历史，让 Agent 在下一次会话时仍然能记住之前的上下文，适合需要跨会话维护状态的应用场景。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪种情况最需要应用人在回路（Human-in-the-Loop）模式？</summary><ol type="A"><li>Agent 在搜索引擎中查询公开信息</li><li class="right">Agent 准备永久删除数据库中 1000 条客户记录　✓</li><li>Agent 生成一份内部分析报告草稿</li><li>Agent 将一篇文章翻译成中文</li></ol><p class="explain">永久删除 1000 条数据库记录是不可逆的批量操作，必须在执行前经过人工确认。搜索、生成草稿、翻译都是低风险操作，不需要人工介入。</p></details>
+        <details class="quiz"><summary>🧠 自测：监控 Agent 工作状态时，以下哪种做法最有效？</summary><ol type="A"><li>每天手动检查 Agent 的所有输出</li><li class="right">记录每次工具调用的日志并设置关键指标告警　✓</li><li>只在 Agent 报错时才检查日志</li><li>完全信任 Agent，不需要额外监控</li></ol><p class="explain">记录完整的工具调用日志并设置量化指标的自动告警，是兼顾效率和可靠性的监控方案。依赖手动检查或只看报错都无法及时发现偏轨行为。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪类任务是好的 Agent 自动化候选？</summary><ol type="A"><li>需要与客户进行情感沟通的投诉处理</li><li class="right">每天固定时间从 3 个来源汇总数据并生成报告　✓</li><li>需要创意灵感和个人风格的广告文案创作</li><li>需要法律判断的合同纠纷解决</li></ol><p class="explain">定时数据汇总是步骤固定、规则清晰、重复性高的任务，是 Agent 自动化的理想候选。其他选项都需要大量人类创意判断或情感能力。</p></details>
+        <details class="quiz"><summary>🧠 自测：在多步骤 Agent 工作流中，以下关于并行模式的描述哪项正确？</summary><ol type="A"><li>并行模式适合有严格先后顺序依赖的任务</li><li class="right">并行模式让多个独立子任务同时执行，提升整体效率　✓</li><li>并行模式下所有子任务共享同一个上下文窗口</li><li>并行模式只适用于两个子任务的情况</li></ol><p class="explain">并行模式的核心是让互相独立、没有依赖关系的子任务同时执行，从而缩短总完成时间。子任务有依赖时应使用串行模式。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计你的第一个 Agent 工作流</p><ol><li>从你的实际工作中选一个重复性流程，完整描述它的步骤</li><li>标注每个步骤的类型：确定性逻辑 / AI 判断 / 不可逆操作</li><li>设计工具列表：Agent 需要调用哪些函数或 API</li><li>写出监控方案：记录哪些日志，定义什么成功标准</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

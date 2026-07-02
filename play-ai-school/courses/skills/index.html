@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Skills 入门 中文课程 · AI 学院</title>
+  <meta name="description" content="把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。 3 个模块、7 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/skills/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Agent Skills 入门 中文课程 · AI 学院">
+  <meta property="og:description" content="把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。 3 个模块、7 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/skills/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agent Skills 入门 中文课程 · AI 学院">
+  <meta name="twitter:description" content="把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。 3 个模块、7 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Agent Skills 入门","alternateName":"Introduction to Agent Skills","description":"把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。 3 个模块、7 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/skills/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"},"syllabusSections":[{"@type":"Syllabus","name":"认识 Agent Skills","description":"什么是 Agent Skill；渐进式披露"},{"@type":"Syllabus","name":"构建你的第一个 Skill","description":"SKILL.md 的结构；编写说明与示例；打包资源与脚本"},{"@type":"Syllabus","name":"最佳实践","description":"何时使用 Skill；常见误区"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Agent Skills 入门","item":"https://bobot.is-a.dev/play-ai-school/courses/skills/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>Agent Skills 入门</h1>
+      <p class="course-en">Introduction to Agent Skills</p>
+      <div class="meta-line"><span>进阶</span><span>3 个模块</span><span>7 节课</span><span>全中文讲解</span></div>
+      <p>Agent Skills 让你把某类任务的标准做法、规范和参考资料打包成可复用的「专长包」，需要时让 Claude 自动调用。本课带你认识 Skills 并构建你的第一个 Skill。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识 Agent Skills</strong><ul><li><a href="#m1-l1">什么是 Agent Skill</a></li><li><a href="#m1-l2">渐进式披露</a></li></ul></li>
+      <li><strong>模块二 · 构建你的第一个 Skill</strong><ul><li><a href="#m2-l3">SKILL.md 的结构</a></li><li><a href="#m2-l4">编写说明与示例</a></li><li><a href="#m2-l5">打包资源与脚本</a></li></ul></li>
+      <li><strong>模块三 · 最佳实践</strong><ul><li><a href="#m3-l6">何时使用 Skill</a></li><li><a href="#m3-l7">常见误区</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识 Agent Skills <span class="module-en">Meet Agent Skills</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是 Agent Skill</h3>
+        <p class="lead">Agent Skill 是一个可复用的「专长包」：把某类任务的标准做法、规范和参考资料打包好，需要时让 Claude 自动调用，从而稳定、专业地完成这类工作。</p>
+        <h4>Skill 长什么样</h4>
+        <p>一个 Skill 通常是一个文件夹，核心是一份 SKILL.md 说明文件，里面写清楚：这个 Skill 是做什么的、什么时候该用、具体怎么做。还可以附带脚本、模板等资源。</p>
+        <ul><li>标准化：让同类任务每次都按同样的高标准完成</li><li>可复用：写一次，到处用</li><li>渐进式：Claude 先读简介，需要时再深入细节</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 说明</span><p>关于 Agent Skills 的具体接口与字段，本课内容基于 Anthropic 公开资料整理，请以官方文档为准。</p></aside>
+        <details class="quiz"><summary>🧠 自测：Agent Skill 的核心作用是？</summary><ol type="A"><li>让 Claude 回复更短</li><li class="right">把某类任务的标准做法打包，供 Claude 复用　✓</li><li>替代提示词</li><li>加密文件</li></ol><p class="explain">Skill 把特定任务的规范、流程和资料封装成可复用的包，让 Claude 稳定、专业地完成这类工作。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：找出你的候选 Skill</p><ol><li>列出你团队里格式固定、反复出现的一类任务</li><li>写下完成它的标准步骤</li><li>这就是一个适合做成 Skill 的场景</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>渐进式披露</h3>
+        <p class="lead">Skills 的一个关键设计是「渐进式披露」（progressive disclosure）：Claude 不会一次性加载所有细节，而是先看简短的描述，判断需要时再读取更详细的内容。</p>
+        <h4>为什么要渐进式</h4>
+        <p>上下文窗口是有限的。如果把每个 Skill 的全部细节都塞进去，会很快占满。渐进式披露让 Claude 先用一句话的简介判断「这个 Skill 现在用得上吗」，用得上才深入，从而节省上下文、保持高效。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>写 SKILL.md 时，开头的描述要精准——它是 Claude 判断「要不要用这个 Skill」的唯一依据。</p></aside>
+        <details class="quiz"><summary>🧠 自测：渐进式披露的好处是？</summary><ol type="A"><li>让 Skill 更长</li><li class="right">节省上下文，按需加载细节　✓</li><li>让 Claude 更慢</li><li>隐藏代码</li></ol><p class="explain">渐进式披露让 Claude 先读简介、需要时再深入，避免一次性占满有限的上下文窗口。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：写一句好描述</p><ol><li>为上一节想到的 Skill 写一句话描述它做什么</li><li>检查：Claude 仅凭这句话能判断何时该用它吗</li><li>如果不能，再改得更具体</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 构建你的第一个 Skill <span class="module-en">Build your first Skill</span></h2>
+      
+      <article class="lesson" id="m2-l3">
+        <h3>SKILL.md 的结构</h3>
+        <p class="lead">一个 Skill 文件就是一个普通的 Markdown 文件，但它的结构决定了 Claude 能否准确理解并执行你的意图。本课带你解剖一个完整的 Skill 文件。</p>
+        <h4>文件名即命令名</h4>
+        <p>将 Markdown 文件放入 .claude/commands/ 目录后，文件名（不含 .md 后缀）就成为对应的斜杠命令。例如 review.md 对应 /review，deploy-env.md 对应 /deploy-env。文件内容会作为系统消息注入 Claude 的上下文。</p>
+        <ul><li>文件名用小写字母和连字符，避免空格</li><li>命令名应简短且能表达动作意图</li><li>同名文件会覆盖上级目录中的同名 Skill</li></ul>
+        <h4>Skill 文件的核心结构</h4>
+        <p>一个规范的 Skill 文件包含三个关键部分：描述（description）说明该 Skill 做什么；使用时机（when-to-use）帮助 Claude 判断何时触发；步骤与说明（steps/instructions）是执行的具体指令。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># /review — 代码审查 Skill
+
+## 描述
+对当前改动执行全面的代码审查，输出结构化的审查报告。
+
+## 使用时机
+当用户请求代码审查、想在提交前检查代码质量，或需要找出潜在 bug 时使用。
+
+## 步骤
+1. 读取用户指定的文件或最近的 git diff
+2. 检查以下维度：正确性、可读性、性能、安全性
+3. 对每个问题给出：问题描述、严重程度（高/中/低）、改进建议
+4. 最后给出总体评分和优先改进项</pre></div>
+        <h4>各部分的作用</h4>
+        <ul><li>描述：让用户和 Claude 快速理解 Skill 的用途</li><li>使用时机：防止 Claude 在不合适的场景下调用此 Skill</li><li>步骤：给 Claude 明确的执行路径，减少歧义</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>描述部分保持一行以内，使用时机部分不超过三条，步骤部分是 Skill 的核心，可以详细展开。</p></aside>
+        <details class="quiz"><summary>🧠 自测：将 review-code.md 放入 .claude/commands/ 后，对应的斜杠命令是什么？</summary><ol type="A"><li>/review-code.md</li><li class="right">/review-code　✓</li><li>/commands/review-code</li><li>/claude/review-code</li></ol><p class="explain">文件名去掉 .md 后缀即为命令名，路径不会出现在命令中。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：创建你的第一个 Skill 文件</p><ol><li>在项目根目录创建 .claude/commands/ 文件夹（如不存在）</li><li>新建文件 summarize.md，写入描述、使用时机、步骤三个部分</li><li>在 Claude Code 中输入 /summarize 验证命令可以被识别</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l4">
+        <h3>编写说明与示例</h3>
+        <p class="lead">好的 Skill 说明能让 Claude 精准执行你的意图。模糊的指令会导致不一致的输出，而清晰的示例则能大幅提升 Skill 的质量。</p>
+        <h4>写具体、可验证的指令</h4>
+        <p>避免使用&quot;好好检查代码&quot;这样模糊的表述。应当明确说明：检查什么、按什么标准、输出什么格式。Claude 会严格按照你的指令行事，模糊的指令带来不可预期的结果。</p>
+        <ul><li>指定输出格式（表格、列表、Markdown 章节）</li><li>明确范围（哪些文件、哪些维度）</li><li>说明优先级（先检查安全，再看性能）</li></ul>
+        <h4>使用 $ARGUMENTS 接收用户输入</h4>
+        <p>在 Skill 文件中使用 $ARGUMENTS 占位符，Claude 会将用户在斜杠命令后输入的内容替换到此处。例如用户输入 /review src/api.py，$ARGUMENTS 就变成 src/api.py。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># /review — Python 代码审查
+
+## 描述
+审查指定的 Python 文件，重点关注 PEP 8 规范、类型注解和异常处理。
+
+## 指令
+审查以下文件：$ARGUMENTS
+
+请按顺序执行：
+1. 检查 PEP 8 命名规范（变量、函数、类名）
+2. 检查是否缺少类型注解（函数参数和返回值）
+3. 检查异常处理：是否有裸 except、是否记录了错误日志
+4. 输出格式：每个问题单独一行，格式为 [严重度] 行号: 问题描述
+5. 最后汇总：发现 N 个问题，其中高危 X 个
+
+## 示例输出
+[高] 第 23 行: 裸 except 会捕获所有异常包括 KeyboardInterrupt
+[中] 第 45 行: 函数 process_data 缺少返回类型注解
+[低] 第 12 行: 变量名 Temp 应改为小写 temp</pre></div>
+        <h4>在文件中内嵌示例</h4>
+        <p>在 Skill 文件中提供示例输入和期望输出，可以让 Claude 更好地校准自己的行为。示例充当了&quot;少样本学习&quot;的作用，特别适合输出格式要求严格的场景。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>$ARGUMENTS 是连接用户输入与 Skill 执行的关键。没有它，Skill 只能执行固定任务；有了它，Skill 才能处理用户指定的任意目标。</p></aside>
+        <details class="quiz"><summary>🧠 自测：用户输入 /review src/utils.py 时，Skill 文件中的 $ARGUMENTS 会被替换成什么？</summary><ol type="A"><li>/review</li><li class="right">src/utils.py　✓</li><li>$ARGUMENTS</li><li>review src/utils.py</li></ol><p class="explain">$ARGUMENTS 会被替换为斜杠命令名之后的所有内容，即用户传入的参数。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：改进一个现有 Skill</p><ol><li>打开你在上一课创建的 summarize.md</li><li>添加 $ARGUMENTS 占位符，让用户可以指定要摘要的文件</li><li>写一段示例输出，展示你期望的摘要格式</li><li>用 /summarize README.md 测试效果</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>打包资源与脚本</h3>
+        <p class="lead">有些 Skill 需要辅助脚本、模板文件或参考文档才能正常工作。本课介绍如何将这些资源与 Skill 文件一起组织，以及何时应该保持 Skill 精简。</p>
+        <h4>在 Skill 文件中引用外部资源</h4>
+        <p>你可以在 .claude/commands/ 目录下创建子文件夹，将辅助文件放在同一位置。在 Skill 的指令中，告诉 Claude 读取这些文件的路径。Claude 具备文件读取能力，可以在执行 Skill 时自动加载相关内容。</p>
+        <ul><li>.claude/commands/review.md — Skill 主文件</li><li>.claude/commands/review-checklist.md — 审查清单</li><li>.claude/commands/templates/review-report.md — 报告模板</li></ul>
+        <h4>何时包含辅助文件</h4>
+        <p>当 Skill 需要执行特定格式的输出、引用固定的检查项列表，或需要运行一段脚本时，打包辅助文件是合理的。但不应把所有相关内容都打包进来——过多的文件会增加 Claude 读取的上下文，降低响应速度。</p>
+        <ul><li>适合打包：固定的检查清单、报告模板、代码片段库</li><li>不适合打包：整个代码库的文档、频繁变动的配置文件</li><li>原则：Skill 能独立运行，辅助文件只是锦上添花</li></ul>
+        <h4>何时保持 Skill 精简</h4>
+        <p>如果 Skill 的逻辑可以用一页 Markdown 说清楚，就不需要辅助文件。精简的 Skill 加载更快，更容易维护，也更容易与团队分享。当你发现需要用很多文件才能解释清楚一件事，考虑是否应该将其拆分为多个更小的 Skill。</p>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>辅助脚本（如 shell 脚本）可以在 Skill 指令中被 Claude 调用，但要确保这些脚本已被赋予可执行权限，并在指令中写明调用方式。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪种情况最适合为 Skill 打包辅助文件？</summary><ol type="A"><li>Skill 只需要生成一段简短文字</li><li class="right">Skill 需要引用一份固定的 50 项检查清单　✓</li><li>Skill 需要读取整个项目的所有源文件</li><li>Skill 已经很少使用</li></ol><p class="explain">固定的检查清单是典型的打包场景，它内容稳定、会被反复引用，放在独立文件中便于维护。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为 Skill 添加一个模板文件</p><ol><li>在 .claude/commands/ 下创建 templates/ 子文件夹</li><li>新建 templates/summary-report.md，写入你希望摘要报告遵循的结构</li><li>在 summarize.md 的指令中添加一行：按照 .claude/commands/templates/summary-report.md 的格式输出</li><li>测试 Skill，观察输出是否符合模板</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 最佳实践 <span class="module-en">Best practices</span></h2>
+      
+      <article class="lesson" id="m3-l6">
+        <h3>何时使用 Skill</h3>
+        <p class="lead">并非所有任务都适合封装成 Skill。判断清楚&quot;何时该用、何时不该用&quot;，能让你的 Skill 库保持精简高效。</p>
+        <h4>适合创建 Skill 的三个信号</h4>
+        <p>当你发现自己或团队重复输入相同的指令超过三次，这就是创建 Skill 的信号。Skill 最擅长的是：标准化重复工作流、在团队间共享一致的操作规范、以及编码包含多个步骤的复杂流程。</p>
+        <ul><li>重复性：同样的操作你做了 3 次以上</li><li>一致性：团队需要以同样的方式完成某个任务</li><li>复杂性：流程有 3 个以上步骤，容易遗漏</li></ul>
+        <h4>命名规范：动词-名词格式</h4>
+        <p>好的 Skill 名称应该能让人一眼看出它做什么。推荐使用&quot;动词-名词&quot;格式：review-code、deploy-env、generate-changelog、summarize-pr。避免使用过于宽泛的名称如 helper 或 tools，也避免使用缩写。</p>
+        <ul><li>好的命名：review-code.md、deploy-env.md、sync-docs.md</li><li>差的命名：helper.md、do-stuff.md、r.md</li><li>命名应能独立理解，不依赖上下文</li></ul>
+        <h4>何时不该创建 Skill</h4>
+        <p>一次性任务不值得封装：如果你只需要执行某个操作一次，直接告诉 Claude 就好。高度依赖上下文的任务也不适合 Skill——当任务每次都不同，通用的 Skill 反而会限制灵活性。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>创建 Skill 前问自己：这个操作下周还会再做吗？团队里其他人也需要做吗？如果两个问题都是否，直接对话即可。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪个场景最适合创建 Skill？</summary><ol type="A"><li>临时帮同事改一封邮件的措辞</li><li class="right">每次发布前都要执行的 10 步检查流程　✓</li><li>只用一次的数据格式转换</li><li>高度个性化的、每次都不同的分析任务</li></ol><p class="explain">重复的、多步骤的、团队共用的发布检查流程是 Skill 的典型使用场景。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：审查你的 Skill 库</p><ol><li>列出 .claude/commands/ 中的所有 Skill 文件</li><li>对每个 Skill 评估：是否满足&quot;重复、一致、复杂&quot;中的至少一条</li><li>删除或合并不符合标准的 Skill</li><li>检查所有 Skill 名称是否遵循动词-名词格式</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l7">
+        <h3>常见误区</h3>
+        <p class="lead">很多 Skill 因为几个常见错误而效果不佳。了解这些误区，能帮你从一开始就写出高质量的 Skill。</p>
+        <h4>误区一：Skill 太宽泛</h4>
+        <p>如果一个 Skill 叫 /help 或 /analyze，Claude 无法判断何时该用它、该做什么。过于宽泛的 Skill 会导致 Claude 的行为不一致，每次执行结果都不同。解决方法：明确 Skill 的边界，每个 Skill 只做一件事。</p>
+        <h4>误区二：Skill 太长</h4>
+        <p>Skill 文件过长会占用大量 context window，可能导致 Claude 遗漏后续对话的重要信息。如果你的 Skill 超过 500 字，考虑拆分成两个更专注的 Skill，或者将重复内容提取到辅助文件中按需引用。</p>
+        <ul><li>理想长度：100-300 字，能在一屏内读完</li><li>超过 500 字：考虑拆分</li><li>超过 1000 字：几乎肯定需要重构</li></ul>
+        <h4>其他常见误区</h4>
+        <ul><li>更新后未测试：修改 Skill 后必须重新验证所有场景</li><li>存放敏感信息：绝不在 Skill 文件中写入 API 密钥、密码或个人数据</li><li>忽略版本控制：Skill 文件应纳入 git，方便追踪变更和团队协作</li><li>没有描述部分：缺少描述让新成员不知道 Skill 的用途</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>永远不要在 Skill 文件中存储 API 密钥、密码或任何敏感信息。Skill 文件通常会提交到 git 仓库，敏感信息一旦泄露很难完全清除。</p></aside>
+        <details class="quiz"><summary>🧠 自测：一个 Skill 文件内容过长会带来什么主要问题？</summary><ol type="A"><li>文件无法被 Claude 识别</li><li class="right">占用过多 context window，影响对话效果　✓</li><li>斜杠命令会失效</li><li>辅助文件无法被加载</li></ol><p class="explain">过长的 Skill 文件会占用宝贵的 context window 空间，可能导致 Claude 在处理后续对话时遗漏重要信息。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：审计并修复一个问题 Skill</p><ol><li>选择你认为可能过于宽泛或过长的 Skill</li><li>检查是否有敏感信息，如有立即删除</li><li>如果超过 300 字，尝试精简或拆分</li><li>更新后重新测试该 Skill 的核心场景</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>
