@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subagents 入门 中文课程 · AI 学院</title>
+  <meta name="description" content="用子代理拆分与委派任务，保持主上下文干净。 3 个模块、6 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/subagents/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Subagents 入门 中文课程 · AI 学院">
+  <meta property="og:description" content="用子代理拆分与委派任务，保持主上下文干净。 3 个模块、6 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/subagents/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Subagents 入门 中文课程 · AI 学院">
+  <meta name="twitter:description" content="用子代理拆分与委派任务，保持主上下文干净。 3 个模块、6 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Subagents 入门","alternateName":"Introduction to Subagents","description":"用子代理拆分与委派任务，保持主上下文干净。 3 个模块、6 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/subagents/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"},"syllabusSections":[{"@type":"Syllabus","name":"认识 Subagents","description":"什么是 Subagent；创建与使用子代理"},{"@type":"Syllabus","name":"进阶用法","description":"多子代理协作；工具与权限范围"},{"@type":"Syllabus","name":"最佳实践","description":"何时该委派；常见误区"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Subagents 入门","item":"https://bobot.is-a.dev/play-ai-school/courses/subagents/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>Subagents 入门</h1>
+      <p class="course-en">Introduction to Subagents</p>
+      <div class="meta-line"><span>进阶</span><span>3 个模块</span><span>6 节课</span><span>全中文讲解</span></div>
+      <p>Subagent（子代理）让你把相对独立的工作委派出去，在各自的上下文里完成、再把结果交回。本课带你认识子代理，并学会创建和使用它们。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识 Subagents</strong><ul><li><a href="#m1-l1">什么是 Subagent</a></li><li><a href="#m1-l2">创建与使用子代理</a></li></ul></li>
+      <li><strong>模块二 · 进阶用法</strong><ul><li><a href="#m2-l3">多子代理协作</a></li><li><a href="#m2-l4">工具与权限范围</a></li></ul></li>
+      <li><strong>模块三 · 最佳实践</strong><ul><li><a href="#m3-l5">何时该委派</a></li><li><a href="#m3-l6">常见误区</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识 Subagents <span class="module-en">Meet Subagents</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是 Subagent</h3>
+        <p class="lead">Subagent（子代理）是你可以委派任务的「助手代理」。主代理把一项相对独立的工作交给子代理去完成，子代理在自己的上下文里干活，干完把结果交回来。</p>
+        <h4>为什么要用子代理</h4>
+        <ul><li>保持主上下文干净：子代理的中间过程不会塞满主对话</li><li>专业分工：可以为不同任务配置不同的子代理</li><li>并行与委派：把大任务拆成可独立完成的小块</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 说明</span><p>关于 Subagents 的具体配置方式，本课内容基于 Anthropic 公开资料整理，请以官方文档为准。</p></aside>
+        <details class="quiz"><summary>🧠 自测：使用子代理的主要好处是？</summary><ol type="A"><li>让回复更短</li><li class="right">把独立任务委派出去，保持主上下文干净　✓</li><li>替代 MCP</li><li>加快网速</li></ol><p class="explain">子代理在自己的上下文里完成被委派的任务，只把结果交回，从而让主代理的上下文保持干净、专注。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：想象一次委派</p><ol><li>想一个由多个独立步骤组成的大任务</li><li>哪一步可以整块交给一个子代理独立完成</li><li>主代理只需要它的最终结果，对吗</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>创建与使用子代理</h3>
+        <p class="lead">你可以为特定职责定义一个子代理：给它名字、说明它负责什么、它能用哪些工具。之后主代理在合适的时候就会把任务派给它。</p>
+        <h4>一个子代理包含什么</h4>
+        <ul><li>名称与职责：它是谁、负责什么</li><li>说明（instructions）：它该如何工作</li><li>工具范围：它被允许使用哪些工具</li></ul>
+        <h4>何时该委派</h4>
+        <p>当一项工作相对独立、会产生大量中间过程、或者需要专门的处理方式时，就适合交给子代理。简单的小事直接做就好，不必都委派。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>子代理不是越多越好。先把最常重复、最容易拖累主上下文的那类任务做成子代理。</p></aside>
+        <details class="quiz"><summary>🧠 自测：定义一个子代理时，通常「不」包含以下哪项？</summary><ol type="A"><li>名称与职责</li><li>工作说明</li><li>可用的工具范围</li><li class="right">用户的银行密码　✓</li></ol><p class="explain">子代理通常由名称/职责、工作说明和被允许使用的工具范围构成，绝不涉及用户的敏感凭据。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计一个子代理</p><ol><li>给上一节想到的任务配一个子代理，起个名字</li><li>用一句话写明它负责什么</li><li>列出它需要用到的工具</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 进阶用法 <span class="module-en">Going further</span></h2>
+      
+      <article class="lesson" id="m2-l3">
+        <h3>多子代理协作</h3>
+        <p class="lead">单个 Subagent 已经很强大，但真正的效率提升来自多个 Subagent 的协作。本课介绍两种核心协作模式：扇出（fan-out）和流水线（pipeline）。</p>
+        <h4>扇出模式：并行处理多个任务</h4>
+        <p>扇出模式由一个编排者（orchestrator）启动多个并行 Subagent，每个 Subagent 处理独立的子任务，最后编排者收集所有结果进行汇总。这是最常见的并行加速模式。</p>
+        <ul><li>编排者负责拆分任务、分配工作、汇总结果</li><li>每个 Subagent 拥有独立的 context window</li><li>Subagent 之间通过文件系统共享数据，而不是直接通信</li></ul>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 编排者 Prompt 示例
+
+请并行启动 3 个 Subagent 分析以下三个模块，每个 Subagent 将分析结果写入指定文件：
+
+Subagent 1：分析 src/auth/ 目录，将结果写入 /tmp/analysis-auth.md
+Subagent 2：分析 src/api/ 目录，将结果写入 /tmp/analysis-api.md
+Subagent 3：分析 src/db/ 目录，将结果写入 /tmp/analysis-db.md
+
+每个分析应包含：代码质量评分（1-10）、主要问题列表、改进建议。
+
+所有 Subagent 完成后，读取三个文件并生成综合报告 /tmp/analysis-summary.md。</pre></div>
+        <h4>流水线模式：串行传递数据</h4>
+        <p>流水线模式中，Subagent A 的输出文件成为 Subagent B 的输入。适合需要依次处理、前一步结果决定后一步行为的场景。例如：Subagent A 提取数据 → Subagent B 分析数据 → Subagent C 生成报告。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>无论哪种模式，Subagent 之间通过文件传递数据是最可靠的方式。在 Prompt 中明确指定输入文件路径和输出文件路径，避免歧义。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在扇出模式中，多个 Subagent 如何将结果返回给编排者？</summary><ol type="A"><li>直接调用编排者的函数</li><li>通过网络 API 发送</li><li class="right">写入指定的文件，由编排者读取　✓</li><li>存入共享内存变量</li></ol><p class="explain">Subagent 之间不能直接通信，通过写入文件再由编排者读取是最可靠、最通用的数据传递方式。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计一个扇出任务</p><ol><li>选择一个可以拆分的任务（如分析多个配置文件）</li><li>写出编排者 Prompt，明确指定每个 Subagent 的输入范围和输出文件路径</li><li>写出每个 Subagent 应执行的具体指令</li><li>设计编排者汇总结果的步骤</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l4">
+        <h3>工具与权限范围</h3>
+        <p class="lead">默认情况下 Subagent 拥有与主 Agent 相同的工具权限。但在自动化工作流中，你通常希望限制 Subagent 的权限，只给它完成任务所需的最小工具集。</p>
+        <h4>为什么要限制 Subagent 的权限</h4>
+        <p>在自动化工作流中，Subagent 可能会在无人监督的情况下执行操作。给予过多权限会带来风险：Subagent 可能误删文件、发起网络请求，或修改不该修改的内容。最小权限原则能有效降低意外损失。</p>
+        <ul><li>只读 Subagent：只能读取文件，不能写入或执行命令</li><li>受限写入：只能写入指定目录下的文件</li><li>无网络：禁止 Subagent 发起外部网络请求</li></ul>
+        <h4>在 Prompt 中指定允许的工具</h4>
+        <p>在启动 Subagent 时，通过 Prompt 明确说明它可以使用哪些工具，以及哪些操作是被禁止的。虽然这不是硬性的技术限制，但清晰的指令能有效引导 Subagent 的行为边界。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 受限 Subagent Prompt 示例
+
+你是一个只读分析 Agent。你只能：
+- 读取文件（Read 工具）
+- 列出目录内容（Bash ls 命令）
+
+你不能：
+- 写入或修改任何文件
+- 运行除 ls 之外的 shell 命令
+- 发起网络请求
+
+请分析 src/ 目录的结构，将你的发现以文字形式返回（不要写入任何文件）。</pre></div>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>对于会产生不可逆影响的操作（删除文件、发送邮件、部署代码），始终在 Subagent 执行前增加人工确认步骤，而不是让 Subagent 自主决定。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪种做法最符合 Subagent 最小权限原则？</summary><ol type="A"><li>给所有 Subagent 完整的系统权限以避免权限不足</li><li class="right">根据任务需要，在 Prompt 中明确限定可用工具　✓</li><li>不给 Subagent 任何工具，让它只能生成文字</li><li>只在生产环境中限制权限，开发环境不限</li></ol><p class="explain">最小权限原则要求根据具体任务按需授权，在 Prompt 中明确说明允许和禁止的操作是最实用的方式。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为一个 Subagent 设计权限边界</p><ol><li>选择一个具体的 Subagent 任务（如代码审查）</li><li>列出完成该任务必须用到的工具</li><li>列出该任务明确不需要的工具（如写入、网络）</li><li>将权限说明写入 Subagent Prompt 的开头部分</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 最佳实践 <span class="module-en">Best practices</span></h2>
+      
+      <article class="lesson" id="m3-l5">
+        <h3>何时该委派</h3>
+        <p class="lead">不是所有任务都适合委派给 Subagent。学会识别好的委派场景和糟糕的委派场景，是高效使用 Subagent 的关键。</p>
+        <h4>适合委派的任务特征</h4>
+        <p>最适合委派的任务具备三个特征：任务之间依赖少（可以并行）、输出相互独立（不会互相干扰）、没有共享的可变状态（不会同时修改同一个文件）。</p>
+        <ul><li>好的委派：并行分析 5 个独立的日志文件</li><li>好的委派：同时为 3 个不同模块生成测试用例</li><li>好的委派：并发翻译 10 篇独立文章</li></ul>
+        <h4>糟糕的委派场景</h4>
+        <p>当两个 Subagent 需要修改同一个文件时，就会产生冲突。这是最常见的委派错误。此外，强依赖前一步结果的任务（非流水线场景）也不适合并行委派。</p>
+        <ul><li>坏的委派：两个 Subagent 都写入同一个 output.md</li><li>坏的委派：Subagent B 必须等 Subagent A 分析完才能开始</li><li>坏的委派：任务需要跨 Subagent 维护一个计数器</li></ul>
+        <h4>分解任务的实用方法</h4>
+        <p>将大任务分解时，先画出任务之间的依赖图。没有依赖箭头连接的任务可以并行；有单向依赖的任务适合流水线；有双向依赖的任务不应委派给不同 Subagent。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>判断能否委派的黄金问题：这两个子任务会写入同一个文件吗？如果会，不要并行委派。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪个任务最适合并行委派给多个 Subagent？</summary><ol type="A"><li>多个 Subagent 协作编辑同一份 README</li><li class="right">并行分析 5 个独立仓库的代码质量　✓</li><li>一个 Subagent 依赖另一个 Subagent 的实时输出</li><li>多个 Subagent 共同维护一个全局计数</li></ol><p class="explain">分析 5 个独立仓库是典型的无依赖并行任务，每个 Subagent 的输入输出互不影响。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：评估一个任务是否适合委派</p><ol><li>选择一个你经常重复做的任务</li><li>画出任务的步骤依赖图</li><li>标出哪些步骤之间没有依赖，可以并行</li><li>设计委派方案，确保没有 Subagent 会写入同一个文件</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l6">
+        <h3>常见误区</h3>
+        <p class="lead">Subagent 出错往往有规律可循。了解最常见的失败模式，能帮你提前设计防护措施。</p>
+        <h4>误区一：Subagent 幻觉文件路径</h4>
+        <p>Subagent 可能会&quot;发明&quot;一个并不存在的文件路径，然后自信地说它已经读取并分析了该文件。解决方法：在 Prompt 中明确提供完整的绝对路径，并要求 Subagent 在读取文件前先验证文件存在。</p>
+        <h4>误区二：多个 Subagent 冲突写文件</h4>
+        <p>当两个 Subagent 同时写入同一个文件时，后写入的内容会覆盖前一个，导致数据丢失。解决方法：为每个 Subagent 分配唯一的输出文件名，例如 output-agent-1.md、output-agent-2.md，由编排者负责合并。</p>
+        <h4>误区三：编排者误解 Subagent 的输出</h4>
+        <p>编排者读取 Subagent 输出时，可能因格式不统一而解析错误。解决方法：在每个 Subagent 的 Prompt 中明确规定输出格式（如 JSON 或固定 Markdown 结构），并要求 Subagent 严格遵守。</p>
+        <ul><li>每个 Subagent 用唯一输出文件，避免冲突</li><li>明确规定输出格式，方便编排者解析</li><li>在编排者中记录每个 Subagent 的原始输出，便于调试</li><li>对关键操作增加验证步骤，而不是假设 Subagent 成功</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>调试 Subagent 工作流时，保留每个 Subagent 的完整输出日志是最有效的手段。不要让编排者直接丢弃 Subagent 的中间结果。</p></aside>
+        <details class="quiz"><summary>🧠 自测：如何最有效地防止两个 Subagent 冲突写入同一文件？</summary><ol type="A"><li>让两个 Subagent 轮流写入</li><li class="right">为每个 Subagent 分配唯一的输出文件名　✓</li><li>使用文件锁机制</li><li>只让一个 Subagent 有写入权限</li></ol><p class="explain">最简单可靠的方案是为每个 Subagent 预先分配不同的输出文件名，从设计上消除冲突的可能。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为 Subagent 工作流添加防护措施</p><ol><li>审查你设计的 Subagent 工作流，检查是否有共享输出文件</li><li>为每个 Subagent 分配独立的输出文件</li><li>在编排者 Prompt 中添加：读取各 Subagent 输出后先验证文件格式再汇总</li><li>添加日志步骤：编排者将每个 Subagent 的原始输出追加到 debug.log</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

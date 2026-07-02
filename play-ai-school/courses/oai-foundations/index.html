@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 基础 中文课程 · AI 学院</title>
+  <meta name="description" content="搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/oai-foundations/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="AI 基础 中文课程 · AI 学院">
+  <meta property="og:description" content="搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/oai-foundations/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI 基础 中文课程 · AI 学院">
+  <meta name="twitter:description" content="搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"AI 基础","alternateName":"AI Foundations","description":"搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。 4 个模块、9 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/oai-foundations/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"},"syllabusSections":[{"@type":"Syllabus","name":"认识生成式 AI","description":"什么是生成式 AI；大语言模型如何工作；提示词基础"},{"@type":"Syllabus","name":"能力与局限","description":"它擅长什么；幻觉与事实核查；负责任地使用"},{"@type":"Syllabus","name":"动手实践","description":"你的第一次对话；迭代与改进"},{"@type":"Syllabus","name":"测验","description":"课程测验"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"AI 基础","item":"https://bobot.is-a.dev/play-ai-school/courses/oai-foundations/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 OpenAI 学院 · 中文学习版 · 完全免费</div>
+      <h1>AI 基础</h1>
+      <p class="course-en">AI Foundations</p>
+      <div class="meta-line"><span>入门</span><span>4 个模块</span><span>9 节课</span><span>全中文讲解</span></div>
+      <p>这门课带你从零理解生成式 AI：它是什么、大语言模型如何工作、为什么有时会出错，以及如何写出让它听懂的提示词。不需要任何技术背景。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识生成式 AI</strong><ul><li><a href="#m1-l1">什么是生成式 AI</a></li><li><a href="#m1-l2">大语言模型如何工作</a></li><li><a href="#m1-l3">提示词基础</a></li></ul></li>
+      <li><strong>模块二 · 能力与局限</strong><ul><li><a href="#m2-l4">它擅长什么</a></li><li><a href="#m2-l5">幻觉与事实核查</a></li><li><a href="#m2-l6">负责任地使用</a></li></ul></li>
+      <li><strong>模块三 · 动手实践</strong><ul><li><a href="#m3-l7">你的第一次对话</a></li><li><a href="#m3-l8">迭代与改进</a></li></ul></li>
+      <li><strong>模块四 · 测验</strong><ul><li><a href="#m4-l9">课程测验</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识生成式 AI <span class="module-en">Understanding Generative AI</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是生成式 AI</h3>
+        <p class="lead">生成式 AI（Generative AI）是一类能「创造新内容」的人工智能——文字、图片、代码、音频都可以。ChatGPT 就是其中最有名的例子：你用日常语言提问，它生成一段全新的回答。</p>
+        <h4>「生成」和「检索」的区别</h4>
+        <p>搜索引擎是把已经存在的网页找出来给你；生成式 AI 则是根据它学到的规律，现场「写出」一段以前并不存在的内容。所以它能帮你起草、改写、续写，而不仅仅是查找。</p>
+        <ul><li>写作：邮件、文案、报告、总结</li><li>创意：起名、头脑风暴、不同角度的方案</li><li>解释：把复杂概念讲得通俗易懂</li><li>转换：翻译、改写语气、调整长度</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>生成式 AI 不「知道」事实，它是在预测「接下来最合理的内容」。大多数时候很有用，但偶尔会一本正经地说错——这就是后面要讲的「幻觉」。</p></aside>
+        <details class="quiz"><summary>🧠 自测：生成式 AI 和搜索引擎最根本的不同是？</summary><ol type="A"><li>速度更快</li><li class="right">它现场生成全新内容，而不是检索已有网页　✓</li><li>只能处理英文</li><li>永远不会出错</li></ol><p class="explain">搜索引擎检索已存在的信息，生成式 AI 则根据学到的规律现场创造新内容，因此能起草和改写。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：体验一次「生成」</p><ol><li>打开 chatgpt.com 并登录</li><li>输入：用四种不同的语气，各写一句给同事的周末问候</li><li>观察它如何同时生成多个全新版本</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>大语言模型如何工作</h3>
+        <p class="lead">ChatGPT 背后是「大语言模型」（LLM）。理解它的一个简单心智模型：它是一个极其强大的「下一个词预测器」，从海量文本中学会了语言的规律。</p>
+        <h4>一次预测接一次预测</h4>
+        <p>当你提问时，模型并不是去数据库里查答案，而是一个词一个词地预测「接下来最合理的是什么」，连成一段流畅的回答。正因为如此，它擅长语言任务，但对精确的事实和计算要谨慎核对。</p>
+        <h4>它的知识从哪来</h4>
+        <p>模型是在某个时间点之前的大量文本上训练的，所以它对训练之后发生的事可能不了解。需要最新信息时，给它提供资料，或使用带联网/搜索能力的功能。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>把 AI 当成「语言很强、但记忆可能过时、偶尔会编」的助手。重要结论一定要自己复核，尤其是数字、引用和事实。</p></aside>
+        <details class="quiz"><summary>🧠 自测：下面对大语言模型的描述，哪个最准确？</summary><ol type="A"><li>它在一个事实数据库里查答案</li><li class="right">它逐词预测最合理的内容，连成回答　✓</li><li>它只会复制粘贴网页</li><li>它能联网获取任何实时信息</li></ol><p class="explain">LLM 的核心机制是逐词预测最合理的延续，而非查询数据库；它的知识也可能有时间截止。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：测试它的边界</p><ol><li>问 ChatGPT 一个需要最新信息的问题（如本周某新闻）</li><li>看它是否提示「知识有截止时间」或给出不确定的回答</li><li>再把一段资料贴给它，让它基于资料回答，对比差别</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l3">
+        <h3>提示词基础</h3>
+        <p class="lead">同样的问题，问法不同，答案质量天差地别。好的提示词（Prompt）不需要术语，只要把你想要的说清楚：要它做什么、背景是什么、想要什么样的结果。</p>
+        <h4>清晰提问的三个习惯</h4>
+        <ul><li>给角色和目标：「你是一位营养师，帮我……」</li><li>给背景和限制：受众是谁、有什么要求、不要什么</li><li>给期望的格式：列表、表格、字数、语气</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>不确定怎么问？可以直接让 AI 帮你：「我想达到 X，应该怎么向你提问才能得到最好的结果？」</p></aside>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>你是一位经验丰富的职业规划顾问。
+
+请帮我把下面这段工作经历改写成简历里的 3 条成果项。
+要求：用动词开头、尽量量化、每条不超过 25 字。
+
+经历：我负责公司公众号，半年里把阅读量从 2000 提到 1 万。</pre></div>
+        <details class="quiz"><summary>🧠 自测：下面哪种做法最能提升回答质量？</summary><ol type="A"><li>尽量把问题写得简短模糊</li><li class="right">说清角色、背景和想要的格式　✓</li><li>一次问十个无关问题</li><li>只发一个词</li></ol><p class="explain">明确角色、背景与期望格式，能让模型更准确地命中你的真实需求。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：一题两问</p><ol><li>先用一句话问 ChatGPT 一个真实问题</li><li>再补上角色、背景、格式重新问一次</li><li>对比两次结果，记下差别</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 能力与局限 <span class="module-en">Capabilities &amp; limits</span></h2>
+      
+      <article class="lesson" id="m2-l4">
+        <h3>它擅长什么</h3>
+        <p class="lead">ChatGPT 在很多任务上表现出色，但它并不是万能的。了解它真正擅长的领域，能让你把时间用在刀刃上。</p>
+        <h4>写作与内容处理</h4>
+        <p>ChatGPT 在文字类工作上表现最为突出。无论是起草邮件、润色文章、改写措辞，还是将长文档压缩成摘要，它都能快速给出高质量的结果。翻译也是它的强项，支持数十种语言之间的互译。</p>
+        <ul><li>写作与编辑：起草、润色、改写、格式调整</li><li>摘要提炼：将长文章、会议记录、报告压缩成要点</li><li>翻译：支持中英文及多种语言互译</li><li>解释复杂概念：用简单语言解释技术或专业内容</li></ul>
+        <h4>思维与分析辅助</h4>
+        <p>ChatGPT 是出色的头脑风暴伙伴，能快速生成多种角度和创意。它也擅长从你粘贴进来的文本中回答问题、提取信息——前提是信息就在对话窗口里。</p>
+        <ul><li>头脑风暴：快速生成创意清单、方案选项</li><li>问答：从粘贴的文本中提取关键信息</li><li>代码辅助：解释代码逻辑、查找 bug、生成代码片段</li><li>职业建议：模拟面试、修改简历、规划职业路径</li></ul>
+        <h4>一个好的多步骤 Prompt 示例</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>我是一名产品经理，需要向董事会汇报我们 Q3 的用户增长情况。
+
+请帮我完成以下任务：
+1. 将下面这段数据总结为三个核心洞察（每条不超过 30 字）
+2. 为每个洞察提供一个可能的原因
+3. 建议一个下一步行动
+
+数据：[在此粘贴你的数据或报告内容]</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>把你想要的内容、背景信息、输出格式一次性告诉 ChatGPT，比一条条追问效率更高。多步骤 Prompt 是提升效果的核心技巧。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪项任务 ChatGPT 最擅长处理？</summary><ol type="A"><li>实时查询今天的股票价格</li><li class="right">将你粘贴的会议记录整理成行动清单　✓</li><li>访问你公司内部数据库</li><li>预测明天的天气</li></ol><p class="explain">ChatGPT 最擅长处理对话窗口内的文本，整理会议记录是典型的强项场景。它无法访问实时数据或外部系统。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：试试 ChatGPT 的摘要能力</p><ol><li>找一篇你最近读过的文章或会议记录（至少 200 字）</li><li>将全文粘贴到 ChatGPT 对话框</li><li>输入：请将以上内容总结为 5 个要点，每点不超过 20 字</li><li>观察输出，思考哪些信息被保留、哪些被省略</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>幻觉与事实核查</h3>
+        <p class="lead">ChatGPT 有时会自信地说出错误的事情——这种现象叫&quot;幻觉&quot;。理解它为什么会发生，以及如何应对，是负责任使用 AI 的基本功。</p>
+        <h4>什么是幻觉</h4>
+        <p>幻觉是指 AI 生成了听起来合理、但实际上不正确的内容。模型可能会捏造一篇不存在的论文引用、给出错误的历史年份、或者描述一个并不真实的统计数据——而且语气听上去完全确定。</p>
+        <h4>为什么会发生幻觉</h4>
+        <p>ChatGPT 的工作原理是预测&quot;在这个上下文中，下一个词最可能是什么&quot;。它不是在查阅数据库或核实事实，而是在生成听起来合理的文本。当它不确定时，它仍然会生成一个看起来合理的答案，而不是说&quot;我不知道&quot;。</p>
+        <ul><li>高风险场景：具体数字和统计数据</li><li>高风险场景：学术论文引用和书目信息</li><li>高风险场景：近期发生的事件（超出训练截止日期）</li><li>高风险场景：特定人物的具体言论或行动</li></ul>
+        <h4>养成事实核查的习惯</h4>
+        <p>对于 ChatGPT 给出的重要信息，分享前务必通过其他来源验证。特别是数字、引用、和近期新闻，不要直接复制粘贴 AI 的输出而不核实。</p>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>ChatGPT 说得越自信，越不代表它一定正确。遇到具体的数字、引用或近期事实，请用搜索引擎或权威来源交叉验证后再使用。</p></aside>
+        <details class="quiz"><summary>🧠 自测：为什么 ChatGPT 有时会给出看似可信但实际错误的答案？</summary><ol type="A"><li>因为它故意欺骗用户</li><li class="right">因为它是在预测合理的文本，而不是查阅事实　✓</li><li>因为它的数据库更新太慢</li><li>因为中文问题它理解有误</li></ol><p class="explain">ChatGPT 是语言模型，本质上是在预测下一个词，而不是在查找事实。这导致它有时会生成听起来合理但不正确的内容。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：体验并识别幻觉</p><ol><li>向 ChatGPT 提问一个你知道答案的具体事实（如某本书的出版年份）</li><li>观察它的回答是否准确</li><li>再问一个你不确定的具体统计数字</li><li>在搜索引擎中验证 ChatGPT 的回答</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>负责任地使用</h3>
+        <p class="lead">使用 ChatGPT 能提升效率，但也需要了解边界。哪些信息不该分享、哪些决策不该依赖 AI，是每个用户都应该知道的。</p>
+        <h4>不该输入到 ChatGPT 的内容</h4>
+        <p>你输入到 ChatGPT 的内容会被 OpenAI 处理，在某些情况下可能用于模型改进。因此，敏感信息应该保留在对话之外。</p>
+        <ul><li>密码和 API 密钥：永远不要粘贴到 AI 对话中</li><li>他人的个人信息：姓名、电话、地址、身份证号</li><li>公司机密信息：未公开的财务数据、商业计划</li><li>医疗或法律文件中包含个人身份的部分</li></ul>
+        <h4>AI 不应做最终决策的领域</h4>
+        <p>ChatGPT 可以提供参考信息，但不应该作为医疗、法律或财务决策的唯一依据。AI 没有执照，不了解你的完整情况，也不承担任何责任。重要决策请咨询专业人士。</p>
+        <h4>透明地使用 AI</h4>
+        <p>当你用 AI 辅助完成一份工作成果时，考虑向接收者说明。在许多职业和学术场景中，使用 AI 需要遵循相关规范。透明使用不仅是诚信问题，也能帮助建立正确的使用文化。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>ChatGPT 是辅助工具，不是决策者。用它提升效率、拓展思路，但最终判断和责任由你承担。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪项内容不应该输入到 ChatGPT？</summary><ol type="A"><li>你想整理的工作邮件草稿</li><li class="right">你公司尚未公开的融资计划　✓</li><li>你想解释的一个技术概念</li><li>你想总结的一篇公开新闻文章</li></ol><p class="explain">未公开的公司机密信息不应输入到第三方 AI 工具，存在数据安全风险。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：制定你的 AI 使用原则</p><ol><li>列出 3 类你经常做的工作任务</li><li>对每类任务判断：是否适合用 ChatGPT 辅助</li><li>列出你不会输入到 ChatGPT 的信息类型</li><li>写下当你使用 AI 辅助完成工作时，你会如何向他人说明</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 动手实践 <span class="module-en">Hands-on</span></h2>
+      
+      <article class="lesson" id="m3-l7">
+        <h3>你的第一次对话</h3>
+        <p class="lead">理论学完了，现在动手实践。本课设计了三个具体练习，带你体验 ChatGPT 最实用的三种用法。</p>
+        <h4>练习一：摘要提炼</h4>
+        <p>找一篇你最近读过的文章或报告（任何语言均可），将正文粘贴到 ChatGPT 中，然后使用下面的 Prompt。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>请将以上内容总结为 5 个关键要点，每个要点用一句话表达，不超过 30 字。</pre></div>
+        <h4>练习二：角色扮演获取职业建议</h4>
+        <p>给 ChatGPT 设定一个角色，然后向它寻求职业建议。角色设定能让 AI 的回答更聚焦、更专业。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>你是一位有 15 年经验的职业顾问，专注于科技行业。我是一名有 3 年经验的后端工程师，想转型做产品经理。请给我 3 条具体的行动建议，并说明每条建议的理由。</pre></div>
+        <h4>练习三：用简单语言解释复杂概念</h4>
+        <p>选一个你工作中常遇到但难以向非专业人士解释的概念，用下面的模板向 ChatGPT 提问。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>请用小学生能理解的语言解释什么是[你的概念]。用一个生活中常见的比喻来帮助理解，解释不超过 100 字。</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>每个练习完成后，尝试在回复下方继续追问：&quot;能更简短吗？&quot;或&quot;能换一个角度吗？&quot;观察 ChatGPT 如何根据反馈调整输出。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在角色扮演 Prompt 中，给 ChatGPT 设定具体角色的主要好处是什么？</summary><ol type="A"><li>让 ChatGPT 的回答更长</li><li class="right">让回答更聚焦、更符合特定视角和专业背景　✓</li><li>防止 ChatGPT 出现幻觉</li><li>让 ChatGPT 能访问更多数据</li></ol><p class="explain">角色设定为模型提供了明确的视角和专业背景，让回答更具针对性，而不会让内容更准确或更长。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完成三个练习</p><ol><li>练习一：找一段至少 200 字的文本，用摘要 Prompt 提炼要点</li><li>练习二：用角色扮演 Prompt 获取一条对你有用的职业或工作建议</li><li>练习三：选一个你熟悉的专业概念，让 ChatGPT 用比喻解释它</li><li>对比三次对话，思考哪种 Prompt 方式最适合你的工作场景</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l8">
+        <h3>迭代与改进</h3>
+        <p class="lead">第一次的回复很少是最好的。学会通过追问和修改指令来迭代输出，是用好 ChatGPT 的核心技能。</p>
+        <h4>为什么需要迭代</h4>
+        <p>即使你的 Prompt 写得很好，第一次回复也可能在长度、语气、格式或内容深度上与你的期望有差距。迭代不是因为 AI 出错，而是因为你在逐步明确自己真正想要什么。</p>
+        <h4>常用的迭代指令</h4>
+        <ul><li>调整长度：请将以上内容缩短到 100 字以内 / 请展开第二点，增加更多细节</li><li>改变语气：请用更正式的商务语气重写 / 请用更轻松友好的语气重写</li><li>指定格式：请将以上内容改写为表格格式 / 请用编号列表重新组织</li><li>增加约束：请重新回答，但不要提到竞争对手 / 请只给出最重要的一条建议</li><li>视角转换：请从用户的角度重新描述这个功能</li></ul>
+        <h4>三轮迭代练习</h4>
+        <p>选择一个你关心的话题，先让 ChatGPT 给出初始回答，然后进行三轮迭代：第一轮调整长度，第二轮改变格式，第三轮加入新的约束条件。观察每一轮如何改进输出。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>第一轮：[初始问题]
+第二轮：请将上面的回答缩短到 50 字以内，只保留最核心的一点
+第三轮：请将这 50 字改写为一封正式邮件的开头段落
+第四轮：请在邮件开头加上一个吸引眼球的统计数据（如果没有真实数据，请注明&quot;示例数据&quot;）</pre></div>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>迭代时不需要重新开始新对话，直接在同一对话中追问即可。ChatGPT 会记住上下文，根据你的新要求调整前面的内容。</p></aside>
+        <details class="quiz"><summary>🧠 自测：迭代 Prompt 时，最好在哪里进行追问？</summary><ol type="A"><li>开一个新对话，重新输入所有内容</li><li class="right">在同一对话中直接追问　✓</li><li>复制上一次回答粘贴到新对话</li><li>每次都重写整个 Prompt</li></ol><p class="explain">在同一对话中追问最高效，ChatGPT 会保留上下文记忆，你只需告诉它需要调整什么，而不必重复所有背景。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：三轮迭代练习</p><ol><li>选一个你工作中实际遇到的问题，向 ChatGPT 提问</li><li>收到第一个回答后，要求它&quot;缩短到一半长度&quot;</li><li>再次收到回答后，要求它&quot;改为适合在会议上口头汇报的语气&quot;</li><li>比较三次版本，选出最符合你需求的，思考哪一轮改进最显著</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 测验 <span class="module-en">Quiz</span></h2>
+      
+      <article class="lesson" id="m4-l9">
+        <h3>课程测验</h3>
+        <p class="lead">恭喜你完成了 AI 基础课程的全部内容！通过以下 6 道测验题，检验你对核心概念的掌握程度。</p>
+        <details class="quiz"><summary>🧠 自测：生成式 AI 主要擅长创建什么类型的内容？</summary><ol type="A"><li>实时的股票和天气数据</li><li class="right">文字、图像、代码等基于已有数据学习的内容　✓</li><li>访问互联网上的最新新闻</li><li>直接操作外部软件和系统</li></ol><p class="explain">生成式 AI 通过学习大量已有数据来生成新内容，包括文字、图像、代码等，但它不能实时访问外部数据。</p></details>
+        <details class="quiz"><summary>🧠 自测：ChatGPT 是如何生成回复的？</summary><ol type="A"><li>通过搜索互联网并整合搜索结果</li><li class="right">通过预测在给定上下文中最可能出现的下一个词　✓</li><li>通过查询一个包含所有知识的数据库</li><li>通过随机选择训练数据中的句子</li></ol><p class="explain">语言模型的核心机制是&quot;下一词预测&quot;——根据上下文计算最可能的下一个词，逐词生成回复，而不是查阅数据库。</p></details>
+        <details class="quiz"><summary>🧠 自测：什么是训练截止日期（training cutoff）对使用的影响？</summary><ol type="A"><li>ChatGPT 每天会自动更新到最新信息</li><li class="right">ChatGPT 对截止日期之后发生的事件可能一无所知　✓</li><li>ChatGPT 只能回答截止日期之前提出的问题</li><li>训练截止日期决定了每天可以问多少问题</li></ol><p class="explain">模型在训练截止日期后不会自动获取新数据，因此对之后发生的事件（新法规、近期新闻等）可能无法提供准确信息。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪项最准确地描述了&quot;幻觉&quot;这一现象？</summary><ol type="A"><li>ChatGPT 因为服务器故障而无法回答</li><li class="right">ChatGPT 生成了听起来合理但实际上不正确的内容　✓</li><li>ChatGPT 拒绝回答某些敏感问题</li><li>ChatGPT 的回答太长导致用户看不完</li></ol><p class="explain">幻觉是指 AI 生成了看似可信、实际上错误的内容，这是语言模型&quot;预测合理文本&quot;机制的副作用，而非蓄意欺骗。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪类信息最不应该输入到 ChatGPT？</summary><ol type="A"><li>一篇你想摘要的公开新闻文章</li><li class="right">你的公司尚未对外公布的商业计划书　✓</li><li>你想让 AI 帮你改进的演讲稿草稿</li><li>一个你想简单解释给朋友听的技术概念</li></ol><p class="explain">未公开的公司商业机密不应输入第三方 AI 服务，存在数据安全和保密风险。其他选项均属于可安全使用的场景。</p></details>
+        <details class="quiz"><summary>🧠 自测：在医疗、法律或财务等专业领域，ChatGPT 的最合适定位是什么？</summary><ol type="A"><li>替代专业人士给出最终建议</li><li class="right">提供初步参考信息，最终决策仍需咨询专业人士　✓</li><li>这些领域 ChatGPT 完全无法提供任何帮助</li><li>只要提问足够详细，ChatGPT 的建议可以完全信赖</li></ol><p class="explain">ChatGPT 可以提供背景信息和初步思路，但它没有执照、不了解你的完整情况，也不承担法律责任。重要决策必须咨询专业人士。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：回顾与总结</p><ol><li>回顾本课程中你觉得最有价值的一个概念</li><li>想一个你工作中可以立即用 ChatGPT 改进的具体任务</li><li>写下你使用 ChatGPT 的两条个人原则（什么情况下用、什么信息不分享）</li><li>在 ChatGPT 中进行一次真实的工作对话，运用本课程学到的技巧</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

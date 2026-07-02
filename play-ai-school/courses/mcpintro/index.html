@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model Context Protocol 入门 中文课程 · AI 学院</title>
+  <meta name="description" content="用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。 4 个模块、13 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/mcpintro/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Model Context Protocol 入门 中文课程 · AI 学院">
+  <meta property="og:description" content="用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。 4 个模块、13 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/mcpintro/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Model Context Protocol 入门 中文课程 · AI 学院">
+  <meta name="twitter:description" content="用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。 4 个模块、13 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Model Context Protocol 入门","alternateName":"Introduction to MCP","description":"用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。 4 个模块、13 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/mcpintro/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT3H"},"syllabusSections":[{"@type":"Syllabus","name":"介绍","description":"欢迎学习本课；认识 MCP；MCP 客户端"},{"@type":"Syllabus","name":"动手构建 MCP 服务器","description":"项目搭建；用 MCP 定义工具；服务器 Inspector"},{"@type":"Syllabus","name":"连接 MCP 客户端","description":"实现一个客户端；定义资源；访问资源；定义 prompts；客户端中的 prompts"},{"@type":"Syllabus","name":"评估与总结","description":"MCP 期末测评；MCP 回顾"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Model Context Protocol 入门","item":"https://bobot.is-a.dev/play-ai-school/courses/mcpintro/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>Model Context Protocol 入门</h1>
+      <p class="course-en">Introduction to MCP</p>
+      <div class="meta-line"><span>进阶</span><span>4 个模块</span><span>13 节课</span><span>全中文讲解</span></div>
+      <p>这门课带你用 Python SDK 从零构建 MCP（Model Context Protocol）的服务器和客户端，掌握三大核心原语——工具、资源、提示，让 Claude 安全地连接外部服务和数据。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 介绍</strong><ul><li><a href="#m1-l1">欢迎学习本课</a></li><li><a href="#m1-l2">认识 MCP</a></li><li><a href="#m1-l3">MCP 客户端</a></li></ul></li>
+      <li><strong>模块二 · 动手构建 MCP 服务器</strong><ul><li><a href="#m2-l4">项目搭建</a></li><li><a href="#m2-l5">用 MCP 定义工具</a></li><li><a href="#m2-l6">服务器 Inspector</a></li></ul></li>
+      <li><strong>模块三 · 连接 MCP 客户端</strong><ul><li><a href="#m3-l7">实现一个客户端</a></li><li><a href="#m3-l8">定义资源</a></li><li><a href="#m3-l9">访问资源</a></li><li><a href="#m3-l10">定义 prompts</a></li><li><a href="#m3-l11">客户端中的 prompts</a></li></ul></li>
+      <li><strong>模块四 · 评估与总结</strong><ul><li><a href="#m4-l12">MCP 期末测评</a></li><li><a href="#m4-l13">MCP 回顾</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 介绍 <span class="module-en">Introduction</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>欢迎学习本课</h3>
+        <p class="lead">这门课会带你用 Python 从零构建 MCP 的服务器和客户端。学完你能让 Claude 安全地连接到外部服务和数据，而不必为每个集成手写一大堆代码。</p>
+        <h4>你会学到什么</h4>
+        <ul><li>MCP 的整体架构与通信方式</li><li>用 Python SDK 构建 MCP 服务器</li><li>三大核心原语：工具(tools)、资源(resources)、提示(prompts)</li><li>实现一个 MCP 客户端，把能力接给 Claude</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 前置要求</span><p>本课需要你具备 Python 基础，并了解 JSON 和 HTTP 请求-响应的基本概念。</p></aside>
+        <aside class="task"><p class="task-title">✏️ 动手练习：准备环境</p><ol><li>确认本机安装了 Python</li><li>准备一个代码编辑器</li><li>回顾一下什么是 JSON（键值对的数据格式）</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>认识 MCP</h3>
+        <p class="lead">MCP（模型上下文协议）是一套开放标准，让 AI 应用能以统一的方式连接到各种外部工具和数据源——就像给 AI 装了一个「通用接口」。</p>
+        <h4>MCP 解决了什么问题</h4>
+        <p>没有 MCP 时，每接一个工具都要单独写一套集成代码。MCP 把「定义工具、执行工具」的工作从你的应用转移到专门的 MCP 服务器上：你只要让应用支持 MCP，就能即插即用地接入任何 MCP 服务器。</p>
+        <h4>三大核心原语</h4>
+        <ul><li>工具（Tools）：由模型决定何时调用，用来执行动作</li><li>资源（Resources）：由应用控制，暴露只读数据</li><li>提示（Prompts）：由用户触发，提供预设好的高质量指令</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>记住这三者的「控制方」不同——工具是模型控制，资源是应用控制，提示是用户控制。这决定了你该用哪一个。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP 的核心价值是？</summary><ol type="A"><li>让 AI 回复更快</li><li class="right">用统一标准连接外部工具和数据，免去重复写集成代码　✓</li><li>替代 Python</li><li>加密你的数据</li></ol><p class="explain">MCP 是一套开放标准，把工具的定义和执行交给专门的 MCP 服务器，让 AI 应用能以统一方式即插即用地接入外部能力。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：辨认三原语</p><ol><li>设想一个场景：让 AI 帮你管理文档</li><li>哪部分是「动作」（如编辑文档）→ 工具</li><li>哪部分是「只读数据」（如读取文档内容）→ 资源</li><li>哪部分是「预设指令」（如按格式整理）→ 提示</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l3">
+        <h3>MCP 客户端</h3>
+        <p class="lead">MCP 采用客户端-服务器架构。客户端嵌在 AI 应用里，负责和 MCP 服务器通信，把服务器提供的能力交给 Claude 使用。</p>
+        <h4>一次请求是怎么流转的</h4>
+        <p>用户提问 → MCP 客户端把可用的工具告诉 Claude → Claude 决定调用某个工具 → 客户端转发给 MCP 服务器执行 → 结果返回给 Claude → Claude 生成最终回答。整个过程你不用手写集成逻辑。</p>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>MCP 的通信是「传输无关」的——无论底层走标准输入输出还是 HTTP，消息格式都一致。进阶课会详细讲传输方式。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP 客户端的主要职责是？</summary><ol type="A"><li>训练模型</li><li class="right">在 AI 应用和 MCP 服务器之间通信、转发工具调用　✓</li><li>存储用户密码</li><li>渲染网页</li></ol><p class="explain">客户端嵌在 AI 应用中，负责发现服务器能力、把工具调用转发给服务器执行，并把结果交回给模型。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：画一画流程</p><ol><li>在纸上画出：用户 → 客户端 → 服务器 → 外部服务</li><li>标出 Claude 在哪一步决定调用工具</li><li>标出结果如何回到 Claude</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 动手构建 MCP 服务器 <span class="module-en">Hands-on with MCP servers</span></h2>
+      
+      <article class="lesson" id="m2-l4">
+        <h3>项目搭建</h3>
+        <p class="lead">工欲善其事，必先利其器。本节带你完成 MCP 服务器项目的完整搭建，从安装依赖到第一次成功启动，打下坚实基础。</p>
+        <h4>安装 MCP SDK</h4>
+        <p>使用 pip 或 uv 安装 Python 版 MCP SDK。推荐使用 uv，它速度更快且自带虚拟环境管理。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 方式一：使用 pip
+pip install mcp
+
+# 方式二：使用 uv（推荐）
+uv init my-mcp-server
+cd my-mcp-server
+uv add mcp</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>如果你使用 uv，它会自动创建 pyproject.toml 并管理虚拟环境，省去手动维护 requirements.txt 的麻烦。</p></aside>
+        <h4>项目结构</h4>
+        <p>一个最小化的 MCP 服务器项目只需要一个入口文件。推荐的目录结构如下：</p>
+        <ul><li>server.py — 主服务器文件，定义所有 Tools / Resources / Prompts</li><li>pyproject.toml 或 requirements.txt — 依赖声明</li><li>.python-version — 可选，固定 Python 版本（推荐 3.11+）</li></ul>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># server.py 最小起步代码
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP('my-server')
+
+# 稍后在这里添加 tools、resources、prompts
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>首次启动服务器</h4>
+        <p>使用 `mcp dev` 命令以开发模式运行服务器，它会自动启动 MCP Inspector 界面，方便你测试。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 开发模式启动（自动打开 Inspector）
+mcp dev server.py
+
+# 或使用 uv run
+uv run mcp dev server.py</pre></div>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>首次运行时终端会显示 Inspector 的访问地址，通常是 http://localhost:5173。保持终端开启，关闭终端服务器就会停止。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪个命令可以以开发模式启动 MCP 服务器并打开 Inspector？</summary><ol type="A"><li>python server.py</li><li class="right">mcp dev server.py　✓</li><li>mcp start server.py</li><li>uvicorn server:mcp</li></ol><p class="explain">`mcp dev server.py` 是官方提供的开发模式启动命令，会自动启动 Inspector 界面。`python server.py` 只会直接运行，不会启动 Inspector。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：搭建你的第一个 MCP 项目</p><ol><li>新建一个目录 my-mcp-server，进入目录后运行 `uv init` 或 `pip install mcp` 安装依赖</li><li>在目录中创建 server.py，粘贴上方最小起步代码</li><li>运行 `mcp dev server.py`，确认终端输出 Inspector 地址且没有报错</li><li>在浏览器打开 Inspector 地址，确认看到服务器已连接</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>用 MCP 定义工具</h3>
+        <p class="lead">Tools 是 MCP 的核心原语之一，由模型决定何时调用。本节你将学会用 `@mcp.tool()` 装饰器定义工具，并理解如何让模型&quot;读懂&quot;你的工具。</p>
+        <h4>工具装饰器基础</h4>
+        <p>使用 `@mcp.tool()` 装饰一个 Python 函数，FastMCP 会自动将函数名、文档字符串（docstring）和类型注解注册为工具的元数据。模型依赖这些信息决定是否调用工具。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>工具的 docstring 就是工具的&quot;说明书&quot;，模型靠它来理解工具的用途。写得越清晰，模型调用得越准确。务必认真填写。</p></aside>
+        <h4>定义你的第一个工具</h4>
+        <p>以下示例定义了两个工具：一个做数学运算，一个读取文件内容。注意类型注解和 docstring 的写法。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP('my-server')
+
+@mcp.tool()
+def add_numbers(a: int, b: int) -&gt; int:
+    '''将两个整数相加并返回结果。'''
+    return a + b
+
+@mcp.tool()
+def read_file(path: str) -&gt; str:
+    '''读取指定路径的文件内容并以字符串形式返回。
+    
+    Args:
+        path: 要读取的文件的绝对路径
+    '''
+    with open(path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>参数类型与返回值</h4>
+        <p>FastMCP 支持常见的 Python 类型注解，包括 str、int、float、bool、list、dict 以及 Pydantic 模型。返回值可以是字符串、数字或复杂对象，FastMCP 会自动序列化。</p>
+        <ul><li>参数类型注解会自动生成 JSON Schema，告诉模型每个参数的格式要求</li><li>函数名会成为工具名称（tool name），保持简洁且有描述性</li><li>可以使用 `@mcp.tool(name='custom_name')` 自定义工具名称</li><li>工具函数可以是同步或异步（async def）均支持</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>不要在工具函数中做无限制的文件系统访问或网络请求。后续课程中的 Roots 机制可以帮助你安全地约束访问范围。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP 工具的 docstring（文档字符串）主要有什么作用？</summary><ol type="A"><li>仅供开发者阅读，不影响运行</li><li class="right">模型依靠它来理解工具用途，决定是否调用　✓</li><li>自动生成 API 文档页面</li><li>替代参数的类型注解</li></ol><p class="explain">docstring 会作为工具描述传递给语言模型，模型依靠它来判断何时应该调用这个工具。这是工具设计中最重要的部分之一。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：给你的服务器添加一个工具</p><ol><li>在 server.py 中用 `@mcp.tool()` 定义一个 `greet` 工具，接收 name: str 参数，返回问候语字符串</li><li>为工具添加清晰的中文 docstring，描述它的作用</li><li>运行 `mcp dev server.py`，在 Inspector 中找到 greet 工具并手动调用它</li><li>确认返回结果正确，然后尝试修改 docstring 观察 Inspector 中描述的变化</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>服务器 Inspector</h3>
+        <p class="lead">MCP Inspector 是官方提供的可视化调试工具，让你无需编写客户端代码就能测试服务器。本节带你掌握 Inspector 的核心用法。</p>
+        <h4>启动 Inspector</h4>
+        <p>运行 `mcp dev server.py` 即可同时启动服务器和 Inspector。Inspector 是一个运行在浏览器中的 Web UI，默认监听 5173 端口。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 启动服务器并打开 Inspector
+mcp dev server.py
+
+# 终端输出示例：
+# MCP Inspector is up and running at http://localhost:5173
+# Starting MCP server my-server...</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>如果 5173 端口被占用，Inspector 会自动尝试其他端口。注意查看终端输出的实际地址。</p></aside>
+        <h4>使用 Inspector 调用工具</h4>
+        <p>Inspector 界面左侧列出所有已注册的工具、资源和 Prompts。点击工具后可以在右侧填入参数并手动触发调用，无需任何额外代码。</p>
+        <ul><li>点击左侧 Tools 标签查看所有工具列表</li><li>选择一个工具，右侧会显示其参数表单</li><li>填写参数后点击 Run 按钮发送请求</li><li>底部面板显示完整的 JSON-RPC 请求和响应内容</li><li>如果工具抛出异常，错误信息会在响应面板中高亮显示</li></ul>
+        <h4>读懂请求与响应 JSON</h4>
+        <p>Inspector 底部会展示原始的 JSON-RPC 消息，这对理解 MCP 协议非常有帮助。一个典型的工具调用请求和响应如下：</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>// 请求（Inspector 发送给服务器）
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;tools/call&quot;,
+  &quot;params&quot;: {
+    &quot;name&quot;: &quot;add_numbers&quot;,
+    &quot;arguments&quot;: { &quot;a&quot;: 3, &quot;b&quot;: 5 }
+  }
+}
+
+// 响应（服务器返回）
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: {
+    &quot;content&quot;: [{ &quot;type&quot;: &quot;text&quot;, &quot;text&quot;: &quot;8&quot; }]
+  }
+}</pre></div>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Inspector 是开发阶段的最佳调试伙伴。在把服务器接入真实 AI 客户端之前，一定要先用 Inspector 验证每个工具都能正确运行。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP Inspector 的主要用途是什么？</summary><ol type="A"><li>将服务器部署到生产环境</li><li class="right">在不编写客户端的情况下可视化测试服务器工具　✓</li><li>监控服务器的 CPU 和内存使用</li><li>自动生成工具的单元测试</li></ol><p class="explain">Inspector 提供了一个可视化的 Web UI，让开发者可以直接调用服务器工具并查看请求/响应，无需先实现客户端代码。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：用 Inspector 完整测试你的服务器</p><ol><li>确保 server.py 中已定义至少两个工具，运行 `mcp dev server.py`</li><li>在浏览器打开 Inspector，点击 Tools 标签查看工具列表</li><li>选择一个工具，填写参数并运行，在底部面板查看原始 JSON 请求和响应</li><li>故意传入错误参数（如字符串给 int 参数），观察错误响应的格式</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 连接 MCP 客户端 <span class="module-en">Connecting MCP clients</span></h2>
+      
+      <article class="lesson" id="m3-l7">
+        <h3>实现一个客户端</h3>
+        <p class="lead">服务器写好了，现在轮到客户端登场。本节你将用 Python 实现一个真正能与 MCP 服务器通信的客户端，亲身体验完整的请求—响应流程。</p>
+        <h4>MCP 客户端核心概念</h4>
+        <p>MCP Python SDK 提供了 `ClientSession` 类来管理与服务器的连接。客户端通过 `StdioServerParameters` 告诉 SDK 如何启动并连接到服务器进程。</p>
+        <ul><li>ClientSession — 管理会话生命周期，提供 list_tools()、call_tool() 等方法</li><li>StdioServerParameters — 描述如何通过 STDIO 启动服务器（命令 + 参数）</li><li>stdio_client — 上下文管理器，负责启动服务器进程并建立通信通道</li></ul>
+        <h4>编写客户端代码</h4>
+        <p>以下是一个完整的 Python 客户端，连接到本地服务器、列出工具、并调用 add_numbers 工具：</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>import asyncio
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def main():
+    # 描述如何启动服务器
+    server_params = StdioServerParameters(
+        command='python',
+        args=['server.py']
+    )
+
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(read, write) as session:
+            # 初始化连接
+            await session.initialize()
+
+            # 列出所有工具
+            tools = await session.list_tools()
+            print('可用工具：')
+            for tool in tools.tools:
+                print(f'  - {tool.name}: {tool.description}')
+
+            # 调用工具
+            result = await session.call_tool('add_numbers', {'a': 10, 'b': 32})
+            print(f'\n调用结果：{result.content[0].text}')
+
+if __name__ == '__main__':
+    asyncio.run(main())</pre></div>
+        <h4>运行客户端</h4>
+        <p>确保 server.py 在同一目录下，然后直接运行 client.py。SDK 会自动启动服务器进程、建立 STDIO 连接，完成后自动清理。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>python client.py
+
+# 预期输出：
+# 可用工具：
+#   - add_numbers: 将两个整数相加并返回结果。
+#   - read_file: 读取指定路径的文件内容...
+#
+# 调用结果：42</pre></div>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>客户端使用 async/await 语法。整个 MCP Python SDK 是异步设计的，确保你的 Python 版本 &gt;= 3.10。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在 MCP Python 客户端中，`StdioServerParameters` 的作用是什么？</summary><ol type="A"><li>存储工具的返回结果</li><li class="right">描述如何通过 STDIO 启动服务器进程　✓</li><li>管理客户端的会话状态</li><li>定义服务器端的工具列表</li></ol><p class="explain">StdioServerParameters 告诉客户端 SDK 用什么命令和参数来启动服务器进程，从而建立 STDIO 通信通道。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：编写你的第一个 MCP 客户端</p><ol><li>创建 client.py，粘贴上方完整客户端代码</li><li>确保 server.py 中已定义 add_numbers 工具，运行 `python client.py`</li><li>观察输出，确认工具列表和调用结果正确</li><li>尝试修改 call_tool 调用参数，调用你自己定义的其他工具</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l8">
+        <h3>定义资源</h3>
+        <p class="lead">Resources 是 MCP 的第二大原语，代表服务器暴露给应用程序读取的数据。与 Tools 不同，Resources 由应用（客户端）决定何时读取，而非由模型决定。</p>
+        <h4>Resources 与 Tools 的区别</h4>
+        <p>Tools 是&quot;动作&quot;——模型主动调用来完成任务；Resources 是&quot;数据&quot;——应用按需读取，类似只读的数据源。典型的资源包括：配置文件、数据库记录、系统状态信息等。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Resources 是应用控制的（application-controlled），Tools 是模型控制的（model-controlled）。这个区别决定了哪个原语适合哪类场景。</p></aside>
+        <h4>用 @mcp.resource() 定义资源</h4>
+        <p>使用 `@mcp.resource()` 装饰器，传入资源的 URI。URI 是资源的唯一标识，客户端通过 URI 来请求读取资源内容。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP('my-server')
+
+# 静态资源：固定 URI
+@mcp.resource('resource://config/app')
+def get_app_config() -&gt; str:
+    '''返回应用配置文件内容'''
+    with open('config.json', 'r', encoding='utf-8') as f:
+        return f.read()
+
+# 动态资源：URI 模板（使用 {参数} 占位符）
+@mcp.resource('resource://files/{filename}')
+def get_file(filename: str) -&gt; str:
+    '''读取 data 目录下指定文件的内容'''
+    safe_path = f'./data/{filename}'
+    with open(safe_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>URI 模板</h4>
+        <p>资源 URI 支持模板语法（如 `resource://files/{filename}`），大括号中的部分会映射到函数参数。这让一个资源定义可以处理多个具体路径。</p>
+        <ul><li>静态 URI：`resource://config/app` — 固定地址，只有一份内容</li><li>URI 模板：`resource://files/{filename}` — 动态地址，参数映射到函数入参</li><li>URI 可以使用任何 scheme，`resource://` 只是惯例，也可以用 `file://`、`db://` 等</li></ul>
+        <details class="quiz"><summary>🧠 自测：以下哪种场景最适合用 Resource（而非 Tool）来实现？</summary><ol type="A"><li>执行一段 Python 代码并返回结果</li><li>向数据库写入一条新记录</li><li class="right">提供应用的只读配置信息供客户端读取　✓</li><li>调用外部 API 发送邮件</li></ol><p class="explain">Resource 适合暴露只读数据，如配置文件、数据库查询结果等。写操作和有副作用的动作应使用 Tool。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为服务器添加资源</p><ol><li>在 server.py 中用 `@mcp.resource()` 定义一个返回当前时间的资源，URI 为 `resource://system/time`</li><li>再定义一个带 URI 模板的资源，如 `resource://notes/{note_id}`，返回对应笔记内容（可硬编码测试数据）</li><li>用 `mcp dev server.py` 启动，在 Inspector 的 Resources 标签中查看它们</li><li>在 Inspector 中读取这两个资源，确认返回内容正确</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l9">
+        <h3>访问资源</h3>
+        <p class="lead">定义好资源之后，客户端如何读取它们？本节你将在客户端代码中调用 `list_resources()` 和 `read_resource()`，掌握完整的资源访问流程。</p>
+        <h4>列出可用资源</h4>
+        <p>`session.list_resources()` 返回服务器上所有已注册资源的元数据，包括 URI、名称和描述。注意 URI 模板资源会以模板形式列出。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>import asyncio
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def main():
+    server_params = StdioServerParameters(command='python', args=['server.py'])
+
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+
+            # 列出所有资源
+            resources = await session.list_resources()
+            print('可用资源：')
+            for r in resources.resources:
+                print(f'  URI: {r.uri}')
+                print(f'  描述: {r.description}')
+
+            # 读取具体资源
+            content = await session.read_resource('resource://config/app')
+            print(f'\n配置内容：')
+            for item in content.contents:
+                print(item.text)
+
+if __name__ == '__main__':
+    asyncio.run(main())</pre></div>
+        <h4>读取资源内容</h4>
+        <p>`session.read_resource(uri)` 接受一个具体的 URI 字符串（不是模板），返回资源内容。对于 URI 模板资源，需要传入填充后的完整 URI。</p>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>读取 URI 模板资源时，要传入填充完整参数的 URI。例如模板是 `resource://files/{filename}`，读取时应传 `resource://files/readme.txt`。</p></aside>
+        <h4>资源的典型使用场景</h4>
+        <ul><li>在对话开始时，客户端读取配置资源并注入到系统提示中</li><li>用户打开文件时，应用读取文件资源作为上下文传给模型</li><li>定期刷新状态资源（如服务器健康状态），不依赖模型触发</li><li>让模型在需要时&quot;请求&quot;应用去读取某个资源（应用控制访问时机）</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>资源的读取时机由应用程序（而非模型）控制。模型不能直接&quot;调用&quot;资源，它可以提示应用去读取，但决定权在应用侧。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在客户端代码中，读取 URI 模板资源 `resource://users/{user_id}` 时，正确的做法是？</summary><ol type="A"><li>传入模板字符串 resource://users/{user_id}</li><li class="right">传入填充后的完整 URI，如 resource://users/42　✓</li><li>先调用 list_resources() 获取模板，再单独解析</li><li>使用 call_tool() 而不是 read_resource()</li></ol><p class="explain">read_resource() 需要完整的、已填充参数的 URI。模板只是服务器声明支持哪些 URI 格式，实际读取时必须提供具体值。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：在客户端中读取资源</p><ol><li>确保 server.py 中已定义至少一个静态资源和一个模板资源</li><li>在 client.py 中添加调用 `session.list_resources()` 的代码，打印所有资源信息</li><li>使用 `session.read_resource()` 读取静态资源，打印其内容</li><li>构造一个填充后的模板 URI，读取模板资源并打印结果</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l10">
+        <h3>定义 prompts</h3>
+        <p class="lead">Prompts 是 MCP 的第三大原语，由用户触发。它们是可复用的提示模板，允许用户用标准化的方式启动特定类型的对话。</p>
+        <h4>什么是 MCP Prompts</h4>
+        <p>Prompts 不是发给模型的消息，而是&quot;消息模板&quot;——带有占位参数的预设对话结构。用户或应用选择一个 Prompt、填入参数，得到可直接使用的消息列表。</p>
+        <ul><li>Prompts 由用户触发（user-triggered），区别于 Tools（模型触发）和 Resources（应用触发）</li><li>每个 Prompt 可以有参数，类似函数入参</li><li>返回值是 PromptMessage 对象列表，可直接用于构建对话</li><li>适合场景：代码审查模板、邮件起草模板、数据分析引导等</li></ul>
+        <h4>用 @mcp.prompt() 定义模板</h4>
+        <p>使用 `@mcp.prompt()` 装饰器定义 Prompt 函数。函数接收模板参数，返回一个或多个 PromptMessage 对象。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP
+from mcp.types import PromptMessage, TextContent
+
+mcp = FastMCP('my-server')
+
+@mcp.prompt()
+def code_review(code: str, language: str = 'python') -&gt; list[PromptMessage]:
+    '''生成代码审查提示模板'''
+    return [
+        PromptMessage(
+            role='user',
+            content=TextContent(
+                type='text',
+                text=f'请审查以下 {language} 代码，指出潜在问题并给出改进建议：\n\n```{language}\n{code}\n```'
+            )
+        )
+    ]
+
+@mcp.prompt()
+def summarize_document(document: str, style: str = '简洁') -&gt; list[PromptMessage]:
+    '''生成文档摘要提示模板，支持指定摘要风格'''
+    return [
+        PromptMessage(
+            role='user',
+            content=TextContent(
+                type='text',
+                text=f'请以{style}的风格为以下文档写一段摘要：\n\n{document}'
+            )
+        )
+    ]
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>PromptMessage 结构</h4>
+        <p>每个 PromptMessage 包含 role（'user' 或 'assistant'）和 content（通常是 TextContent）。你可以返回多条消息来构建多轮对话模板。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>可以在 Prompt 中混合 user 和 assistant 角色的消息，来构建&quot;少样本示例&quot;（few-shot）对话模板，引导模型输出特定格式。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP Prompts 的控制方是谁？</summary><ol type="A"><li>语言模型（model-controlled）</li><li>服务器进程（server-controlled）</li><li class="right">用户或应用（user-triggered）　✓</li><li>系统自动触发（auto-triggered）</li></ol><p class="explain">Prompts 是 user-triggered 的，由用户或应用选择并触发。这与 Tools（模型决定调用）和 Resources（应用决定读取）不同。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为服务器添加 Prompt 模板</p><ol><li>在 server.py 中使用 `@mcp.prompt()` 定义一个 `translate` prompt，接收 text 和 target_lang 两个参数</li><li>返回包含翻译请求的 PromptMessage 列表</li><li>用 `mcp dev server.py` 启动，在 Inspector 的 Prompts 标签中找到它</li><li>在 Inspector 中填入参数并运行，查看生成的消息内容</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l11">
+        <h3>客户端中的 prompts</h3>
+        <p class="lead">最后一步：在客户端中列出并使用 Prompts。本节你将看到完整的 Prompt 使用流程，以及如何将 Prompt 结果整合到实际对话中。</p>
+        <h4>列出可用 Prompts</h4>
+        <p>`session.list_prompts()` 返回服务器上所有已注册 Prompt 的元数据，包括名称、描述和参数列表。这让客户端可以动态展示可用模板给用户。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>import asyncio
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def main():
+    server_params = StdioServerParameters(command='python', args=['server.py'])
+
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+
+            # 列出所有 Prompts
+            prompts = await session.list_prompts()
+            print('可用 Prompts：')
+            for p in prompts.prompts:
+                print(f'  名称: {p.name}')
+                print(f'  描述: {p.description}')
+                print(f'  参数: {[arg.name for arg in (p.arguments or [])]}')
+
+            # 使用 code_review prompt
+            result = await session.get_prompt(
+                'code_review',
+                arguments={
+                    'code': 'def add(a, b):\n    return a + b',
+                    'language': 'python'
+                }
+            )
+
+            print('\n生成的消息模板：')
+            for msg in result.messages:
+                print(f'[{msg.role}] {msg.content.text[:100]}...')
+
+if __name__ == '__main__':
+    asyncio.run(main())</pre></div>
+        <h4>get_prompt() 的返回值</h4>
+        <p>`session.get_prompt(name, arguments)` 返回填充好参数的消息列表。这些消息可以直接传给 LLM API（如 Anthropic Claude）作为对话历史使用。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Prompt 的价值在于标准化和可复用。将常用的提示模板放在服务器端，所有客户端都能共享，修改时也只需改一处。</p></aside>
+        <h4>三大原语回顾</h4>
+        <ul><li>Tools：模型决定调用，有副作用，执行动作（call_tool）</li><li>Resources：应用决定读取，只读数据（read_resource）</li><li>Prompts：用户触发，消息模板，标准化交互（get_prompt）</li></ul>
+        <details class="quiz"><summary>🧠 自测：`session.get_prompt()` 的返回值可以直接用于什么场景？</summary><ol type="A"><li>作为服务器工具的输入参数</li><li class="right">直接传给 LLM API 作为对话消息　✓</li><li>替代 read_resource() 读取资源内容</li><li>触发服务器端的资源刷新</li></ol><p class="explain">get_prompt() 返回已填充参数的 PromptMessage 列表，这些消息遵循标准的 role/content 格式，可以直接传给 Anthropic Claude 等 LLM API。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完整使用 Prompt 流程</p><ol><li>在 client.py 中调用 `session.list_prompts()`，打印所有可用 Prompt 的名称和参数</li><li>调用 `session.get_prompt()` 获取一个 Prompt 的填充结果</li><li>打印返回的消息内容，理解其结构</li><li>（进阶）将返回的消息列表传给 Anthropic Claude API，获取真实的模型回复</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 评估与总结 <span class="module-en">Assessment &amp; wrap-up</span></h2>
+      
+      <article class="lesson" id="m4-l12">
+        <h3>MCP 期末测评</h3>
+        <p class="lead">恭喜你完成了所有课程内容！现在用这套综合测评检验一下你对 MCP 的理解。每道题都考察一个核心知识点，认真作答吧。</p>
+        <details class="quiz"><summary>🧠 自测：MCP（Model Context Protocol）的主要目标是什么？</summary><ol type="A"><li>提高模型的训练速度</li><li class="right">为 AI 模型与外部工具/数据源提供标准化的通信协议　✓</li><li>替代 REST API 成为通用 Web 标准</li><li>提供模型托管和部署服务</li></ol><p class="explain">MCP 是一个开放协议，标准化了 AI 模型（通过客户端）与外部工具和数据源（通过服务器）之间的通信方式，类似 AI 领域的 USB-C 接口。</p></details>
+        <details class="quiz"><summary>🧠 自测：MCP 的三大原语分别由谁控制？</summary><ol type="A"><li>Tools 由用户控制，Resources 由模型控制，Prompts 由应用控制</li><li class="right">Tools 由模型控制，Resources 由应用控制，Prompts 由用户触发　✓</li><li>三者都由模型控制，通过不同方式触发</li><li>三者都由服务器控制，客户端只负责展示</li></ol><p class="explain">Tools 是 model-controlled（模型决定调用），Resources 是 application-controlled（应用决定读取），Prompts 是 user-triggered（用户触发）。</p></details>
+        <details class="quiz"><summary>🧠 自测：在 FastMCP 中，工具的 docstring 主要用来做什么？</summary><ol type="A"><li>生成自动化测试用例</li><li class="right">告诉语言模型这个工具的用途，帮助模型决定何时调用　✓</li><li>验证函数参数类型是否正确</li><li>作为 Inspector 的 API 文档</li></ol><p class="explain">docstring 会作为工具描述（description）传递给语言模型。模型依赖这段文字来理解工具的功能，从而判断在当前对话中是否应该调用它。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪种数据最适合用 Resource 而非 Tool 来暴露？</summary><ol type="A"><li>执行一个 shell 命令并返回输出</li><li>向数据库插入新记录</li><li class="right">返回应用的只读配置信息　✓</li><li>发起一个 HTTP POST 请求</li></ol><p class="explain">Resource 专为只读数据设计，由应用按需读取。有副作用的操作（执行命令、写数据库、发 HTTP 请求）应该使用 Tool。</p></details>
+        <details class="quiz"><summary>🧠 自测：`mcp dev server.py` 命令的作用是？</summary><ol type="A"><li>将服务器部署到云端</li><li class="right">以开发模式启动服务器并打开 Inspector 界面　✓</li><li>运行服务器的单元测试套件</li><li>生成服务器的 API 文档</li></ol><p class="explain">`mcp dev` 是开发模式启动命令，会同时启动 MCP 服务器和 Inspector Web UI，方便开发者在不编写客户端的情况下测试工具。</p></details>
+        <details class="quiz"><summary>🧠 自测：在 Python MCP 客户端中，调用工具应该使用哪个方法？</summary><ol type="A"><li>session.run_tool()</li><li class="right">session.call_tool()　✓</li><li>session.execute()</li><li>session.invoke_tool()</li></ol><p class="explain">`session.call_tool(name, arguments)` 是 ClientSession 提供的标准方法，用于调用服务器端已注册的工具并获取返回结果。</p></details>
+        <details class="quiz"><summary>🧠 自测：使用 `@mcp.resource()` 装饰器时，URI 模板中的 `{param}` 占位符有什么作用？</summary><ol type="A"><li>定义资源的访问权限级别</li><li class="right">映射到函数的对应参数，实现动态 URI　✓</li><li>指定资源内容的 MIME 类型</li><li>设置资源的缓存过期时间</li></ol><p class="explain">URI 模板中的 `{param}` 会映射到函数的同名参数。例如 `resource://files/{filename}` 中的 `{filename}` 对应函数的 `filename: str` 参数。</p></details>
+        <details class="quiz"><summary>🧠 自测：Prompt 模板的返回值类型是什么？</summary><ol type="A"><li>str（纯文本字符串）</li><li>dict（字典对象）</li><li class="right">list[PromptMessage]（消息对象列表）　✓</li><li>bytes（二进制内容）</li></ol><p class="explain">Prompt 函数应返回 list[PromptMessage]，每个 PromptMessage 包含 role 和 content 字段，格式与 LLM API 的消息格式兼容。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：综合实战：搭建一个完整的 MCP 服务器</p><ol><li>创建一个新的 server.py，同时包含至少 2 个 Tool、1 个 Resource 和 1 个 Prompt</li><li>用 `mcp dev server.py` 启动，在 Inspector 中分别测试每种原语</li><li>编写对应的 client.py，依次调用 list_tools、list_resources、list_prompts，并各调用一个</li><li>确认所有功能正常运行，记录你遇到的问题和解决方法</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l13">
+        <h3>MCP 回顾</h3>
+        <p class="lead">你已经完成了整个 MCP 入门课程！让我们回顾一下这段学习旅程，并展望接下来可以构建的精彩内容。</p>
+        <h4>我们学了什么</h4>
+        <p>从零开始，你已经掌握了构建完整 MCP 应用所需的全部基础知识：</p>
+        <ul><li>什么是 MCP：AI 工具集成的标准化协议，解决碎片化问题</li><li>三大原语：Tools（模型控制）、Resources（应用控制）、Prompts（用户触发）</li><li>搭建服务器：FastMCP、`@mcp.tool()`、`@mcp.resource()`、`@mcp.prompt()`</li><li>调试工具：MCP Inspector，无需客户端即可测试</li><li>编写客户端：ClientSession、list_tools、call_tool、read_resource、get_prompt</li></ul>
+        <h4>接下来可以构建什么</h4>
+        <p>掌握了基础之后，以下是一些可以马上动手的真实项目方向：</p>
+        <ul><li>数据库 MCP 服务器：将 SQLite 或 PostgreSQL 通过 Tools 暴露给 AI 助手</li><li>GitHub 集成：用 Tool 封装 GitHub API，让模型直接操作 issue 和 PR</li><li>文件系统助手：用 Resource 暴露工作目录，用 Tool 实现文件读写</li><li>连接 Claude Desktop：将你的服务器配置到 Claude Desktop，真实使用</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>准备好深入了解 Sampling、Roots、StreamableHTTP 等进阶特性了吗？继续学习《MCP 进阶专题》课程，解锁生产级 MCP 服务器的构建技能！</p></aside>
+        <h4>给自己一个鼓励</h4>
+        <p>MCP 是 AI 工程领域的前沿技术。掌握它，你就拥有了将任何工具、数据库、API 与 AI 模型无缝连接的能力。这个技能将在未来的 AI 应用开发中变得越来越重要。继续探索，继续构建！</p>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>本课程的所有示例代码都可以作为真实项目的起点。记得在生产环境中添加错误处理、日志记录和安全校验。</p></aside>
+        <details class="quiz"><summary>🧠 自测：学完 MCP 入门后，下一步最合适的进阶方向是什么？</summary><ol type="A"><li>直接学习如何训练自己的语言模型</li><li class="right">学习 MCP 进阶专题，掌握 Sampling、Roots 和 StreamableHTTP　✓</li><li>转向学习前端框架，与 MCP 无关</li><li>学习如何部署 Kubernetes 集群</li></ol><p class="explain">MCP 进阶专题涵盖 Sampling（服务器请求 LLM 调用）、Roots（文件访问安全机制）、StreamableHTTP（远程部署传输）等生产级特性，是自然的下一步。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：规划你的第一个真实 MCP 项目</p><ol><li>思考一个你日常工作或学习中的重复性任务，想想能否用 MCP 工具自动化</li><li>画出你的服务器架构：需要哪些 Tools、Resources 和 Prompts</li><li>用本课程所学搭建一个最小可用版本（MVP），先让核心功能跑通</li><li>在 Inspector 中测试，然后接入 Claude Desktop 或自己的客户端真实使用</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

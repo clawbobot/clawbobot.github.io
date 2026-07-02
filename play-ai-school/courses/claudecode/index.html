@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Code 101 中文课程 · AI 学院</title>
+  <meta name="description" content="在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。 5 个模块、13 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/claudecode/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Claude Code 101 中文课程 · AI 学院">
+  <meta property="og:description" content="在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。 5 个模块、13 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/claudecode/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code 101 中文课程 · AI 学院">
+  <meta name="twitter:description" content="在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。 5 个模块、13 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Claude Code 101","alternateName":"Claude Code 101","description":"在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。 5 个模块、13 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/claudecode/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT3H"},"syllabusSections":[{"@type":"Syllabus","name":"认识 Claude Code","description":"什么是 Claude Code？；Claude Code 如何工作"},{"@type":"Syllabus","name":"你的第一个 prompt","description":"安装 Claude Code；你的第一个 prompt"},{"@type":"Syllabus","name":"日常工作流","description":"探索 → 规划 → 编码 → 提交；上下文管理；代码评审"},{"@type":"Syllabus","name":"定制 Claude Code","description":"CLAUDE.md 文件；Subagents；Skills；MCP；Hooks"},{"@type":"Syllabus","name":"测验","description":"课程测验"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Claude Code 101","item":"https://bobot.is-a.dev/play-ai-school/courses/claudecode/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>Claude Code 101</h1>
+      <p class="course-en">Claude Code 101</p>
+      <div class="meta-line"><span>进阶</span><span>5 个模块</span><span>13 节课</span><span>全中文讲解</span></div>
+      <p>面向开发者的实战课。无论你是刚入门的工程师，还是没用过 AI 编程代理的老手，这门课会带你从安装到高级定制，把 Claude Code 用进日常开发流程。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识 Claude Code</strong><ul><li><a href="#m1-l1">什么是 Claude Code？</a></li><li><a href="#m1-l2">Claude Code 如何工作</a></li></ul></li>
+      <li><strong>模块二 · 你的第一个 prompt</strong><ul><li><a href="#m2-l3">安装 Claude Code</a></li><li><a href="#m2-l4">你的第一个 prompt</a></li></ul></li>
+      <li><strong>模块三 · 日常工作流</strong><ul><li><a href="#m3-l5">探索 → 规划 → 编码 → 提交</a></li><li><a href="#m3-l6">上下文管理</a></li><li><a href="#m3-l7">代码评审</a></li></ul></li>
+      <li><strong>模块四 · 定制 Claude Code</strong><ul><li><a href="#m4-l8">CLAUDE.md 文件</a></li><li><a href="#m4-l9">Subagents</a></li><li><a href="#m4-l10">Skills</a></li><li><a href="#m4-l11">MCP</a></li><li><a href="#m4-l12">Hooks</a></li></ul></li>
+      <li><strong>模块五 · 测验</strong><ul><li><a href="#m5-l13">课程测验</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识 Claude Code <span class="module-en">What is Claude Code?</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是 Claude Code？</h3>
+        <p class="lead">Claude Code 是一个在你的终端（命令行）里运行的 AI 编程代理。和聊天式 AI 不同，它能直接读取、修改你项目里的文件，运行命令，帮你真正地把代码写出来、跑起来。</p>
+        <h4>它和聊天式 AI 有什么不同</h4>
+        <ul><li>聊天式 AI：你复制代码进去、再把回答粘回来，来回搬运</li><li>Claude Code：直接在你的项目里读文件、改代码、运行测试，闭环完成</li><li>它是一个「代理（agent）」：能自己决定下一步该用什么工具</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Claude Code 面向开发者，需要你对命令行和代码编辑器有基本了解。如果你完全没接触过编程，建议先学「Claude 101」。</p></aside>
+        <h4>它能在哪里运行</h4>
+        <ul><li>终端（Terminal）</li><li>VS Code</li><li>JetBrains 系列 IDE</li><li>Claude 桌面应用</li><li>网页版</li></ul>
+        <details class="quiz"><summary>🧠 自测：Claude Code 和聊天式 AI 最大的区别是？</summary><ol type="A"><li>回答速度更快</li><li class="right">能直接读写你的项目文件并运行命令　✓</li><li>只能写 Python</li><li>不需要联网</li></ol><p class="explain">Claude Code 是一个能直接操作你代码库的编程代理，可以读文件、改代码、运行命令形成闭环，而不只是给出文本建议。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：确认你的环境</p><ol><li>确认电脑上装了一个代码编辑器（如 VS Code）</li><li>打开终端，确认能输入命令</li><li>准备一个 Claude 账号（Pro / Max / Enterprise）或 API key</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>Claude Code 如何工作</h3>
+        <p class="lead">理解 Claude Code 背后的几个概念，能帮你更好地驾驭它：代理循环、上下文窗口、工具和权限。</p>
+        <h4>代理循环（The agentic loop）</h4>
+        <p>Claude Code 的工作方式是一个循环：理解你的目标 → 选择一个工具（读文件、改代码、运行命令）→ 看结果 → 决定下一步，直到任务完成。它会自己一步步推进，而不是一次性给完答案。</p>
+        <h4>上下文窗口（Context window）</h4>
+        <p>上下文窗口是 Claude「当前能记住的内容」的容量。项目越大、对话越长，占用越多。学会管理上下文（后面会讲 /compact、/clear、/context）能让它保持高效。</p>
+        <h4>工具与权限（Tools &amp; permissions）</h4>
+        <p>Claude Code 通过「工具」来读写文件、运行命令。出于安全，危险操作会先征求你的同意——你可以逐次批准，也可以开启自动接受。你始终掌握控制权。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 启动 Claude Code
+claude
+
+# 然后用自然语言描述任务
+&gt; 帮我在 src/utils.js 里写一个把秒数格式化成 mm:ss 的函数，并补一个测试</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>一开始建议用「逐次批准」模式，看清楚 Claude 每一步要做什么；熟悉之后再用自动接受（auto-accept）来提速。</p></aside>
+        <details class="quiz"><summary>🧠 自测：「代理循环」指的是什么？</summary><ol type="A"><li>Claude 不停地重复同一句话</li><li class="right">理解目标→用工具→看结果→决定下一步，循环推进直到完成　✓</li><li>一种付费套餐</li><li>代码里的 for 循环</li></ol><p class="explain">代理循环是 Claude Code 自主推进任务的方式：不断地选择工具、观察结果、决定下一步，直到目标达成。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：想象一个任务</p><ol><li>想一个你最近在代码里做过的小改动</li><li>拆解一下：要读哪些文件、改什么、怎么验证</li><li>这正是 Claude Code 会替你走的「代理循环」</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 你的第一个 prompt <span class="module-en">Your first prompt</span></h2>
+      
+      <article class="lesson" id="m2-l3">
+        <h3>安装 Claude Code</h3>
+        <p class="lead">安装 Claude Code 只需要几分钟。它是一个 npm 包，装好之后你就能在任何项目目录里用命令行唤起它。这节课带你完成安装、认证和初次探索。</p>
+        <h4>前置条件</h4>
+        <ul><li>Node.js 18 或更高版本（运行 node -v 检查）</li><li>一个 Anthropic 账号（Pro、Max 或 Enterprise 套餐，或有 API key）</li><li>一个熟悉的终端（macOS Terminal、Windows PowerShell、Linux bash 都可以）</li></ul>
+        <h4>安装步骤</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 第一步：全局安装 Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# 第二步：检查安装是否成功
+claude --version
+
+# 第三步：启动并完成首次认证
+claude
+# 首次运行会引导你登录 Anthropic 账号或输入 API key</pre></div>
+        <h4>初次认证</h4>
+        <p>第一次运行 claude 时，终端会提示你登录。如果你有 Claude 账号（Pro/Max），选择通过浏览器登录；如果你使用 API key，选择输入 key 的方式。认证完成后，Claude Code 会保存凭据，之后启动不需要重复登录。</p>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Claude Code 需要 Claude Pro、Max 或 Enterprise 订阅，或有效的 Anthropic API key。免费版的 claude.ai 账号无法使用 Claude Code。如果你只有免费账号，请先升级或申请 API key。</p></aside>
+        <details class="quiz"><summary>🧠 自测：安装 Claude Code 最常用的命令是？</summary><ol type="A"><li>pip install claude</li><li class="right">npm install -g @anthropic-ai/claude-code　✓</li><li>brew install claude-code</li><li>apt-get install claude</li></ol><p class="explain">Claude Code 是一个 Node.js 工具，通过 npm install -g @anthropic-ai/claude-code 全局安装。安装后用 claude 命令启动。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完成安装与认证</p><ol><li>在终端里运行 node -v，确认 Node.js 版本 &gt;= 18</li><li>运行 npm install -g @anthropic-ai/claude-code 完成安装</li><li>运行 claude，按照提示完成账号认证</li><li>认证成功后，输入 /help 查看可用命令，再输入 /exit 退出</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l4">
+        <h3>你的第一个 prompt</h3>
+        <p class="lead">安装好 Claude Code 之后，就进入一个真实的项目目录，发出你的第一条指令。这节课演示最经典的开场白：让 Claude Code 读懂一个代码库，然后用自然语言告诉你它是干什么的。</p>
+        <h4>进入项目目录</h4>
+        <p>Claude Code 的能力依赖于它所在的目录。在哪个目录里启动，它就能读取那个目录里的文件。所以第一步，cd 进入你的项目目录，然后再运行 claude。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 进入你的项目目录
+cd /path/to/your/project
+
+# 启动 Claude Code
+claude
+
+# 然后在提示符后输入你的第一个任务
+&gt; 读一读这个项目，用中文告诉我：这是什么项目，主要做什么，技术栈是什么，入口文件在哪里？</pre></div>
+        <h4>Claude Code 会做什么</h4>
+        <p>收到这个指令后，Claude Code 会开始读取项目文件：先看 package.json 或 README，再读主要的源码目录，然后给你一份清晰的项目概览。整个过程你可以在终端里看到它在读哪些文件，这就是代理循环在实际运行。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>如果你暂时没有现成项目，可以用 git clone 一个开源项目来练习，比如 github.com/anthropics/anthropic-sdk-python，然后让 Claude Code 帮你解读它的结构。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在哪个目录里启动 Claude Code，最为关键？</summary><ol type="A"><li>总在根目录 / 启动</li><li class="right">在你想要 Claude Code 操作的项目目录里启动　✓</li><li>在桌面启动</li><li>在 /tmp 目录启动</li></ol><p class="explain">Claude Code 能读取的文件范围取决于它启动时所在的目录。应该先 cd 进入你的项目目录，再运行 claude。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完成你的第一次对话</p><ol><li>找一个你本机有的代码项目（或 clone 一个开源项目）</li><li>cd 进入该目录，然后运行 claude 启动 Claude Code</li><li>输入：读一读这个项目，用中文说明它是什么、主要结构是什么</li><li>看 Claude Code 的读文件过程和最终回答，再追问一个你感兴趣的细节</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 日常工作流 <span class="module-en">Daily workflows</span></h2>
+      
+      <article class="lesson" id="m3-l5">
+        <h3>探索 → 规划 → 编码 → 提交</h3>
+        <p class="lead">Claude Code 最推荐的工作方式是四步走：先让它探索代码库，再一起规划方案，然后写代码，最后你审查并提交。跳过前两步直接叫它「改代码」，往往会让它走弯路。</p>
+        <h4>第一步：探索（Explore）</h4>
+        <p>在动手之前，先让 Claude Code 读懂相关文件。这和你自己阅读代码是一回事——理解了上下文，才能做出正确的修改。可以让它读指定的文件、模块或测试，告诉你它理解了什么。</p>
+        <h4>第二步：规划（Plan）</h4>
+        <p>不要直接说「去改这个文件」，而是先和 Claude Code 讨论方案：「为了实现 X，你打算怎么做？要改哪些文件？有没有潜在风险？」让它把计划说出来，你确认之后再开始写代码。这一步能发现很多误解和隐患。</p>
+        <h4>第三、四步：编码与提交</h4>
+        <p>规划确认后，让 Claude Code 开始写代码。代码写完后，仔细检查 diff，确认改动符合你的预期，再提交。不要跳过这一步——Claude Code 很能干，但最终的质量把关在你。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 探索阶段
+&gt; 先读一下 src/auth/ 目录下的文件，告诉我用户认证流程是怎么实现的
+
+# 规划阶段
+&gt; 我需要在 token 过期时自动弹出重新登录的提示。你打算怎么改？要动哪些文件？
+
+# 编码阶段
+&gt; 好，按你说的方案去改，一个文件一个文件地来，每改完一个告诉我</pre></div>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>「先规划，后编码」是使用 Claude Code 最重要的习惯。规划阶段多花 5 分钟，能避免后面几小时的返工。</p></aside>
+        <details class="quiz"><summary>🧠 自测：四步工作流中，「规划」阶段的核心目的是什么？</summary><ol type="A"><li>让 Claude Code 直接开始写代码</li><li class="right">在动手之前让 Claude Code 说出方案、提前发现问题　✓</li><li>生成文档</li><li>运行测试</li></ol><p class="explain">规划阶段让 Claude Code 把要做什么、怎么做说清楚，你确认后再开始编码。这能避免理解偏差导致的大量返工。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：用四步法完成一个小改动</p><ol><li>找一个你项目里的小需求或 bug</li><li>先让 Claude Code 探索相关文件，再让它说出修改方案</li><li>确认方案后，让它开始编码，过程中保持关注</li><li>改完后 git diff 看一遍改动，满意后再提交</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l6">
+        <h3>上下文管理</h3>
+        <p class="lead">上下文窗口是 Claude Code「当前记忆」的容量。对话越长、读的文件越多，上下文就越满。学会管理上下文，能让 Claude Code 始终保持高效、不走弯路。</p>
+        <h4>上下文窗口是什么</h4>
+        <p>每一次 Claude Code 的会话都有一个上下文窗口——它能「看到」和「记住」的内容总量是有限的。当上下文快满时，Claude 会开始忘记之前的内容，或者行为变得不稳定。你可以用 /context 查看当前的使用情况。</p>
+        <h4>三个关键命令</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 查看当前上下文使用量
+/context
+
+# 压缩上下文（保留关键信息，删除冗余历史）
+/compact
+
+# 清空上下文，从头开始（用于切换完全不同的任务）
+/clear</pre></div>
+        <h4>什么时候用哪个命令</h4>
+        <ul><li>/compact：同一个任务还没完成，但对话已经很长——用它压缩历史、保留重点，继续干活</li><li>/clear：当前任务已完成，要切换到完全不同的工作——彻底清空，重新出发</li><li>/context：随时查看，了解剩余空间，判断是否需要压缩或清空</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>把长对话的任务拆成小块完成，每完成一块就 /clear 或新开会话，是保持 Claude Code 高效的最好习惯。一个会话塞太多任务，往往得不到好结果。</p></aside>
+        <details class="quiz"><summary>🧠 自测：当你完成一个任务、准备开始一个全新的不相关任务时，最应该用哪个命令？</summary><ol type="A"><li>/compact</li><li>/context</li><li class="right">/clear　✓</li><li>/help</li></ol><p class="explain">/clear 会完全清空当前对话上下文，让 Claude Code 以全新的状态开始下一个任务。/compact 只是压缩，适合同一任务继续推进。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：练习上下文管理</p><ol><li>启动 Claude Code，完成一个小任务（让它读几个文件、做一处改动）</li><li>运行 /context，看看上下文占用了多少</li><li>运行 /compact，感受一下压缩前后的变化</li><li>再运行 /clear，开始一个全新的任务，体会从头开始的干净感</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l7">
+        <h3>代码评审</h3>
+        <p class="lead">Claude Code 不只是写代码的助手，它也是一个很好的代码评审员。无论是审查你自己写的代码，还是在接受 Claude Code 的改动之前仔细核查，代码评审是保持代码质量的关键习惯。</p>
+        <h4>让 Claude Code 评审你的代码</h4>
+        <p>把你写的代码发给 Claude Code，让它找问题：潜在的 bug、边界条件、性能问题、代码风格、安全漏洞。它的视角和你不同，往往能发现你自己忽略的问题。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 评审一个具体文件
+&gt; 帮我评审 src/api/user.js 这个文件，重点关注：1) 有没有潜在的安全问题 2) 错误处理是否完善 3) 有没有明显的性能问题
+
+# 让它解释自己的改动
+&gt; 你刚才修改了 auth.js，告诉我你具体改了什么、为什么这么改，有没有潜在的副作用</pre></div>
+        <h4>评审 Claude Code 自己的输出</h4>
+        <p>在接受 Claude Code 的任何改动之前，都应该审查一遍。养成看 git diff 的习惯，确认每一行改动你都理解并认可。特别注意 Claude Code 有时会改动它「顺手」改了但你没要求的地方。</p>
+        <h4>实用的评审技巧</h4>
+        <ul><li>让它解释：「这个改动的逻辑是什么，为什么这样写而不是那样写」</li><li>让它找问题：「如果这段代码上线后出问题，最可能是哪里」</li><li>让它写测试：「给这个函数写几个测试用例，覆盖正常和边界情况」</li><li>保持怀疑：Claude Code 有时会自信地写出有问题的代码，你的判断是最后一道关</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>永远不要在没有审查的情况下直接接受并部署 Claude Code 的输出。AI 生成的代码可能有微妙的 bug 或安全问题，最终的质量责任在你，不在 Claude。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在接受 Claude Code 的代码改动之前，你应该做什么？</summary><ol type="A"><li>直接提交，Claude Code 不会出错</li><li class="right">仔细看 git diff，理解每一处改动再决定是否接受　✓</li><li>把代码复制到另一个文件备份</li><li>重启终端</li></ol><p class="explain">Claude Code 的输出需要你审查后才能接受。看 git diff、理解改动逻辑，是保持代码质量的关键步骤。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：做一次代码评审</p><ol><li>选一段你最近写的代码，或者让 Claude Code 先写一段</li><li>让 Claude Code 从安全、性能和错误处理三个角度评审这段代码</li><li>对它指出的每一个问题，自己判断是否认同</li><li>如果有你不同意的点，和它讨论，让它解释理由</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 定制 Claude Code <span class="module-en">Customizing</span></h2>
+      
+      <article class="lesson" id="m4-l8">
+        <h3>CLAUDE.md 文件</h3>
+        <p class="lead">CLAUDE.md 是放在项目根目录里的一个 Markdown 文件，专门写给 Claude Code 看的。每次 Claude Code 在这个项目里启动，它都会先读这个文件，了解你的项目背景和规范。</p>
+        <h4>为什么需要 CLAUDE.md</h4>
+        <p>没有 CLAUDE.md 时，每次开新对话你都要重新告诉 Claude Code「我们用 TypeScript」「测试用 Jest 跑」「提交信息要用英文写」。CLAUDE.md 把这些一次写清楚，之后每个会话都自动生效，你再也不用重复交代背景。</p>
+        <h4>CLAUDE.md 应该写什么</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># CLAUDE.md 示例结构
+
+## 项目简介
+这是一个用 Next.js + TypeScript 构建的电商平台前端。
+
+## 技术栈
+- 框架：Next.js 14（App Router）
+- 语言：TypeScript（严格模式）
+- 样式：Tailwind CSS
+- 测试：Vitest + React Testing Library
+- 包管理：pnpm
+
+## 常用命令
+- 启动开发服务器：pnpm dev
+- 运行测试：pnpm test
+- 构建：pnpm build
+
+## 规范与约定
+- 组件放在 src/components/，按功能模块分子目录
+- Git 提交信息用英文，遵循 Conventional Commits 格式
+
+## 不要做的事
+- 不要安装新的 npm 包，除非我明确要求
+- 不要改动 .env 文件</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>先从「常用命令」和「不要做的事」两个部分开始写你的 CLAUDE.md，这是最立竿见影的两部分。边用边补充，不用一次写完。</p></aside>
+        <details class="quiz"><summary>🧠 自测：CLAUDE.md 最主要的作用是什么？</summary><ol type="A"><li>替代 README.md</li><li class="right">告诉 Claude Code 项目背景和规范，避免每次重复交代　✓</li><li>加密项目文件</li><li>替代 .gitignore</li></ol><p class="explain">CLAUDE.md 是写给 Claude Code 看的项目说明文件，让它在每次会话开始就了解技术栈、规范和约束，不需要你每次重复介绍。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为你的项目创建 CLAUDE.md</p><ol><li>在你的项目根目录里创建 CLAUDE.md 文件</li><li>至少写上：技术栈、常用命令（测试/启动/构建）、2-3 条不要做的事</li><li>启动 Claude Code，问它「你对这个项目了解哪些」，验证它是否读取了 CLAUDE.md</li><li>根据实际使用中遇到的问题，持续补充 CLAUDE.md</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l9">
+        <h3>Subagents</h3>
+        <p class="lead">Subagents（子代理）是 Claude Code 可以派生出来、在独立上下文里完成特定任务的助手代理。当一个大任务可以拆成多个独立的部分时，Claude Code 会自动或在你的提示下，把子任务委派给子代理并行处理。</p>
+        <h4>什么时候会出现子代理</h4>
+        <p>当你给 Claude Code 一个可以并行处理的复杂任务时，它可能会自动拆解并派生多个子代理同时工作。比如：「同时给 user、product、order 三个模块写单元测试」——Claude Code 可以派三个子代理各自写一个模块，比串行处理快得多。</p>
+        <h4>子代理的工作方式</h4>
+        <ul><li>每个子代理有自己独立的上下文窗口，不会污染主会话</li><li>子代理完成任务后，把结果交回给主代理</li><li>你可以在终端里看到子代理的创建和进度</li><li>主代理负责协调子代理的结果，整合成最终输出</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>子代理在后台工作，你无法直接向子代理发消息——你只和主代理交互。如果子代理的输出有问题，告诉主代理你想调整什么，由它重新处理。</p></aside>
+        <details class="quiz"><summary>🧠 自测：使用子代理的最大好处是？</summary><ol type="A"><li>让 Claude Code 回复更短</li><li class="right">多个独立子任务可以并行处理，大幅提高效率　✓</li><li>减少 API 费用</li><li>让代码运行更快</li></ol><p class="explain">子代理让多个独立任务可以同时进行，不必排队串行处理，对于可以拆分的大任务效率提升非常明显。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：触发一次子代理工作</p><ol><li>给 Claude Code 一个可以拆分为多个并行部分的任务（例如：为三个不同的模块各写一个 README）</li><li>观察终端里是否出现子代理被创建的提示</li><li>等待子代理完成，查看整合后的结果</li><li>如果结果有需要调整的地方，告诉主代理修改哪个部分</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l10">
+        <h3>Skills</h3>
+        <p class="lead">Skills 是可以赋予 Claude Code 特定专长的可复用模块。把某类任务的标准做法封装成一个 Skill，Claude Code 就会在合适的时候自动调用它，给出更专业、更一致的结果。</p>
+        <h4>Skill 在 Claude Code 里是什么</h4>
+        <p>在 Claude Code 的上下文里，Skill 通常是项目里一个专门的目录（如 .claude/skills/），里面放着描述特定工作方式的 Markdown 文件。Claude Code 在处理相关任务时会读取并遵循这些文件里的规范。</p>
+        <h4>常见的 Skill 场景</h4>
+        <ul><li>代码评审 Skill：统一评审标准，让每次 review 遵循相同的检查清单</li><li>API 文档 Skill：规定文档的格式和必填字段</li><li>测试编写 Skill：规定测试文件结构、命名规范、必覆盖的场景</li><li>提交信息 Skill：强制遵循 Conventional Commits 或你团队的格式</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>从你最常需要反复交代给 Claude Code 的那类要求开始，把它们写成一个 Skill。写一次，长期省心。</p></aside>
+        <details class="quiz"><summary>🧠 自测：Skills 的核心价值是什么？</summary><ol type="A"><li>让 Claude Code 写代码更快</li><li class="right">把某类任务的标准做法封装成可复用的规范，保证输出稳定专业　✓</li><li>替代 CLAUDE.md</li><li>减少 API 调用次数</li></ol><p class="explain">Skills 把特定任务的规范和做法封装起来，每次 Claude Code 处理该类任务时都会遵循，确保输出的一致性和专业性。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：构思你的第一个 Skill</p><ol><li>想一想：你最常需要反复告诉 Claude Code 的规范是什么（比如代码风格、文档格式）</li><li>在项目里创建 .claude/skills/ 目录</li><li>创建一个简单的 Skill 文件，写上这类任务的标准步骤和要求</li><li>让 Claude Code 处理一个相关任务，观察它是否遵循了 Skill 里的规范</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l11">
+        <h3>MCP</h3>
+        <p class="lead">MCP（Model Context Protocol）让 Claude Code 能连接外部工具和数据源——数据库、API、代码质量工具、内部服务等等。通过 MCP 服务器，Claude Code 的能力边界大幅扩展。</p>
+        <h4>MCP 在 Claude Code 里能做什么</h4>
+        <ul><li>直接查询数据库，让 Claude Code 在分析代码的同时查看实际数据</li><li>连接 GitHub/GitLab API，读取 PR 内容、创建 issue</li><li>接入内部 API 文档服务，让 Claude Code 了解你们的私有接口</li><li>连接代码质量平台（如 SonarQube），在对话里直接获取扫描结果</li><li>接入任何你自己构建的 MCP 服务器</li></ul>
+        <h4>如何给 Claude Code 添加 MCP 服务器</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre># 通过命令行添加（推荐新手）
+claude mcp add &lt;server-name&gt; &lt;command&gt; [args...]
+
+# 例如：添加一个本地 SQLite MCP 服务器
+claude mcp add sqlite npx -y @modelcontextprotocol/server-sqlite ./mydb.db</pre></div>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>使用第三方 MCP 服务器时，请确认来源可信。MCP 服务器可以访问你授权给它的所有资源，引入不可信的 MCP 服务器存在安全风险。</p></aside>
+        <details class="quiz"><summary>🧠 自测：给 Claude Code 添加一个 MCP 服务器后，最直接的效果是？</summary><ol type="A"><li>Claude Code 会变得更快</li><li class="right">Claude Code 能访问该 MCP 服务器提供的工具和数据　✓</li><li>Claude Code 会自动重启</li><li>减少上下文占用</li></ol><p class="explain">MCP 服务器向 Claude Code 暴露一组工具和数据接口，接入后 Claude Code 就能在对话中调用这些工具，如查询数据库、调用 API 等。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：添加你的第一个 MCP 服务器</p><ol><li>在 GitHub 上搜索 &quot;awesome-mcp-servers&quot; 找一个你用得上的 MCP 服务器</li><li>按照它的文档，用 claude mcp add 命令添加到 Claude Code</li><li>重启 Claude Code，让它帮你完成一个需要用到该 MCP 服务器的任务</li><li>确认工具被正确调用并返回了预期结果</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l12">
+        <h3>Hooks</h3>
+        <p class="lead">Hooks 让你可以在 Claude Code 执行工具的前后，自动运行你指定的 shell 命令。比如：每次 Claude Code 改完一个文件，自动跑一遍格式化；每次运行命令前，先做一个安全检查。</p>
+        <h4>Hooks 是什么</h4>
+        <p>Hook 是绑定在 Claude Code 工具调用生命周期上的钩子。目前支持两种：PreToolUse（工具调用之前运行）和 PostToolUse（工具调用完成之后运行）。你可以指定匹配哪些工具、运行什么命令。</p>
+        <h4>典型用法</h4>
+        <ul><li>自动格式化：每次 Claude Code 写完文件后，自动运行 prettier 或 gofmt</li><li>自动 lint：每次文件被修改后，自动运行 eslint 检查</li><li>安全检查：在 Claude Code 运行某些命令之前，先验证目标路径是否安全</li><li>自动测试：每次代码改动后，自动运行相关测试</li></ul>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>// .claude/settings.json 示例
+// 每次 Claude Code 写文件后，自动运行 prettier 格式化
+{
+  &quot;hooks&quot;: {
+    &quot;PostToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Write&quot;,
+        &quot;hooks&quot;: [{ &quot;type&quot;: &quot;command&quot;, &quot;command&quot;: &quot;npx prettier --write \&quot;$CLAUDE_FILE_PATHS\&quot;&quot; }]
+      }
+    ]
+  }
+}</pre></div>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>Hooks 里的命令会自动执行，不需要你确认。务必只配置你完全信任的命令，避免在 hooks 里写有副作用或破坏性的操作。</p></aside>
+        <details class="quiz"><summary>🧠 自测：PostToolUse hook 最常见的用途是什么？</summary><ol type="A"><li>在 Claude Code 执行工具前做安全验证</li><li class="right">在 Claude Code 执行工具完成后，自动做格式化或测试等后处理　✓</li><li>替代 CLAUDE.md</li><li>管理上下文窗口</li></ol><p class="explain">PostToolUse hook 在工具调用完成后触发，最适合做格式化、lint、测试等后处理工作，让 Claude Code 的每次改动都自动符合规范。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：配置一个格式化 Hook</p><ol><li>在你的项目里创建或打开 .claude/settings.json</li><li>添加一个 PostToolUse hook，在 Claude Code 写文件后自动运行你项目里的格式化命令</li><li>让 Claude Code 修改一个代码文件，观察 hook 是否自动触发</li><li>确认文件被正确格式化</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m5">模块五 · 测验 <span class="module-en">Quiz</span></h2>
+      
+      <article class="lesson" id="m5-l13">
+        <h3>课程测验</h3>
+        <p class="lead">欢迎来到 Claude Code 101 的课程综合测验。这里有 8 道题，覆盖本课程的核心概念。测验不计入成绩，重点是帮你回顾和巩固学到的内容。</p>
+        <details class="quiz"><summary>🧠 自测：Claude Code 和聊天式 AI 最核心的区别是什么？</summary><ol type="A"><li>Claude Code 只能处理 Python 代码</li><li class="right">Claude Code 能直接读写项目文件并运行终端命令，形成闭环　✓</li><li>Claude Code 不需要网络连接</li><li>Claude Code 比网页版便宜</li></ol><p class="explain">Claude Code 是一个编程代理，能直接操作你的代码库——读文件、改代码、运行命令，而不是只给出文字建议。</p></details>
+        <details class="quiz"><summary>🧠 自测：「代理循环（agentic loop）」描述的是什么？</summary><ol type="A"><li>Claude Code 无限重复同一个任务</li><li class="right">理解目标 → 选择工具 → 观察结果 → 决定下一步，循环直到完成　✓</li><li>一种付费套餐</li><li>上下文窗口的刷新机制</li></ol><p class="explain">代理循环是 Claude Code 自主推进任务的方式：不断地选择工具、执行、观察结果，再决定下一步行动，直到完成目标。</p></details>
+        <details class="quiz"><summary>🧠 自测：CLAUDE.md 文件的主要作用是什么？</summary><ol type="A"><li>替代项目的 README，面向人类读者</li><li class="right">告诉 Claude Code 项目的技术栈、规范和约束，避免每次会话重复交代　✓</li><li>加密项目文件</li><li>配置 npm 包依赖</li></ol><p class="explain">CLAUDE.md 是专门给 Claude Code 看的项目说明，每次 Claude Code 启动时都会读取，让它了解背景和规范。</p></details>
+        <details class="quiz"><summary>🧠 自测：当你完成一个任务、要切换到完全不相关的新任务时，应该用哪个命令？</summary><ol type="A"><li>/compact</li><li>/context</li><li class="right">/clear　✓</li><li>/exit</li></ol><p class="explain">/clear 会完全清空当前上下文，让 Claude Code 以全新状态开始下一个任务。/compact 只是压缩历史，适合同一任务继续推进。</p></details>
+        <details class="quiz"><summary>🧠 自测：MCP 服务器给 Claude Code 带来的核心价值是什么？</summary><ol type="A"><li>让 Claude Code 回复更快</li><li class="right">连接外部工具和数据源（如数据库、API），扩展 Claude Code 的能力边界　✓</li><li>减少 API 费用</li><li>替代 CLAUDE.md</li></ol><p class="explain">MCP 服务器向 Claude Code 暴露外部工具和数据，让它能在编程工作中直接查询数据库、调用 API、访问内部服务等。</p></details>
+        <details class="quiz"><summary>🧠 自测：Subagents（子代理）最适合处理哪类情况？</summary><ol type="A"><li>所有任务都应该用子代理</li><li class="right">一个大任务可以拆成多个独立部分、可以并行处理时　✓</li><li>上下文窗口快满的时候</li><li>需要格式化代码的时候</li></ol><p class="explain">子代理让多个独立子任务可以并行处理，每个子代理有自己的上下文，最适合可以拆分的大型并行任务。</p></details>
+        <details class="quiz"><summary>🧠 自测：PostToolUse Hook 最典型的用途是什么？</summary><ol type="A"><li>在 Claude Code 执行任务前做安全验证</li><li class="right">在 Claude Code 修改文件后，自动运行格式化、lint 或测试　✓</li><li>管理 CLAUDE.md 文件</li><li>添加新的 MCP 服务器</li></ol><p class="explain">PostToolUse Hook 在工具调用完成后触发，最适合做格式化、代码检查、自动测试等后处理工作，让每次改动都自动符合规范。</p></details>
+        <details class="quiz"><summary>🧠 自测：使用 Claude Code 的四步工作流中，「规划」阶段的正确做法是？</summary><ol type="A"><li>让 Claude Code 直接开始写代码，规划浪费时间</li><li class="right">让 Claude Code 先说出修改方案，你确认后再开始编码　✓</li><li>自己写好所有代码再让 Claude Code 检查</li><li>跳过规划，直接运行 /clear 清空上下文</li></ol><p class="explain">规划阶段让 Claude Code 先说出它打算怎么做，你确认方向正确后再开始编码，能有效避免理解偏差和大量返工。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：课程结束后做这件事</p><ol><li>在你正在参与的一个真实项目里创建 CLAUDE.md，写上技术栈、常用命令和至少 2 条约束</li><li>用四步工作流（探索→规划→编码→提交）完成一个你本周需要做的开发任务</li><li>根据实际使用中的痛点，考虑配置一个 Hook（如自动格式化）来减少重复操作</li><li>把你在本课中学到的最有价值的一个技巧分享给团队里的一位同事</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

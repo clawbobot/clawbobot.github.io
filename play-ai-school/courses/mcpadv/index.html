@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCP 进阶专题 中文课程 · AI 学院</title>
+  <meta name="description" content="生产级 MCP：采样(sampling)、通知、Roots 与传输机制。 4 个模块、14 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/mcpadv/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="MCP 进阶专题 中文课程 · AI 学院">
+  <meta property="og:description" content="生产级 MCP：采样(sampling)、通知、Roots 与传输机制。 4 个模块、14 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/mcpadv/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MCP 进阶专题 中文课程 · AI 学院">
+  <meta name="twitter:description" content="生产级 MCP：采样(sampling)、通知、Roots 与传输机制。 4 个模块、14 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"MCP 进阶专题","alternateName":"MCP: Advanced Topics","description":"生产级 MCP：采样(sampling)、通知、Roots 与传输机制。 4 个模块、14 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/mcpadv/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT4H"},"syllabusSections":[{"@type":"Syllabus","name":"介绍","description":"开始吧"},{"@type":"Syllabus","name":"核心特性","description":"Sampling；Sampling 实战；日志与进度通知；通知实战；Roots；Roots 实战"},{"@type":"Syllabus","name":"传输与通信","description":"JSON 消息类型；STDIO 传输；StreamableHTTP 传输；StreamableHTTP 深入；状态与 StreamableHTTP"},{"@type":"Syllabus","name":"评估与下一步","description":"MCP 概念测评；课程总结"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"MCP 进阶专题","item":"https://bobot.is-a.dev/play-ai-school/courses/mcpadv/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>MCP 进阶专题</h1>
+      <p class="course-en">MCP: Advanced Topics</p>
+      <div class="meta-line"><span>高级</span><span>4 个模块</span><span>14 节课</span><span>全中文讲解</span></div>
+      <p>这门进阶课假设你已经会构建基本的 MCP 服务器，深入生产级主题：采样、通知系统、Roots 文件访问，以及不同的传输机制与部署考量。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 介绍</strong><ul><li><a href="#m1-l1">开始吧</a></li></ul></li>
+      <li><strong>模块二 · 核心特性</strong><ul><li><a href="#m2-l2">Sampling</a></li><li><a href="#m2-l3">Sampling 实战</a></li><li><a href="#m2-l4">日志与进度通知</a></li><li><a href="#m2-l5">通知实战</a></li><li><a href="#m2-l6">Roots</a></li><li><a href="#m2-l7">Roots 实战</a></li></ul></li>
+      <li><strong>模块三 · 传输与通信</strong><ul><li><a href="#m3-l8">JSON 消息类型</a></li><li><a href="#m3-l9">STDIO 传输</a></li><li><a href="#m3-l10">StreamableHTTP 传输</a></li><li><a href="#m3-l11">StreamableHTTP 深入</a></li><li><a href="#m3-l12">状态与 StreamableHTTP</a></li></ul></li>
+      <li><strong>模块四 · 评估与下一步</strong><ul><li><a href="#m4-l13">MCP 概念测评</a></li><li><a href="#m4-l14">课程总结</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 介绍 <span class="module-en">Introduction</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>开始吧</h3>
+        <p class="lead">这门进阶课假设你已经会构建基本的 MCP 服务器。我们将深入生产级主题：采样(sampling)、通知、Roots 文件访问，以及不同的传输机制。</p>
+        <h4>你将深入的主题</h4>
+        <ul><li>Sampling：让服务器借用客户端的模型能力，把 AI 成本和复杂度留在客户端</li><li>日志与进度通知：为长任务提供实时反馈</li><li>Roots：受控的文件系统访问，划定安全边界</li><li>传输：STDIO 与 StreamableHTTP 两种机制</li><li>生产部署：有状态 vs 无状态、横向扩展的取舍</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 前置要求</span><p>需要 Python 异步编程经验，熟悉 JSON 消息和 HTTP 协议，了解 Server-Sent Events（SSE）。建议先完成「MCP 入门」。</p></aside>
+        <details class="quiz"><summary>🧠 自测：这门进阶课最适合谁？</summary><ol type="A"><li>完全没写过代码的人</li><li class="right">已能构建基本 MCP 服务器、想上生产环境的开发者　✓</li><li>只用聊天的普通用户</li><li>产品经理</li></ol><p class="explain">进阶课面向已掌握 MCP 基础、需要处理采样、通知、传输和部署等生产级问题的开发者。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：回顾基础</p><ol><li>确认你能独立写出一个带工具的 MCP 服务器</li><li>回顾工具、资源、提示三原语</li><li>准备好进入生产级话题</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 核心特性 <span class="module-en">Core MCP features</span></h2>
+      
+      <article class="lesson" id="m2-l2">
+        <h3>Sampling</h3>
+        <p class="lead">Sampling 是 MCP 中最独特的机制之一：它让服务器可以反向请求客户端去调用 LLM。理解这个设计，是掌握进阶 MCP 的关键一步。</p>
+        <h4>什么是 Sampling</h4>
+        <p>在常规流程中，客户端调用服务器工具。而 Sampling 反转了这个方向：服务器在执行工具时，可以向客户端发送 sampling/createMessage 请求，让客户端代它调用 LLM。</p>
+        <ul><li>服务器不需要持有 API Key，模型访问权限集中在客户端</li><li>模型调用的费用由客户端（用户）承担，服务器无需管理账单</li><li>服务器可以在工具逻辑中借助模型能力处理复杂任务</li><li>人机回路（Human-in-the-loop）：客户端可以在转发请求前让用户审核</li></ul>
+        <h4>为什么这个设计很重要</h4>
+        <p>这个设计解决了一个现实问题：如果每个 MCP 服务器都需要自己的 API Key，部署和费用管理会非常复杂。Sampling 让服务器保持无状态，所有 LLM 访问都通过客户端统一管控。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Sampling 体现了 MCP 的核心设计哲学：将模型访问权限和费用控制权留在客户端（用户侧），服务器只负责业务逻辑。</p></aside>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>恶意服务器理论上可以通过 Sampling 请求注入不安全内容。客户端实现时应考虑展示给用户审核，或实现内容过滤机制。</p></aside>
+        <details class="quiz"><summary>🧠 自测：Sampling 机制中，谁负责持有 LLM API Key 并实际调用模型？</summary><ol type="A"><li>MCP 服务器</li><li class="right">MCP 客户端　✓</li><li>MCP Inspector</li><li>FastMCP 框架自动管理</li></ol><p class="explain">Sampling 的设计初衷就是让 API Key 和模型访问权限留在客户端。服务器只发出 sampling/createMessage 请求，客户端决定如何处理（包括是否让用户审核）。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：理解 Sampling 的数据流</p><ol><li>画出一个 Sampling 请求的完整流程图：用户 → 客户端 → 服务器工具 → Sampling 请求 → 客户端 → LLM → 返回结果</li><li>思考：哪些类型的工具最适合用 Sampling？（例如：需要总结文本、生成报告的工具）</li><li>查阅 MCP 官方文档中关于 sampling/createMessage 的参数格式</li><li>对比 Sampling 和直接在服务器中调用 LLM API 两种方式的优缺点</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l3">
+        <h3>Sampling 实战</h3>
+        <p class="lead">理论讲完，现在写代码。本节你将实现一个使用 Sampling 的工具，以及对应的客户端处理逻辑，完整跑通整个流程。</p>
+        <h4>服务器端：发起 Sampling 请求</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP, Context
+from mcp.types import SamplingMessage, TextContent
+
+mcp = FastMCP('sampling-demo')
+
+@mcp.tool()
+async def summarize_text(text: str, ctx: Context) -&gt; str:
+    '''使用 LLM 对给定文本生成摘要（通过 Sampling 机制）'''
+    result = await ctx.session.create_message(
+        messages=[
+            SamplingMessage(
+                role='user',
+                content=TextContent(
+                    type='text',
+                    text=f'请用两句话概括以下内容：\n\n{text}'
+                )
+            )
+        ],
+        max_tokens=200
+    )
+    return result.content.text
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>客户端：处理 Sampling 请求</h4>
+        <p>客户端需要注册一个 sampling_handler 来处理服务器发来的 Sampling 请求。这个处理器负责调用实际的 LLM API 并返回结果。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>在测试 Sampling 时，可以先用一个模拟的 sampling_handler（直接返回固定字符串），不需要真实的 API Key 也能验证流程是否正确。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在服务器端工具中发起 Sampling 请求，需要通过什么对象调用 create_message()？</summary><ol type="A"><li>直接调用 mcp.create_message()</li><li class="right">通过 Context 参数的 session 属性调用　✓</li><li>通过导入 anthropic 库直接调用</li><li>通过全局变量 SESSION 调用</li></ol><p class="explain">工具函数需要声明 `ctx: Context` 参数，FastMCP 会自动注入。然后通过 `ctx.session.create_message()` 向客户端发起 Sampling 请求。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：实现并运行一个 Sampling 工具</p><ol><li>按照上方代码实现 server.py 中的 summarize_text 工具</li><li>实现 client.py，注册 sampling_handler（可先用返回固定字符串的模拟版本）</li><li>运行客户端，调用 summarize_text 工具，确认 Sampling 流程正常工作</li><li>（进阶）替换为真实的 Anthropic API 调用，测试完整流程</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l4">
+        <h3>日志与进度通知</h3>
+        <p class="lead">生产级的 MCP 服务器需要可观测性。日志通知和进度通知是 MCP 内置的两种机制，让客户端实时了解服务器工具的执行状态。</p>
+        <h4>两种通知原语</h4>
+        <ul><li>日志通知（Log Notification）：发送结构化日志消息，支持 debug / info / warning / error 四个级别</li><li>进度通知（Progress Notification）：发送当前进度和总量，适合有明确完成标准的长任务</li><li>两者都是单向推送（服务器 → 客户端），不需要客户端响应</li><li>帮助开发者调试问题，帮助用户了解任务状态</li></ul>
+        <h4>日志通知</h4>
+        <p>通过 `ctx.session.send_log_message()` 发送日志。客户端可以选择展示给用户、写入日志文件、或两者都做。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>日志级别的选择很重要：debug 用于详细调试信息，info 用于正常流程节点，warning 用于非致命异常，error 用于需要关注的错误。</p></aside>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Progress Token 由客户端在发起工具调用时提供（在请求的 meta 字段中），服务器在发送进度时引用它。没有 token 就无法发送进度通知。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪个级别的日志通知最适合记录工具成功完成一个主要步骤？</summary><ol type="A"><li>debug</li><li class="right">info　✓</li><li>warning</li><li>error</li></ol><p class="explain">info 级别用于正常流程中的重要节点，如文件读取完成、API 调用成功。debug 用于更详细的调试信息，warning 和 error 用于异常情况。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：了解通知机制的结构</p><ol><li>查阅 MCP Python SDK 文档，找到 send_log_message 和 send_progress 的完整参数列表</li><li>理解 progress_token 的作用：它如何让客户端将进度更新与对应的工具调用关联起来</li><li>思考你常用工具中哪些步骤适合添加 info 日志，哪些长步骤适合发送进度通知</li><li>在下一课实战中，准备好用这些知识编写代码</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>通知实战</h3>
+        <p class="lead">现在把日志和进度通知用到实际代码中。本节包含完整的 Python 示例，展示如何在长任务工具里添加通知，以及客户端如何接收它们。</p>
+        <h4>服务器：发送日志和进度</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP, Context
+import asyncio
+
+mcp = FastMCP('notification-demo')
+
+@mcp.tool()
+async def process_files(file_count: int, ctx: Context) -&gt; str:
+    '''模拟批量处理文件，展示日志和进度通知'''
+    await ctx.session.send_log_message(level='info', data=f'开始处理 {file_count} 个文件')
+
+    for i in range(file_count):
+        await asyncio.sleep(0.5)
+        await ctx.session.send_log_message(level='debug', data=f'正在处理文件 {i + 1}/{file_count}')
+
+        if ctx.meta and ctx.meta.progress_token:
+            await ctx.session.send_progress(
+                progress_token=ctx.meta.progress_token,
+                progress=i + 1,
+                total=file_count
+            )
+
+    await ctx.session.send_log_message(level='info', data=f'所有 {file_count} 个文件处理完成')
+    return f'成功处理 {file_count} 个文件'
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>客户端：接收通知</h4>
+        <p>客户端可以通过注册回调来处理服务器推送的日志和进度通知：</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>在生产环境中，日志通知可以直接写入你的日志系统（如 Datadog、CloudWatch），进度通知可以驱动前端的进度条 UI，两者都不需要修改服务器代码。</p></aside>
+        <details class="quiz"><summary>🧠 自测：服务器发送进度通知时，progress_token 参数的来源是？</summary><ol type="A"><li>FastMCP 框架自动生成</li><li>服务器工具函数自己生成</li><li class="right">由客户端在发起工具调用时提供　✓</li><li>从环境变量中读取</li></ol><p class="explain">progress_token 由客户端在调用工具时通过请求的 meta 字段传递。服务器发送进度通知时引用这个 token，让客户端能将进度更新与对应的调用关联起来。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为你的工具添加通知</p><ol><li>在你已有的 server.py 中选一个工具，添加 `ctx: Context` 参数</li><li>在工具的关键步骤添加 send_log_message() 调用（至少 info 和 debug 各一条）</li><li>运行服务器并在 Inspector 中调用该工具，观察 Inspector 中是否显示日志消息</li><li>（进阶）实现客户端的 on_log_message 回调，将日志打印到终端</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>Roots</h3>
+        <p class="lead">Roots 是 MCP 的安全机制：客户端告诉服务器它被允许访问哪些文件路径，防止服务器越界读写文件系统。这对生产环境的安全至关重要。</p>
+        <h4>为什么需要 Roots</h4>
+        <p>没有 Roots 时，一个提供读取文件功能的 MCP 服务器理论上可以访问用户电脑上的任何文件。Roots 机制让用户能够明确声明服务器的访问边界。</p>
+        <ul><li>客户端（代表用户）声明允许访问的目录列表（Roots）</li><li>服务器可以通过 roots/list 请求获知这些边界</li><li>服务器有责任将所有文件操作限制在这些目录范围内</li><li>典型场景：用户打开一个项目文件夹，将该文件夹作为 Root 授权给服务器</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>Roots 机制依赖服务器自觉遵守边界。MCP 协议本身不强制拦截越界访问——服务器必须在自己的代码中实现路径验证逻辑。选择可信的服务器实现同样重要。</p></aside>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>Roots 的设计哲学与 Sampling 一致：控制权在客户端（用户）。用户决定哪些文件夹对服务器可见，而不是服务器自己决定能访问什么。</p></aside>
+        <details class="quiz"><summary>🧠 自测：MCP Roots 机制中，谁负责声明允许访问的文件路径列表？</summary><ol type="A"><li>MCP 服务器</li><li class="right">MCP 客户端（代表用户）　✓</li><li>FastMCP 框架自动检测</li><li>操作系统文件权限系统</li></ol><p class="explain">Roots 由客户端声明，代表用户的意图。客户端在初始化或运行时向服务器提供允许访问的目录列表，服务器需要在自己的逻辑中遵守这些边界。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：理解 Roots 的安全模型</p><ol><li>思考：如果没有 Roots 机制，一个恶意的 MCP 服务器可以做哪些危险的事情</li><li>查阅 MCP 规范中 roots/list 请求和响应的 JSON 格式</li><li>设计一个路径验证函数：接收文件路径和 Roots 列表，返回该路径是否在允许范围内</li><li>思考 Roots 和操作系统文件权限的区别，以及为什么两者都是必要的</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l7">
+        <h3>Roots 实战</h3>
+        <p class="lead">把 Roots 概念落地到代码中。本节展示服务器如何请求 Roots 列表，以及如何用这些路径安全地约束文件访问。</p>
+        <h4>服务器请求 Roots 并验证路径</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP, Context
+from pathlib import Path
+
+mcp = FastMCP('roots-demo')
+
+def is_path_within_roots(file_path: str, roots: list) -&gt; bool:
+    '''检查文件路径是否在允许的 Roots 范围内'''
+    target = Path(file_path).resolve()
+    for root in roots:
+        root_path = Path(root.uri.replace('file://', '')).resolve()
+        try:
+            target.relative_to(root_path)
+            return True
+        except ValueError:
+            continue
+    return False
+
+@mcp.tool()
+async def safe_read_file(file_path: str, ctx: Context) -&gt; str:
+    '''安全地读取文件，只允许访问客户端声明的 Roots 范围内的路径'''
+    roots_result = await ctx.session.list_roots()
+    roots = roots_result.roots
+
+    if not roots:
+        return '错误：客户端未声明任何 Root，无法访问文件'
+
+    if not is_path_within_roots(file_path, roots):
+        return f'错误：路径 {file_path} 不在允许的范围内。'
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+if __name__ == '__main__':
+    mcp.run()</pre></div>
+        <h4>客户端声明 Roots</h4>
+        <p>客户端在创建 Session 时，通过 roots 参数声明允许服务器访问的目录列表。Root 的 URI 使用 file:// 前缀的文件系统路径格式。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>Root 的 URI 在 macOS/Linux 上格式为 file:///home/... 或 file:///Users/...，在 Windows 上为 file:///C:/Users/...。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在服务器代码中，通过什么方法获取客户端声明的 Roots 列表？</summary><ol type="A"><li>mcp.get_roots()</li><li class="right">ctx.session.list_roots()　✓</li><li>ctx.roots</li><li>session.request_roots()</li></ol><p class="explain">通过 `ctx.session.list_roots()` 发起 roots/list 请求，客户端返回其声明的 Root 列表。这需要工具函数声明 `ctx: Context` 参数。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：实现带 Roots 安全检查的文件工具</p><ol><li>按照上方代码实现 safe_read_file 工具，包含完整的路径验证逻辑</li><li>在 client.py 中声明两个 Roots（当前目录和一个子目录）</li><li>尝试读取 Roots 范围内的文件（应成功），再尝试读取范围外的文件（应被拒绝）</li><li>观察两种情况下的日志输出，确认安全边界正确生效</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 传输与通信 <span class="module-en">Transports &amp; communication</span></h2>
+      
+      <article class="lesson" id="m3-l8">
+        <h3>JSON 消息类型</h3>
+        <p class="lead">MCP 底层使用 JSON-RPC 2.0 作为消息格式。理解四种消息类型，是真正掌握 MCP 通信机制的基础。</p>
+        <h4>四种消息类型</h4>
+        <ul><li>Request（请求）：带 id + method + params，期待对方响应</li><li>Response（响应）：带相同的 id + result 或 error，是对 Request 的回答</li><li>Notification（通知）：只有 method，没有 id，单向推送，不需要响应</li><li>Error（错误响应）：带 id + error 对象（含 code、message、data），请求处理失败时返回</li></ul>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>// Request — 客户端调用工具
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;req-001&quot;,
+  &quot;method&quot;: &quot;tools/call&quot;,
+  &quot;params&quot;: { &quot;name&quot;: &quot;add_numbers&quot;, &quot;arguments&quot;: { &quot;a&quot;: 3, &quot;b&quot;: 5 } }
+}
+
+// Response — 服务器成功响应
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;req-001&quot;,
+  &quot;result&quot;: { &quot;content&quot;: [{ &quot;type&quot;: &quot;text&quot;, &quot;text&quot;: &quot;8&quot; }] }
+}
+
+// Notification — 服务器推送日志（无 id）
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/message&quot;,
+  &quot;params&quot;: { &quot;level&quot;: &quot;info&quot;, &quot;data&quot;: &quot;处理完成&quot; }
+}
+
+// Error Response — 请求处理失败
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;req-001&quot;,
+  &quot;error&quot;: { &quot;code&quot;: -32602, &quot;message&quot;: &quot;参数类型错误&quot; }
+}</pre></div>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>id 字段是区分 Request/Response 与 Notification 的关键：有 id 的是 Request 或 Response（需要配对），没有 id 的是 Notification（单向推送）。</p></aside>
+        <h4>消息流向</h4>
+        <p>消息并非只从客户端流向服务器。Sampling 请求是服务器向客户端发送的 Request；日志通知是服务器向客户端发送的 Notification；Roots 请求也是服务器向客户端发的 Request。</p>
+        <details class="quiz"><summary>🧠 自测：服务器发送进度通知时，应该使用哪种 JSON-RPC 消息类型？</summary><ol type="A"><li>Request（因为需要客户端确认收到）</li><li>Response（作为工具调用的中间响应）</li><li class="right">Notification（单向推送，不需要响应）　✓</li><li>Error（进度更新属于特殊错误类型）</li></ol><p class="explain">进度通知是单向推送，服务器不需要等待客户端确认。Notification 类型没有 id，客户端收到后处理即可，无需回复。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：分析 Inspector 中的原始消息</p><ol><li>启动 `mcp dev server.py`，在 Inspector 中调用一个工具</li><li>打开 Inspector 底部的原始消息面板，找到工具调用的 Request 消息，记录其 id</li><li>找到对应的 Response 消息，确认其 id 与 Request 相同</li><li>如果工具有日志通知，找到 Notification 消息，确认它没有 id 字段</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l9">
+        <h3>STDIO 传输</h3>
+        <p class="lead">STDIO 是最简单的 MCP 传输方式，也是本课程一直在用的方式。本节深入了解它的工作原理、适用场景和局限性。</p>
+        <h4>STDIO 传输的工作原理</h4>
+        <p>STDIO（Standard Input/Output）传输通过进程的标准输入（stdin）和标准输出（stdout）交换 JSON-RPC 消息。客户端启动服务器子进程，通过管道（pipe）通信。</p>
+        <ul><li>客户端 fork 出服务器子进程</li><li>客户端向服务器的 stdin 写入 JSON 消息</li><li>服务器向 stdout 写入响应消息</li><li>每条消息以换行符分隔</li><li>服务器的 stderr 可用于调试输出（不影响协议）</li></ul>
+        <h4>STDIO 的适用场景和局限</h4>
+        <ul><li>✅ 适合：本地工具、命令行服务器、Claude Desktop 集成</li><li>✅ 适合：开发和测试阶段，简单直接</li><li>✅ 优点：无需网络配置，天然安全（进程间通信）</li><li>❌ 局限：只支持单个客户端连接</li><li>❌ 局限：不支持跨网络访问，不能部署为远程服务</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>Claude Desktop 使用 STDIO 传输连接本地 MCP 服务器。如果你的目标是集成 Claude Desktop，STDIO 就是正确的传输方式。</p></aside>
+        <details class="quiz"><summary>🧠 自测：STDIO 传输最大的局限性是什么？</summary><ol type="A"><li>消息格式不是标准 JSON，难以调试</li><li class="right">只支持单个客户端连接，无法跨网络部署　✓</li><li>需要配置复杂的网络防火墙规则</li><li>只能在 Windows 系统上运行</li></ol><p class="explain">STDIO 通过进程间通信工作，天然只支持一对一的客户端-服务器关系，且服务器进程必须在客户端机器上本地运行，无法作为远程服务部署。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：验证 STDIO 传输配置</p><ol><li>在 server.py 中显式设置 `mcp.run(transport='stdio')`，确认行为与默认相同</li><li>运行客户端，理解每次连接都会启动新进程</li><li>阅读 Claude Desktop 配置文档，了解如何在 claude_desktop_config.json 中注册 STDIO 服务器</li><li>思考 STDIO 和 StreamableHTTP 各自适合哪些场景</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l10">
+        <h3>StreamableHTTP 传输</h3>
+        <p class="lead">StreamableHTTP 是 MCP 的网络传输方式，支持多客户端并发连接和跨网络部署。它结合了 HTTP 的通用性和 SSE 的实时推送能力。</p>
+        <h4>StreamableHTTP 如何工作</h4>
+        <ul><li>HTTP POST：客户端向固定端点发送 JSON-RPC 请求</li><li>SSE（Server-Sent Events）：服务器通过长连接持续推送消息给客户端</li><li>支持多个客户端同时连接（不同于 STDIO 的单客户端限制）</li><li>适合部署为云服务或远程 API，客户端通过 URL 连接</li></ul>
+        <h4>STDIO vs StreamableHTTP 对比</h4>
+        <ul><li>STDIO：本地进程通信，单客户端，简单，适合 Claude Desktop</li><li>StreamableHTTP：网络通信，多客户端，需要 HTTP 服务器，适合云部署</li><li>StreamableHTTP 支持认证（通过 HTTP 头），STDIO 无需认证（进程隔离保证安全）</li><li>StreamableHTTP 服务器可以水平扩展，STDIO 不行</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>StreamableHTTP 是 MCP 规范中较新的传输方式，取代了早期的 HTTP+SSE 两端点方案。确保你的 mcp SDK 版本是最新的以获得完整支持。</p></aside>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>SSE（Server-Sent Events）是 StreamableHTTP 的核心：它允许服务器在处理长任务时持续推送进度通知，而不需要客户端轮询。</p></aside>
+        <details class="quiz"><summary>🧠 自测：StreamableHTTP 传输使用什么机制来实现服务器向客户端的实时推送？</summary><ol type="A"><li>WebSocket 双向连接</li><li>HTTP 长轮询（Long Polling）</li><li class="right">SSE（Server-Sent Events）单向推送　✓</li><li>gRPC 流式传输</li></ol><p class="explain">StreamableHTTP 使用 SSE 实现服务器到客户端的实时推送。SSE 是基于 HTTP 的单向流，服务器可以持续发送事件，无需客户端反复请求。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：了解 SSE 的工作原理</p><ol><li>在浏览器中打开开发者工具的 Network 标签，访问任意使用 SSE 的网站</li><li>找到 EventStream 类型的请求，观察服务器持续发送的事件流格式</li><li>对比 SSE 和 WebSocket：两者都能实时推送，但 SSE 是单向的，WebSocket 是双向的</li><li>思考：对于 MCP 这个场景，为什么 SSE 比 WebSocket 更合适？</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l11">
+        <h3>StreamableHTTP 深入</h3>
+        <p class="lead">理论够了，来写代码。本节展示如何用 FastMCP 搭建 StreamableHTTP 服务器，以及客户端如何通过 URL 连接它。</p>
+        <h4>搭建 StreamableHTTP 服务器</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>from mcp.server.fastmcp import FastMCP, Context
+import asyncio
+
+mcp = FastMCP('http-server')
+
+@mcp.tool()
+async def long_task(steps: int, ctx: Context) -&gt; str:
+    '''模拟长时间运行的任务，通过 SSE 推送进度'''
+    for i in range(steps):
+        await asyncio.sleep(1)
+        await ctx.session.send_log_message(level='info', data=f'步骤 {i + 1}/{steps} 完成')
+    return f'任务完成，共执行 {steps} 步'
+
+if __name__ == '__main__':
+    mcp.run(
+        transport='streamable-http',
+        host='0.0.0.0',
+        port=8000
+    )
+
+# 启动后访问：http://localhost:8000/mcp</pre></div>
+        <h4>编写 StreamableHTTP 客户端</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>import asyncio
+from mcp import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+
+async def main():
+    server_url = 'http://localhost:8000/mcp'
+
+    async with streamablehttp_client(server_url) as (read, write, _):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            session.on_log_message = lambda msg: print(f'[服务器日志] {msg.data}')
+            result = await session.call_tool('long_task', {'steps': 3})
+            print(f'结果: {result.content[0].text}')
+
+if __name__ == '__main__':
+    asyncio.run(main())</pre></div>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>使用 StreamableHTTP 时，可以同时运行多个客户端实例。每个客户端都会建立独立的 SSE 连接，服务器可以并发处理它们的请求。</p></aside>
+        <details class="quiz"><summary>🧠 自测：启动 StreamableHTTP 服务器后，客户端应该连接到哪个 URL 路径？</summary><ol type="A"><li>/api/v1/mcp</li><li>/tools</li><li class="right">/mcp（FastMCP 默认路径）　✓</li><li>/rpc</li></ol><p class="explain">FastMCP 的 StreamableHTTP 模式默认将 MCP 端点挂载在 /mcp 路径下。完整 URL 格式为 http://host:port/mcp。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：搭建并测试 StreamableHTTP 服务器</p><ol><li>修改你的 server.py，将 `mcp.run()` 改为使用 streamable-http 传输，端口 8000</li><li>启动服务器，用浏览器访问 http://localhost:8000，确认服务器正在运行</li><li>编写 client.py 使用 streamablehttp_client 连接，调用一个工具</li><li>在两个不同终端同时运行两个客户端实例，确认服务器能并发处理请求</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l12">
+        <h3>状态与 StreamableHTTP</h3>
+        <p class="lead">使用 StreamableHTTP 部署服务器时，你必须决定：有状态还是无状态？这个选择对系统的可扩展性和复杂度有深远影响。</p>
+        <h4>有状态服务器（Stateful）</h4>
+        <ul><li>优点：实现简单，状态管理由框架处理，支持复杂的多轮交互</li><li>缺点：每个请求必须路由到同一台服务器实例（黏性会话）</li><li>缺点：难以水平扩展——增加服务器实例不会自动分担现有会话</li><li>适合场景：单机部署、开发环境、用户量小的服务</li></ul>
+        <h4>无状态服务器（Stateless）</h4>
+        <ul><li>优点：可以水平扩展，负载均衡器可以将请求分发到任意实例</li><li>优点：任意实例宕机不影响其他实例的正常服务</li><li>缺点：需要外部状态存储（Redis、PostgreSQL 等），架构复杂</li><li>适合场景：云端部署、高并发服务、需要高可用的生产环境</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>选择有状态还是无状态，本质上是在开发简单性和运维可扩展性之间权衡。早期阶段用有状态，用户量增长到需要多台服务器时再迁移到无状态。</p></aside>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>StreamableHTTP 有状态模式下，如果负载均衡器没有配置黏性会话（Sticky Session），来自同一客户端的请求可能被路由到不同服务器实例，导致状态丢失。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在需要支持大量并发用户的生产环境中，StreamableHTTP 服务器推荐使用哪种模式？</summary><ol type="A"><li>有状态模式，更容易实现</li><li class="right">无状态模式，便于水平扩展　✓</li><li>混合模式，奇数请求有状态，偶数请求无状态</li><li>STDIO 模式，性能更高</li></ol><p class="explain">无状态模式下，负载均衡器可以将请求分发到任意服务器实例，只要外部存储（如 Redis）保存了会话状态。这使得服务可以根据负载水平扩展。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：规划你的生产部署架构</p><ol><li>评估你的 MCP 服务器需求：预期并发用户数、状态复杂度、可用性要求</li><li>根据评估选择有状态或无状态模式，写下你的理由</li><li>如果选择无状态，列出需要持久化的状态字段，以及使用什么外部存储</li><li>画出你的部署架构图：负载均衡器、服务器实例、外部存储之间的关系</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 评估与下一步 <span class="module-en">Assessment &amp; next steps</span></h2>
+      
+      <article class="lesson" id="m4-l13">
+        <h3>MCP 概念测评</h3>
+        <p class="lead">这是 MCP 进阶专题的综合测评。这些问题覆盖了课程的全部核心概念，认真回答，看看你对进阶特性的掌握程度。</p>
+        <details class="quiz"><summary>🧠 自测：Sampling 机制的核心目的是什么？</summary><ol type="A"><li>让服务器能够直接访问 LLM，绕过客户端</li><li class="right">让服务器可以请求客户端代其调用 LLM，API Key 留在客户端　✓</li><li>提高 LLM 响应的采样随机性</li><li>让多个服务器共享同一个模型连接</li></ol><p class="explain">Sampling 的设计让服务器无需持有 LLM API Key。服务器发送 sampling/createMessage 请求给客户端，客户端负责实际调用 LLM，费用和访问控制权在用户侧。</p></details>
+        <details class="quiz"><summary>🧠 自测：MCP Roots 机制的主要安全目标是什么？</summary><ol type="A"><li>防止客户端读取服务器的配置文件</li><li class="right">让客户端声明服务器允许访问的文件路径范围，防止越界访问　✓</li><li>加密客户端和服务器之间的所有通信</li><li>限制每个工具的最大执行时间</li></ol><p class="explain">Roots 是客户端声明的文件访问边界。服务器通过 roots/list 请求获取这些边界，然后在自己的代码中验证文件路径，确保不访问用户未授权的目录。</p></details>
+        <details class="quiz"><summary>🧠 自测：STDIO 传输和 StreamableHTTP 传输最关键的区别是什么？</summary><ol type="A"><li>STDIO 使用 JSON，StreamableHTTP 使用 XML</li><li class="right">STDIO 只支持单客户端本地连接，StreamableHTTP 支持多客户端网络连接　✓</li><li>STDIO 更安全，StreamableHTTP 存在安全风险</li><li>StreamableHTTP 不支持工具调用，只支持资源访问</li></ol><p class="explain">STDIO 通过进程间通信工作，天然单客户端，适合本地工具。StreamableHTTP 基于 HTTP/SSE，支持多客户端并发连接，适合云端部署和远程访问。</p></details>
+        <details class="quiz"><summary>🧠 自测：send_log_message 和 send_progress 两种通知的主要区别是什么？</summary><ol type="A"><li>log 是双向的，progress 是单向的</li><li class="right">log 发送结构化日志（带级别），progress 发送数值进度（当前值/总量）　✓</li><li>log 只能在工具中使用，progress 可以在任何地方使用</li><li>两者完全相同，只是命名不同</li></ol><p class="explain">send_log_message 发送带 level（debug/info/warning/error）的日志消息，适合记录事件；send_progress 发送 progress/total 数值，适合展示长任务的完成百分比。</p></details>
+        <details class="quiz"><summary>🧠 自测：有状态（Stateful）StreamableHTTP 服务器在生产环境中的主要挑战是什么？</summary><ol type="A"><li>无法支持工具调用，只支持资源读取</li><li class="right">必须配置黏性会话，同一客户端请求必须路由到同一服务器实例　✓</li><li>不支持 SSE，只能使用 HTTP 轮询</li><li>每次请求都需要重新连接，性能很差</li></ol><p class="explain">有状态服务器将会话状态保存在内存中，因此来自同一客户端的所有请求必须路由到同一台服务器。在有负载均衡的环境中，需要配置黏性会话（Sticky Session）才能正确工作。</p></details>
+        <details class="quiz"><summary>🧠 自测：JSON-RPC 中，Notification 消息和 Request 消息的关键区别是什么？</summary><ol type="A"><li>Notification 使用 XML 格式，Request 使用 JSON 格式</li><li class="right">Notification 没有 id 字段，不需要响应；Request 有 id，需要对应的 Response　✓</li><li>Notification 只能从客户端发送给服务器，Request 方向相反</li><li>Notification 只包含错误信息，Request 包含正常请求</li></ol><p class="explain">id 是关键区别：Request 有 id，接收方必须用相同 id 返回 Response 或 Error；Notification 无 id，是单向推送，接收方处理后不需要回复。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：综合进阶实战</p><ol><li>创建一个新服务器，包含至少一个使用 Sampling 的工具和一个发送进度通知的工具</li><li>实现 Roots 安全检查：所有文件访问都必须验证路径是否在 Roots 范围内</li><li>选择 StreamableHTTP 传输部署服务器，编写对应的 HTTP 客户端</li><li>在 Inspector 中调用工具，在原始消息面板中找到 Request、Response 和 Notification 三种消息类型各一个</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l14">
+        <h3>课程总结</h3>
+        <p class="lead">恭喜你完成了 MCP 进阶专题的全部内容！你现在掌握的技能，足以构建真正生产级的 MCP 服务器。</p>
+        <h4>我们学了什么</h4>
+        <ul><li>Sampling：服务器反向请求客户端调用 LLM，API Key 和费用控制权在用户侧</li><li>日志通知：send_log_message() 提供结构化日志（debug/info/warning/error）</li><li>进度通知：send_progress() 为长任务提供实时进度更新</li><li>Roots：客户端声明文件访问边界，服务器验证路径合法性</li><li>JSON-RPC 消息类型：Request、Response、Notification、Error 四种类型</li><li>STDIO 传输：本地单客户端，简单直接，适合 Claude Desktop 集成</li><li>StreamableHTTP 传输：网络多客户端，SSE 推送，适合云端部署</li><li>有状态 vs 无状态：理解权衡，根据规模选择合适的架构</li></ul>
+        <h4>生产环境的真实考量</h4>
+        <ul><li>错误处理：工具内部的异常必须被捕获，返回有意义的错误消息给客户端</li><li>认证授权：StreamableHTTP 部署时，通过 HTTP 头实现 API Key 或 OAuth 认证</li><li>监控告警：将日志通知接入 Datadog、CloudWatch 等监控系统</li><li>速率限制：防止客户端过度调用工具，保护后端资源</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>持续关注 MCP 官方规范（modelcontextprotocol.io）和 Python SDK 的更新。MCP 是快速发展中的协议，新特性不断涌现。</p></aside>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>你现在拥有了构建完整 MCP 生态系统的全套技能：设计原语、实现服务器、编写客户端、选择传输、保障安全。从想法到生产，你已经具备了所有基础。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在 StreamableHTTP 生产部署中，最推荐的认证方式是？</summary><ol type="A"><li>将 API Key 硬编码在服务器配置文件中</li><li class="right">通过 HTTP 请求头传递认证信息（如 Authorization: Bearer token）　✓</li><li>使用 IP 白名单替代任何认证</li><li>在 URL 路径中包含密钥</li></ol><p class="explain">HTTP 头（如 Authorization: Bearer token）是 Web API 认证的标准做法，安全且灵活。硬编码密钥和 URL 中的密钥都存在安全风险，IP 白名单在云环境中难以维护。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：规划你的第一个生产 MCP 项目</p><ol><li>选择一个真实的集成需求（数据库访问、代码工具、外部 API 封装等）</li><li>决定传输方式（本地工具选 STDIO，云端服务选 StreamableHTTP）和状态模式</li><li>列出需要实现的 Tools、Resources 和 Prompts，以及各自的安全要求</li><li>部署你的第一个生产 MCP 服务器，并接入 Claude Desktop 或自建客户端真实使用</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

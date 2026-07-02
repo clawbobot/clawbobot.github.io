@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude 101 中文课程 · AI 学院</title>
+  <meta name="description" content="用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。 5 个模块、14 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/claude101/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="Claude 101 中文课程 · AI 学院">
+  <meta property="og:description" content="用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。 5 个模块、14 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/claude101/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude 101 中文课程 · AI 学院">
+  <meta name="twitter:description" content="用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。 5 个模块、14 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Claude 101","alternateName":"Claude 101","description":"用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。 5 个模块、14 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/claude101/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT4H"},"syllabusSections":[{"@type":"Syllabus","name":"认识 Claude","description":"什么是 Claude？；与 Claude 的第一次对话；获得更好的结果；桌面应用：Chat、Cowork、Code"},{"@type":"Syllabus","name":"整理工作与知识","description":"Projects 入门；用 Artifacts 创作；使用 Skills"},{"@type":"Syllabus","name":"拓展 Claude 的能力","description":"连接你的工具；企业搜索；深度研究模式"},{"@type":"Syllabus","name":"融会贯通","description":"各职业的实战用例；其他协作方式"},{"@type":"Syllabus","name":"结业与证书","description":"接下来学什么；结业证书"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"Claude 101","item":"https://bobot.is-a.dev/play-ai-school/courses/claude101/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 Anthropic 学院 · 中文学习版 · 完全免费</div>
+      <h1>Claude 101</h1>
+      <p class="course-en">Claude 101</p>
+      <div class="meta-line"><span>入门</span><span>5 个模块</span><span>14 节课</span><span>全中文讲解</span></div>
+      <p>这是一门面向零基础的入门课。不需要任何技术背景，跟着学完，你就能把 Claude 用在每天的工作里——写作、总结、头脑风暴、整理资料，都能交给它。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 认识 Claude</strong><ul><li><a href="#m1-l1">什么是 Claude？</a></li><li><a href="#m1-l2">与 Claude 的第一次对话</a></li><li><a href="#m1-l3">获得更好的结果</a></li><li><a href="#m1-l4">桌面应用：Chat、Cowork、Code</a></li></ul></li>
+      <li><strong>模块二 · 整理工作与知识</strong><ul><li><a href="#m2-l5">Projects 入门</a></li><li><a href="#m2-l6">用 Artifacts 创作</a></li><li><a href="#m2-l7">使用 Skills</a></li></ul></li>
+      <li><strong>模块三 · 拓展 Claude 的能力</strong><ul><li><a href="#m3-l8">连接你的工具</a></li><li><a href="#m3-l9">企业搜索</a></li><li><a href="#m3-l10">深度研究模式</a></li></ul></li>
+      <li><strong>模块四 · 融会贯通</strong><ul><li><a href="#m4-l11">各职业的实战用例</a></li><li><a href="#m4-l12">其他协作方式</a></li></ul></li>
+      <li><strong>模块五 · 结业与证书</strong><ul><li><a href="#m5-l13">接下来学什么</a></li><li><a href="#m5-l14">结业证书</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 认识 Claude <span class="module-en">Meet Claude</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>什么是 Claude？</h3>
+        <p class="lead">Claude 是由 Anthropic 开发的 AI 助手。你可以像和一位知识渊博的同事聊天那样，用日常语言向它提问、请它帮忙——它能理解你的意思，并用文字回应你。</p>
+        <h4>Claude 能帮你做什么</h4>
+        <ul><li>写作与润色：邮件、报告、文案、演讲稿</li><li>总结与提炼：把长文档、会议记录浓缩成要点</li><li>头脑风暴：为方案、活动、命名提供创意</li><li>翻译与跨语言沟通</li><li>分析数据、解释概念、辅助你做判断</li><li>写代码、查错、解释技术问题</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Claude 不是搜索引擎。它擅长理解、推理和创作，而不是实时查询最新新闻或股价。当你需要处理某份资料时，把资料贴给它，让它帮你读、帮你写，效果最好。</p></aside>
+        <h4>它和普通软件有什么不同</h4>
+        <p>传统软件需要你点按钮、填表格，按固定流程操作。和 Claude 协作时，你只要用自然语言说出想要什么，它就会理解并完成——没有菜单，没有固定步骤，对话本身就是界面。</p>
+        <details class="quiz"><summary>🧠 自测：下面哪一项最适合交给 Claude 来做？</summary><ol type="A"><li>查询此刻北京的实时天气</li><li class="right">把一份 20 页的报告总结成 5 个要点　✓</li><li>帮我把 1000 元转账给同事</li><li>远程控制家里的空调</li></ol><p class="explain">Claude 最擅长理解和处理你提供的内容，比如总结、写作、分析。实时天气、转账、控制设备这类任务需要专门的工具或最新数据，不是 Claude 的强项。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：发出你的第一条消息</p><ol><li>打开浏览器，访问 claude.ai 并注册一个免费账号</li><li>在底部的输入框里输入：你好，请用三句话介绍一下你自己</li><li>按回车发送，读一读 Claude 的回复</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>与 Claude 的第一次对话</h3>
+        <p class="lead">和 Claude 的互动就是一场对话：你发一条消息，它回一条，你可以继续追问、补充、修改要求。理解这个「来回」的节奏，是用好 Claude 的第一步。</p>
+        <h4>一轮对话长什么样</h4>
+        <p>在输入框里写下你的请求，按回车发送，这就是一条「消息」。Claude 会立刻开始回复。你们的每一次来回都留在同一个对话里，Claude 记得前面说过的内容，所以你不必每次都从头交代背景。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>把 Claude 当成一位聪明但刚入职的同事：它很能干，但并不了解你的具体情况。你给的背景越清楚，它帮得越准。</p></aside>
+        <h4>不满意？继续追问就好</h4>
+        <p>第一次回复很少是完美的，这很正常。你不需要重新开始，只要像和同事沟通一样接着说：「再正式一点」「太长了，压缩到 100 字」「加一个具体例子」。Claude 会在原来的基础上修改。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>帮我写一封请假邮件，发给我的经理。
+
+背景：我下周三因为家里有事需要请一天假，手头的工作会提前安排好。
+语气：礼貌、简洁、专业。</pre></div>
+        <details class="quiz"><summary>🧠 自测：对 Claude 的第一次回复不满意时，最好的做法是？</summary><ol type="A"><li>删掉对话，从头重新开始</li><li class="right">在同一个对话里直接告诉它哪里要改　✓</li><li>算了，自己动手改</li><li>换一个别的 AI 试试</li></ol><p class="explain">在同一对话里追问，Claude 能记住上下文并在原基础上修改，这正是对话式协作最大的优势。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：练习一次多轮对话</p><ol><li>请 Claude 帮你写一段 50 字的自我介绍</li><li>收到后，回复「太正式了，轻松活泼一点」</li><li>再回复「加一句我喜欢的爱好」，观察它如何逐步调整</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l3">
+        <h3>获得更好的结果</h3>
+        <p class="lead">同样一个问题，提问方式不同，答案质量差别很大。好消息是：写出好提示词（Prompt）不需要任何技巧术语，只要把四件事说清楚。</p>
+        <h4>好提示词的四要素</h4>
+        <ul><li>角色：让 Claude 扮演什么身份，例如「你是一位资深 HR」</li><li>任务：你具体想要它做什么，越明确越好</li><li>上下文：相关背景、限制条件、受众是谁</li><li>格式：你想要的输出长什么样，例如列表、表格、限定字数</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>你不需要每次都写全这四点。简单任务一句话就够；任务越复杂、越重要，多补充的信息就越能帮你拿到好结果。</p></aside>
+        <h4>对比一下</h4>
+        <p>模糊的提问：「帮我写个活动方案」。清楚的提问见下方示例——它指定了角色、任务、背景和格式，Claude 就能给出可以直接拿去用的结果。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>你是一位经验丰富的活动策划。
+
+请为我们 15 人的市场团队设计一场半天的团建活动。
+背景：预算每人 200 元，大家平时久坐、希望多互动，地点在市区。
+
+请给出 3 个不同主题的方案，每个方案包含：主题名称、活动流程、预计花费。</pre></div>
+        <details class="quiz"><summary>🧠 自测：下面哪一项「不」属于好提示词的四要素？</summary><ol type="A"><li>角色</li><li>任务</li><li>上下文</li><li class="right">对话时长　✓</li></ol><p class="explain">四要素是角色、任务、上下文、格式。对话时长长短并不会影响结果质量。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：改写你的提问</p><ol><li>先用一句话向 Claude 提一个工作上的真实请求</li><li>记下它的回复</li><li>再按「角色 + 任务 + 上下文 + 格式」补全你的提问，重新发一次</li><li>对比两次结果的差别</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l4">
+        <h3>桌面应用：Chat、Cowork、Code</h3>
+        <p class="lead">除了网页版，Claude 还有桌面应用，把它放在你电脑触手可及的地方。桌面应用提供三种工作方式：Chat、Cowork 和 Code，分别对应不同深度的协作。</p>
+        <h4>三种模式，三种场景</h4>
+        <ul><li>Chat：最基础的对话，问答、写作、头脑风暴都在这里</li><li>Cowork：让 Claude 在你的电脑上协助处理文件、跨应用完成任务</li><li>Code：面向写代码、运行和调试程序的场景</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>刚开始你只需要用好 Chat 就足够了。等熟悉之后，再去尝试 Cowork 和 Code，按需解锁更强的能力，不用一上来全部掌握。</p></aside>
+        <p>桌面应用最大的好处是随手可用：配一个快捷键，无论你正在写文档还是浏览网页，都能立刻唤起 Claude，不必切换回浏览器。</p>
+        <details class="quiz"><summary>🧠 自测：如果你只是想问问题、让 Claude 帮忙写邮件，应该用哪种模式？</summary><ol type="A"><li class="right">Chat　✓</li><li>Cowork</li><li>Code</li><li>以上都不行</li></ol><p class="explain">日常问答和写作，用 Chat 就完全足够了。Cowork 和 Code 面向更复杂的文件操作和编程场景。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：把 Claude 放到手边</p><ol><li>访问 claude.ai/download，下载并安装桌面应用</li><li>登录你的账号</li><li>用 Chat 模式问一个今天工作中真实遇到的问题</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 整理工作与知识 <span class="module-en">Organizing your work</span></h2>
+      
+      <article class="lesson" id="m2-l5">
+        <h3>Projects 入门</h3>
+        <p class="lead">当你围绕某件事反复和 Claude 打交道时——比如一个长期项目、一门课、一类重复的工作——Projects 能把相关的对话和资料集中在一个空间里，让 Claude 始终了解背景。</p>
+        <h4>Project 是什么</h4>
+        <p>Project 就像一个专属文件夹：你可以往里上传资料（文档、说明、参考），再写一段「自定义说明」告诉 Claude 这个项目的背景和你的偏好。之后在这个 Project 里的每一次对话，Claude 都会自动参考这些内容。</p>
+        <ul><li>把背景资料上传一次，之后不用反复粘贴</li><li>用自定义说明固定语气、格式和角色</li><li>把同一主题的多次对话集中管理</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>举个例子：建一个 Project 叫「周报助手」，上传公司的周报模板，写明「请用这个模板帮我整理每周工作」。以后每周只要把要点丢进去，Claude 就按模板输出。</p></aside>
+        <details class="quiz"><summary>🧠 自测：Projects 最大的好处是什么？</summary><ol type="A"><li>让回复速度更快</li><li class="right">让 Claude 持续记住某个主题的背景和资料　✓</li><li>可以多人同时聊天</li><li>免费使用更多次数</li></ol><p class="explain">Projects 把资料和说明集中存放，让 Claude 在该主题下始终了解背景，不必每次重复提供。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：建一个你自己的 Project</p><ol><li>在 Claude 里新建一个 Project，起个名字（例如「我的求职助手」）</li><li>上传一份相关资料（比如你的简历）</li><li>写一句自定义说明，例如「你是我的求职教练，请用鼓励的语气给建议」</li><li>在里面开一个对话，试试效果</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>用 Artifacts 创作</h3>
+        <p class="lead">当 Claude 生成较长、可以独立使用的内容——一份文档、一段代码、一个表格、甚至一个小网页——它会把成果放进一个叫 Artifact 的独立窗口里，方便你查看、编辑和保存。</p>
+        <h4>Artifact 解决了什么</h4>
+        <p>在普通对话里，长内容会和聊天记录混在一起，难以复用。Artifact 把这类「作品」单独拎出来，显示在对话右侧。你可以直接在上面修改，或让 Claude 继续调整，改完一键复制或下载。</p>
+        <ul><li>文档、文章、长文案</li><li>代码片段，甚至可以预览的网页</li><li>表格、清单、结构化内容</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>不是每次回复都会生成 Artifact。只有当内容足够长、适合独立保存和复用时，Claude 才会用它。</p></aside>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>帮我写一份「新员工第一周指南」，面向刚入职的同事。
+包含：报到当天要做的事、第一周的学习重点、需要认识的关键同事。
+请整理成清晰的分段文档。</pre></div>
+        <details class="quiz"><summary>🧠 自测：Artifact 最适合用来承载哪类内容？</summary><ol type="A"><li>一句简短的回答</li><li class="right">一份需要保存和反复修改的长文档　✓</li><li>一个表情符号</li><li>一次随口的闲聊</li></ol><p class="explain">Artifact 专为较长、可独立复用的成果设计，方便你编辑、保存和迭代。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：做出你的第一个 Artifact</p><ol><li>请 Claude 帮你写一份「本周待办清单」模板</li><li>在右侧的 Artifact 窗口里查看结果</li><li>让 Claude「把它改成表格形式」，观察 Artifact 实时更新</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l7">
+        <h3>使用 Skills</h3>
+        <p class="lead">Skills 让 Claude 掌握针对特定任务的「专长」——按照预设的标准流程和规范来完成某类工作，比如生成符合公司格式的文档、制作特定样式的图表。</p>
+        <h4>Skill 是什么</h4>
+        <p>你可以把 Skill 理解成给 Claude 的一套「操作手册」：里面写好了某类任务该怎么做、要遵守什么规范。需要时 Claude 会自动调用合适的 Skill，让结果更专业、更一致。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>对新手来说，你暂时不需要自己制作 Skill。先知道有这回事就好——当你发现某类工作要反复以同样的标准完成时，Skill 就是为它准备的。想深入可以学习「Agent Skills 入门」这门课。</p></aside>
+        <details class="quiz"><summary>🧠 自测：Skills 主要解决什么问题？</summary><ol type="A"><li>让 Claude 回复更简短</li><li class="right">让 Claude 按固定标准、专业地完成某类重复任务　✓</li><li>替你付款</li><li>加快网速</li></ol><p class="explain">Skills 封装了特定任务的标准流程和规范，让 Claude 在该类任务上输出更专业、更一致的结果。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：想一想你的场景</p><ol><li>列出你工作中每周都要做、且格式固定的一类任务</li><li>想想如果有一套标准流程，Claude 可以怎样帮你自动完成</li><li>把它记下来——这就是未来你可能用上 Skill 的地方</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 拓展 Claude 的能力 <span class="module-en">Expanding Claude's reach</span></h2>
+      
+      <article class="lesson" id="m3-l8">
+        <h3>连接你的工具</h3>
+        <p class="lead">通过集成（integrations），你可以把 Claude 和你日常使用的工具连接起来——Slack、邮件、日历、Google Workspace 等等——让 Claude 在这些工具里直接帮你干活，而不只是给文字建议。</p>
+        <h4>什么是集成</h4>
+        <p>集成是 Claude 和第三方应用之间的桥梁。配置好之后，Claude 可以读取你应用里的数据、执行操作——比如帮你起草并发送一封邮件、把会议总结自动发到 Slack 频道、在日历里添加日程。你不需要手动复制粘贴，Claude 直接在工具里行动。</p>
+        <h4>常见的集成场景</h4>
+        <ul><li>Slack：让 Claude 总结频道消息、起草回复、管理提醒</li><li>邮件（Gmail / Outlook）：自动起草邮件、整理收件箱、生成回复</li><li>日历（Google Calendar）：查询日程、安排会议、生成议程</li><li>Google Workspace：在 Docs、Sheets、Slides 里直接操作内容</li><li>Zapier / Make：通过自动化平台把 Claude 接入几乎任何应用</li><li>Notion / Confluence：读取和更新知识库文档</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>如果你用的应用在 Claude 的官方集成列表里，优先使用官方集成，配置简单、权限清晰。没有官方集成时，Zapier 或 Make 这类自动化平台可以作为中间层把 Claude 接进去。</p></aside>
+        <h4>集成是如何工作的</h4>
+        <p>每个集成本质上是给 Claude 开放了一组「动作权限」：读取数据、写入数据、触发操作。你在配置时决定开放哪些权限，Claude 只能在你授权的范围内行动。重要的操作一般会征求你的确认，你始终保持控制权。</p>
+        <details class="quiz"><summary>🧠 自测：连接 Claude 和 Slack 集成之后，Claude 能做什么？</summary><ol type="A"><li>替你购买付费套餐</li><li class="right">总结频道消息并起草回复　✓</li><li>删除你的 Slack 账号</li><li>监控所有员工</li></ol><p class="explain">Claude 集成 Slack 后，可以在你授权的范围内读取消息、总结内容、帮你起草回复，而不会超出你设定的权限边界。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：探索可用的集成</p><ol><li>在 Claude 的设置或应用界面里，找到「集成」或「Integrations」入口</li><li>浏览可用的集成列表，选一个你日常用到的应用</li><li>按照引导完成授权配置，然后在对话里试着让 Claude 帮你完成一个真实任务</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l9">
+        <h3>企业搜索</h3>
+        <p class="lead">企业搜索让 Claude 能跨越组织内部的知识库、文档系统和数据源进行搜索，帮你快速找到散落在各处的信息，而不必一个个系统地手动查询。</p>
+        <h4>它和普通搜索有什么不同</h4>
+        <p>普通网页搜索只能找到公开内容。企业搜索连接的是你组织内部的数据——Confluence、SharePoint、Notion、Salesforce、内部数据库等等。Claude 不只是列出链接，而是读懂这些内容，给你直接可用的答案和总结。</p>
+        <h4>典型使用场景</h4>
+        <ul><li>查找内部政策或操作规范：&quot;我们的报销流程是什么？&quot;</li><li>跨库搜索项目资料：&quot;上季度关于 X 产品的所有会议纪要&quot;</li><li>整合多来源信息，生成综合报告</li><li>快速定位某类合同或法律文件</li><li>搜索产品知识库，辅助客服或销售</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>企业搜索的质量取决于你接入的数据源的质量和覆盖范围。接入的来源越全、内容越新，Claude 给出的答案就越准确。</p></aside>
+        <h4>权限与安全</h4>
+        <p>企业搜索严格遵守原有系统的权限控制：Claude 只能搜索你本人有权访问的内容，不会因为你用了 Claude 就绕过原有的访问限制。敏感数据的保护机制不变。</p>
+        <details class="quiz"><summary>🧠 自测：企业搜索和在 Google 上搜索最核心的区别是？</summary><ol type="A"><li>企业搜索更快</li><li class="right">企业搜索能检索组织内部的私有数据　✓</li><li>企业搜索只能搜 PDF</li><li>企业搜索不需要账号</li></ol><p class="explain">企业搜索连接的是组织内部的知识库和数据，而普通网页搜索只能访问公开内容——这是两者最根本的区别。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：用 Claude 搜索你的内部资料</p><ol><li>确认你的组织已连接了至少一个内部知识库到 Claude</li><li>在对话里问一个你平时需要去内部系统查询的问题</li><li>对比 Claude 的回答和你平时手动查询的效率，感受差别</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l10">
+        <h3>深度研究模式</h3>
+        <p class="lead">深度研究（Research 模式）是 Claude 的一项高级功能：它会自主进行多步骤的网络搜索和资料整合，针对你的问题生成一份结构化的深度报告，而不只是一个简短的回答。</p>
+        <h4>什么时候用深度研究</h4>
+        <p>当你需要的不是一句答案，而是对某个话题的全面梳理时，深度研究模式最合适。比如：为一份行业报告做背景调研、了解某项技术的发展现状、比较多种方案的优劣、梳理某个法规的关键条款。Claude 会自己决定搜什么、搜几次，直到有足够的信息来回答你。</p>
+        <h4>如何使用</h4>
+        <ul><li>在 Claude 的对话界面里，找到并启用「Research」或「深度研究」模式</li><li>用清晰的问题或研究目标告诉 Claude 你想了解什么</li><li>等待 Claude 完成多步搜索（可能需要几分钟），期间可以看到它的搜索过程</li><li>收到报告后，仔细阅读并核对关键事实和引用来源</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>深度研究生成的报告内容丰富，但你仍然需要核查关键数据和引用。Claude 会标注信息来源，遇到重要结论请点开原始链接确认。AI 可能产生错误或过时信息。</p></aside>
+        <h4>如何得到更好的报告</h4>
+        <p>研究目标越具体，报告越有针对性。比起「帮我研究一下 AI」，「分析 2024 年以来大语言模型在医疗诊断领域的主要应用案例及局限性」能让 Claude 搜到更相关的内容，生成更有用的报告。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>请用深度研究模式帮我调研：
+主题：中国零售行业的 AI 应用现状
+重点：1) 头部零售商的实际落地案例 2) 主要应用场景（供应链/个性化推荐/客服）3) 面临的挑战
+输出格式：分章节的综合报告，每个要点标注信息来源</pre></div>
+        <details class="quiz"><summary>🧠 自测：深度研究模式最适合哪种需求？</summary><ol type="A"><li>快速查询今天的天气</li><li class="right">对某个复杂话题进行多步搜索和综合报告　✓</li><li>发一封邮件</li><li>修改一张图片</li></ol><p class="explain">深度研究模式专为需要全面调研的任务设计，Claude 会自主多步骤搜索和整合信息，适合报告调研、竞品分析等场景。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完成一次深度研究</p><ol><li>想一个你工作中真实需要调研的话题</li><li>启用深度研究模式，用清晰具体的语言描述你的研究目标</li><li>等报告生成后，重点检查它列出的信息来源，验证 2-3 个关键事实</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 融会贯通 <span class="module-en">Putting it all together</span></h2>
+      
+      <article class="lesson" id="m4-l11">
+        <h3>各职业的实战用例</h3>
+        <p class="lead">Claude 不是只有一种用法。不同职业的人每天都在用它解决不同的真实问题——从写文案到分析数据，从准备法律文件到设计教案。这节课用具体场景告诉你，你的同行是怎么把 Claude 用进日常工作的。</p>
+        <h4>市场与内容创作</h4>
+        <ul><li>头脑风暴活动主题、起名方案、口号创意</li><li>起草社交媒体文案，批量生成多个版本做 A/B 测试</li><li>把一篇长文章改写成不同平台的格式（微信、小红书、LinkedIn）</li><li>写新闻稿、产品介绍、落地页文案初稿</li></ul>
+        <h4>工程师与开发者</h4>
+        <ul><li>解释陌生代码库，快速上手新项目</li><li>写单元测试、生成 mock 数据</li><li>调试报错，让 Claude 分析错误信息并给出修复建议</li><li>生成技术文档、API 说明、注释</li></ul>
+        <h4>人力资源、教育与法务</h4>
+        <ul><li>HR：起草招聘 JD、面试问题、员工手册、绩效反馈模板</li><li>财务：整理财报要点、生成数据摘要、起草投资人简报</li><li>教师：备课大纲、课堂练习题、学生反馈评语</li><li>律师与法务：整理合同要点、梳理法规条款、起草法律文件初稿（需专业复核）</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>在法律、医疗、财务等专业领域，Claude 的输出是草稿和参考，不能替代持牌专业人士的判断。重要决策请始终由相关专业人员最终审核。</p></aside>
+        <details class="quiz"><summary>🧠 自测：一位 HR 专员最可能用 Claude 完成哪项工作？</summary><ol type="A"><li>直接批准员工的报销申请</li><li class="right">起草招聘职位描述和面试问题　✓</li><li>监控员工电脑</li><li>替代 HR 部门的所有职能</li></ol><p class="explain">HR 最常把 Claude 用于起草文字性内容（JD、面试题、手册、绩效评语），节省重复的写作工作，再自己做最终审核和判断。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：找到你职业里的高价值用法</p><ol><li>列出你每周做 3 次以上的重复性文字或分析工作</li><li>选其中一项，把真实任务发给 Claude 试一次</li><li>评估它的输出：有多少可以直接用，哪里需要修改</li><li>把这个场景加入你的「Claude 常规用法」清单</li></ol></aside>
+      </article>
+      <article class="lesson" id="m4-l12">
+        <h3>其他协作方式</h3>
+        <p class="lead">Claude 不只是一个答题机。它还能扮演思考伙伴、辩论对手、反思教练——帮你理清思路、检验想法、复盘决策。这节课介绍几种不那么常见但同样有价值的协作方式。</p>
+        <h4>把 Claude 当作思考伙伴</h4>
+        <p>当你面对复杂决策或模糊问题时，和 Claude 「大声思考」很有用。把你的困惑、想法、顾虑一股脑说给它听，让它帮你梳理逻辑、找出盲点、列出你没想到的角度。它不会替你做决定，但能帮你把混乱的思路变清晰。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>我在考虑是否要跳槽。现在的工作稳定但成长空间有限，新机会薪资高 30% 但公司规模小、有一定风险。
+
+请帮我梳理这个决策：列出我应该考虑的关键因素，帮我看清楚两边各自的核心风险，并提出 3 个我现在应该去弄清楚的问题。</pre></div>
+        <h4>语音功能</h4>
+        <p>Claude 的桌面应用和移动端支持语音对话——你说话，它回应。不想打字的时候，或者边开车边想事情，语音模式让 Claude 更像一个随时在旁边的助手。</p>
+        <h4>分享对话与协作</h4>
+        <ul><li>生成对话分享链接，把 Claude 的分析发给同事或客户参考</li><li>在 Project 里上传团队共用的资料，让团队成员各自和 Claude 交互</li><li>把 Claude 写的草稿直接复制进协作工具（飞书、Notion、Google Docs）继续编辑</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>和 Claude 进行思考伙伴式对话时，不要只等它给答案——主动追问，让对话深入。「这里还有什么我没想到的？」「如果我错了，错在哪里？」这类问题往往能挖出最有价值的洞察。</p></aside>
+        <details class="quiz"><summary>🧠 自测：把 Claude 当思考伙伴使用，最核心的价值是什么？</summary><ol type="A"><li>它能替你做所有决定</li><li class="right">帮你梳理逻辑、找出盲点、看清更多角度　✓</li><li>它比你聪明所以你该完全听它的</li><li>只适合聊工作，不能聊个人决策</li></ol><p class="explain">Claude 作为思考伙伴的价值在于帮你梳理混乱的思路、发现盲点、列出你没考虑到的角度——决策权始终在你自己手里。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：用 Claude 做一次思维梳理</p><ol><li>找一个你最近有点纠结的问题（工作或个人都行）</li><li>把你的困惑、已知条件和顾虑完整地写给 Claude</li><li>让它帮你列出关键考量因素和你应该先搞清楚的问题</li><li>根据它的梳理，写下你自己的下一步行动</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m5">模块五 · 结业与证书 <span class="module-en">Conclusion &amp; certificate</span></h2>
+      
+      <article class="lesson" id="m5-l13">
+        <h3>接下来学什么</h3>
+        <p class="lead">恭喜完成 Claude 101！你已经掌握了把 AI 用进日常工作的核心能力。接下来该去哪里，取决于你的目标和背景——这节课帮你找到最适合自己的下一步。</p>
+        <h4>如果你是非技术背景</h4>
+        <ul><li>深化 AI 工作流：探索如何把 Claude 接入你的日常应用，用 Zapier 或 Make 搭建自动化流程</li><li>学习 Claude 的企业功能：Projects 的高级用法、团队协作最佳实践</li><li>等等本学院后续推出的「Claude 进阶」和「AI 工作流实战」课程</li></ul>
+        <h4>如果你有技术背景或想学开发</h4>
+        <ul><li>Claude Code 101：学会用 AI 代理在终端里写代码、管理项目</li><li>MCP 入门：用 Python 构建 MCP 服务器，让 Claude 安全接入外部工具和数据</li><li>Agent Skills 入门：把你的专业知识打包成可复用的 Skill</li><li>Subagents 入门：学会委派任务给子代理，处理更复杂的工作流</li></ul>
+        <h4>持续进步的习惯</h4>
+        <ul><li>每次用 Claude 后，问自己：下次怎样提问能得到更好的结果</li><li>关注 Anthropic 官方博客和更新日志，了解 Claude 的新能力</li><li>在团队里分享你的用法，互相学习实战经验</li><li>建立自己的「提示词收藏夹」，把好用的 Prompt 记下来重复使用</li></ul>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>AI 能力进化很快。最重要的不是一次学完所有功能，而是养成「遇到问题就想想 Claude 能不能帮上忙」的习惯——这会让你在未来持续受益。</p></aside>
+        <details class="quiz"><summary>🧠 自测：一位没有编程背景的市场人员，完成本课后最适合的下一步是？</summary><ol type="A"><li>直接学 MCP 服务器开发</li><li class="right">探索 AI 工作流和自动化，或等待进阶课程　✓</li><li>不需要再学了，Claude 101 已足够</li><li>学 Python 编程</li></ol><p class="explain">非技术背景的用户完成 Claude 101 后，最自然的进阶是 AI 工作流和自动化（如 Zapier 集成），而不是直接跳到面向开发者的 MCP 开发课程。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：制定你的学习计划</p><ol><li>根据你的职业背景和目标，从上面的建议里选出 1-2 个最适合你的下一步</li><li>把它们写进你的日历或待办清单</li><li>在 Anthropic 学院的课程列表里找到对应课程，提前了解它的内容简介</li></ol></aside>
+      </article>
+      <article class="lesson" id="m5-l14">
+        <h3>结业证书</h3>
+        <p class="lead">你完成了 Claude 101 的全部学习内容。从认识 Claude，到掌握提示词技巧，到学会用 Projects、Artifacts 和 Skills 组织工作——这些能力从今天起就可以用进你的实际工作里。</p>
+        <h4>你学到了什么</h4>
+        <ul><li>Claude 是什么、能做什么，和传统工具有何不同</li><li>如何写出高质量的提示词（角色、任务、上下文、格式）</li><li>用 Projects 管理长期任务背景，用 Artifacts 创作和迭代成果</li><li>通过 Skills 获得专业化的输出</li><li>连接第三方工具，用企业搜索和深度研究拓展能力</li><li>找到适合自己职业的实战用法，养成 AI 协作的思维方式</li></ul>
+        <h4>鼓励与期待</h4>
+        <p>学会一门工具最好的方式，永远是在真实工作里反复用它。不要等到「完全准备好」——就从今天开始，把下一个任务交给 Claude 试一试。遇到不好的结果，调整提问方式再来一次。每一次使用都是进步。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>分享你的学习成果！把你在课程里发现的最有用的技巧告诉同事或朋友，帮助更多人用好 AI——也加深你自己的理解。</p></aside>
+        <h4>领取并分享你的证书</h4>
+        <p>完成所有模块的学习后，你可以在学院页面领取结业证书。把它分享到 LinkedIn 或你的团队群，让大家知道你已经是一位会用 AI 的高效协作者。</p>
+        <details class="quiz"><summary>🧠 自测：完成 Claude 101 之后，最重要的下一步是什么？</summary><ol type="A"><li>把课程内容背下来</li><li class="right">在真实工作中持续使用 Claude，从实践中提升　✓</li><li>等 AI 技术更成熟再用</li><li>把课程重新学一遍</li></ol><p class="explain">学习技能最有效的路径是在真实场景里反复使用。带着你在课程里学到的思路，直接把 Claude 用进日常工作，你会进步得最快。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：完成结业</p><ol><li>回顾一下：在这门课里，你觉得最有价值的一个技巧是什么</li><li>用这个技巧，完成今天的一项真实工作任务</li><li>在学院页面领取你的结业证书</li><li>把证书或你学到的最有用的技巧分享给至少一位同事或朋友</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-applied/"><strong>应用 AI 基础</strong><span>把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>

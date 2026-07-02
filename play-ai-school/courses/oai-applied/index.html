@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>应用 AI 基础 中文课程 · AI 学院</title>
+  <meta name="description" content="把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="author" content="Bob Pan">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="canonical" href="https://bobot.is-a.dev/play-ai-school/courses/oai-applied/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta property="og:title" content="应用 AI 基础 中文课程 · AI 学院">
+  <meta property="og:description" content="把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobot.is-a.dev/play-ai-school/courses/oai-applied/">
+  <meta property="og:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="应用 AI 基础 中文课程 · AI 学院">
+  <meta name="twitter:description" content="把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。 4 个模块、9 节课，全中文讲解，完全免费。">
+  <meta name="twitter:image" content="https://bobot.is-a.dev/play-ai-school/assets/share-card.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"应用 AI 基础","alternateName":"Applied AI Foundations","description":"把 AI 真正用进日常工作：找到高价值场景，养成可靠习惯。 4 个模块、9 节课，全中文讲解，完全免费。","url":"https://bobot.is-a.dev/play-ai-school/courses/oai-applied/","inLanguage":"zh-CN","isAccessibleForFree":true,"provider":{"@type":"Person","name":"Bob Pan","url":"https://bobot.is-a.dev/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"},"syllabusSections":[{"@type":"Syllabus","name":"把 AI 用到工作中","description":"从尝试到习惯；找到你的高价值场景；写出可复用的提示词"},{"@type":"Syllabus","name":"定制你的 AI","description":"自定义 GPT 入门；给它上传你的知识；写好指令"},{"@type":"Syllabus","name":"协作与安全","description":"团队里的 AI；数据与隐私"},{"@type":"Syllabus","name":"测验","description":"课程测验"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bob Pan","item":"https://bobot.is-a.dev/"},{"@type":"ListItem","position":2,"name":"AI 学院","item":"https://bobot.is-a.dev/play-ai-school/"},{"@type":"ListItem","position":3,"name":"应用 AI 基础","item":"https://bobot.is-a.dev/play-ai-school/courses/oai-applied/"}]}</script>
+  <style>
+    :root { color-scheme: dark; --bg:#090a0f; --surface:#11131b; --border:#292d3d; --text:#f1f3f8; --muted:#a0a7b8; --purple:#8b7cff; --green:#48d6b0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; line-height:1.75; }
+    a { color:var(--green); }
+    .wrap { width:min(calc(100% - 2.5rem), 820px); margin:0 auto; }
+    nav { border-bottom:1px solid var(--border); padding:0.9rem 0; font-size:0.9rem; }
+    nav .wrap { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .wordmark { color:var(--text); text-decoration:none; font-weight:800; }
+    .wordmark span { color:var(--green); }
+    nav a { text-decoration:none; }
+    header.course { padding:3.5rem 0 2.5rem; }
+    .badge { display:inline-block; background:rgba(139,124,255,0.18); color:var(--purple); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; padding:0.25rem 0.7rem; border-radius:99px; margin-bottom:1rem; }
+    h1 { font-size:clamp(2rem,6vw,3.2rem); line-height:1.1; letter-spacing:-0.03em; margin:0 0 0.5rem; }
+    .course-en { color:var(--muted); font-size:1rem; margin:0 0 1.25rem; }
+    .meta-line { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.25rem; font-size:0.85rem; color:var(--muted); }
+    .meta-line span { border:1px solid var(--border); border-radius:99px; padding:0.2rem 0.7rem; }
+    .cta { display:inline-block; background:var(--purple); color:#fff; font-weight:750; text-decoration:none; border-radius:9px; padding:0.7rem 1.3rem; margin-top:0.5rem; }
+    .toc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem; font-size:0.92rem; }
+    .toc > p { margin:0 0 0.5rem; font-weight:800; }
+    .toc ul { margin:0.25rem 0 0.75rem; padding-left:1.2rem; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--text); }
+    h2 { font-size:1.6rem; letter-spacing:-0.02em; margin:3rem 0 1rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .module-en { display:block; font-size:0.85rem; font-weight:400; color:var(--muted); }
+    h3 { font-size:1.25rem; margin:2.25rem 0 0.75rem; color:var(--green); }
+    h4 { font-size:1.02rem; margin:1.5rem 0 0.5rem; }
+    p, li { color:#cdd3e0; font-size:0.96rem; }
+    .lead { color:var(--text); font-size:1.05rem; }
+    .callout { border-left:3px solid var(--c); background:var(--surface); border-radius:0 10px 10px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .callout-tag { font-size:0.78rem; font-weight:800; color:var(--c); }
+    .callout p { margin:0.3rem 0 0; font-size:0.9rem; }
+    .prompt { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .prompt-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0.4rem 0.9rem; font-size:0.75rem; font-weight:700; color:var(--muted); }
+    .prompt pre { margin:0; padding:1rem; overflow-x:auto; font:0.85rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:#cbd1df; white-space:pre-wrap; }
+    .quiz { border:1px solid var(--border); border-radius:10px; padding:0.7rem 1rem; margin:1rem 0; background:var(--surface); font-size:0.92rem; }
+    .quiz summary { cursor:pointer; font-weight:700; }
+    .quiz .right { color:var(--green); font-weight:700; }
+    .quiz .explain { color:var(--muted); font-size:0.88rem; }
+    .task { border:1px dashed var(--border); border-radius:10px; padding:0.8rem 1.1rem; margin:1rem 0; }
+    .task-title { margin:0 0 0.4rem; font-weight:800; color:var(--text); }
+    .task ol { margin:0; padding-left:1.3rem; }
+    .bottom-cta { text-align:center; padding:3rem 0; border-top:1px solid var(--border); margin-top:3rem; }
+    .others { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.8rem; margin:1.5rem 0 3rem; }
+    .other-card { display:flex; flex-direction:column; gap:0.3rem; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; background:var(--surface); text-decoration:none; font-size:0.85rem; }
+    .other-card strong { color:var(--text); }
+    .other-card span { color:var(--muted); }
+    .other-card:hover { border-color:var(--purple); }
+    footer { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <a class="wordmark" href="/">Bob<span>Pan</span></a>
+    <div><a href="/play-ai-school/">进入互动学院 →</a></div>
+  </div></nav>
+  <main class="wrap">
+    <header class="course">
+      <div class="badge">🎓 OpenAI 学院 · 中文学习版 · 完全免费</div>
+      <h1>应用 AI 基础</h1>
+      <p class="course-en">Applied AI Foundations</p>
+      <div class="meta-line"><span>进阶</span><span>4 个模块</span><span>9 节课</span><span>全中文讲解</span></div>
+      <p>懂了 AI 是什么之后，这门课帮你把它用起来：识别真正能省时间的场景、写出可复用的提示词、定制属于你的 AI 助手，并安全地在团队里落地。</p>
+      <a class="cta" href="/play-ai-school/">在互动学院中学习（含测验与进度保存）→</a>
+    </header>
+    <aside class="toc"><p>课程大纲</p><ul>
+      <li><strong>模块一 · 把 AI 用到工作中</strong><ul><li><a href="#m1-l1">从尝试到习惯</a></li><li><a href="#m1-l2">找到你的高价值场景</a></li><li><a href="#m1-l3">写出可复用的提示词</a></li></ul></li>
+      <li><strong>模块二 · 定制你的 AI</strong><ul><li><a href="#m2-l4">自定义 GPT 入门</a></li><li><a href="#m2-l5">给它上传你的知识</a></li><li><a href="#m2-l6">写好指令</a></li></ul></li>
+      <li><strong>模块三 · 协作与安全</strong><ul><li><a href="#m3-l7">团队里的 AI</a></li><li><a href="#m3-l8">数据与隐私</a></li></ul></li>
+      <li><strong>模块四 · 测验</strong><ul><li><a href="#m4-l9">课程测验</a></li></ul></li>
+    </ul></aside>
+
+    <section class="module">
+      <h2 id="m1">模块一 · 把 AI 用到工作中 <span class="module-en">Putting AI to work</span></h2>
+      
+      <article class="lesson" id="m1-l1">
+        <h3>从尝试到习惯</h3>
+        <p class="lead">很多人用过几次 AI 就停了，因为没把它接进真实的工作流。真正的收益来自「养成习惯」：遇到合适的任务，第一反应就是先问问 AI。</p>
+        <h4>为什么习惯比技巧更重要</h4>
+        <p>单次惊艳不会改变你的效率，持续地把重复、繁琐、需要起草的工作交给 AI 才会。关键是降低使用门槛——把它放在手边，并知道哪些事值得交给它。</p>
+        <ul><li>每天会重复做的事</li><li>需要「先写个初稿」的事</li><li>需要换种说法、换个角度的事</li><li>要从一堆信息里提炼要点的事</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>给自己定个小规则：本周凡是要写邮件或做总结，先让 AI 起个草。一周后回头看省了多少时间。</p></aside>
+        <details class="quiz"><summary>🧠 自测：让 AI 真正提升效率，最关键的是？</summary><ol type="A"><li>学会很多高级技巧</li><li class="right">养成在合适场景先用 AI 的习惯　✓</li><li>买最贵的套餐</li><li>只在重要任务时才用</li></ol><p class="explain">持续地把重复、起草类工作交给 AI 形成习惯，比掌握零散技巧更能带来实际收益。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：定一个本周习惯</p><ol><li>选一类你每天都做的小任务（如回复邮件）</li><li>这一周每次都先让 AI 起草</li><li>周末回顾：哪些有效、哪些需要调整</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l2">
+        <h3>找到你的高价值场景</h3>
+        <p class="lead">AI 不是哪儿都适用。把精力花在「高频 + 耗时 + 不需要你独有判断」的任务上，回报最高。学会快速判断一件事值不值得交给 AI。</p>
+        <h4>一个简单的筛选标准</h4>
+        <ul><li>频率高：每天或每周都要做</li><li>耗时长：单次要花不少时间</li><li>容错高：出错可以低成本修正</li><li>规则清晰：能说明白「好」长什么样</li></ul>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>涉及重大决策、敏感数据或需要你个人判断与责任的事，AI 可以辅助，但最终判断必须由你来做。</p></aside>
+        <details class="quiz"><summary>🧠 自测：哪类任务最适合优先交给 AI？</summary><ol type="A"><li>一年只做一次、关系重大的决策</li><li class="right">每周重复、耗时且容错较高的起草类工作　✓</li><li>涉及机密且不可出错的事</li><li>需要你个人签字担责的事</li></ol><p class="explain">高频、耗时、容错较高、规则清晰的任务，是 AI 回报最高的场景。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：列出你的三个场景</p><ol><li>写下你工作中三件高频又耗时的任务</li><li>按「容错高不高、规则清不清」打分</li><li>挑分数最高的一个，下周交给 AI 试</li></ol></aside>
+      </article>
+      <article class="lesson" id="m1-l3">
+        <h3>写出可复用的提示词</h3>
+        <p class="lead">当某类任务你要反复做，就别每次从头打字。把一个好用的提示词「模板化」，留出空格填入当次的具体信息，效率立刻翻倍。</p>
+        <h4>模板化的思路</h4>
+        <p>先写出一个能产出满意结果的提示词，然后把里面「每次都会变」的部分抽成占位符（如【主题】【受众】），固定不变的要求保留下来。下次只换占位符即可。</p>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>你是一位资深内容编辑。
+
+请把下面的要点扩写成一篇面向【受众】的短文。
+要求：语气【正式/轻松】，长度约【字数】字，结尾给一句行动号召。
+
+要点：
+【在这里粘贴你的要点】</pre></div>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>好模板会越用越顺手。每次发现结果不够好，就顺手改一句要求，慢慢沉淀成你自己的「提示词库」。</p></aside>
+        <details class="quiz"><summary>🧠 自测：把提示词模板化的核心做法是？</summary><ol type="A"><li>每次都重新写</li><li class="right">把不变的要求固定、把会变的部分留成占位符　✓</li><li>把提示词写得越短越好</li><li>只用别人给的模板</li></ol><p class="explain">固定通用要求、抽出可变占位符，就能让一个好提示词反复复用、持续打磨。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：做一个你的模板</p><ol><li>挑一类你常做的任务，写出一个满意的提示词</li><li>把每次都变的信息改成【占位符】</li><li>保存起来，下次直接套用</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m2">模块二 · 定制你的 AI <span class="module-en">Customizing your AI</span></h2>
+      
+      <article class="lesson" id="m2-l4">
+        <h3>自定义 GPT 入门</h3>
+        <p class="lead">Custom GPT 让你可以创建一个专为特定用途设计的 AI 助手，配置好之后团队所有人都能直接使用，无需每次重复输入背景信息。</p>
+        <h4>什么是 Custom GPT</h4>
+        <p>Custom GPT 是你在 ChatGPT 中创建的专属 AI 配置。你可以给它设定名字、描述、行为指令，上传参考文档，并开启特定能力。创建后，它会出现在你的 GPT 列表中，一键即可使用。</p>
+        <h4>GPT Builder 的主要配置项</h4>
+        <ul><li>名称与描述：让用户一眼理解这个 GPT 的用途</li><li>系统指令（Instructions）：定义 GPT 的行为、语气、专注领域</li><li>知识库（Knowledge）：上传 PDF、TXT 等文件供 GPT 参考</li><li>能力开关：网页浏览、图像生成、代码解释器</li></ul>
+        <aside class="task"><p class="task-title">✏️ 动手练习：创建你的第一个 Custom GPT</p><ol><li>登录 ChatGPT，点击左侧&quot;探索 GPT&quot;，然后点击右上角&quot;创建&quot;</li><li>在 GPT Builder 中输入名称（如&quot;会议摘要助手&quot;）和一句话描述</li><li>在&quot;指令&quot;区域写入你的系统 Prompt（告诉它该怎么工作）</li><li>点击&quot;保存&quot;，然后在新对话中测试你的 Custom GPT</li></ol></aside>
+        <aside class="callout" style="--c:#a0a7b8"><span class="callout-tag">ℹ 注意</span><p>Custom GPT 功能需要 ChatGPT Plus 或 Team/Enterprise 订阅。免费账户可以使用他人创建的公开 GPT，但无法自行创建。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在 Custom GPT 的配置中，&quot;系统指令&quot;的主要作用是什么？</summary><ol type="A"><li>设定 GPT 的名称和头像</li><li class="right">定义 GPT 的行为方式、语气和专注范围　✓</li><li>控制哪些用户可以访问该 GPT</li><li>决定 GPT 的回复速度</li></ol><p class="explain">系统指令是 Custom GPT 的核心配置，它告诉模型应该扮演什么角色、如何回应用户、专注哪些话题。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：配置一个实用的 Custom GPT</p><ol><li>确定一个你工作中重复出现的场景（如整理周报、回复客户邮件）</li><li>写一段 3-5 句的系统指令，描述 GPT 应该如何工作</li><li>（可选）开启&quot;代码解释器&quot;或&quot;网页浏览&quot;能力</li><li>保存后测试：输入一个真实任务，评估输出质量</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l5">
+        <h3>给它上传你的知识</h3>
+        <p class="lead">通过上传文件，你可以让 Custom GPT 参考你的内部文档、产品手册或行业资料来回答问题。这就是 RAG（检索增强生成）的实际应用。</p>
+        <h4>RAG 是如何工作的</h4>
+        <p>RAG（Retrieval-Augmented Generation）是指 AI 在回答问题时，先从上传的文档中搜索相关片段，再结合这些内容生成回答。它不是把整本书都&quot;塞进&quot;模型记忆，而是在需要时按需检索。</p>
+        <ul><li>支持格式：PDF、TXT、DOCX、CSV 等</li><li>工作方式：用户提问 → GPT 搜索文档 → 结合检索结果生成回答</li><li>优势：无需重新训练模型，快速注入专有知识</li></ul>
+        <h4>知识库的局限性</h4>
+        <p>RAG 并不完美。如果文档结构混乱、标题不清晰，GPT 可能检索到错误的段落。上传文件过多时，相关性排序可能失准。此外，GPT 不会&quot;背诵&quot;整个文档，而是基于检索到的片段作答。</p>
+        <ul><li>文件建议：结构清晰、有标题层级、不超过 20 个文件</li><li>避免：扫描版 PDF（无法检索文字）、格式混乱的文档</li><li>最佳实践：将不同主题拆分到不同文件，便于精准检索</li></ul>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>上传文档前，先整理文档结构：用清晰的标题、小标题和段落分隔内容。结构清晰的文档能显著提升检索准确率。</p></aside>
+        <details class="quiz"><summary>🧠 自测：RAG 技术让 Custom GPT 能够做什么？</summary><ol type="A"><li>直接访问公司内部服务器上的实时数据</li><li class="right">基于上传的文档回答特定领域的问题　✓</li><li>无限量存储所有公司文件</li><li>替代公司现有的知识管理系统</li></ol><p class="explain">RAG 让 GPT 能够在回答时检索上传文档中的相关内容，从而给出更有针对性的回答，但它不能访问实时数据或公司内部系统。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：测试知识库效果</p><ol><li>准备一份结构清晰的内部文档（产品FAQ、操作手册等）</li><li>在 Custom GPT 配置页面上传该文档</li><li>提出 3 个你知道文档中有答案的具体问题</li><li>评估 GPT 的回答准确度，记录哪些问题回答准确，哪些出现偏差</li></ol></aside>
+      </article>
+      <article class="lesson" id="m2-l6">
+        <h3>写好指令</h3>
+        <p class="lead">系统指令是 Custom GPT 的灵魂。写得好，它每次都像一个专业顾问；写得模糊，它会变成一个不知所措的通用助手。</p>
+        <h4>好的系统指令包含什么</h4>
+        <ul><li>角色定义：你是谁、有什么专业背景</li><li>行为规范：应该做什么、不应该做什么</li><li>语气风格：正式还是友好、详细还是简洁</li><li>输出格式：偏好列表、段落还是表格</li><li>示例问答：展示期望的交互模式</li></ul>
+        <h4>一个完整的系统 Prompt 示例</h4>
+        <div class="prompt"><div class="prompt-bar">示例 Prompt</div><pre>你是&quot;小助&quot;，一位专注于产品管理领域的工作助手，服务于一家 B2B SaaS 公司的产品团队。
+
+你的专长：
+- 帮助撰写和优化产品需求文档（PRD）
+- 整理用户反馈并提炼洞察
+- 协助准备产品 Roadmap 和 Sprint 计划
+
+行为准则：
+- 回答简洁，默认使用中文
+- 遇到不确定的内容，明确说明&quot;我不确定，建议核实&quot;
+- 不提供超出产品管理范畴的专业建议（如法律、财务）
+- 输出内容默认使用 Markdown 格式，便于复制到 Notion
+
+示例对话：
+用户：帮我把这段用户反馈整理成洞察
+小助：好的，请粘贴反馈内容，我会帮你提炼出 3-5 条核心洞察，并标注出现频率。</pre></div>
+        <h4>测试边界用例</h4>
+        <p>写完系统指令后，刻意测试一些边界场景：问它不该做的事情、用奇怪的方式提问、给出不完整的信息。好的指令应该让 GPT 在这些情况下也能优雅地处理，而不是给出奇怪的回答。</p>
+        <aside class="callout" style="--c:#8b7cff"><span class="callout-tag">★ 重点</span><p>系统指令要写&quot;做什么&quot;，也要写&quot;不做什么&quot;。明确的边界让 GPT 在超出范围的请求时能够正确引导用户，而不是硬撑。</p></aside>
+        <details class="quiz"><summary>🧠 自测：在系统指令中加入&quot;示例问答&quot;的主要目的是什么？</summary><ol type="A"><li>让 GPT 只回答示例中出现过的问题</li><li class="right">向模型展示期望的交互模式和回答风格　✓</li><li>限制 GPT 的回答长度</li><li>防止 GPT 访问外部网络</li></ol><p class="explain">示例问答起到&quot;少样本学习&quot;的作用，向模型展示你期望的回答格式、深度和语气，从而让实际输出更接近预期。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：为你的 Custom GPT 完善系统指令</p><ol><li>回顾你之前创建的 Custom GPT 的系统指令</li><li>添加&quot;不应该做的事&quot;至少 2 条</li><li>加入 1 组示例问答（用户问题 + 期望的回答格式）</li><li>用 3 个真实场景测试，根据结果迭代修改指令</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m3">模块三 · 协作与安全 <span class="module-en">Collaboration &amp; safety</span></h2>
+      
+      <article class="lesson" id="m3-l7">
+        <h3>团队里的 AI</h3>
+        <p class="lead">Custom GPT 不只是个人工具，它也可以成为团队的共享资产。了解如何在团队工作流中引入 AI，以及设计共享 GPT 时的注意事项。</p>
+        <h4>在团队中共享 Custom GPT</h4>
+        <p>使用 ChatGPT Team 或 Enterprise 套餐的组织可以在内部共享 Custom GPT。团队成员可以直接使用你配置好的 GPT，无需各自重新设置，确保大家使用一致的 AI 助手。</p>
+        <ul><li>ChatGPT Team：适合 2-149 人的团队，支持内部 GPT 共享</li><li>ChatGPT Enterprise：适合大型企业，支持更多安全和管理功能</li><li>免费/Plus 账户：只能将 GPT 设为公开，无法限制为仅组织内可见</li></ul>
+        <h4>团队 GPT 的典型用例</h4>
+        <ul><li>入职助手：新员工常见问题 FAQ，减少重复培训成本</li><li>会议摘要助手：统一的会议纪要格式，方便归档和检索</li><li>客服回复助手：基于产品手册，快速生成标准化回复</li><li>周报生成器：将工作要点自动整理为规范格式</li></ul>
+        <h4>为多用户设计的注意事项</h4>
+        <p>团队共享的 GPT 应该写对所有成员都适用的通用指令，避免加入只对某一个人有意义的个人偏好。指令中不要假设用户具备特定背景知识，保持语言清晰友好。</p>
+        <aside class="callout" style="--c:#48d6b0"><span class="callout-tag">💡 提示</span><p>为团队 GPT 设定一个专门的反馈渠道，定期收集成员的使用体验，根据反馈迭代优化系统指令和知识库。</p></aside>
+        <details class="quiz"><summary>🧠 自测：以下哪种场景最适合为团队创建一个共享的 Custom GPT？</summary><ol type="A"><li>一次性的临时数据分析任务</li><li class="right">团队每周都需要按统一格式撰写的项目状态报告　✓</li><li>只有一个人需要完成的个人学习计划</li><li>处理高度机密且每次都不同的法律文件</li></ol><p class="explain">重复性、格式统一、多人都需要完成的任务最适合用共享 Custom GPT 来标准化，能显著节省整个团队的时间。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：设计一个团队 GPT</p><ol><li>在你的团队中找一个重复性任务（如周报、会议纪要）</li><li>写一份适用于所有团队成员的系统指令草稿</li><li>请 1-2 位同事试用并提供反馈</li><li>根据反馈修改指令，确保对不同背景的成员都友好</li></ol></aside>
+      </article>
+      <article class="lesson" id="m3-l8">
+        <h3>数据与隐私</h3>
+        <p class="lead">使用 ChatGPT 时，你输入的数据如何被处理？了解 OpenAI 的数据政策和你的隐私选项，是安全使用 AI 工具的前提。</p>
+        <h4>OpenAI 默认如何处理你的数据</h4>
+        <p>使用 ChatGPT 免费版和 Plus 版时，OpenAI 默认可能使用你的对话内容来改进模型（除非你选择退出）。对话记录会被保存，用于提供服务和安全审查。这意味着你输入的内容不应包含任何不愿意让第三方看到的信息。</p>
+        <h4>如何选择退出数据训练</h4>
+        <ul><li>在 ChatGPT 设置 → 数据控制中关闭&quot;改进我们的模型&quot;选项</li><li>关闭聊天记录功能：你的对话将不再被保存和用于训练</li><li>ChatGPT Enterprise：企业版默认不使用客户数据训练模型</li><li>API 调用：通过 API 使用时，OpenAI 默认不使用数据训练模型</li></ul>
+        <aside class="callout" style="--c:#f97316"><span class="callout-tag">⚠ 警告</span><p>以下内容绝对不要粘贴到 ChatGPT：API 密钥和系统密码、客户的个人身份信息（姓名+电话+身份证）、公司未公开的财务数据和商业计划、员工绩效评估和人事档案。一旦输入，你无法确保这些数据的处理方式。</p></aside>
+        <h4>ChatGPT Enterprise 的数据保护</h4>
+        <p>ChatGPT Enterprise 和 Team 版提供了更强的数据保护：对话内容不用于训练模型、数据在传输和存储中加密、管理员可以查看使用情况报告、支持 SSO 单点登录。如果公司对数据安全有高要求，应优先考虑这些企业级选项。</p>
+        <details class="quiz"><summary>🧠 自测：在 ChatGPT 免费版中，如何防止你的对话被用于模型训练？</summary><ol type="A"><li>每次对话结束后手动清空聊天记录</li><li class="right">在设置中关闭&quot;改进我们的模型&quot;选项　✓</li><li>不使用 Custom GPT 功能</li><li>使用无痕浏览器访问 ChatGPT</li></ol><p class="explain">在 ChatGPT 设置的&quot;数据控制&quot;中关闭&quot;改进我们的模型&quot;选项，是目前最直接的方式。无痕浏览器不影响服务器端的数据处理。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：检查并调整你的隐私设置</p><ol><li>登录 ChatGPT，进入设置（右上角头像 → 设置）</li><li>找到&quot;数据控制&quot;选项，查看&quot;改进我们的模型&quot;是否已开启</li><li>根据你的需要决定是否关闭该选项</li><li>回顾你最近的 ChatGPT 对话，检查是否有不应该输入的敏感信息</li></ol></aside>
+      </article>
+    </section>
+    <section class="module">
+      <h2 id="m4">模块四 · 测验 <span class="module-en">Quiz</span></h2>
+      
+      <article class="lesson" id="m4-l9">
+        <h3>课程测验</h3>
+        <p class="lead">你已经完成了应用 AI 基础课程的全部学习内容。通过以下 6 道测验题，检验你对 Custom GPT、团队协作和数据安全的理解。</p>
+        <details class="quiz"><summary>🧠 自测：以下哪项不是 Custom GPT 可以配置的功能？</summary><ol type="A"><li>上传参考文档作为知识库</li><li>开启网页浏览能力</li><li class="right">直接访问公司内部数据库　✓</li><li>设定 GPT 的角色和行为指令</li></ol><p class="explain">Custom GPT 不能直接访问公司内部数据库。它只能通过上传文件、开启内置工具（网页浏览、代码解释器）等方式扩展能力。</p></details>
+        <details class="quiz"><summary>🧠 自测：写好系统指令的关键是什么？</summary><ol type="A"><li>指令越长越好，包含越多细节越好</li><li class="right">既要写&quot;该做什么&quot;，也要写&quot;不该做什么&quot;　✓</li><li>只需要写角色名称，其他让模型自己判断</li><li>每次使用前手动修改指令</li></ol><p class="explain">好的系统指令既要正向定义行为（该做什么），也要设置边界（不该做什么）。两者都有才能让 GPT 在各种情况下表现一致。</p></details>
+        <details class="quiz"><summary>🧠 自测：关于 Custom GPT 的知识库（RAG），以下哪项描述最准确？</summary><ol type="A"><li>上传的文档会被完整地&quot;记忆&quot;到模型中</li><li class="right">GPT 在回答时检索文档中的相关片段来辅助生成　✓</li><li>知识库支持实时同步公司数据库中的内容</li><li>上传文件越多，回答越准确</li></ol><p class="explain">RAG 是检索式方案：GPT 在回答问题时搜索上传文档的相关片段，而不是把整个文档都&quot;记住&quot;。文件过多反而可能降低检索精度。</p></details>
+        <details class="quiz"><summary>🧠 自测：在 ChatGPT Team 版中，团队如何共享 Custom GPT？</summary><ol type="A"><li>通过邮件将 GPT 配置文件发送给同事</li><li class="right">在 ChatGPT 工作区内发布，团队成员直接访问　✓</li><li>每位成员需要分别创建相同的 GPT</li><li>共享功能需要额外付费购买插件</li></ol><p class="explain">ChatGPT Team 版支持在组织内部发布和共享 Custom GPT，团队成员登录后可以直接在 GPT 列表中找到并使用。</p></details>
+        <details class="quiz"><summary>🧠 自测：以下哪类信息不应该输入到 ChatGPT？</summary><ol type="A"><li>一段你想让 AI 改进的英语演讲稿</li><li class="right">客户的姓名、手机号和身份证号码　✓</li><li>你想请 AI 帮你解释的行业新闻</li><li>你想摘要的一份公开产品白皮书</li></ol><p class="explain">客户的个人身份信息属于敏感数据，不应输入第三方 AI 服务。其他三项均为可安全使用的公开或非敏感内容。</p></details>
+        <details class="quiz"><summary>🧠 自测：使用 AI 辅助完成工作成果时，负责任的做法是什么？</summary><ol type="A"><li>不需要说明，AI 只是工具，使用与否是个人自由</li><li class="right">在适当场合透明说明 AI 的参与程度，遵守相关规范　✓</li><li>将所有 AI 生成内容标注为&quot;100% AI 生成，免责&quot;</li><li>只在没有人知道的情况下使用 AI</li></ol><p class="explain">透明使用 AI 是职业诚信的体现。在学术、职业等场景中，是否使用 AI 可能有具体规定，应主动了解并遵守相关规范。</p></details>
+        <aside class="task"><p class="task-title">✏️ 动手练习：制定你的 Custom GPT 计划</p><ol><li>回顾课程中你最感兴趣的一个 Custom GPT 用例</li><li>写出该 GPT 的名称、用途描述和系统指令框架</li><li>列出你打算上传的参考文件（如有）</li><li>确定这个 GPT 是个人使用还是团队共享，并据此调整指令写法</li></ol></aside>
+      </article>
+    </section>
+    <div class="bottom-cta">
+      <p>想要测验互动、进度自动保存的完整体验？</p>
+      <a class="cta" href="/play-ai-school/">进入 AI 学院互动版 →</a>
+    </div>
+    <h2 style="border:none;padding-top:0">继续学习其他课程</h2>
+    <div class="others">
+      <a class="other-card" href="/play-ai-school/courses/claude101/"><strong>Claude 101</strong><span>用 Claude 处理日常工作：写作、总结、头脑风暴、整理资料。零基础友好。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/claudecode/"><strong>Claude Code 101</strong><span>在终端里用 AI 编程代理：读写代码、运行命令、定制工作流。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpintro/"><strong>Model Context Protocol 入门</strong><span>用 Python 从零构建 MCP 服务器与客户端，连接 Claude 与外部服务。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/mcpadv/"><strong>MCP 进阶专题</strong><span>生产级 MCP：采样(sampling)、通知、Roots 与传输机制。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/skills/"><strong>Agent Skills 入门</strong><span>把任务的标准做法打包成可复用的 Skill，让 Claude 稳定专业地完成。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/subagents/"><strong>Subagents 入门</strong><span>用子代理拆分与委派任务，保持主上下文干净。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-foundations/"><strong>AI 基础</strong><span>搞懂生成式 AI 到底是什么、怎么工作，建立可靠的心智模型。</span></a>
+      <a class="other-card" href="/play-ai-school/courses/oai-agents/"><strong>Agents 与工作流</strong><span>让 AI 不止于回答，而是自己分步完成任务、自动化你的工作流。</span></a>
+    </div>
+  </main>
+  <footer><div class="wrap">Bob Pan / clawbobot · <a href="/">bobot.is-a.dev</a> · 内容为 Anthropic 与 OpenAI 官方课程的中文学习版，仅供学习交流。</div></footer>
+</body>
+</html>
