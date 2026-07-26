@@ -1,0 +1,63 @@
+name: Museum · arXiv 采集
+
+# 一键采集：在 Actions 页点 "Run workflow"，填入 arXiv 编号，
+# pipeline 会生成展品草稿并开 PR，等人工/LLM 补全编辑字段后再合并入馆。
+# （策展型博物馆刻意不做定时爬取——避免灌入噪音；由人挑选里程碑论文。）
+
+on:
+  workflow_dispatch:
+    inputs:
+      arxiv_id:
+        description: "arXiv 编号或 URL，例如 2106.09685"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 刷新馆藏台账
+        run: python3 museum/pipeline/build_manifest.py
+
+      - name: 采集并生成草稿
+        id: ingest
+        run: |
+          set +e
+          python3 museum/pipeline/ingest.py "${{ inputs.arxiv_id }}"
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: 已在馆藏 → 结束
+        if: steps.ingest.outputs.code == '3'
+        run: echo "::notice::《${{ inputs.arxiv_id }}》已在馆藏，未生成草稿。"
+
+      - name: 采集失败 → 报错
+        if: steps.ingest.outputs.code != '0' && steps.ingest.outputs.code != '3'
+        run: |
+          echo "::error::采集失败（退出码 ${{ steps.ingest.outputs.code }}）"
+          exit 1
+
+      - name: 新草稿 → 开 PR
+        if: steps.ingest.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="ingest/${{ inputs.arxiv_id }}-$(date +%Y%m%d%H%M%S)"
+          git config user.name "museum-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add museum/pipeline/drafts museum/pipeline/manifest.json
+          git commit -m "chore(museum): 采集候选展品 ${{ inputs.arxiv_id }}"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "🆕 候选展品待编辑：${{ inputs.arxiv_id }}" \
+            --body $'由采集 pipeline 生成的展品草稿。\n\n草稿含 `TODO(editorial)` 字段（困境/突破/洞察/策展文/机构等），需人工或 LLM 依据原文摘要补全后再合并；引文候选已从 arXiv 摘要逐字截取。\n\n合并前请用 `--verify-quote` 确认最终引文为原文。'
