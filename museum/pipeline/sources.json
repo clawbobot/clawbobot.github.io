@@ -1,0 +1,29 @@
+{
+  "_comment": "官方一手信源白名单 —— 采集 pipeline 只从这里取材，对应 PRD『仅官方一手信源』原则。arXiv 为技术原文，official_blog 为发布公告。",
+  "arxiv": {
+    "enabled": true,
+    "api": "https://export.arxiv.org/api/query",
+    "trusted_affiliations": [
+      "OpenAI", "Anthropic", "Google", "Google DeepMind", "Google Brain",
+      "Meta", "Meta AI", "FAIR", "DeepSeek", "Stability AI", "Mistral AI",
+      "Microsoft Research", "Stanford", "UC Berkeley", "Princeton", "CMU"
+    ],
+    "scan_queries": [
+      "cat:cs.CL AND (abs:\"language model\" OR abs:\"large language model\")",
+      "cat:cs.LG AND abs:\"reinforcement learning from human feedback\"",
+      "cat:cs.CV AND (abs:\"diffusion model\" OR abs:\"text-to-image\")"
+    ]
+  },
+  "official_blog": {
+    "enabled": true,
+    "_note": "博客无统一 API，采集时人工/RSS 提供 URL，pipeline 负责结构化与溯源校验，不做全网爬取。",
+    "whitelist": [
+      { "org": "OpenAI", "base": "https://openai.com/index/" },
+      { "org": "Anthropic", "base": "https://www.anthropic.com/news" },
+      { "org": "Google DeepMind", "base": "https://deepmind.google/discover/blog/" },
+      { "org": "Meta AI", "base": "https://ai.meta.com/blog/" },
+      { "org": "DeepSeek", "base": "https://api-docs.deepseek.com/news/" }
+    ]
+  },
+  "priority": ["company_official_release", "paper_original", "regulatory_filing"]
+}

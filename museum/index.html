@@ -1,0 +1,1310 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>生成式 AI 演进博物馆</title>
+<style>
+  :root {
+    --bg: #131417;
+    --bg-2: #17181C;
+    --panel: #1B1D22;
+    --panel-2: #202329;
+    --ivory: #ECE6DA;
+    --dim: #9A968C;
+    --faint: #6B6860;
+    --brass: #C8A45C;
+    --brass-dim: #8C7439;
+    --hair: rgba(236,230,218,0.09);
+    --hair-2: rgba(236,230,218,0.16);
+    --e1: #6E8FD6;
+    --e2: #C8A45C;
+    --e3: #5FB0A6;
+    --e4: #D98A5B;
+    --e5: #B98BD9;
+    --e6: #6FBE7A;
+    --e7: #D4789B;
+    --serif: Georgia, "Times New Roman", "Songti SC", "STSong", "SimSun", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  .museum {
+    background: var(--bg);
+    color: var(--ivory);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .museum :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  /* ---------- progress bar ---------- */
+  .prog { position: fixed; top: 0; left: 0; height: 2px; background: var(--brass); width: 0; z-index: 60; transition: width .1s linear; }
+
+  /* ---------- floor map rail ---------- */
+  .rail {
+    position: fixed; top: 0; left: 0; height: 100vh; width: 232px; z-index: 40;
+    padding: 30px 22px; display: flex; flex-direction: column; gap: 2px;
+    border-right: 1px solid var(--hair); background: rgba(19,20,23,0.6); backdrop-filter: blur(6px);
+  }
+  .rail-brand { font-family: var(--serif); font-size: 15px; line-height: 1.35; margin-bottom: 4px; letter-spacing: 0.2px; }
+  .rail-brand b { display: block; font-weight: 600; }
+  .rail-brand span { display: block; margin-top: 5px; font-size: 10px; color: var(--faint); font-family: var(--mono); letter-spacing: 1.5px; text-transform: uppercase; }
+  .rail-label { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--faint); text-transform: uppercase; margin: 22px 0 8px; }
+  .rail-item {
+    display: flex; align-items: baseline; gap: 11px; padding: 8px 10px; border-radius: 8px;
+    cursor: pointer; color: var(--dim); text-decoration: none; transition: background .15s, color .15s;
+    border-left: 2px solid transparent;
+  }
+  .rail-item:hover { background: var(--panel); color: var(--ivory); }
+  .rail-item.on { color: var(--ivory); border-left-color: var(--era-c, var(--brass)); background: linear-gradient(90deg, color-mix(in srgb, var(--era-c, var(--brass)) 12%, transparent), transparent); }
+  .rail-num { font-family: var(--mono); font-size: 11px; color: var(--faint); flex-shrink: 0; width: 14px; }
+  .rail-item.on .rail-num { color: var(--era-c, var(--brass)); }
+  .rail-nm { font-size: 13px; line-height: 1.3; }
+  .rail-yr { display: block; font-family: var(--mono); font-size: 10px; color: var(--faint); margin-top: 1px; }
+  .rail-foot { margin-top: auto; font-size: 11px; color: var(--faint); line-height: 1.5; }
+  @media (max-width: 940px) { .rail { display: none; } }
+
+  /* ---------- stage / reading column ---------- */
+  .stage { margin-left: 232px; }
+  @media (max-width: 940px) { .stage { margin-left: 0; } }
+  .wrap { max-width: 748px; margin: 0 auto; padding: 0 26px; }
+
+  /* ---------- entrance ---------- */
+  .entrance { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 80px 0; background: radial-gradient(130% 90% at 60% -20%, #1E2029 0%, rgba(30,32,41,0) 60%); }
+  .entrance .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--brass); margin-bottom: 26px; }
+  .entrance h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(40px, 8vw, 74px); line-height: 1.08; letter-spacing: -0.5px; margin: 0 0 26px; text-wrap: balance; }
+  .entrance .thesis { font-size: clamp(17px, 2.4vw, 21px); color: var(--dim); max-width: 30ch; line-height: 1.6; margin: 0 0 40px; }
+  .entrance .thesis b { color: var(--ivory); font-weight: 500; }
+  .enter-btn {
+    display: inline-flex; align-items: center; gap: 12px; align-self: flex-start;
+    font-family: var(--sans); font-size: 15px; color: var(--bg); background: var(--brass);
+    border: none; border-radius: 980px; padding: 13px 26px; cursor: pointer; text-decoration: none; font-weight: 600;
+    transition: transform .15s, background .15s;
+  }
+  .enter-btn:hover { transform: translateY(-2px); background: #D8B570; }
+  .scroll-hint { position: absolute; bottom: 34px; left: 26px; font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 1px; display: flex; align-items: center; gap: 9px; }
+  .scroll-hint .ln { width: 34px; height: 1px; background: var(--hair-2); }
+  .meta-line { position: absolute; top: 34px; right: 26px; font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.5px; }
+
+  /* ---------- era hall ---------- */
+  .hall { padding: 96px 0 40px; scroll-margin-top: 0; position: relative; }
+  .hall-head { margin-bottom: 52px; }
+  .hall-idx { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; color: var(--era-c); text-transform: uppercase; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .hall-idx .yr { color: var(--faint); }
+  .hall-idx::before { content: ""; width: 30px; height: 1px; background: var(--era-c); opacity: 0.7; }
+  .hall-title { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 5.5vw, 46px); line-height: 1.12; letter-spacing: -0.4px; margin: 0 0 6px; text-wrap: balance; }
+  .hall-sub { font-family: var(--serif); font-style: italic; font-size: clamp(17px, 2.4vw, 21px); color: var(--dim); margin: 0 0 22px; }
+  .hall-lede { font-size: 17px; line-height: 1.72; color: var(--ivory); opacity: 0.92; max-width: 62ch; }
+  .hall-lede b { color: var(--brass); font-weight: 500; }
+
+  /* ---------- exhibit placard ---------- */
+  .exhibit {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--hair); border-radius: 4px; padding: 26px 28px 24px; margin-bottom: 22px;
+    position: relative; overflow: hidden;
+  }
+  .exhibit::before { content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--era-c); opacity: 0.85; }
+  .ex-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .ex-acc { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 1px; }
+  .ex-year { font-family: var(--mono); font-size: 12px; color: var(--era-c); margin-left: auto; }
+  .ex-title { font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: -0.2px; margin: 2px 0 3px; line-height: 1.2; }
+  .ex-org { font-family: var(--mono); font-size: 11.5px; color: var(--dim); }
+  .ex-org .en { color: var(--faint); }
+  .ex-body { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+  .seg { display: grid; grid-template-columns: 88px 1fr; gap: 16px; }
+  @media (max-width: 560px) { .seg { grid-template-columns: 1fr; gap: 4px; } }
+  .seg-k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; color: var(--faint); text-transform: uppercase; padding-top: 3px; display: flex; align-items: flex-start; gap: 7px; }
+  .seg-k i { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .seg.problem .seg-k i { background: #C96B5B; }
+  .seg.break .seg-k i { background: var(--era-c); }
+  .seg.insight .seg-k i { background: var(--brass); }
+  .seg.impact .seg-k i { background: #7FA88A; }
+  .seg-v { font-size: 15px; line-height: 1.62; color: var(--ivory); opacity: 0.9; }
+  .seg-v b { color: var(--brass); font-weight: 500; opacity: 1; }
+  .seg.insight .seg-v { font-style: italic; color: var(--ivory); opacity: 0.82; }
+  .ex-src { margin-top: 21px; padding-top: 16px; border-top: 1px solid var(--hair); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ex-src .lab { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--faint); text-transform: uppercase; }
+  .src-tag {
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    font-family: var(--mono); font-size: 12px; color: var(--ivory);
+    border: 1px solid var(--hair-2); border-radius: 980px; padding: 4px 12px; transition: border-color .15s, color .15s;
+  }
+  .src-tag:hover { border-color: var(--brass); color: var(--brass); }
+  .src-tag svg { width: 11px; height: 11px; opacity: 0.7; }
+
+  /* ---------- exhibit figure ---------- */
+  .fig { margin: 22px 0 2px; padding: 20px 18px 14px; background: rgba(236,230,218,0.025); border: 1px solid var(--hair); border-radius: 3px; }
+  .fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .fig text { font-family: var(--sans); font-size: 12px; fill: var(--dim); }
+  .fig .t-em { fill: var(--ivory); }
+  .fig .t-acc { fill: var(--era-c); }
+  .fig .t-brass { fill: var(--brass); }
+  .fig .t-bad { fill: #C96B5B; }
+  .fig .t-mono { font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; }
+  .fig .t-sm { font-size: 11px; }
+  .fig .axis { stroke: var(--hair-2); stroke-width: 1; fill: none; }
+  .fig .ln { stroke: var(--hair-2); stroke-width: 1.2; fill: none; }
+  .fig .ln-acc { stroke: var(--era-c); stroke-width: 1.6; fill: none; }
+  .fig .ln-dash { stroke: var(--hair-2); stroke-width: 1.2; fill: none; stroke-dasharray: 4 4; }
+  .fig .ln-dash-acc { stroke: var(--era-c); stroke-width: 1.4; fill: none; stroke-dasharray: 4 4; }
+  .fig .box { fill: rgba(236,230,218,0.05); stroke: var(--hair-2); stroke-width: 1; }
+  .fig .box-acc { fill: color-mix(in srgb, var(--era-c) 15%, transparent); stroke: var(--era-c); stroke-width: 1.1; }
+  .fig .box-bad { fill: rgba(201,107,91,0.10); stroke: rgba(201,107,91,0.55); stroke-width: 1; }
+  .fig .dot { fill: var(--era-c); }
+  .fig .dot-dim { fill: var(--faint); }
+  .fig-cap { margin-top: 14px; font-size: 12.5px; color: var(--faint); line-height: 1.6; text-align: center; }
+  .fig-cap b { color: var(--brass); font-weight: 500; }
+
+  /* ---------- exhibit → clickable ---------- */
+  .exhibit { cursor: pointer; transition: border-color .18s, background .18s; }
+  .exhibit:hover { border-color: var(--hair-2); }
+  .exhibit:hover .ex-more { color: var(--era-c); }
+  .ex-more { margin-left: auto; font-size: 12.5px; color: var(--faint); display: inline-flex; align-items: center; gap: 5px; transition: color .18s; white-space: nowrap; }
+
+  /* ---------- detail overlay ---------- */
+  .d-scrim { position: fixed; inset: 0; background: rgba(8,9,11,0.88); backdrop-filter: blur(5px); z-index: 80; opacity: 0; pointer-events: none; transition: opacity .28s; }
+  .d-scrim.open { opacity: 1; pointer-events: auto; }
+  .detail { position: fixed; inset: 0; z-index: 81; overflow-y: auto; overscroll-behavior: contain; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity .28s, transform .28s; background: var(--bg); }
+  .detail.open { opacity: 1; pointer-events: auto; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .d-scrim, .detail { transition: none; } }
+
+  .d-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 14px; padding: 13px 24px; background: rgba(19,20,23,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair); }
+  .d-btn { background: none; border: 1px solid var(--hair-2); color: var(--dim); font-family: var(--sans); font-size: 13px; padding: 6px 14px; border-radius: 980px; cursor: pointer; transition: color .15s, border-color .15s; display: inline-flex; align-items: center; gap: 7px; }
+  .d-btn:hover:not(:disabled) { color: var(--brass); border-color: var(--brass); }
+  .d-btn:disabled { opacity: 0.32; cursor: default; }
+  .d-where { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 1px; display: inline-flex; align-items: center; gap: 8px; }
+  .d-where i { width: 7px; height: 7px; border-radius: 50%; background: var(--era-c); flex-shrink: 0; }
+  .d-nav { margin-left: auto; display: flex; gap: 8px; }
+  @media (max-width: 600px) { .d-where { display: none; } }
+
+  .d-body { max-width: 720px; margin: 0 auto; padding: 52px 24px 110px; }
+  .d-acc { display: flex; align-items: baseline; gap: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--faint); letter-spacing: 1px; margin-bottom: 16px; }
+  .d-acc .yr { color: var(--era-c); margin-left: auto; }
+  .d-title { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 5.4vw, 46px); line-height: 1.14; letter-spacing: -0.4px; margin: 0 0 10px; text-wrap: balance; }
+  .d-org { font-family: var(--mono); font-size: 12.5px; color: var(--dim); margin-bottom: 4px; }
+  .d-en { font-family: var(--mono); font-size: 12px; color: var(--faint); line-height: 1.5; }
+  .d-rule { height: 1px; background: var(--hair); border: none; margin: 34px 0; }
+
+  .d-sect { font-family: var(--mono); font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--era-c); margin: 0 0 18px; display: flex; align-items: center; gap: 12px; }
+  .d-sect::after { content: ""; flex: 1; height: 1px; background: var(--hair); }
+
+  .d-essay p { font-size: 16.5px; line-height: 1.92; color: var(--ivory); opacity: 0.9; margin: 0 0 20px; }
+  .d-essay p:last-child { margin-bottom: 0; }
+  .d-essay b { color: var(--brass); font-weight: 500; opacity: 1; }
+  .d-essay p:first-child { font-size: 18px; color: var(--ivory); opacity: 0.96; }
+
+  .d-quote { border-left: 2px solid var(--brass); padding: 4px 0 4px 22px; margin: 0; }
+  .d-quote .qen { font-family: var(--serif); font-style: italic; font-size: 17px; line-height: 1.66; color: var(--ivory); opacity: 0.94; margin: 0 0 14px; }
+  .d-quote .qzh { font-size: 14.5px; line-height: 1.75; color: var(--dim); margin: 0 0 14px; }
+  .d-quote .qfrom { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.5px; }
+
+  .d-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--hair); border: 1px solid var(--hair); border-radius: 3px; overflow: hidden; }
+  @media (max-width: 560px) { .d-facts { grid-template-columns: 1fr; } }
+  .d-fact { background: var(--panel); padding: 18px 16px; text-align: center; }
+  .d-fact .v { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--brass); line-height: 1.2; }
+  .d-fact .k { font-size: 11.5px; color: var(--faint); margin-top: 7px; line-height: 1.45; }
+
+  .d-chain { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px) { .d-chain { grid-template-columns: 1fr; } }
+  .d-link { background: var(--panel); border: 1px solid var(--hair); border-radius: 3px; padding: 16px 18px; }
+  .d-link .lab { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--era-c); display: block; margin-bottom: 9px; }
+  .d-link p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--dim); }
+
+  .d-foot { display: flex; gap: 12px; margin-top: 44px; padding-top: 26px; border-top: 1px solid var(--hair); }
+  .d-foot .d-btn { flex: 1; justify-content: center; padding: 13px 16px; }
+  .d-foot .d-btn span { color: var(--faint); font-size: 11px; font-family: var(--mono); display: block; }
+
+  /* ---------- causal bridge ---------- */
+  .bridge { padding: 40px 0 8px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; }
+  .bridge .stem { width: 1px; height: 40px; background: linear-gradient(var(--hair-2), transparent); }
+  .bridge .stem.top { background: linear-gradient(transparent, var(--hair-2)); }
+  .bridge-txt { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.6; color: var(--dim); max-width: 46ch; }
+  .bridge-txt b { color: var(--brass); font-style: normal; font-weight: 500; }
+  .bridge-mark { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--faint); text-transform: uppercase; }
+
+  /* ---------- epilogue ---------- */
+  .epilogue { padding: 90px 0 130px; text-align: center; }
+  .epilogue .mark { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--brass); margin-bottom: 24px; }
+  .epilogue h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.5vw, 38px); line-height: 1.2; margin: 0 auto 22px; max-width: 20ch; text-wrap: balance; }
+  .epilogue p { color: var(--dim); max-width: 52ch; margin: 0 auto 14px; }
+  .epilogue .growing { display: inline-flex; align-items: center; gap: 9px; margin-top: 20px; font-family: var(--mono); font-size: 12px; color: var(--brass); }
+  .epilogue .growing::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brass) 22%, transparent); }
+  .to-top { display: inline-block; margin-top: 40px; font-family: var(--mono); font-size: 12px; color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--hair-2); padding-bottom: 2px; }
+  .to-top:hover { color: var(--brass); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+
+<div class="museum">
+  <div class="prog" id="prog"></div>
+
+  <!-- floor map -->
+  <nav class="rail" id="rail">
+    <div class="rail-brand"><b>生成式 AI</b>演进博物馆<span>Museum of GenAI</span></div>
+    <div class="rail-label">楼层导览</div>
+    <div id="railItems"></div>
+    <div class="rail-foot">馆藏持续入库<br>每件展品可溯源至原始论文 / 官方发布</div>
+  </nav>
+
+  <div class="stage">
+    <!-- entrance -->
+    <header class="entrance" id="top">
+      <div class="meta-line">2013 — 2025 · 常设展</div>
+      <div class="wrap">
+        <div class="kicker">Museum of Generative AI</div>
+        <h1>生成式 AI<br>演进博物馆</h1>
+        <p class="thesis">这里不陈列"最新的模型"，而是讲清<b>每一项技术为什么会诞生</b>——每一次突破，都是为了解开上一代留下的困境。</p>
+        <a class="enter-btn" href="#hall-1">开始参观
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+      </div>
+      <div class="scroll-hint"><span class="ln"></span>向下滚动，走进第一个展厅</div>
+    </header>
+
+    <div id="halls"></div>
+
+    <!-- epilogue -->
+    <section class="epilogue wrap">
+      <div class="mark">展望 · Ongoing</div>
+      <h2>六个时代，一条主线</h2>
+      <p>从"让文字可计算"到"教机器慢思考"，每一次突破都在回答上一代留下的问题。技术史不是一串孤立的发布，而是一条环环相扣的因果链。</p>
+      <p>这条链仍在延伸——下一个展厅，正在此刻发生。</p>
+      <div class="growing">博物馆仍在生长</div>
+      <br><a class="to-top" href="#top">↑ 回到入口</a>
+    </section>
+  </div>
+
+  <!-- 深度解读 · 全屏展柜 -->
+  <div class="d-scrim" id="dScrim"></div>
+  <div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="展品深度解读"></div>
+</div>
+
+<script>
+  var ERAS = [
+    {
+      idx: "展厅一", roman: "I", year: "2013 — 2016", color: "var(--e1)",
+      title: "语义的数学化", sub: "让机器“读懂”文字",
+      lede: "在深度学习之前，文字对计算机只是一串符号。这个时代要解决的第一个问题：如何让<b>“意义”变成可以计算的东西</b>。",
+      exhibits: [
+        { acc: "NO. 01", year: "2013", title: "Word2Vec", org: "Google", en: "Efficient Estimation of Word Representations",
+          problem: "文字是离散符号，无法直接参与数学运算，机器也就无从“理解”词与词之间的关系。",
+          brk: "把每个词映射成一个<b>向量（词嵌入）</b>，语义相近的词在空间中彼此靠近，“国王−男人+女人≈王后”这类类比第一次可被计算。",
+          insight: "意义可以由“一个词周围常出现哪些词”来定义——分布式假设让语义变得可度量。",
+          impact: "词向量成为此后一切生成式模型的<b>输入基础</b>，NLP 正式进入深度学习时代。",
+          src: [{ t: "arXiv:1301.3781", u: "#" }] },
+        { acc: "NO. 02", year: "2014", title: "Seq2Seq", org: "Google", en: "Sequence to Sequence Learning",
+          problem: "翻译、摘要这类任务，输入和输出的长度都不固定，传统方法难以处理。",
+          brk: "用<b>编码器–解码器</b>结构：先把一串词压缩成一个向量，再解码成另一串词，端到端地做序列转换。",
+          insight: "只要能把“理解”和“生成”拆成两段，任意长度的映射都能被神经网络学会。",
+          impact: "奠定了现代机器翻译与文本生成的基本范式，也暴露出“压缩成一个向量”的瓶颈。",
+          src: [{ t: "arXiv:1409.3215", u: "#" }] },
+        { acc: "NO. 03", year: "2014", title: "注意力机制", org: "Bahdanau et al.", en: "Neural Machine Translation by Jointly Learning to Align",
+          problem: "把整句话压进一个固定向量，长句的首尾信息会被严重丢失。",
+          brk: "让解码每个词时都能<b>“回看”输入中最相关的部分</b>（注意力权重），而不是只依赖一个压缩向量。",
+          insight: "信息不该被压扁——让模型自己学会“此刻该关注哪里”，比强行记住一切更有效。",
+          impact: "注意力大幅提升了翻译质量，更埋下伏笔：它将在三年后成为下一场革命的<b>唯一主角</b>。",
+          src: [{ t: "arXiv:1409.0473", u: "#" }] }
+      ],
+      bridge: "注意力如此有效，却还依附在<b>串行的 RNN</b> 上——训练慢、长程依赖依然难。于是有人发问：既然注意力这么好，能不能干脆<b>只要注意力</b>？"
+    },
+    {
+      idx: "展厅二", roman: "II", year: "2017 — 2018", color: "var(--e2)",
+      title: "Transformer 革命", sub: "一个架构统一江湖",
+      lede: "一篇标题挑衅的论文《Attention Is All You Need》给出了答案——并定义了此后的十年。",
+      exhibits: [
+        { acc: "NO. 04", year: "2017", title: "Transformer", org: "Google", en: "Attention Is All You Need",
+          problem: "RNN 必须一个词一个词地算，无法并行、训练缓慢，长程依赖也建模不好。",
+          brk: "彻底抛弃循环，用<b>纯自注意力</b>让每个词直接与所有词交互，整段序列可一次性并行计算。",
+          insight: "序列关系不必靠“逐步传递”来建模——注意力本身就足以捕捉任意距离的依赖。",
+          impact: "并行能力让<b>大规模预训练在算力上第一次可行</b>，成为此后几乎所有大模型的统一底座。",
+          src: [{ t: "arXiv:1706.03762", u: "#" }] },
+        { acc: "NO. 05", year: "2018", title: "GPT-1", org: "OpenAI", en: "Improving Language Understanding by Generative Pre-Training",
+          problem: "每个 NLP 任务都要从零标注、单独训练，成本高且难迁移。",
+          brk: "只保留 Transformer 的<b>解码器</b>，用“预测下一个词”在海量无标注文本上预训练，再针对任务微调。",
+          insight: "生成式预训练学到的语言表示，可以迁移到大量下游任务——预训练一次，处处可用。",
+          impact: "这一结构被 GPT-2/3 一路放大，<b>Decoder-only 从此成为生成式主流形态</b>。",
+          src: [{ t: "OpenAI 论文", u: "#" }] },
+        { acc: "NO. 06", year: "2018", title: "BERT", org: "Google", en: "Pre-training of Deep Bidirectional Transformers",
+          problem: "理解类任务需要同时看到上下文两侧，单向语言模型有天然局限。",
+          brk: "用<b>双向</b>预训练（完形填空式）+ 任务微调，一举刷新 11 项 NLP 基准。",
+          insight: "“先在海量文本上预训练、再微调”被证明全面有效，成为跨任务的通用配方。",
+          impact: "“预训练–微调”范式就此确立，直接点燃了随后的<b>规模竞赛</b>。",
+          src: [{ t: "arXiv:1810.04805", u: "#" }] }
+      ],
+      bridge: "架构统一了，方法也跑通了。剩下的问题被压缩成一个极其简单、又极其昂贵的追问——<b>把它做多大？</b>"
+    },
+    {
+      idx: "展厅三", roman: "III", year: "2019 — 2021", color: "var(--e3)",
+      title: "规模的信仰", sub: "大力，真的出奇迹",
+      lede: "如果性能可以随规模<b>可预测地</b>提升，那么通往强大 AI 的路，也许只是一个字：更大。",
+      exhibits: [
+        { year: "2019.02", title: "GPT-2", org: "OpenAI", en: "Language Models are Unsupervised Multitask Learners",
+          problem: "GPT-1 证明了生成式预训练可行，但没人知道把同样的架构继续放大十倍，究竟会发生什么。",
+          brk: "15 亿参数、40GB 网页文本训练出的 GPT-2，能写出成篇连贯的文章，还能在<b>没有专门训练</b>的情况下做翻译、答题、摘要。",
+          insight: "只要把规模推上去，模型会自己学会那些从未被专门教过的任务——能力是「涌现」出来的，不是「设计」出来的。",
+          impact: "OpenAI 因担心滥用而<b>分阶段发布</b>，「模型强到不敢公开」第一次成为公共议题，此后所有关于开放与安全的争论都源于此刻。",
+          src: [{ t: "官方博客", u: "#" }] },
+        { year: "2020", title: "Scaling Laws", org: "OpenAI", en: "Scaling Laws for Neural Language Models",
+          problem: "做多大、用多少数据、烧多少算力，此前全靠经验试错，没有可依据的规律。",
+          brk: "揭示模型性能随<b>参数、数据、算力呈幂律</b>平滑且可预测地提升。",
+          insight: "“大力出奇迹”不再是玄学——投入与回报之间存在可外推的定量关系。",
+          impact: "为不计成本地“做大”提供了理论信仰，直接催生了 GPT-3。",
+          src: [{ t: "arXiv:2001.08361", u: "#" }] },
+        { acc: "NO. 08", year: "2020", title: "GPT-3", org: "OpenAI", en: "Language Models are Few-Shot Learners",
+          problem: "即便有了预训练，换个任务通常还得再微调，通用性受限。",
+          brk: "1750 亿参数的超大规模预训练，让模型仅凭提示中的几个例子就能完成新任务（<b>少样本学习</b>）。",
+          insight: "规模本身会带来质变——某些能力在模型足够大时才“涌现”出来。",
+          impact: "开启全球大模型军备竞赛，也暴露出新问题：<b>能力强，却不听指令、还会一本正经地胡说</b>。",
+          src: [{ t: "arXiv:2005.14165", u: "#" }] },
+        { acc: "NO. 09", year: "2021", title: "CLIP", org: "OpenAI", en: "Learning Transferable Visual Models From Natural Language",
+          problem: "视觉和语言长期是两套割裂的系统，模型看得懂图却接不上文字。",
+          brk: "用 4 亿图文对做对比学习，让<b>图像与文本进入同一语义空间</b>。",
+          insight: "用自然语言当“监督信号”，比人工打标签更廉价、也更通用。",
+          impact: "输入第一次越过纯文本边界，为文生图与多模态理解埋下伏笔。",
+          src: [{ t: "arXiv:2103.00020", u: "#" }] }
+      ],
+      bridge: "CLIP 让文字与图像住进了同一个空间。而在长廊的另一侧，一条几乎被语言主线遮蔽的支线，此刻正悄悄走向成熟——<b>要看懂它，我们得先退回到 2014 年</b>。"
+    },
+    {
+      year: "2014 — 2022", color: "var(--e7)",
+      title: "图像的觉醒", sub: "另一条并行的生成之路",
+      lede: "长廊在这里<b>暂时离开主时间线</b>。生成式 AI 从来不只有语言这一条脉络——一条关于「图像」的支线几乎同时展开，独自走了八年，并将在 2022 年与语言主线会合。",
+      exhibits: [
+        { year: "2014.06", title: "GAN 生成对抗网络", org: "Goodfellow et al.", en: "Generative Adversarial Networks",
+          problem: "让机器「创造」逼真图像极其困难——传统方法要显式建模复杂的概率分布，算得动的模型往往只能生成模糊一团。",
+          brk: "让<b>两个网络互相博弈</b>：生成器负责造假，判别器负责辨真伪，二者在对抗中被迫共同变强。",
+          insight: "不必事先定义「什么算真实」——只要让一个网络不断去挑另一个的毛病，真实感就会在竞争中涌现。",
+          impact: "开启了神经网络「创造」图像的时代，此后六年一直是图像生成的主导范式，直到扩散模型接棒。",
+          src: [{ t: "arXiv:1406.2661", u: "#" }] },
+        { year: "2020.06", title: "扩散模型 Diffusion", org: "UC Berkeley", en: "Denoising Diffusion Probabilistic Models",
+          problem: "GAN 训练极不稳定——容易模式崩溃、难以收敛，生成结果的多样性也受限。",
+          brk: "换一条路：先把图像一步步加噪直到变成纯噪声，再训练模型学会<b>逐步去噪</b>，从随机噪声里还原出图像。",
+          insight: "把「一步生成一张图」这个难题，拆成上千个「去掉一点点噪声」的简单小步——每一步都好学得多。",
+          impact: "训练稳定、质量与多样性俱佳，迅速取代 GAN，成为 DALL·E 2、Stable Diffusion、Midjourney 共同的底层。",
+          src: [{ t: "arXiv:2006.11239", u: "#" }] },
+        { year: "2022.04", title: "DALL·E 2", org: "OpenAI", en: "Hierarchical Text-Conditional Image Generation with CLIP Latents",
+          problem: "扩散模型能画出漂亮图像，CLIP 能对齐图文——但如何让用户<b>用一句话</b>精确指挥它画什么？",
+          brk: "把两者接起来：先用 CLIP 把句子变成语义向量，再由扩散模型据此一步步「画」出对应的图像。",
+          insight: "生成不必从零发明——把已经成熟的「理解语言」与「生成图像」两个部件对接起来，就够了。",
+          impact: "「打一句话就出图」第一次达到令人惊艳的质量，把 AI 绘画从研究话题推成了全民话题。",
+          src: [{ t: "arXiv:2204.06125", u: "#" }] },
+        { year: "2022.08", title: "Stable Diffusion", org: "CompVis · Stability AI", en: "High-Resolution Image Synthesis with Latent Diffusion Models",
+          problem: "DALL·E 2 惊艳却闭源、需排队、有诸多限制——图像生成仍是少数机构的特权，普通人碰不到。",
+          brk: "<b>潜空间扩散</b>：不在高分辨率像素上做扩散，而在压缩数十倍后的潜空间里做，算力需求骤降；并完整开源权重。",
+          insight: "把扩散过程搬进压缩后的潜空间，算力大降而质量几乎无损——这是让图像生成「跑得起来」的关键工程突破。",
+          impact: "消费级显卡即可运行，开源引爆社区生态（微调、LoRA、ControlNet），AI 绘画从机构特权变成大众工具。",
+          src: [{ t: "arXiv:2112.10752", u: "#" }] }
+      ],
+      bridge: "两条支线在 2022 年<b>会合</b>：机器既能读懂文字，也能凭一句话作画。而语言这条线上，GPT-3 留下的那个「博学却不受控的天才」难题仍悬而未决——直到有人解决了它，并把它装进一个对话框。"
+    },
+    {
+      year: "2022", color: "var(--e4)",
+      title: "ChatGPT 时刻", sub: "对齐，改变一切",
+      lede: "2022 年末，一个对话框让全世界第一次亲手摸到了大模型。改变世界的不是更大的模型，而是两个字：<b>好用</b>。",
+      exhibits: [
+        { acc: "NO. 10", year: "2022.03", title: "InstructGPT / RLHF", org: "OpenAI", en: "Training LMs to follow instructions with human feedback",
+          problem: "GPT-3 能力强却不对齐人的意图，答非所问、难以驾驭。",
+          brk: "用<b>人类反馈强化学习（RLHF）</b>，让模型按人的偏好被打分、被调教，学会“按指令、说人话”。",
+          insight: "对齐不是让模型更聪明，而是让它的目标与人的期待对齐——可用性由此而来。",
+          impact: "成为 ChatGPT 可用性的直接技术前身。",
+          src: [{ t: "arXiv:2203.02155", u: "#" }] },
+        { acc: "NO. 11", year: "2022.03", title: "Chinchilla", org: "DeepMind", en: "Training Compute-Optimal Large Language Models",
+          problem: "一味堆参数被默认是最优解，但真的如此吗？",
+          brk: "指出多数大模型“<b>训练数据不足</b>”，同等算力下“更小的模型 + 更多的数据”反而更优。",
+          insight: "规模不是单看参数，而是参数与数据的<b>配比</b>——算力应该被更聪明地分配。",
+          impact: "重塑了此后所有团队的模型规模与数据策略。",
+          src: [{ t: "arXiv:2203.15556", u: "#" }] },
+        { acc: "NO. 12", year: "2022.11", title: "ChatGPT（GPT-3.5）", org: "OpenAI", en: "The product moment of alignment",
+          problem: "对齐技术已经成熟，但公众从未真正接触过大模型的能力。",
+          brk: "把 RLHF 对齐后的 GPT-3.5 做成一个<b>对话产品</b>，两个月用户破亿。",
+          insight: "“好用”比“更大”更能改变行业——产品化本身就是一次范式突破。",
+          impact: "引爆全球 AI 投入与关注，大模型正式走入大众时代。",
+          src: [{ t: "官方博客", u: "#" }] },
+        { acc: "NO. 13", year: "2022.12", title: "Constitutional AI", org: "Anthropic", en: "Harmlessness from AI Feedback",
+          problem: "RLHF 高度依赖大量人工标注，成本高、也难规模化。",
+          brk: "给模型一套“宪法”原则，让它<b>自我批评与修正</b>（RLAIF），用 AI 反馈替代部分人工。",
+          insight: "对齐可以部分自动化——让模型按明确原则自我监督。",
+          impact: "为可扩展、可解释的对齐提供了另一条路径。",
+          src: [{ t: "arXiv:2212.08073", u: "#" }] }
+      ],
+      bridge: "全世界都在用它了，但它<b>只会打字、知识停在训练截止、还会胡说</b>。要真正有用，它必须走出那个对话框。"
+    },
+    {
+      idx: "展厅五", roman: "V", year: "2023 — 2024", color: "var(--e5)",
+      title: "走向世界", sub: "长出眼睛、手，和记忆",
+      lede: "模型开始连接真实世界——<b>看得见、查得到、用得了工具</b>，甚至能凭一句话造出一段视频。它不再只是一个会聊天的文本框。",
+      exhibits: [
+        { acc: "NO. 14", year: "2023.03", title: "GPT-4", org: "OpenAI", en: "GPT-4 Technical Report",
+          problem: "Scaling 的红利还能不能兑现？大模型能否达到专业级可靠性？",
+          brk: "技术报告披露：用缩放定律<b>提前准确预测了最终性能</b>；多项专业考试达到人类前 10%。",
+          insight: "缩放定律不只是趋势，而是可用于工程规划的<b>预测工具</b>。",
+          impact: "大规模预训练路线的巅峰验证，也把行业标准推到新高度。",
+          src: [{ t: "GPT-4 Technical Report", u: "#" }] },
+        { acc: "NO. 15", year: "2023.09 → 2024.05", title: "GPT-4V → GPT-4o", org: "OpenAI", en: "From vision to native omni-modality",
+          problem: "模型只懂文字，看不了图、听不了声，与真实世界隔了一层。",
+          brk: "先让 GPT-4 <b>长出眼睛</b>（读图表/截图/手写），再到 GPT-4o <b>原生端到端</b>处理文本/图像/音频，语音延迟逼近真人。",
+          insight: "多模态不该是“拼接”几个模型，而应在一个模型里<b>原生统一</b>。",
+          impact: "人机交互从“打字”走向“看与说”，落地场景大幅拓宽。",
+          src: [{ t: "官方博客", u: "#" }] },
+        { year: "2024.02", title: "Sora", org: "OpenAI", en: "Video generation models as world simulators",
+          problem: "图像生成已经成熟，但视频要求<b>时间维度上的连贯</b>——一个人转身后必须还是同一个人，被挡住的杯子再露出来不能换个样子。",
+          brk: "把视频切成<b>时空碎片（spacetime patches）</b>，用扩散 Transformer 在其上训练，生成长达约一分钟且保持一致的视频。",
+          insight: "把 Transformer 处理文字 token 的思路搬到视频——时空碎片，就是视频的「token」。",
+          impact: "生成的疆域从静态画面扩展到时间本身，也引发了关于「世界模拟器」的讨论与对影视行业的冲击预期。",
+          src: [{ t: "技术报告", u: "#" }] },
+        { year: "2020 → 2023", title: "RAG 检索增强", org: "Meta FAIR", en: "Retrieval-Augmented Generation",
+          problem: "模型知识固定在训练截止时刻，还会“一本正经地胡说”（幻觉）。",
+          brk: "让模型先<b>检索外部知识库</b>、再据此作答，做到“边查边答、可引用来源”。",
+          insight: "与其把所有知识塞进参数，不如让模型学会“去查”——记忆可以外挂。",
+          impact: "成为企业落地的主流范式，也重构了“知识该放模型里还是库里”的边界。",
+          src: [{ t: "arXiv:2005.11401", u: "#" }] },
+        { acc: "NO. 17", year: "2022 → 2024", title: "ReAct → Function Calling → MCP", org: "Princeton · OpenAI · Anthropic", en: "Reasoning-Acting · Tools · Open Protocol",
+          problem: "模型“只会说不会做”，无法操作真实世界的工具与数据。",
+          brk: "ReAct 让“想与做”交替循环 → Function Calling 提供<b>结构化工具调用</b> → MCP 用开放协议标准化模型与工具的连接。",
+          insight: "让模型学会<b>调用外部工具</b>，比让它自己记住一切更可靠、更可扩展。",
+          impact: "智能体（Agent）从设想走向工程，MCP 被称为 AI 的“USB-C”。",
+          src: [{ t: "arXiv:2210.03629", u: "#" }, { t: "MCP 规范", u: "#" }] }
+      ],
+      bridge: "模型能看、能查、能动手了。但面对真正复杂的难题，它仍是<b>“脱口而出”、不会深思</b>。最后一块拼图，是“思考”本身。"
+    },
+    {
+      idx: "展厅六", roman: "VI", year: "2024 — 2025", color: "var(--e6)",
+      title: "推理元年", sub: "教会机器“慢思考”",
+      lede: "当预训练的规模红利开始放缓，一条新路出现了：不是让模型<b>知道更多</b>，而是让它<b>想得更久</b>。",
+      exhibits: [
+        { acc: "NO. 18", year: "2022", title: "思维链 Chain-of-Thought", org: "Google", en: "Chain-of-Thought Prompting",
+          problem: "模型面对数学、逻辑题常常直接给答案，一步错、步步错。",
+          brk: "只要在提示里加上<b>“一步步推理”</b>的范例，复杂推理的准确率就显著提升。",
+          insight: "推理能力其实“潜藏”在大模型里，只是需要被引导出来——这是伏笔。",
+          impact: "为“让模型显式思考”指明方向，成为推理时代的思想起点。",
+          src: [{ t: "arXiv:2201.11903", u: "#" }] },
+        { acc: "NO. 19", year: "2024.09", title: "o1", org: "OpenAI", en: "Learning to reason with reinforcement learning",
+          problem: "思维链靠提示词太脆弱；预训练继续做大，复杂推理的收益却在放缓。",
+          brk: "用<b>强化学习把推理内化进权重</b>，模型学会答前长时间“思考”，并首次展示<b>推理时算力扩展</b>——想得越久、答得越准。",
+          insight: "训练之外，“推理时多花算力”是一个全新的、可扩展的性能维度。",
+          impact: "标志从“提示词引导推理”正式跨入“推理模型”时代。",
+          src: [{ t: "官方博客", u: "#" }, { t: "o1 System Card", u: "#" }] },
+        { acc: "NO. 20", year: "2025.01", title: "DeepSeek-R1", org: "DeepSeek", en: "Incentivizing Reasoning via Reinforcement Learning",
+          problem: "推理模型的能力此前闭源、昂贵，开源社区难以追赶。",
+          brk: "证明<b>无需监督微调冷启动</b>，仅靠强化学习即可让模型“涌现”出反思与验证（R1-Zero），并以 MIT 协议<b>开源</b>。",
+          insight: "推理能力可以被更简洁地“激励”出来，而不必依赖昂贵的人工示范。",
+          impact: "把闭源的推理能力拉入开源生态，几乎瞬间拉平了行业差距。",
+          src: [{ t: "arXiv:2501.12948", u: "#" }, { t: "官方发布", u: "#" }] }
+      ],
+      bridge: null
+    }
+  ];
+
+  // 展厅序号与罗马数字自动生成——插入新展厅时无需手工重排
+  var CN_NUM = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+  var RM_NUM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+  ERAS.forEach(function (era, i) { era.idx = '展厅' + CN_NUM[i]; era.roman = RM_NUM[i]; });
+
+  function icon(paths) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + paths + '</svg>'; }
+  var extIcon = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/>';
+
+  // 箭头 marker（每图唯一 id，位于展厅内故可继承 --era-c）
+  function mk(id, color) {
+    return '<defs><marker id="' + id + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">' +
+      '<path d="M0 0L10 5L0 10z" fill="' + color + '"/></marker></defs>';
+  }
+  // GPT-1 因果掩码方格
+  var maskGrid = (function () {
+    var s = '';
+    for (var r = 0; r < 5; r++) for (var c = 0; c < 5; c++) {
+      s += '<rect class="' + (c <= r ? 'box-acc' : 'box') + '" x="' + (245 + c * 26) + '" y="' + (52 + r * 26) + '" width="24" height="24" rx="3"/>';
+    }
+    return s;
+  })();
+
+  // 扩散：从纯噪声逐步去噪、图像浮现（确定性伪随机，保证每次渲染一致）
+  var diffStrip = (function () {
+    var s = '', n = 6, x0 = 74, w = 62, gap = 20, y = 58, seed = 7;
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+    for (var i = 0; i < n; i++) {
+      var x = x0 + i * (w + gap);
+      s += '<rect class="' + (i === n - 1 ? 'box-acc' : 'box') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="4"/>';
+      if (i >= n - 2) {
+        var op = i === n - 1 ? 1 : 0.45;
+        s += '<g opacity="' + op + '"><circle cx="' + (x + 18) + '" cy="' + (y + 20) + '" r="7" fill="var(--era-c)"/>' +
+          '<path d="M' + (x + 6) + ' ' + (y + 52) + 'L' + (x + 24) + ' ' + (y + 32) + 'L' + (x + 40) + ' ' + (y + 52) + 'z" fill="var(--era-c)" opacity="0.85"/>' +
+          '<path d="M' + (x + 30) + ' ' + (y + 52) + 'L' + (x + 46) + ' ' + (y + 38) + 'L' + (x + w - 6) + ' ' + (y + 52) + 'z" fill="var(--era-c)" opacity="0.55"/></g>';
+      }
+      var dots = Math.round(44 * (1 - i / (n - 1)));
+      for (var d = 0; d < dots; d++) {
+        s += '<circle cx="' + (x + 4 + rnd() * (w - 8)).toFixed(1) + '" cy="' + (y + 4 + rnd() * (w - 8)).toFixed(1) + '" r="1.6" fill="var(--dim)" opacity="0.8"/>';
+      }
+    }
+    return s;
+  })();
+
+  // 通用方格阵（Stable Diffusion 的像素空间 / 潜空间对比）
+  function gridOf(x, y, cols, cell, cls) {
+    var s = '';
+    for (var r = 0; r < cols; r++) for (var c = 0; c < cols; c++) {
+      s += '<rect class="' + cls + '" x="' + (x + c * cell) + '" y="' + (y + r * cell) + '" width="' + (cell - 2) + '" height="' + (cell - 2) + '" rx="1"/>';
+    }
+    return s;
+  }
+
+  var FIGS = {
+    'Word2Vec': {
+      svg: '<svg viewBox="0 0 620 172" role="img" aria-label="词向量空间中的语义方向">' + mk('mw2v', 'var(--era-c)') +
+        '<path class="axis" d="M44 16V148H586"/>' +
+        '<circle class="dot-dim" cx="150" cy="124" r="4.5"/><text x="150" y="142" text-anchor="middle">男人</text>' +
+        '<circle class="dot" cx="252" cy="46" r="4.5"/><text x="252" y="34" text-anchor="middle" class="t-em">国王</text>' +
+        '<line class="ln-acc" x1="157" y1="118" x2="245" y2="53" marker-end="url(#mw2v)"/>' +
+        '<circle class="dot-dim" cx="392" cy="124" r="4.5"/><text x="392" y="142" text-anchor="middle">女人</text>' +
+        '<circle class="dot" cx="494" cy="46" r="4.5"/><text x="494" y="34" text-anchor="middle" class="t-em">王后</text>' +
+        '<line class="ln-acc" x1="399" y1="118" x2="487" y2="53" marker-end="url(#mw2v)"/>' +
+      '</svg>',
+      cap: '两个箭头<b>方向完全相同</b>——「王室」这一层语义，变成了空间中一个可以做加减法的向量。'
+    },
+    '注意力机制': {
+      svg: '<svg viewBox="0 0 620 168" role="img" aria-label="注意力权重分布">' +
+        '<text x="310" y="24" text-anchor="middle" class="t-em">正在生成的词：book</text>' +
+        '<circle class="dot" cx="310" cy="44" r="5"/>' +
+        '<line class="ln" x1="310" y1="49" x2="110" y2="110" stroke-width="0.7" opacity="0.5"/>' +
+        '<line class="ln" x1="310" y1="49" x2="200" y2="110" stroke-width="1.1" opacity="0.6"/>' +
+        '<line class="ln" x1="310" y1="49" x2="290" y2="110" stroke-width="1.1" opacity="0.6"/>' +
+        '<line class="ln" x1="310" y1="49" x2="380" y2="110" stroke-width="1.7" opacity="0.75"/>' +
+        '<line class="ln-acc" x1="310" y1="49" x2="470" y2="110" stroke-width="3.4"/>' +
+        '<rect class="box" x="81" y="112" width="58" height="28" rx="4"/><text x="110" y="131" text-anchor="middle">我</text>' +
+        '<rect class="box" x="171" y="112" width="58" height="28" rx="4"/><text x="200" y="131" text-anchor="middle">喜欢</text>' +
+        '<rect class="box" x="261" y="112" width="58" height="28" rx="4"/><text x="290" y="131" text-anchor="middle">这</text>' +
+        '<rect class="box" x="351" y="112" width="58" height="28" rx="4"/><text x="380" y="131" text-anchor="middle">本</text>' +
+        '<rect class="box-acc" x="441" y="112" width="58" height="28" rx="4"/><text x="470" y="131" text-anchor="middle" class="t-em">书</text>' +
+      '</svg>',
+      cap: '线越粗＝注意力权重越高。生成 book 时，模型自己学会<b>重点「回看」那个「书」字</b>——信息不必再被压进单一向量。'
+    },
+    'Transformer': {
+      svg: '<svg viewBox="0 0 620 190" role="img" aria-label="RNN 串行与自注意力并行的对比">' + mk('mtf', 'var(--faint)') +
+        '<line class="ln-dash" x1="310" y1="14" x2="310" y2="176"/>' +
+        '<text x="150" y="28" text-anchor="middle" class="t-mono">RNN · 串行</text>' +
+        '<text x="470" y="28" text-anchor="middle" class="t-mono t-acc">自注意力 · 并行</text>' +
+        '<rect class="box" x="32" y="96" width="46" height="28" rx="4"/><text x="55" y="115" text-anchor="middle" class="t-sm">词1</text>' +
+        '<rect class="box" x="97" y="96" width="46" height="28" rx="4"/><text x="120" y="115" text-anchor="middle" class="t-sm">词2</text>' +
+        '<rect class="box" x="162" y="96" width="46" height="28" rx="4"/><text x="185" y="115" text-anchor="middle" class="t-sm">词3</text>' +
+        '<rect class="box" x="227" y="96" width="46" height="28" rx="4"/><text x="250" y="115" text-anchor="middle" class="t-sm">词4</text>' +
+        '<line class="ln" x1="79" y1="110" x2="94" y2="110" marker-end="url(#mtf)"/>' +
+        '<line class="ln" x1="144" y1="110" x2="159" y2="110" marker-end="url(#mtf)"/>' +
+        '<line class="ln" x1="209" y1="110" x2="224" y2="110" marker-end="url(#mtf)"/>' +
+        '<text x="150" y="154" text-anchor="middle" class="t-sm">必须一个接一个地算</text>' +
+        '<rect class="box-acc" x="347" y="96" width="46" height="28" rx="4"/><text x="370" y="115" text-anchor="middle" class="t-sm t-em">词1</text>' +
+        '<rect class="box-acc" x="412" y="96" width="46" height="28" rx="4"/><text x="435" y="115" text-anchor="middle" class="t-sm t-em">词2</text>' +
+        '<rect class="box-acc" x="477" y="96" width="46" height="28" rx="4"/><text x="500" y="115" text-anchor="middle" class="t-sm t-em">词3</text>' +
+        '<rect class="box-acc" x="542" y="96" width="46" height="28" rx="4"/><text x="565" y="115" text-anchor="middle" class="t-sm t-em">词4</text>' +
+        '<path class="ln-acc" d="M370 94 Q402 74 435 94" opacity="0.75"/>' +
+        '<path class="ln-acc" d="M435 94 Q467 74 500 94" opacity="0.75"/>' +
+        '<path class="ln-acc" d="M500 94 Q532 74 565 94" opacity="0.75"/>' +
+        '<path class="ln-acc" d="M370 94 Q435 56 500 94" opacity="0.55"/>' +
+        '<path class="ln-acc" d="M435 94 Q500 56 565 94" opacity="0.55"/>' +
+        '<path class="ln-acc" d="M370 94 Q467 38 565 94" opacity="0.4"/>' +
+        '<text x="470" y="154" text-anchor="middle" class="t-sm">一步之内两两相连</text>' +
+      '</svg>',
+      cap: '抛弃循环之后，序列不再需要逐步传递——<b>所有词一步之内彼此可见</b>。能并行，才让「大规模预训练」在算力上第一次成为可能。'
+    },
+    'GPT-1': {
+      svg: '<svg viewBox="0 0 620 206" role="img" aria-label="因果掩码：只能看到左边的词">' +
+        '<text x="375" y="34" text-anchor="middle" class="t-mono">可见的词 →</text>' + maskGrid +
+        '<text transform="rotate(-90 214 110)" x="214" y="110" text-anchor="middle" class="t-mono">当前词 ↓</text>' +
+        '<rect class="box-acc" x="204" y="188" width="12" height="12" rx="2"/><text x="224" y="198" class="t-sm">可见（自己与更早）</text>' +
+        '<rect class="box" x="376" y="188" width="12" height="12" rx="2"/><text x="396" y="198" class="t-sm">被遮住（未来）</text>' +
+      '</svg>',
+      cap: '预测下一个词时，模型<b>只能看见自己和左边（更早）的词</b>，右上角的「未来」被遮住。这个约束，正是「生成」得以成立的前提。'
+    },
+    'Scaling Laws': {
+      svg: '<svg viewBox="0 0 620 186" role="img" aria-label="双对数坐标下的幂律直线">' +
+        '<path class="axis" d="M64 18V150H576"/>' +
+        '<line class="ln-acc" x1="88" y1="40" x2="452" y2="124"/>' +
+        '<circle class="dot" cx="88" cy="40" r="3.5"/><circle class="dot" cx="179" cy="61" r="3.5"/>' +
+        '<circle class="dot" cx="270" cy="82" r="3.5"/><circle class="dot" cx="361" cy="103" r="3.5"/>' +
+        '<circle class="dot" cx="452" cy="124" r="3.5"/>' +
+        '<line class="ln-dash-acc" x1="452" y1="124" x2="556" y2="148"/>' +
+        '<text x="560" y="136" text-anchor="end" class="t-sm t-brass">可外推预测</text>' +
+        '<text transform="rotate(-90 30 84)" x="30" y="84" text-anchor="middle" class="t-mono">损失（log）</text>' +
+        '<text x="320" y="174" text-anchor="middle" class="t-mono">训练算力（log）</text>' +
+      '</svg>',
+      cap: '在双对数坐标下，性能随算力的提升是一条<b>笔直的线</b>——这意味着「投入多少、能换回什么」可以被提前算出来。'
+    },
+    'CLIP': {
+      svg: '<svg viewBox="0 0 620 196" role="img" aria-label="图文进入共享语义空间">' + mk('mclip', 'var(--faint)') +
+        '<rect class="box" x="26" y="64" width="118" height="44" rx="5"/><text x="85" y="91" text-anchor="middle" class="t-em">图像编码器</text>' +
+        '<text x="85" y="132" text-anchor="middle" class="t-sm">一张狗的照片</text>' +
+        '<rect class="box" x="476" y="64" width="118" height="44" rx="5"/><text x="535" y="91" text-anchor="middle" class="t-em">文本编码器</text>' +
+        '<text x="535" y="132" text-anchor="middle" class="t-sm">「一只狗的照片」</text>' +
+        '<circle cx="310" cy="86" r="66" fill="none" stroke="var(--era-c)" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.7"/>' +
+        '<circle class="dot" cx="292" cy="74" r="5"/><circle class="dot" cx="305" cy="83" r="5"/>' +
+        '<circle class="dot-dim" cx="332" cy="106" r="4"/><circle class="dot-dim" cx="345" cy="97" r="4"/>' +
+        '<text x="310" y="176" text-anchor="middle" class="t-mono t-acc">共享语义空间</text>' +
+        '<line class="ln" x1="148" y1="86" x2="238" y2="86" marker-end="url(#mclip)"/>' +
+        '<line class="ln" x1="472" y1="86" x2="382" y2="86" marker-end="url(#mclip)"/>' +
+      '</svg>',
+      cap: '图像与文字被送进<b>同一个语义空间</b>：内容匹配的图文对彼此靠近。用自然语言当监督信号，比人工打标签更廉价、也更通用。'
+    },
+    'InstructGPT / RLHF': {
+      svg: '<svg viewBox="0 0 620 172" role="img" aria-label="RLHF 的四步循环">' + mk('mrl', 'var(--faint)') +
+        '<rect class="box" x="18" y="38" width="132" height="54" rx="5"/><text x="84" y="60" text-anchor="middle" class="t-sm t-em">① 模型生成</text><text x="84" y="78" text-anchor="middle" class="t-sm">多个候选回答</text>' +
+        '<rect class="box" x="172" y="38" width="132" height="54" rx="5"/><text x="238" y="60" text-anchor="middle" class="t-sm t-em">② 人类对回答</text><text x="238" y="78" text-anchor="middle" class="t-sm">排出好坏顺序</text>' +
+        '<rect class="box" x="326" y="38" width="132" height="54" rx="5"/><text x="392" y="60" text-anchor="middle" class="t-sm t-em">③ 据此训练出</text><text x="392" y="78" text-anchor="middle" class="t-sm">奖励模型</text>' +
+        '<rect class="box-acc" x="480" y="38" width="132" height="54" rx="5"/><text x="546" y="60" text-anchor="middle" class="t-sm t-em">④ 用 RL 优化</text><text x="546" y="78" text-anchor="middle" class="t-sm">语言模型</text>' +
+        '<line class="ln" x1="152" y1="65" x2="169" y2="65" marker-end="url(#mrl)"/>' +
+        '<line class="ln" x1="306" y1="65" x2="323" y2="65" marker-end="url(#mrl)"/>' +
+        '<line class="ln" x1="460" y1="65" x2="477" y2="65" marker-end="url(#mrl)"/>' +
+        '<path class="ln-dash" d="M546 94 V132 H84 V98" marker-end="url(#mrl)"/>' +
+        '<text x="310" y="160" text-anchor="middle" class="t-sm">不断循环，模型越来越贴近人的偏好</text>' +
+      '</svg>',
+      cap: '人类并不直接写答案，只需<b>对模型的输出排序</b>。偏好被蒸馏成奖励模型，再用强化学习反过来塑造模型的行为。'
+    },
+    'Chinchilla': {
+      svg: '<svg viewBox="0 0 620 186" role="img" aria-label="固定算力下参数量与损失的 U 形关系">' +
+        '<path class="axis" d="M64 18V150H576"/>' +
+        '<path class="ln-acc" d="M104 44 C 200 148, 380 148, 552 62"/>' +
+        '<circle class="dot" cx="300" cy="124" r="5"/>' +
+        '<text x="300" y="143" text-anchor="middle" class="t-sm t-acc">算力最优配比</text>' +
+        '<circle class="dot-dim" cx="470" cy="96" r="4.5"/>' +
+        '<text x="470" y="84" text-anchor="middle" class="t-sm">GPT-3 在这一侧</text>' +
+        '<text x="470" y="68" text-anchor="middle" class="t-sm t-bad">参数过大 · 数据不足</text>' +
+        '<text transform="rotate(-90 30 84)" x="30" y="84" text-anchor="middle" class="t-mono">损失</text>' +
+        '<text x="320" y="174" text-anchor="middle" class="t-mono">参数量（固定算力预算下）</text>' +
+      '</svg>',
+      cap: '同样的算力预算，参数并非越多越好。曲线的最低点才是<b>最优配比</b>——把一部分算力从「更大」挪给「更多数据」。'
+    },
+    'GPT-4V → GPT-4o': {
+      svg: '<svg viewBox="0 0 620 196" role="img" aria-label="拼接式与原生全模态的对比">' + mk('m4o', 'var(--faint)') + mk('m4oa', 'var(--era-c)') +
+        '<line class="ln-dash" x1="310" y1="14" x2="310" y2="182"/>' +
+        '<text x="145" y="28" text-anchor="middle" class="t-mono">拼接式</text>' +
+        '<text x="470" y="28" text-anchor="middle" class="t-mono t-acc">原生全模态</text>' +
+        '<rect class="box" x="16" y="76" width="78" height="40" rx="4"/><text x="55" y="100" text-anchor="middle" class="t-sm">语音转文字</text>' +
+        '<rect class="box" x="106" y="76" width="78" height="40" rx="4"/><text x="145" y="100" text-anchor="middle" class="t-sm">语言模型</text>' +
+        '<rect class="box" x="196" y="76" width="78" height="40" rx="4"/><text x="235" y="100" text-anchor="middle" class="t-sm">文字转语音</text>' +
+        '<line class="ln" x1="96" y1="96" x2="103" y2="96" marker-end="url(#m4o)"/>' +
+        '<line class="ln" x1="186" y1="96" x2="193" y2="96" marker-end="url(#m4o)"/>' +
+        '<text x="145" y="146" text-anchor="middle" class="t-sm t-bad">多次转换 · 有损耗 · 延迟高</text>' +
+        '<text x="358" y="70" text-anchor="middle" class="t-sm">文本</text>' +
+        '<text x="358" y="100" text-anchor="middle" class="t-sm">图像</text>' +
+        '<text x="358" y="130" text-anchor="middle" class="t-sm">音频</text>' +
+        '<line class="ln-acc" x1="380" y1="66" x2="446" y2="90" marker-end="url(#m4oa)"/>' +
+        '<line class="ln-acc" x1="380" y1="96" x2="446" y2="98" marker-end="url(#m4oa)"/>' +
+        '<line class="ln-acc" x1="380" y1="126" x2="446" y2="106" marker-end="url(#m4oa)"/>' +
+        '<rect class="box-acc" x="452" y="72" width="108" height="52" rx="5"/><text x="506" y="103" text-anchor="middle" class="t-em">单一模型</text>' +
+        '<text x="470" y="146" text-anchor="middle" class="t-sm">端到端 · 低延迟</text>' +
+      '</svg>',
+      cap: '过去是几个模型串起来轮流转换，每转一次就丢一层信息。原生多模态让<b>一个模型直接吃下所有模态</b>，语音延迟才得以逼近真人对话。'
+    },
+    'RAG 检索增强': {
+      svg: '<svg viewBox="0 0 620 186" role="img" aria-label="检索增强生成的流程">' + mk('mrag', 'var(--faint)') +
+        '<ellipse class="box" cx="216" cy="20" rx="42" ry="10"/>' +
+        '<path class="box" d="M174 20 V44 A42 10 0 0 0 258 44 V20"/>' +
+        '<text x="272" y="40" class="t-mono t-acc">知识库</text>' +
+        '<line class="ln" x1="216" y1="56" x2="216" y2="80" marker-end="url(#mrag)"/>' +
+        '<rect class="box" x="12" y="84" width="104" height="52" rx="5"/><text x="64" y="114" text-anchor="middle" class="t-sm t-em">① 用户提问</text>' +
+        '<rect class="box" x="146" y="84" width="140" height="52" rx="5"/><text x="216" y="114" text-anchor="middle" class="t-sm t-em">② 检索相关片段</text>' +
+        '<rect class="box" x="316" y="84" width="132" height="52" rx="5"/><text x="382" y="106" text-anchor="middle" class="t-sm t-em">③ 片段 + 问题</text><text x="382" y="124" text-anchor="middle" class="t-sm">一起喂给模型</text>' +
+        '<rect class="box-acc" x="478" y="84" width="130" height="52" rx="5"/><text x="543" y="106" text-anchor="middle" class="t-sm t-em">④ 作答</text><text x="543" y="124" text-anchor="middle" class="t-sm">并附上来源</text>' +
+        '<line class="ln" x1="118" y1="110" x2="143" y2="110" marker-end="url(#mrag)"/>' +
+        '<line class="ln" x1="288" y1="110" x2="313" y2="110" marker-end="url(#mrag)"/>' +
+        '<line class="ln" x1="450" y1="110" x2="475" y2="110" marker-end="url(#mrag)"/>' +
+        '<text x="310" y="170" text-anchor="middle" class="t-sm">知识不必塞进参数，随时可换、可更新</text>' +
+      '</svg>',
+      cap: '与其把所有知识硬塞进模型参数，不如让它学会<b>「去查」</b>——回答有出处可循，知识库一换，模型立刻就更新了。'
+    },
+    'ReAct → Function Calling → MCP': {
+      svg: '<svg viewBox="0 0 620 196" role="img" aria-label="想做循环与 MCP 协议中枢">' + mk('mra', 'var(--faint)') + mk('mraa', 'var(--era-c)') +
+        '<line class="ln-dash" x1="310" y1="14" x2="310" y2="182"/>' +
+        '<text x="152" y="28" text-anchor="middle" class="t-mono">ReAct：想 ⇄ 做</text>' +
+        '<text x="470" y="28" text-anchor="middle" class="t-mono t-acc">MCP：统一协议接万物</text>' +
+        '<rect class="box" x="112" y="52" width="80" height="32" rx="4"/><text x="152" y="72" text-anchor="middle" class="t-sm">思考</text>' +
+        '<rect class="box" x="182" y="126" width="80" height="32" rx="4"/><text x="222" y="146" text-anchor="middle" class="t-sm">行动</text>' +
+        '<rect class="box" x="42" y="126" width="80" height="32" rx="4"/><text x="82" y="146" text-anchor="middle" class="t-sm">观察</text>' +
+        '<line class="ln" x1="170" y1="86" x2="208" y2="124" marker-end="url(#mra)"/>' +
+        '<line class="ln" x1="180" y1="142" x2="126" y2="142" marker-end="url(#mra)"/>' +
+        '<line class="ln" x1="94" y1="124" x2="130" y2="86" marker-end="url(#mra)"/>' +
+        '<text x="152" y="180" text-anchor="middle" class="t-sm">边想边做，用结果修正下一步</text>' +
+        '<rect class="box-acc" x="416" y="44" width="108" height="38" rx="5"/><text x="470" y="68" text-anchor="middle" class="t-em">模型</text>' +
+        '<line class="ln-acc" x1="470" y1="84" x2="470" y2="96" marker-end="url(#mraa)"/>' +
+        '<circle class="box-acc" cx="470" cy="114" r="17"/><text x="470" y="118" text-anchor="middle" class="t-mono t-acc">MCP</text>' +
+        '<line class="ln" x1="458" y1="128" x2="404" y2="152" marker-end="url(#mra)"/>' +
+        '<line class="ln" x1="470" y1="132" x2="470" y2="152" marker-end="url(#mra)"/>' +
+        '<line class="ln" x1="482" y1="128" x2="536" y2="152" marker-end="url(#mra)"/>' +
+        '<rect class="box" x="352" y="156" width="66" height="28" rx="4"/><text x="385" y="174" text-anchor="middle" class="t-sm">文件</text>' +
+        '<rect class="box" x="437" y="156" width="66" height="28" rx="4"/><text x="470" y="174" text-anchor="middle" class="t-sm">数据库</text>' +
+        '<rect class="box" x="522" y="156" width="66" height="28" rx="4"/><text x="555" y="174" text-anchor="middle" class="t-sm">网页</text>' +
+      '</svg>',
+      cap: '左边解决「怎么做事」——想与做交替、用观察修正下一步；右边解决「怎么接工具」——<b>一套协议连接万物</b>，不必为每个工具单独适配。'
+    },
+    '思维链 Chain-of-Thought': {
+      svg: '<svg viewBox="0 0 620 172" role="img" aria-label="直接作答与逐步推理的对比">' + mk('mcb', '#C96B5B') + mk('mca', 'var(--era-c)') +
+        '<rect class="box" x="16" y="30" width="76" height="36" rx="4"/><text x="54" y="53" text-anchor="middle" class="t-sm">问题</text>' +
+        '<text x="136" y="42" text-anchor="middle" class="t-sm">直接作答</text>' +
+        '<line class="ln" x1="94" y1="52" x2="176" y2="52" stroke="#C96B5B" marker-end="url(#mcb)"/>' +
+        '<rect class="box-bad" x="180" y="30" width="76" height="36" rx="4"/><text x="218" y="53" text-anchor="middle" class="t-sm">答案</text>' +
+        '<text x="278" y="58" class="t-bad" font-size="16">✗</text>' +
+        '<rect class="box" x="16" y="106" width="70" height="36" rx="4"/><text x="51" y="129" text-anchor="middle" class="t-sm">问题</text>' +
+        '<line class="ln-acc" x1="88" y1="124" x2="99" y2="124" marker-end="url(#mca)"/>' +
+        '<rect class="box-acc" x="102" y="106" width="84" height="36" rx="4"/><text x="144" y="129" text-anchor="middle" class="t-sm t-em">步骤 ①</text>' +
+        '<line class="ln-acc" x1="188" y1="124" x2="199" y2="124" marker-end="url(#mca)"/>' +
+        '<rect class="box-acc" x="202" y="106" width="84" height="36" rx="4"/><text x="244" y="129" text-anchor="middle" class="t-sm t-em">步骤 ②</text>' +
+        '<line class="ln-acc" x1="288" y1="124" x2="299" y2="124" marker-end="url(#mca)"/>' +
+        '<rect class="box-acc" x="302" y="106" width="84" height="36" rx="4"/><text x="344" y="129" text-anchor="middle" class="t-sm t-em">步骤 ③</text>' +
+        '<line class="ln-acc" x1="388" y1="124" x2="399" y2="124" marker-end="url(#mca)"/>' +
+        '<rect class="box" x="402" y="106" width="76" height="36" rx="4"/><text x="440" y="129" text-anchor="middle" class="t-sm">答案</text>' +
+        '<text x="496" y="130" class="t-acc" font-size="16">✓</text>' +
+      '</svg>',
+      cap: '同一个模型、同一道题，只是把「一步答完」换成<b>「把推理过程写出来」</b>，正确率就显著上升——能力本就潜藏其中，只是需要被引导出来。'
+    },
+    'o1': {
+      svg: '<svg viewBox="0 0 620 186" role="img" aria-label="训练算力与推理时算力的两条曲线">' +
+        '<path class="axis" d="M64 18V150H576"/>' +
+        '<path class="ln-dash" d="M88 132 C 200 96, 340 84, 552 78"/>' +
+        '<text x="556" y="70" text-anchor="end" class="t-sm">训练算力（收益放缓）</text>' +
+        '<path class="ln-acc" d="M88 142 C 230 134, 380 74, 552 34"/>' +
+        '<text x="556" y="26" text-anchor="end" class="t-sm t-acc">推理时「思考」越久</text>' +
+        '<text transform="rotate(-90 30 84)" x="30" y="84" text-anchor="middle" class="t-mono">准确率</text>' +
+        '<text x="320" y="174" text-anchor="middle" class="t-mono">投入的算力（log）</text>' +
+      '</svg>',
+      cap: '当「训练时更大」的收益开始放缓，<b>「推理时想得更久」</b>成为一条全新的、可持续扩展的曲线——这正是推理模型的立身之本。'
+    },
+    'GPT-2': {
+      svg: '<svg viewBox="0 0 620 190" role="img" aria-label="GPT 系列参数量的阶梯">' +
+        '<path class="axis" d="M60 24V152H576"/>' +
+        '<rect class="box" x="150" y="124" width="74" height="28" rx="3"/>' +
+        '<text x="187" y="116" text-anchor="middle" class="t-sm">1.17 亿</text>' +
+        '<text x="187" y="170" text-anchor="middle" class="t-mono t-sm">GPT-1 · 2018</text>' +
+        '<rect class="box-acc" x="280" y="94" width="74" height="58" rx="3"/>' +
+        '<text x="317" y="86" text-anchor="middle" class="t-sm t-em">15 亿</text>' +
+        '<text x="317" y="170" text-anchor="middle" class="t-mono t-sm t-acc">GPT-2 · 2019</text>' +
+        '<rect class="box" x="410" y="48" width="74" height="104" rx="3"/>' +
+        '<text x="447" y="40" text-anchor="middle" class="t-sm">1750 亿</text>' +
+        '<text x="447" y="170" text-anchor="middle" class="t-mono t-sm">GPT-3 · 2020</text>' +
+        '<text transform="rotate(-90 30 88)" x="30" y="88" text-anchor="middle" class="t-mono">参数量（log）</text>' +
+      '</svg>',
+      cap: '纵轴为对数尺度。GPT-2 是这条阶梯的<b>中间一级</b>——正是它让人第一次确信：继续往上加，能力真的会继续长出来。'
+    },
+    'GAN 生成对抗网络': {
+      svg: '<svg viewBox="0 0 620 200" role="img" aria-label="生成器与判别器的对抗循环">' + mk('mgan', 'var(--faint)') + mk('mgana', 'var(--era-c)') +
+        '<text x="60" y="60" text-anchor="middle" class="t-sm">随机噪声</text>' +
+        '<line class="ln" x1="94" y1="56" x2="126" y2="56" marker-end="url(#mgan)"/>' +
+        '<rect class="box-acc" x="130" y="38" width="104" height="38" rx="5"/><text x="182" y="62" text-anchor="middle" class="t-em">生成器 G</text>' +
+        '<line class="ln-acc" x1="236" y1="56" x2="286" y2="56" marker-end="url(#mgana)"/>' +
+        '<text x="261" y="44" text-anchor="middle" class="t-sm t-acc">假图像</text>' +
+        '<rect class="box" x="130" y="130" width="104" height="38" rx="5"/><text x="182" y="154" text-anchor="middle">真实图像</text>' +
+        '<line class="ln" x1="236" y1="149" x2="286" y2="112" marker-end="url(#mgan)"/>' +
+        '<rect class="box" x="290" y="76" width="104" height="52" rx="5"/><text x="342" y="107" text-anchor="middle" class="t-em">判别器 D</text>' +
+        '<line class="ln" x1="396" y1="102" x2="440" y2="102" marker-end="url(#mgan)"/>' +
+        '<text x="492" y="98" text-anchor="middle" class="t-sm">这张是真？是假？</text>' +
+        '<path class="ln-dash-acc" d="M342 74 V22 H182 V34" marker-end="url(#mgana)"/>' +
+        '<text x="262" y="16" text-anchor="middle" class="t-sm t-acc">反馈：哪里露馅了</text>' +
+        '<text x="310" y="190" text-anchor="middle" class="t-sm">D 越挑剔，G 就被逼得越逼真</text>' +
+      '</svg>',
+      cap: '没有人告诉生成器「什么算真实」——它只是不断被判别器挑错，然后改进。<b>真实感从竞争中涌现</b>。'
+    },
+    '扩散模型 Diffusion': {
+      svg: '<svg viewBox="0 0 620 178" role="img" aria-label="从纯噪声逐步去噪还原出图像">' + mk('mdifa', 'var(--era-c)') + mk('mdif', 'var(--faint)') +
+        '<line class="ln-acc" x1="74" y1="38" x2="546" y2="38" marker-end="url(#mdifa)"/>' +
+        '<text x="310" y="28" text-anchor="middle" class="t-sm t-acc">去噪 · 生成（模型学的就是这一步步）</text>' +
+        diffStrip +
+        '<line class="ln-dash" x1="546" y1="142" x2="74" y2="142" marker-end="url(#mdif)"/>' +
+        '<text x="310" y="166" text-anchor="middle" class="t-sm">加噪 · 训练时（把图像一步步毁掉）</text>' +
+      '</svg>',
+      cap: '训练时把图像一步步加噪毁掉，生成时再<b>反着走回来</b>。「凭空画一张图」的难题，被拆成了上千个「去掉一点噪声」的小步。'
+    },
+    'DALL·E 2': {
+      svg: '<svg viewBox="0 0 620 176" role="img" aria-label="文字经 CLIP 与扩散模型生成图像">' + mk('mdal', 'var(--faint)') + mk('mdala', 'var(--era-c)') +
+        '<rect class="box" x="14" y="60" width="118" height="52" rx="5"/>' +
+        '<text x="73" y="82" text-anchor="middle" class="t-sm t-em">「一只戴贝雷帽</text><text x="73" y="100" text-anchor="middle" class="t-sm t-em">的柴犬」</text>' +
+        '<line class="ln" x1="136" y1="86" x2="168" y2="86" marker-end="url(#mdal)"/>' +
+        '<rect class="box" x="172" y="60" width="108" height="52" rx="5"/><text x="226" y="91" text-anchor="middle" class="t-sm">CLIP 文本编码</text>' +
+        '<line class="ln" x1="284" y1="86" x2="316" y2="86" marker-end="url(#mdal)"/>' +
+        '<circle class="dot" cx="336" cy="76" r="4"/><circle class="dot" cx="352" cy="90" r="4"/><circle class="dot" cx="332" cy="98" r="4"/>' +
+        '<text x="342" y="126" text-anchor="middle" class="t-sm t-acc">语义向量</text>' +
+        '<line class="ln-acc" x1="372" y1="86" x2="404" y2="86" marker-end="url(#mdala)"/>' +
+        '<rect class="box-acc" x="408" y="60" width="108" height="52" rx="5"/><text x="462" y="91" text-anchor="middle" class="t-sm t-em">扩散解码器</text>' +
+        '<line class="ln-acc" x1="520" y1="86" x2="548" y2="86" marker-end="url(#mdala)"/>' +
+        '<rect class="box-acc" x="552" y="62" width="48" height="48" rx="4"/>' +
+        '<circle cx="566" cy="78" r="5" fill="var(--era-c)"/>' +
+        '<path d="M556 104L570 88L582 104z" fill="var(--era-c)" opacity="0.8"/>' +
+        '<text x="576" y="126" text-anchor="middle" class="t-sm">图像</text>' +
+      '</svg>',
+      cap: '两块<b>已经成熟的部件</b>被扣在一起：CLIP 负责听懂你说了什么，扩散模型负责把它画出来。生成不必从零发明。'
+    },
+    'Stable Diffusion': {
+      svg: '<svg viewBox="0 0 620 196" role="img" aria-label="像素空间与潜空间的算力对比">' + mk('msd', 'var(--era-c)') +
+        '<text x="150" y="30" text-anchor="middle" class="t-mono">像素空间 · 512×512</text>' +
+        gridOf(94, 46, 8, 14, 'box') +
+        '<text x="150" y="182" text-anchor="middle" class="t-sm t-bad">直接在这里扩散 · 算力极高</text>' +
+        '<line class="ln-acc" x1="240" y1="102" x2="330" y2="102" marker-end="url(#msd)"/>' +
+        '<text x="285" y="92" text-anchor="middle" class="t-sm t-acc">压缩</text>' +
+        '<text x="285" y="122" text-anchor="middle" class="t-sm">自编码器</text>' +
+        '<text x="452" y="30" text-anchor="middle" class="t-mono t-acc">潜空间 · 64×64</text>' +
+        gridOf(424, 74, 4, 14, 'box-acc') +
+        '<text x="452" y="182" text-anchor="middle" class="t-sm t-acc">在这里扩散 · 消费级显卡可跑</text>' +
+      '</svg>',
+      cap: '同样的扩散过程，搬进压缩数十倍的潜空间来做——<b>算力骤降而质量几乎无损</b>。这一步，让图像生成从机房走进了个人电脑。'
+    },
+    'Sora': {
+      svg: '<svg viewBox="0 0 620 186" role="img" aria-label="视频被切分为时空碎片">' + mk('msora', 'var(--era-c)') +
+        '<text x="310" y="26" text-anchor="middle" class="t-sm">一段视频 = 空间 × 时间</text>' +
+        gridOf(96, 50, 3, 26, 'box') +
+        '<text x="134" y="152" text-anchor="middle" class="t-mono t-sm">t₁</text>' +
+        gridOf(266, 50, 3, 26, 'box-acc') +
+        '<text x="304" y="152" text-anchor="middle" class="t-mono t-sm t-acc">t₂</text>' +
+        gridOf(436, 50, 3, 26, 'box') +
+        '<text x="474" y="152" text-anchor="middle" class="t-mono t-sm">t₃</text>' +
+        '<line class="ln-acc" x1="180" y1="90" x2="256" y2="90" marker-end="url(#msora)"/>' +
+        '<line class="ln-acc" x1="350" y1="90" x2="426" y2="90" marker-end="url(#msora)"/>' +
+        '<text x="310" y="176" text-anchor="middle" class="t-sm t-acc">每一小格 = 一个时空碎片，就是视频的「token」</text>' +
+      '</svg>',
+      cap: '语言模型把句子切成 token，Sora 把视频切成<b>时空碎片</b>——每片同时含一小块空间和一小段时间。Transformer 的老办法，用在了新维度上。'
+    }
+  };
+
+  // 深度解读：策展长文 · 原文摘录 · 关键数据 · 因果链
+  var DETAILS = {
+    'Word2Vec': {
+      essay: [
+        '2013 年之前，NLP 主流把词当作离散的独热符号——「猫」与「狗」之间的距离，和「猫」与「桌子」之间的距离完全一样，机器无从判断哪两个词更接近。Mikolov 团队的做法极其朴素：不去定义词义，而是让模型通过<b>预测上下文</b>这一简单任务，自己把每个词压成几百维的稠密向量。',
+        '结果超出预期——训练出的空间里，语义关系呈现出惊人的几何规律。这不是被设计出来的，而是从统计规律中涌现的副产品。词嵌入此后成为所有神经语言模型的第一层；直到今天的大模型，输入的第一步仍然是把 token 变成向量。'
+      ],
+      quote: { en: 'We propose two novel model architectures for computing continuous vector representations of words from very large data sets.', zh: '我们提出两种全新的模型架构，用于从超大规模数据集中计算词的连续向量表示。', from: 'arXiv:1301.3781 · Abstract' },
+      facts: [{ v: '300 维', k: '常用向量维度' }, { v: 'CBOW / Skip-gram', k: '两种训练架构' }, { v: '2013.01', k: '首次发表' }],
+      before: '这里是长廊的起点——在此之前，语言对机器只是符号。',
+      after: '词向量成为神经网络处理语言的标准第一层，Seq2Seq 与注意力都建立在它之上。'
+    },
+    'Seq2Seq': {
+      essay: [
+        '机器翻译长期依赖复杂流水线：分词、对齐、短语表、语言模型，每一环单独优化、单独调参。Sutskever 等人提出一个激进的简化——用<b>一个神经网络</b>吃进整句话，再吐出另一句话，端到端训练，中间不再有人工设计的模块。',
+        '编码器把源句压缩成一个固定长度的向量，解码器再从它展开成目标句。这个框架优雅得惊人，缺陷也同样明显：无论句子多长，全部信息都得挤进同一个向量。这个瓶颈，在同一年就催生了注意力机制。'
+      ],
+      quote: { en: 'Our method uses a multilayered Long Short-Term Memory (LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector.', zh: '我们的方法用一个多层 LSTM 把输入序列映射为固定维度的向量，再用另一个深层 LSTM 从该向量解码出目标序列。', from: 'arXiv:1409.3215 · Abstract' },
+      facts: [{ v: '端到端', k: '取代人工流水线' }, { v: '固定长度', k: '中间表示（即瓶颈）' }, { v: 'LSTM', k: '编码 / 解码单元' }],
+      before: '建立在词向量之上——先有可计算的词，才谈得上可计算的句子。',
+      after: '「固定向量瓶颈」这个缺陷，直接催生了同年的注意力机制。'
+    },
+    '注意力机制': {
+      essay: [
+        'Bahdanau、Cho 与 Bengio 注意到 Seq2Seq 的致命问题：句子越长，翻译质量下降越快——因为所有信息都被压进了一个固定向量。他们的解法不是把向量变大，而是<b>干脆取消这个瓶颈</b>。',
+        '解码每一个词时，模型都重新计算一次「此刻该看输入的哪些部分」，得到一组权重，再按权重加权求和。这让模型学会了「软对齐」——生成某个词时自动聚焦到源句的对应位置。而这种对齐从未被人工标注过，完全是训练中自己长出来的。三年后，有人发现这个机制强大到可以独当一面。'
+      ],
+      quote: { en: 'We conjecture that the use of a fixed-length vector is a bottleneck in improving the performance of this basic encoder–decoder architecture, and propose to extend this by allowing a model to automatically (soft-)search for parts of a source sentence that are relevant to predicting a target word.', zh: '我们推测固定长度向量正是编码器–解码器架构的性能瓶颈，因此提出让模型自动「软搜索」源句中与当前预测相关的部分。', from: 'arXiv:1409.0473 · Abstract' },
+      facts: [{ v: '软对齐', k: '自行学会的能力' }, { v: '取消', k: '固定向量瓶颈' }, { v: '2014.09', k: '首次发表' }],
+      before: '为解决 Seq2Seq 的固定向量瓶颈而生。',
+      after: '三年后，Transformer 证明：只要注意力，就已经够了。'
+    },
+    'Transformer': {
+      essay: [
+        '注意力当时只是 RNN 的辅助模块。Google 的八位作者提出一个大胆假设：如果注意力这么有效，那循环结构是不是根本就是多余的？论文标题直接给出了答案——《Attention Is All You Need》。',
+        '去掉循环后，最大的收获不是精度，而是<b>并行</b>。RNN 必须等第 t 步算完才能算第 t+1 步；自注意力让整个序列一次性进入计算。这一改动把训练时间从数周压到数天，让「把模型和数据同时放大几个数量级」从空想变成了工程预算问题。此后八年，几乎所有主流大模型——GPT、BERT、Claude、Gemini——都是它的后代。'
+      ],
+      quote: { en: 'We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.', zh: '我们提出一种全新的简洁网络架构 Transformer，它完全基于注意力机制，彻底摒弃了循环与卷积。', from: 'arXiv:1706.03762 · Abstract' },
+      facts: [{ v: '8 位', k: '论文作者' }, { v: '0', k: '循环与卷积层' }, { v: '2017.06', k: '首次发表' }],
+      before: '把注意力从「辅助模块」提升为「唯一主角」。',
+      after: 'GPT 与 BERT 分别取走它的解码器与编码器，开启预训练时代。'
+    },
+    'GPT-1': {
+      essay: [
+        'BERT 之前几个月，OpenAI 用 Transformer 的解码器做了一件事：在大量无标注文本上训练「预测下一个词」，再在具体任务上微调。当时这并不惊艳——GPT-1 只有 1.17 亿参数，成绩很快被 BERT 压过。',
+        '但它选择的路径影响深远：<b>只保留解码器、只做单向的下一词预测</b>。这个看似更弱的设定，恰恰保住了「生成」能力——模型天然会续写。当规模放大到 GPT-3 时，这个选择的价值才彻底显现。今天几乎所有对话模型，仍然沿用这一 Decoder-only 架构。'
+      ],
+      quote: { en: 'We demonstrate that large gains on these tasks can be realized by generative pre-training of a language model on a diverse corpus of unlabeled text, followed by discriminative fine-tuning on each specific task.', zh: '我们证明：先在多样化的无标注语料上对语言模型做生成式预训练，再针对每个具体任务做判别式微调，可以带来巨大提升。', from: 'Improving Language Understanding by Generative Pre-Training · Abstract' },
+      facts: [{ v: '1.17 亿', k: '参数量' }, { v: 'Decoder-only', k: '架构选择' }, { v: '2018.06', k: '发表时间' }],
+      before: '取用 Transformer 的解码器部分。',
+      after: '这一架构选择被 GPT-2 / GPT-3 一路放大，成为生成式的主流形态。'
+    },
+    'BERT': {
+      essay: [
+        '如果目标是「理解」而非「生成」，单向就是一种浪费——判断一个词的含义，右边的上下文和左边同样重要。Google 的 BERT 用完形填空式的训练目标（随机遮住约 15% 的词让模型猜），实现了真正的双向预训练。',
+        '效果是压倒性的：一次刷新 11 项 NLP 任务纪录。BERT 让「预训练 + 微调」成为整个领域的默认做法，也让所有人意识到——<b>真正的价值在那个通用的预训练模型里</b>，而不在为每个任务精心设计的结构里。这个认知，直接点燃了随后的规模竞赛。'
+      ],
+      quote: { en: 'BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers.', zh: 'BERT 的设计目标，是通过在所有层同时融合左右两侧上下文，从无标注文本中预训练出深层双向表示。', from: 'arXiv:1810.04805 · Abstract' },
+      facts: [{ v: '11 项', k: '刷新的 NLP 基准' }, { v: '~15%', k: '随机遮蔽比例' }, { v: '3.4 亿', k: 'BERT-Large 参数量' }],
+      before: '取用 Transformer 的编码器部分。',
+      after: '确立「预训练 + 微调」范式，点燃规模竞赛。'
+    },
+    'Scaling Laws': {
+      essay: [
+        '在此之前，「模型该做多大」基本靠试。Kaplan 等人系统训练了大量不同规模的模型，发现了一件让人意外的事：损失随参数量、数据量、算力的变化，在双对数坐标下几乎是一条<b>完美的直线</b>，且跨越多个数量级依然成立。',
+        '这条直线的意义远超学术——它把「做大模型」从赌博变成了工程预算问题。你可以在花掉数千万美元之前，先算出这笔钱大概能换回多少性能。正是这份确定性，让 OpenAI 敢在几个月后押注 GPT-3。'
+      ],
+      quote: { en: 'We study empirical scaling laws for language model performance on the cross-entropy loss. The loss scales as a power-law with model size, dataset size, and the amount of compute used for training.', zh: '我们研究了语言模型在交叉熵损失上的经验缩放定律：损失与模型规模、数据规模、训练算力之间呈幂律关系。', from: 'arXiv:2001.08361 · Abstract' },
+      facts: [{ v: '幂律', k: '性能与规模的关系' }, { v: '多个数量级', k: '规律成立的跨度' }, { v: '2020.01', k: '发表时间' }],
+      before: '在 Transformer 让规模化成为可能之后，回答「究竟该放多大」。',
+      after: '为 GPT-3 的豪赌提供了理论依据。'
+    },
+    'GPT-3': {
+      essay: [
+        '1750 亿参数，比 GPT-2 大了一百倍。真正的意外不是它更流畅，而是<b>它不再需要微调</b>——只要在提示里给几个例子，它就能完成从未被专门训练过的任务。这被称为少样本学习（few-shot）。',
+        '这意味着交互方式的根本改变：过去要用代码和标注数据去「编程」一个模型，现在用自然语言描述任务就行，提示词工程由此诞生。但 GPT-3 也暴露了新问题——它博学、流畅，却不受控：会跑题、会编造、不一定按你说的做。解决这件事，成了下一个时代的主题。'
+      ],
+      quote: { en: 'We show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches.', zh: '我们表明，扩大语言模型规模能极大提升与任务无关的少样本表现，有时甚至可与此前最先进的微调方法相媲美。', from: 'arXiv:2005.14165 · Abstract' },
+      facts: [{ v: '1750 亿', k: '参数量' }, { v: '100×', k: '相对 GPT-2 的规模' }, { v: '少样本', k: '涌现出的新能力' }],
+      before: '把 Scaling Laws 的预测真正付诸实践。',
+      after: '「强大却不听话」的问题，直接催生了对齐时代。'
+    },
+    'CLIP': {
+      essay: [
+        '传统视觉模型依赖人工标注的固定类别（如 ImageNet 的一千类）。CLIP 换了个思路：从互联网收集 4 亿个图文配对，训练模型判断「这张图和这段文字是不是一对」。',
+        '监督信号不再是昂贵的人工标签，而是<b>本就存在于网络上的图文关系</b>。训练出的模型能做零样本分类——给它任意一组文字描述，它就能判断图片属于哪一类，无需再训练。更重要的是，图像和文本被映射进同一个空间，这为后来的文生图与原生多模态大模型铺好了地基。'
+      ],
+      quote: { en: 'We demonstrate that the simple pre-training task of predicting which caption goes with which image is an efficient and scalable way to learn SOTA image representations from scratch on a dataset of 400 million (image, text) pairs.', zh: '我们证明：在 4 亿图文对的数据集上，用「预测哪段文字配哪张图」这一简单的预训练任务，就能高效且可扩展地从零学出最先进的图像表示。', from: 'arXiv:2103.00020 · Abstract' },
+      facts: [{ v: '4 亿', k: '图文配对数量' }, { v: '零样本', k: '无需再训练的分类' }, { v: '共享空间', k: '图文对齐方式' }],
+      before: '输入模态第一次越过纯文本的边界。',
+      after: '为文生图与原生多模态奠定基础。'
+    },
+    'InstructGPT / RLHF': {
+      essay: [
+        'OpenAI 这篇论文开篇就点明了问题：把语言模型做得更大，并不天然让它更好地遵循用户意图。GPT-3 的能力毋庸置疑，但它是在「预测下一个词」上训练的，而不是在「帮助用户」上训练的——<b>这两个目标本来就不一致</b>。',
+        '解法分三步：先用人工示范做监督微调；再让人类对模型的多个输出排序，训练出一个奖励模型；最后用强化学习让模型去最大化这个奖励。关键在于人类不必写出标准答案，只需判断「哪个更好」，标注成本因此大幅下降。结果令人意外：13 亿参数的 InstructGPT，在人类评价上胜过 1750 亿参数的 GPT-3。'
+      ],
+      quote: { en: 'Making language models bigger does not inherently make them better at following a user’s intent.', zh: '把语言模型做得更大，并不天然让它更善于遵循用户的意图。', from: 'arXiv:2203.02155 · Abstract 开篇' },
+      facts: [{ v: '13 亿 › 1750 亿', k: '对齐后小模型胜过大模型' }, { v: '三步', k: 'SFT → 奖励模型 → RL' }, { v: '排序', k: '人类标注的形式' }],
+      before: '解决 GPT-3「强大却不听话」的困境。',
+      after: '八个月后，它的兄弟模型化身为 ChatGPT。'
+    },
+    'Chinchilla': {
+      essay: [
+        '当所有人都在比谁的参数更多时，DeepMind 泼了一盆冷水：在固定算力预算下，当时的大模型普遍<b>训练不足</b>——参数堆得太大，喂进去的数据却太少。',
+        '他们训练了四百多个不同规模的模型来拟合最优配比，结论是参数量和训练数据量应当同比例增长。为验证这一点，他们用与 Gopher（2800 亿参数）相同的算力，训练了一个仅 700 亿参数、但数据量约 4 倍的 Chinchilla——结果全面胜出。这篇论文重写了此后所有团队的训练配方。'
+      ],
+      quote: { en: 'We find that current large language models are significantly undertrained, a consequence of the recent focus on scaling language models whilst keeping the amount of training data constant.', zh: '我们发现当前的大语言模型存在显著的训练不足——这是近期只顾扩大模型规模、却让训练数据量保持不变所导致的后果。', from: 'arXiv:2203.15556 · Abstract' },
+      facts: [{ v: '700 亿', k: 'Chinchilla 参数（对手 2800 亿）' }, { v: '~4×', k: '训练数据量倍数' }, { v: '400+', k: '用于拟合的模型数' }],
+      before: '修正 Scaling Laws 在实践中被误读的部分。',
+      after: '此后所有模型的「参数 / 数据」配比都据此重新调整。'
+    },
+    'ChatGPT（GPT-3.5）': {
+      essay: [
+        '严格来说，ChatGPT 在技术上并未引入全新的东西——它是 GPT-3.5 加上 InstructGPT 那套对齐方法，再包了一层对话界面。OpenAI 内部把它定位为一次低调的「研究预览」。',
+        '然后它用五天拿到一百万用户，两个月突破一亿，成为当时史上用户增长最快的消费级应用。这件事真正的教训是：<b>能力早已存在，缺的只是让普通人能用上它的那层界面</b>。一个输入框，把一项技术变成了一场社会事件——全球的 AI 投入、监管讨论与竞争格局，都从这一刻重新计时。'
+      ],
+      quote: { en: 'We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.', zh: '我们训练了一个名为 ChatGPT 的模型，它以对话方式交互。这种对话形式使 ChatGPT 能够回答追问、承认错误、质疑错误前提，并拒绝不当请求。', from: 'OpenAI 官方博客 · 2022-11-30' },
+      facts: [{ v: '5 天', k: '达成首个百万用户' }, { v: '2 个月', k: '突破一亿用户' }, { v: '0', k: '全新的技术组件' }],
+      before: '把 RLHF 对齐之后的模型，第一次产品化。',
+      after: '引爆全球 AI 竞赛，也暴露出「只会打字」的局限。'
+    },
+    'Constitutional AI': {
+      essay: [
+        'RLHF 需要大量人类标注者阅读并评判模型输出，其中包含不少有害内容——既昂贵，也对标注者造成心理负担，更难以随模型能力一起扩展。',
+        'Anthropic 的做法是给模型一部「宪法」：一组明确的书面原则。模型先自行生成回答，再对照原则<b>自我批评、自我修改</b>，然后用这些修改后的数据训练。人类的角色，从「逐条评判输出」变成「制定原则」。这条路径的价值在于可扩展与可审计——你可以直接读到模型被要求遵守的究竟是什么。'
+      ],
+      quote: { en: 'As AI systems become more capable, we would like to enlist their help to supervise other AI.', zh: '随着 AI 系统能力越来越强，我们希望借助它们的力量，来监督另一些 AI。', from: 'arXiv:2212.08073 · Abstract' },
+      facts: [{ v: 'RLAIF', k: '用 AI 反馈替代部分人工' }, { v: '一部宪法', k: '明文的原则集合' }, { v: '可审计', k: '原则公开、可被检视' }],
+      before: '降低 RLHF 对人工标注的沉重依赖。',
+      after: '为可扩展、可解释的对齐提供了另一条路径。'
+    },
+    'GPT-4': {
+      essay: [
+        'GPT-4 最被低估的成就并不在能力榜单上，而在技术报告的一处细节里：他们用小规模模型的表现，<b>在训练开始之前</b>就准确预测出了 GPT-4 的最终性能。',
+        '这意味着 Scaling Laws 从「观察到的规律」升级成了「可靠的工程工具」——大模型训练不再是一次押上全部筹码的豪赌。与此同时，GPT-4 在多项人类专业考试中进入前 10%，并首次具备图像理解能力。它标志着大规模预训练路线的成熟与巅峰。'
+      ],
+      quote: { en: 'GPT-4 is a large multimodal model capable of processing image and text inputs and producing text outputs. It exhibits human-level performance on various professional and academic benchmarks.', zh: 'GPT-4 是一个能够处理图像与文本输入、并产生文本输出的大型多模态模型。它在多项专业与学术基准上展现出人类水平的表现。', from: 'GPT-4 Technical Report · Abstract' },
+      facts: [{ v: '前 10%', k: '模拟专业考试成绩' }, { v: '训练前', k: '性能预测的时点' }, { v: '图 + 文', k: '支持的输入模态' }],
+      before: '兑现 Scaling Laws 的可预测性承诺。',
+      after: '多模态与专业级可靠性成为行业新基准。'
+    },
+    'GPT-4V → GPT-4o': {
+      essay: [
+        'GPT-4V 让模型「长出眼睛」，但语音交互仍是拼接的：语音转文字、文字进模型、文字再转语音。每一次转换都在丢信息——语气、停顿、情绪、背景声，在第一步就全部消失了，延迟也层层累积。',
+        'GPT-4o 里的 o 是 omni（全）。它用<b>同一个神经网络端到端处理文本、图像与音频</b>，平均语音响应延迟降到约 320 毫秒，已接近人类对话的自然间隔。模型第一次能「听见」你是怎么说的，而不只是「读到」你说了什么。'
+      ],
+      facts: [{ v: '~320ms', k: '平均语音响应延迟' }, { v: '1 个', k: '处理全模态的模型数' }, { v: 'omni', k: '名称中 o 的含义' }],
+      before: '把此前割裂的各个模态，收进同一个模型。',
+      after: '人机交互从「打字」真正走向「看与说」。'
+    },
+    'RAG 检索增强': {
+      essay: [
+        '大模型的知识固化在训练完成的那一刻。要更新，要么重新训练（昂贵），要么微调（容易遗忘）。更麻烦的是幻觉：模型会用极其自信的语气编造不存在的事实，而用户往往无从分辨。',
+        'RAG 把知识从参数里搬了出来：先检索外部知识库，再把相关片段连同问题一起交给模型。好处是三重的——<b>知识可随时更新、回答可标注来源、幻觉显著减少</b>。这也成了企业级 AI 应用最主流的落地形态：模型负责语言能力，知识库负责事实。'
+      ],
+      quote: { en: 'We explore a general-purpose fine-tuning recipe for retrieval-augmented generation (RAG) — models which combine pre-trained parametric and non-parametric memory for language generation.', zh: '我们探索了一种通用的检索增强生成（RAG）微调方案——这类模型将预训练的参数化记忆与非参数化记忆结合起来用于语言生成。', from: 'arXiv:2005.11401 · Abstract' },
+      facts: [{ v: '2020', k: '论文提出年份' }, { v: '可更新', k: '知识库的关键特性' }, { v: '可溯源', k: '回答附带出处' }],
+      before: '解决「知识固定」与「幻觉」这两大顽疾。',
+      after: '成为企业落地 AI 的主流范式。'
+    },
+    'ReAct → Function Calling → MCP': {
+      essay: [
+        'ReAct（2022）提出一个简单而深刻的循环：让模型交替进行「推理」与「行动」——先想一步，再调用工具，拿到结果后再想下一步。相比一口气想完再动手，这种<b>边做边修正</b>的方式在真实任务上稳健得多。',
+        '但早期实现依赖脆弱的提示词解析，稍有偏差就崩。OpenAI 在 2023 年把它变成 API 原生的 Function Calling，模型直接输出结构化的调用参数。到 2024 年 11 月，Anthropic 开源 MCP，用统一协议解决「每个工具都要单独适配」的 N×M 难题——它被广泛类比为 AI 世界的 USB-C。'
+      ],
+      quote: { en: 'We explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two.', zh: '我们探索让大语言模型以交替的方式同时产生推理轨迹与任务相关的行动，从而让二者产生更强的协同。', from: 'arXiv:2210.03629 · Abstract' },
+      facts: [{ v: '想 ⇄ 做', k: 'ReAct 的核心循环' }, { v: 'N×M → N+M', k: 'MCP 解决的适配难题' }, { v: '2024.11', k: 'MCP 开源时间' }],
+      before: '让模型从「会说」真正走向「会做」。',
+      after: '智能体从设想变成可工程化的系统。'
+    },
+    '思维链 Chain-of-Thought': {
+      essay: [
+        '一个反直觉的发现：同一个模型、同一道数学题，只要在提示里给出几个带推理过程的范例，正确率就能大幅提升。<b>模型没有变，变的只是提问方式</b>。',
+        '这说明推理能力其实早已潜藏在预训练模型里，只是默认的「直接作答」没有把它调用出来。更重要的是，它揭示了一个新方向——让模型把中间步骤显式写出来，就能换到更强的推理。两年后，o1 把这个「写出来」的过程从提示词搬进了模型权重。'
+      ],
+      quote: { en: 'We explore how generating a chain of thought — a series of intermediate reasoning steps — significantly improves the ability of large language models to perform complex reasoning.', zh: '我们探索了生成「思维链」——即一系列中间推理步骤——如何显著提升大语言模型执行复杂推理的能力。', from: 'arXiv:2201.11903 · Abstract' },
+      facts: [{ v: '仅改提示', k: '不改动任何参数' }, { v: '涌现', k: '需模型足够大才生效' }, { v: '2022.01', k: '发表时间' }],
+      before: '发现推理能力其实潜藏在大模型之中。',
+      after: '为 o1 把推理内化进权重指明了方向。'
+    },
+    'o1': {
+      essay: [
+        '到 2024 年，预训练继续做大的边际收益明显放缓——高质量数据接近枯竭，算力成本陡增。o1 打开了另一个维度：不在训练时求解，而在<b>回答时多花算力「想一想」</b>。',
+        '它用强化学习训练模型生成长链的内部思考过程，遇到错误会自我回溯与验证。结果是一条全新的扩展曲线：给模型越多的思考时间，准确率就越高——这是训练之外，第二个可以持续投入的方向。在竞赛数学 AIME 上，它的表现相比前代出现了跃升式的提高。'
+      ],
+      quote: { en: 'Our large-scale reinforcement learning algorithm teaches the model how to think productively using its chain of thought in a highly data-efficient training process.', zh: '我们的大规模强化学习算法，在数据效率极高的训练过程中，教会模型如何用思维链进行富有成效的思考。', from: 'OpenAI 官方博客 · 2024-09' },
+      facts: [{ v: '推理时', k: '全新的扩展维度' }, { v: '强化学习', k: '训练方式' }, { v: 'AIME', k: '提升最显著的基准' }],
+      before: '把 CoT 从提示词搬进模型权重。',
+      after: '开启「推理时算力扩展」这一全新范式。'
+    },
+    'DeepSeek-R1': {
+      essay: [
+        'o1 证明了推理模型这条路可行，但方法闭源、成本高昂，开源社区一时难以追赶。DeepSeek 的 R1 做了两件事：证明这条路可以<b>更简洁地走通</b>，并把结果完全开源。',
+        '最引人注目的是 R1-Zero——完全跳过监督微调的冷启动，直接用强化学习激励正确答案。训练过程中，模型自发涌现出反思、重新检查、延长思考等行为，研究者形容为「顿悟时刻」。R1 以 MIT 协议开源权重，并蒸馏出 1.5B 到 70B 的小模型系列，让推理能力在数周内扩散到整个开源生态。'
+      ],
+      quote: { en: 'DeepSeek-R1-Zero, a model trained via large-scale reinforcement learning without supervised fine-tuning as a preliminary step, demonstrates remarkable reasoning capabilities.', zh: 'DeepSeek-R1-Zero 是一个未经监督微调作为前置步骤、直接通过大规模强化学习训练出的模型，它展现出了卓越的推理能力。', from: 'arXiv:2501.12948 · Abstract' },
+      facts: [{ v: 'MIT', k: '开源协议' }, { v: '1.5B–70B', k: '蒸馏出的模型系列' }, { v: '无 SFT', k: 'R1-Zero 的冷启动方式' }],
+      before: '沿着 o1 开辟的推理路线继续前行。',
+      after: '把推理能力拉入开源生态——长廊在此暂告一段落。'
+    },
+    'GPT-2': {
+      essay: [
+        'GPT-1 之后，OpenAI 做了一件在当时看来相当朴素的事：把同样的架构放大约十倍，喂进更多数据，然后看会发生什么。结果是 15 亿参数的 GPT-2 不仅能写出成段以假乱真的文字，还能在<b>完全没有被专门训练</b>的情况下做翻译、答题、写摘要——论文标题里那句「无监督多任务学习者」，说的就是这件事。',
+        '但 GPT-2 留在历史上的印记，一半来自能力，一半来自 OpenAI 的决定：出于对滥用的担忧，他们没有立刻公开完整模型，而是分阶段发布。这在当时引发激烈争论——有人视之为负责任的克制，也有人视之为营销。无论如何，「<b>一个模型强到不敢发布</b>」第一次成为公共议题，此后所有关于开放与安全的争执，都可以追溯到这一刻。'
+      ],
+      quote: { en: 'Due to our concerns about malicious applications of the technology, we are not releasing the trained model.', zh: '出于对该技术被恶意利用的担忧，我们不会发布训练好的模型。', from: 'OpenAI 官方博客 · 2019-02-14' },
+      facts: [{ v: '15 亿', k: '参数量（约 GPT-1 的 13 倍）' }, { v: '40GB', k: '网页文本训练数据' }, { v: '分阶段', k: '发布方式' }],
+      before: '把 GPT-1 的架构直接放大约十倍。',
+      after: '它给出的信号，让 GPT-3 的百倍放大成为顺理成章的下一步。'
+    },
+    'GAN 生成对抗网络': {
+      essay: [
+        '2014 年，让神经网络「创造」一张逼真图像还是件很困难的事。主流做法要显式建模像素的概率分布，算得动的模型往往只能生成模糊一团。Goodfellow 提出的方案跳出了整个框架：<b>与其教模型什么是真实，不如让它去骗过另一个模型</b>。',
+        '生成器不断制造假图像，判别器不断学习分辨真假，二者在一场极小极大博弈中共同进化——判别器越挑剔，生成器就被逼得越逼真。这个思路优雅得像一则寓言，也确实奏效：此后六年，几乎所有令人惊艳的 AI 图像都出自 GAN 家族。它的软肋同样明显——对抗训练极不稳定，稍有失衡就会崩溃，这个缺陷最终把舞台让给了扩散模型。'
+      ],
+      quote: { en: 'We propose a new framework for estimating generative models via an adversarial process, in which we simultaneously train two models: a generative model G that captures the data distribution, and a discriminative model D that estimates the probability that a sample came from the training data rather than G.', zh: '我们提出一种通过对抗过程来估计生成模型的新框架：同时训练两个模型——捕捉数据分布的生成模型 G，以及估计样本来自训练数据而非 G 的概率的判别模型 D。', from: 'arXiv:1406.2661 · Abstract' },
+      facts: [{ v: '2 个', k: '互相对抗的网络' }, { v: '极小极大', k: '博弈的数学形式' }, { v: '~6 年', k: '主导图像生成的时长' }],
+      before: '这里是生成式 AI 图像支线的起点。',
+      after: '主导图像生成六年，直到扩散模型接过接力棒。'
+    },
+    '扩散模型 Diffusion': {
+      essay: [
+        'GAN 好用，但训练它像走钢丝——生成器与判别器的力量稍有失衡，训练就会崩溃，或者陷入「模式崩溃」：反复生成几乎雷同的图像。扩散模型换了一个完全不同的思路，灵感来自非平衡热力学：<b>先把图像一点点加噪，直到彻底变成随机噪声；再训练模型学会把这个过程反过来走</b>。',
+        '关键在于任务被拆解了。「凭空生成一张图」很难，但「把一张稍微有点噪的图去掉一点噪」很简单。DDPM 把生成拆成上千个这样的小步，每一步都容易学、容易收敛。代价是生成慢（要跑上千次去噪），换来的却是 GAN 求而不得的稳定与多样性。两年之内，它成了几乎所有主流图像生成系统的共同底座。'
+      ],
+      quote: { en: 'We present high quality image synthesis results using diffusion probabilistic models, a class of latent variable models inspired by considerations from nonequilibrium thermodynamics.', zh: '我们展示了使用扩散概率模型取得的高质量图像合成结果——这是一类受非平衡热力学启发的隐变量模型。', from: 'arXiv:2006.11239 · Abstract' },
+      facts: [{ v: '上千步', k: '去噪的步数' }, { v: '热力学', k: '灵感来源' }, { v: '稳定', k: '相对 GAN 的最大优势' }],
+      before: '为解决 GAN 训练不稳定、多样性不足而生。',
+      after: '成为 DALL·E 2、Stable Diffusion、Midjourney 共同的底层。'
+    },
+    'DALL·E 2': {
+      essay: [
+        '到 2022 年初，两块拼图已各自就位：CLIP 让文字和图像住进了同一个语义空间，扩散模型则能生成高质量图像。DALL·E 2 做的事，本质上就是<b>把这两块拼图扣在一起</b>——用 CLIP 理解你说了什么，用扩散模型把它画出来。',
+        '具体分两阶段：先由一个「先验」模型把文本描述转成 CLIP 的图像语义向量，再由扩散解码器依据这个向量生成图像。效果是断崖式的——「一只戴贝雷帽的柴犬，油画风格」这类此前根本无从表达的指令，第一次得到了准确得令人不安的回应。AI 绘画由此从研究话题变成了全民话题，也让「做一个开源的同款」变成了迫切的社区需求。'
+      ],
+      quote: { en: 'To leverage these representations for image generation, we propose a two-stage model: a prior that generates a CLIP image embedding given a text caption, and a decoder that generates an image conditioned on the image embedding.', zh: '为了将这些表示用于图像生成，我们提出一个两阶段模型：先由先验模型根据文本描述生成 CLIP 图像嵌入，再由解码器基于该嵌入生成图像。', from: 'arXiv:2204.06125 · Abstract' },
+      facts: [{ v: '两阶段', k: '先验 + 解码器' }, { v: 'CLIP + 扩散', k: '被扣在一起的两块拼图' }, { v: '2022.04', k: '发布时间' }],
+      before: '接上 CLIP 的图文对齐与扩散模型的生成能力。',
+      after: '把 AI 绘画推入大众视野，也催生了对开源同款的迫切需求。'
+    },
+    'Stable Diffusion': {
+      essay: [
+        'DALL·E 2 惊艳，但要排队申请、有内容限制、模型闭源。人们想要的东西已被证明可行，却拿不到手。Stable Diffusion 解决的正是这个问题——它的技术关键是一个非常工程化的洞察：<b>扩散过程没有必要在高分辨率的像素上进行</b>。',
+        '潜空间扩散先用自编码器把图像压缩数十倍，在这个小得多的潜空间里完成全部去噪计算，最后再解码回像素。算力需求因此骤降到消费级显卡也能承受的水平。2022 年 8 月，模型权重完整开源——随后几个月里，微调、LoRA、ControlNet 等生态迅速生长出来。图像生成从此不再是少数机构的特权，这也是整条图像支线在与语言主线会合前，走出的最后一步。'
+      ],
+      quote: { en: 'To enable DM training on limited computational resources while retaining their quality and flexibility, we apply them in the latent space of powerful pretrained autoencoders.', zh: '为了在有限算力资源上训练扩散模型、同时保持其质量与灵活性，我们将其应用在强大的预训练自编码器的潜空间之中。', from: 'arXiv:2112.10752 · Abstract' },
+      facts: [{ v: '潜空间', k: '扩散发生的地方' }, { v: '消费级显卡', k: '可运行的硬件门槛' }, { v: '开源权重', k: '引爆社区的关键' }],
+      before: '把 DALL·E 2 证明可行的能力，做得又轻、又开放。',
+      after: '图像生成民主化——支线至此成熟，准备与语言主线会合。'
+    },
+    'Sora': {
+      essay: [
+        '图像生成成熟之后，下一个目标自然是视频。但视频不是「很多张图像」那么简单——它要求<b>时间维度上的连贯</b>：一个人转身之后必须还是同一个人，杯子被挡住再露出来不能换了样子。此前的视频生成模型往往只能撑几秒，画面很快就开始漂移、崩坏。',
+        'Sora 的做法是把 Transformer 的思路整个搬过来：既然语言模型把句子切成 token，那就把视频切成<b>时空碎片</b>（spacetime patches）——每一片同时包含一小块空间和一小段时间。用扩散 Transformer 在这些碎片上训练，模型得以生成长达约一分钟、且始终保持一致的视频。OpenAI 在技术报告里把这类模型称作「世界模拟器」，这个提法本身也引发了广泛争论。'
+      ],
+      quote: { en: 'We leverage a transformer architecture that operates on spacetime patches of video and image latent codes.', zh: '我们采用一种 Transformer 架构，它作用于视频与图像潜编码的时空碎片之上。', from: 'Video generation models as world simulators · OpenAI 技术报告' },
+      facts: [{ v: '~60 秒', k: '可生成的视频长度' }, { v: '时空碎片', k: '视频的「token」' }, { v: '世界模拟器', k: '技术报告中的提法' }],
+      before: '把扩散与 Transformer 的思路，从图像推进到视频。',
+      after: '生成的疆域，从静态画面扩展到时间本身。'
+    }
+  };
+
+  function segHTML(cls, k, v) {
+    return '<div class="seg ' + cls + '"><div class="seg-k"><i></i>' + k + '</div><div class="seg-v">' + v + '</div></div>';
+  }
+  var FLAT = [];
+  function exhibitHTML(ex, era, hallNo) {
+    var srcs = ex.src.map(function (s) { return '<a class="src-tag" href="' + s.u + '">' + icon(extIcon) + s.t + '</a>'; }).join('');
+    var f = FIGS[ex.title];
+    var fig = f ? '<figure class="fig">' + f.svg + '<figcaption class="fig-cap">' + f.cap + '</figcaption></figure>' : '';
+    var idx = FLAT.length;
+    ex.acc = 'NO. ' + (idx + 1 < 10 ? '0' : '') + (idx + 1); // 馆藏号按长廊顺序自动连续编号
+    FLAT.push({ ex: ex, era: era, hallNo: hallNo });
+    return '<article class="exhibit reveal" data-flat="' + idx + '" tabindex="0" role="button" aria-label="查看《' + ex.title + '》的深度解读">' +
+      '<div class="ex-top"><span class="ex-acc">' + ex.acc + '</span><span class="ex-year">' + ex.year + '</span></div>' +
+      '<h3 class="ex-title">' + ex.title + '</h3>' +
+      '<div class="ex-org">' + ex.org + ' &nbsp;·&nbsp; <span class="en">' + ex.en + '</span></div>' +
+      fig +
+      '<div class="ex-body">' +
+        segHTML('problem', '当时的困境', ex.problem) +
+        segHTML('break', '突破', ex.brk) +
+        segHTML('insight', '关键洞察', ex.insight) +
+        segHTML('impact', '影响与遗产', ex.impact) +
+      '</div>' +
+      '<div class="ex-src"><span class="lab">馆藏出处</span>' + srcs +
+        '<span class="ex-more">深度解读 →</span>' +
+      '</div>' +
+    '</article>';
+  }
+  function bridgeHTML(txt) {
+    if (!txt) return '';
+    return '<div class="bridge reveal"><div class="stem top"></div><div class="bridge-mark">承上启下</div><div class="bridge-txt">' + txt + '</div><div class="stem"></div></div>';
+  }
+  function hallHTML(era, i) {
+    var n = i + 1;
+    return '<section class="hall wrap" id="hall-' + n + '" style="--era-c:' + era.color + '">' +
+      '<div class="hall-head reveal">' +
+        '<div class="hall-idx">' + era.idx + '<span class="yr">' + era.year + '</span></div>' +
+        '<h2 class="hall-title">' + era.title + '</h2>' +
+        '<div class="hall-sub">' + era.sub + '</div>' +
+        '<p class="hall-lede">' + era.lede + '</p>' +
+      '</div>' +
+      era.exhibits.map(function (ex) { return exhibitHTML(ex, era, n); }).join('') +
+      bridgeHTML(era.bridge) +
+    '</section>';
+  }
+
+  document.getElementById('halls').innerHTML = ERAS.map(hallHTML).join('');
+  document.getElementById('railItems').innerHTML = ERAS.map(function (era, i) {
+    var n = i + 1;
+    return '<a class="rail-item" data-hall="' + n + '" href="#hall-' + n + '" style="--era-c:' + era.color + '">' +
+      '<span class="rail-num">' + era.roman + '</span>' +
+      '<span class="rail-nm">' + era.title + '<span class="rail-yr">' + era.year + '</span></span></a>';
+  }).join('');
+
+  // scroll progress
+  var prog = document.getElementById('prog');
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // active hall in rail + reveal
+  var railItems = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
+  var halls = ERAS.map(function (_, i) { return document.getElementById('hall-' + (i + 1)); });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add('in');
+    });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  // ===== 深度解读 =====
+  var detail = document.getElementById('detail');
+  var scrim = document.getElementById('dScrim');
+  var curIdx = -1, lastFocus = null;
+
+  function detailHTML(i) {
+    var it = FLAT[i], ex = it.ex, era = it.era, d = DETAILS[ex.title] || {};
+    var f = FIGS[ex.title];
+    var fig = f ? '<figure class="fig" style="margin:0 0 34px">' + f.svg + '<figcaption class="fig-cap">' + f.cap + '</figcaption></figure>' : '';
+    var essay = (d.essay || ['（本件展品的深度解读正在整理中。）']).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+    var quote = d.quote ? '<div class="d-sect">原文摘录</div><blockquote class="d-quote">' +
+      '<p class="qen">“' + d.quote.en + '”</p><p class="qzh">' + d.quote.zh + '</p>' +
+      '<div class="qfrom">— ' + d.quote.from + '</div></blockquote><hr class="d-rule">' : '';
+    var facts = d.facts ? '<div class="d-sect">关键数据</div><div class="d-facts">' + d.facts.map(function (x) {
+      return '<div class="d-fact"><div class="v">' + x.v + '</div><div class="k">' + x.k + '</div></div>';
+    }).join('') + '</div><hr class="d-rule">' : '';
+    var chain = (d.before || d.after) ? '<div class="d-sect">在因果链上的位置</div><div class="d-chain">' +
+      '<div class="d-link"><span class="lab">← 承接自</span><p>' + (d.before || '—') + '</p></div>' +
+      '<div class="d-link"><span class="lab">启发了 →</span><p>' + (d.after || '—') + '</p></div>' +
+      '</div><hr class="d-rule">' : '';
+    var srcs = ex.src.map(function (s) { return '<a class="src-tag" href="' + s.u + '">' + icon(extIcon) + s.t + '</a>'; }).join('');
+    var prev = FLAT[i - 1], next = FLAT[i + 1];
+
+    return '<div class="d-bar">' +
+        '<button class="d-btn" data-act="close">← 返回长廊</button>' +
+        '<span class="d-where"><i></i>' + era.idx + ' · ' + era.title + '</span>' +
+        '<span class="d-nav">' +
+          '<button class="d-btn" data-act="prev"' + (prev ? '' : ' disabled') + ' aria-label="上一件展品">←</button>' +
+          '<button class="d-btn" data-act="next"' + (next ? '' : ' disabled') + ' aria-label="下一件展品">→</button>' +
+        '</span>' +
+      '</div>' +
+      '<div class="d-body" style="--era-c:' + era.color + '">' +
+        '<div class="d-acc"><span>' + ex.acc + '</span><span class="yr">' + ex.year + '</span></div>' +
+        '<h1 class="d-title">' + ex.title + '</h1>' +
+        '<div class="d-org">' + ex.org + '</div>' +
+        '<div class="d-en">' + ex.en + '</div>' +
+        '<hr class="d-rule">' +
+        fig +
+        '<div class="d-sect">策展解读</div><div class="d-essay">' + essay + '</div><hr class="d-rule">' +
+        quote + facts + chain +
+        '<div class="d-sect">馆藏出处</div><div class="ex-src" style="border:none;padding:0;margin:0">' + srcs + '</div>' +
+        '<div class="d-foot">' +
+          (prev ? '<button class="d-btn" data-act="prev"><span>← 上一件</span>' + prev.ex.title + '</button>' : '') +
+          (next ? '<button class="d-btn" data-act="next"><span>下一件 →</span>' + next.ex.title + '</button>' : '') +
+        '</div>' +
+      '</div>';
+  }
+
+  function openDetail(i) {
+    if (i < 0 || i >= FLAT.length) return;
+    if (curIdx === -1) lastFocus = document.activeElement;
+    curIdx = i;
+    detail.innerHTML = detailHTML(i);
+    detail.classList.add('open');
+    scrim.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    detail.scrollTop = 0;
+    var b = detail.querySelector('[data-act="close"]');
+    if (b) b.focus();
+  }
+  function closeDetail() {
+    if (curIdx === -1) return;
+    curIdx = -1;
+    detail.classList.remove('open');
+    scrim.classList.remove('open');
+    document.body.style.overflow = '';
+    detail.innerHTML = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.getElementById('halls').addEventListener('click', function (e) {
+    if (e.target.closest('.src-tag')) return; // 出处链接不触发详情
+    var card = e.target.closest('.exhibit');
+    if (card) openDetail(+card.getAttribute('data-flat'));
+  });
+  document.getElementById('halls').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var card = e.target.closest('.exhibit');
+    if (card) { e.preventDefault(); openDetail(+card.getAttribute('data-flat')); }
+  });
+  detail.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]');
+    if (!b) return;
+    var a = b.getAttribute('data-act');
+    if (a === 'close') closeDetail();
+    else if (a === 'prev') openDetail(curIdx - 1);
+    else if (a === 'next') openDetail(curIdx + 1);
+  });
+  scrim.addEventListener('click', closeDetail);
+  document.addEventListener('keydown', function (e) {
+    if (curIdx === -1) return;
+    if (e.key === 'Escape') closeDetail();
+    else if (e.key === 'ArrowLeft') openDetail(curIdx - 1);
+    else if (e.key === 'ArrowRight') openDetail(curIdx + 1);
+  });
+
+  var railIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        var n = e.target.id.split('-')[1];
+        railItems.forEach(function (r) { r.classList.toggle('on', r.getAttribute('data-hall') === n); });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  halls.forEach(function (h) { railIO.observe(h); });
+</script>
