@@ -1,7 +1,7 @@
 {
-  "versionCode": 21,
-  "versionName": "0.14.1",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.14.1.apk",
-  "changelog": "应用中心（单列表）：顶部预留宠物区，分类区复用能力页扁平样式（默认全收起，点击/左滑展开），下面直连 A-Z 列表；rail 只做定位（☰ 回顶部，字母跳转居中，波浪避让+气泡外侧）。手势纠正：左滑=多、右滑=少——D1左滑→D2左滑→D3，右滑逐级收回；A-Z行左滑展开操作、右滑隐藏；组头左滑展开、右滑折叠",
+  "versionCode": 23,
+  "versionName": "0.15.1",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.15.1.apk",
+  "changelog": "宠物整理员：新通知/日程由宠物分类整理，右侧四文件夹标签（重要/工作/娱乐/隐私），左滑展开右滑完成；Dock默认显示并记住行数；应用中心rail避让优化；应用行两段式左右滑；字母气泡对齐修复",
   "forceUpdate": false
 }
