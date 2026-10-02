@@ -1,7 +1,7 @@
 {
-  "versionCode": 19,
-  "versionName": "0.13.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.13.0.apk",
-  "changelog": "波浪字母修正：字母列不动，只有波浪避让拇指；手势签名统一：右滑=多（D1→D2→D3）、左滑=少（D3→D2→D1→隐藏），上滑直达全屏；首页通知卡/日程卡右滑展开、左滑收起",
+  "versionCode": 20,
+  "versionName": "0.14.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.14.0.apk",
+  "changelog": "应用中心：删能力页单页桌面/分组+A-Z双视图/rail双模式切换/细项左右滑。手势纠正（Bob）：左滑=多、右滑=少——D1左滑→D2左滑→D3，右滑逐级收回；A-Z行左滑展开操作、右滑隐藏；组头左滑展开、右滑折叠；首页卡片左滑展开、右滑收起",
   "forceUpdate": false
 }
