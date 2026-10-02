@@ -1,0 +1,7 @@
+{
+  "versionCode": 7,
+  "versionName": "0.5.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-latest.apk",
+  "changelog": "自动OTA升级：后续版本无需手动下载安装\n修复联网权限，DeepSeek意图路由可用\nv0.4：通知点击跳转、日历三层展示、能力页折叠展开、A-Z快速索引、页面指示点",
+  "forceUpdate": false
+}
