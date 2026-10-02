@@ -1,7 +1,7 @@
 {
   "versionCode": 9,
   "versionName": "0.6.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-latest.apk",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.6.0.apk",
   "changelog": "语音改App内识别；AI分组置顶+微信/QQ/微博/小红书/抖音；长按整理分类；意图框直连大模型对话；中文按拼音A-Z排序",
   "forceUpdate": false
 }
