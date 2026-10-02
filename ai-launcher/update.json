@@ -1,7 +1,7 @@
 {
-  "versionCode": 16,
-  "versionName": "0.11.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.11.0.apk",
-  "changelog": "玻璃拟态视觉重做：显示壁纸+毛玻璃；Dock浮卡独立悬浮；A-Z导航显示修复",
+  "versionCode": 17,
+  "versionName": "0.11.1",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.11.1.apk",
+  "changelog": "A-Z字母清晰度提升；浮卡去掉独立横线、改内置grabber pill；严格三档吸附+过档反馈",
   "forceUpdate": false
 }
