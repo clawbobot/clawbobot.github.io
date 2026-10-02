@@ -1,7 +1,7 @@
 {
-  "versionCode": 8,
-  "versionName": "0.5.1",
+  "versionCode": 9,
+  "versionName": "0.6.0",
   "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-latest.apk",
-  "changelog": "新增导航能力：「导航到XX」直达高德并填好目的地\n关键词/模型路由补上导航，deep link参数URL编码",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
