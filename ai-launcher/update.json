@@ -1,7 +1,7 @@
 {
-  "versionCode": 14,
-  "versionName": "0.10.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.10.0.apk",
-  "changelog": "上拉Dock整合：横线手柄+浮卡两档+全屏，默认无Dock；指示器去菱形；A-Z弧形导航",
+  "versionCode": 15,
+  "versionName": "0.10.1",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.10.1.apk",
+  "changelog": "上拉Dock细节精修：档位高度按内容压缩/去标题去应用名/全屏无圆角/A-Z导航压缩；AI智能分类容错加固：响应解析三级兜底",
   "forceUpdate": false
 }
