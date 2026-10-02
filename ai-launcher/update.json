@@ -1,7 +1,7 @@
 {
-  "versionCode": 7,
-  "versionName": "0.5.0",
+  "versionCode": 8,
+  "versionName": "0.5.1",
   "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-latest.apk",
-  "changelog": "自动OTA升级：后续版本无需手动下载安装\n修复联网权限，DeepSeek意图路由可用\nv0.4：通知点击跳转、日历三层展示、能力页折叠展开、A-Z快速索引、页面指示点",
+  "changelog": "新增导航能力：「导航到XX」直达高德并填好目的地\n关键词/模型路由补上导航，deep link参数URL编码",
   "forceUpdate": false
 }
