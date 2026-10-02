@@ -1,7 +1,7 @@
 {
-  "versionCode": 23,
-  "versionName": "0.15.1",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.15.1.apk",
-  "changelog": "宠物整理员：新通知/日程由宠物分类整理，右侧四文件夹标签（重要/工作/娱乐/隐私），左滑展开右滑完成；Dock默认显示并记住行数；应用中心rail避让优化；应用行两段式左右滑；字母气泡对齐修复",
+  "versionCode": 24,
+  "versionName": "0.15.2",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.15.2.apk",
+  "changelog": "修复 AI 智能分类：改走意图框已验证的请求链路（去掉 response_format 参数），加请求/响应日志方便排错",
   "forceUpdate": false
 }
