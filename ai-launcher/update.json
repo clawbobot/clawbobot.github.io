@@ -1,7 +1,7 @@
 {
-  "versionCode": 17,
-  "versionName": "0.11.1",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.11.1.apk",
-  "changelog": "A-Z字母清晰度提升；浮卡去掉独立横线、改内置grabber pill；严格三档吸附+过档反馈",
+  "versionCode": 18,
+  "versionName": "0.12.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.12.0.apk",
+  "changelog": "Dock改手势切换去横线：横线手柄彻底去掉，D1左滑↔D2右滑、上下滑切换全屏，手势触发+弹簧动画；A-Z导航拇指偏移+设置页惯用手选项；D3全屏改为不透明整屏替换",
   "forceUpdate": false
 }
