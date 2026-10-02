@@ -1,7 +1,7 @@
 {
-  "versionCode": 9,
-  "versionName": "0.6.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.6.0.apk",
-  "changelog": "语音改App内识别；AI分组置顶+微信/QQ/微博/小红书/抖音；长按整理分类；意图框直连大模型对话；中文按拼音A-Z排序",
+  "versionCode": 10,
+  "versionName": "0.7.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.7.0.apk",
+  "changelog": "首页指示器v3.5：两点一组+悬浮实心菱形，呼吸浮动/上跳/切页轻推动画，首次使用抽屉露头引导；能力页分类v4：54dp收起单行、弱化类名、+n分类色胶囊展开收起",
   "forceUpdate": false
 }
