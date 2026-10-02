@@ -1,7 +1,7 @@
 {
-  "versionCode": 13,
-  "versionName": "0.9.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.9.0.apk",
-  "changelog": "桌面感首页：大时钟+日期、Dock常用应用；全部应用改为可拖动三档抽屉（把手+搜索/半屏/全屏）；分类收起态改扁平列表行",
+  "versionCode": 14,
+  "versionName": "0.10.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.10.0.apk",
+  "changelog": "上拉Dock整合：横线手柄+浮卡两档+全屏，默认无Dock；指示器去菱形；A-Z弧形导航",
   "forceUpdate": false
 }
