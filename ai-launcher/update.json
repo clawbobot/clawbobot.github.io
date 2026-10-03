@@ -1,7 +1,7 @@
 {
-  "versionCode": 26,
-  "versionName": "0.16.1",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.16.1.apk",
-  "changelog": "应用中心左滑同时只展开一个；修复设为默认桌面后系统底部手势（切最近应用）失效",
+  "versionCode": 27,
+  "versionName": "0.17.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.17.0.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
