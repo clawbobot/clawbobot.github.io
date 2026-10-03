@@ -1,7 +1,7 @@
 {
-  "versionCode": 34,
-  "versionName": "0.23.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.23.0.apk",
-  "changelog": "应用中心简化：分类区取消，搜索+A-Z 更直接；宠物形象换成七仔",
+  "versionCode": 35,
+  "versionName": "0.24.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.24.0.apk",
+  "changelog": "应用中心字母导航升级为波浪式：按住拖动时字母放大跟手，列表同步切换",
   "forceUpdate": false
 }
