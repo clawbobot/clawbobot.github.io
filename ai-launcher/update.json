@@ -2,6 +2,6 @@
   "versionCode": 27,
   "versionName": "0.17.0",
   "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.17.0.apk",
-  "changelog": "常规更新",
+  "changelog": "架构重构 Phase 1：事件总线 + AI Brain 解耦骨架；功能行为不变",
   "forceUpdate": false
 }
