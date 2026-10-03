@@ -1,7 +1,7 @@
 {
   "versionCode": 38,
   "versionName": "0.25.1",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.1/ai-launcher-v0.25.1.apk",
-  "changelog": "常规更新",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.25.1.apk",
+  "changelog": "字母导航常显修复+聚焦模式：拖动只显示当前字母，松手位置不跳变；搜索单行；全屏；七仔透明底；点七仔检查更新",
   "forceUpdate": false
 }
