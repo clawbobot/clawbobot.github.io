@@ -1,7 +1,7 @@
 {
-  "versionCode": 35,
-  "versionName": "0.24.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.24.0.apk",
-  "changelog": "应用中心字母导航升级为波浪式：按住拖动时字母放大跟手，列表同步切换",
+  "versionCode": 38,
+  "versionName": "0.25.1",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.25.1.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
