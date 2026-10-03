@@ -1,7 +1,7 @@
 {
-  "versionCode": 43,
-  "versionName": "0.25.6",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.6/ai-launcher-v0.25.6.apk",
-  "changelog": "七仔P0：呼吸/眨眼/点按果冻/落地阴影；删除常用横条",
+  "versionCode": 44,
+  "versionName": "0.25.7",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.7/ai-launcher-v0.25.7.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
