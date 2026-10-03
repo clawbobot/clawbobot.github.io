@@ -1,7 +1,7 @@
 {
-  "versionCode": 47,
-  "versionName": "0.25.10",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.10/ai-launcher-v0.25.10.apk",
-  "changelog": "字母滑动不换颜色；应用行紧凑化",
+  "versionCode": 48,
+  "versionName": "0.26.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.26.0/ai-launcher-v0.26.0.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
