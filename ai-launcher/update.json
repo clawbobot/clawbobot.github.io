@@ -2,6 +2,6 @@
   "versionCode": 40,
   "versionName": "0.25.3",
   "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.3/ai-launcher-v0.25.3.apk",
-  "changelog": "常规更新",
+  "changelog": "松手后字母定位到顶部；哔哩哔哩/浏览器拼音分组修复；搜索下方加最近使用横条；点七仔检查更新修复",
   "forceUpdate": false
 }
