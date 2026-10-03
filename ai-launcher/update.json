@@ -1,7 +1,7 @@
 {
-  "versionCode": 66,
-  "versionName": "0.29.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.29.2/ai-launcher-v0.29.2.apk",
-  "changelog": "宠物动画优化：姿势切换挤压回弹、移动带倾斜、各状态加轻微无缝循环；抱卡片换全身版；新增天气/通知/会议/升级宠物行为",
+  "versionCode": 67,
+  "versionName": "0.30.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.30.0/ai-launcher-v0.30.0.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
