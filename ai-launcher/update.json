@@ -1,7 +1,7 @@
 {
-  "versionCode": 39,
-  "versionName": "0.25.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.2/ai-launcher-v0.25.2.apk",
-  "changelog": "松手后字母位置不跳变；七仔去掉头顶火苗，透明底重做",
+  "versionCode": 40,
+  "versionName": "0.25.3",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.25.3/ai-launcher-v0.25.3.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
