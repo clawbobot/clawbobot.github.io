@@ -1,7 +1,7 @@
 {
-  "versionCode": 31,
-  "versionName": "0.21.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.21.0.apk",
-  "changelog": "应用中心搜索升级：支持拼音、首字母、自然语言，如\"打车\"",
+  "versionCode": 32,
+  "versionName": "0.21.1",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.21.1.apk",
+  "changelog": "修复：应用中心搜索框漏接——上滑进入应用中心，标题下方现在有搜索框，支持拼音、首字母、自然语言（如\"打车\"）",
   "forceUpdate": false
 }
