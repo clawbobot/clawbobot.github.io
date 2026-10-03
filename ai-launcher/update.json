@@ -1,7 +1,7 @@
 {
-  "versionCode": 63,
-  "versionName": "0.28.1",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.28.1/ai-launcher-v0.28.1.apk",
-  "changelog": "常规更新",
+  "versionCode": 64,
+  "versionName": "0.29.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.29.0/ai-launcher-v0.29.0.apk",
+  "changelog": "宠物形象换成 meteor3 全身版：手脚清晰可见，站立/跳跃/抱卡片/挥手四种状态动作",
   "forceUpdate": false
 }
