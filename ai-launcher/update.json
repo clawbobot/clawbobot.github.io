@@ -1,7 +1,7 @@
 {
-  "versionCode": 28,
-  "versionName": "0.18.0",
-  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.18.0.apk",
-  "changelog": "Action Engine 上线：意图框能直接办事了；中高风险操作会先弹窗确认",
+  "versionCode": 29,
+  "versionName": "0.19.0",
+  "apkUrl": "https://bobot.is-a.dev/ai-launcher/ai-launcher-v0.19.0.apk",
+  "changelog": "首页新样子：极简顶栏+情境信息条；宠物有了12种状态，晚上会睡觉",
   "forceUpdate": false
 }
