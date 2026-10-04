@@ -1,7 +1,7 @@
 {
-  "versionCode": 82,
-  "versionName": "0.35.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.35.0/ai-launcher-v0.35.0.apk",
-  "changelog": "应用行左滑新增「加到 Dock」按钮（一键置顶到底部 Dock）；操作按钮间距统一重排；首次左滑显示一次性新手引导；设置页新增 Dock 置顶管理，可调顺序、可移除",
+  "versionCode": 83,
+  "versionName": "0.36.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.36.0/ai-launcher-v0.36.0.apk",
+  "changelog": "下滑手势权限引导：首次下滑先弹说明卡再跳系统设置；应用行按钮间距收紧到 4dp；设置页按主题分组整理；低电量守护补通知权限申请，提醒恢复正常",
   "forceUpdate": false
 }
