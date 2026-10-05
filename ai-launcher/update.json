@@ -1,7 +1,7 @@
 {
-  "versionCode": 88,
-  "versionName": "0.37.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.37.2/ai-launcher-v0.37.2.apk",
-  "changelog": "壁纸改由系统直接透出（和其他桌面一致），不再手动读取",
+  "versionCode": 89,
+  "versionName": "0.38.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.38.0/ai-launcher-v0.38.0.apk",
+  "changelog": "低电量提醒：新增全屏弹出权限检测，未开启时一键跳转去开（直接弹到最上层、暂停视频）",
   "forceUpdate": false
 }
