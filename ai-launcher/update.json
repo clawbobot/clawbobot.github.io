@@ -1,7 +1,7 @@
 {
-  "versionCode": 86,
-  "versionName": "0.37.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.37.0/ai-launcher-v0.37.0.apk",
-  "changelog": "首页改用系统壁纸直接透出（更省内存、与系统实时同步）；低电量保护：首次启动可一键开启，电量低时弹窗提醒（可盖住全屏应用）；通知权限按需申请；内部：Live2D 渲染验证 demo 并入主分支（debug 包）",
+  "versionCode": 87,
+  "versionName": "0.37.1",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.37.1/ai-launcher-v0.37.1.apk",
+  "changelog": "修复壁纸显示问题：回滚到之前稳定的壁纸绘制方案",
   "forceUpdate": false
 }
