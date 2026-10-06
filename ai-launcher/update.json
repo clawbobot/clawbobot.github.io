@@ -1,7 +1,7 @@
 {
-  "versionCode": 101,
-  "versionName": "0.41.6",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.6/ai-launcher-v0.41.6.apk",
-  "changelog": "幽灵字母：每组都显示完整字母，滚动时当前字母悬停、被下一个顶走；升级流程优化：下载进度直接在对话框显示，下载完自动弹安装",
+  "versionCode": 102,
+  "versionName": "0.41.7",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.7/ai-launcher-v0.41.7.apk",
+  "changelog": "修幽灵字母被挡：下面几组的字母现在完整显示",
   "forceUpdate": false
 }
