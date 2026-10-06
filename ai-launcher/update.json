@@ -1,7 +1,7 @@
 {
-  "versionCode": 105,
-  "versionName": "0.41.10",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.10/ai-launcher-v0.41.10.apk",
-  "changelog": "搜索栏加放大镜、设置按钮弱化；隐藏应用移到字母导航：点右下眼睛图标需指纹/面部验证后查看",
+  "versionCode": 106,
+  "versionName": "0.41.11",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.11/ai-launcher-v0.41.11.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
