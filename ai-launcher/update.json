@@ -1,7 +1,7 @@
 {
-  "versionCode": 97,
-  "versionName": "0.41.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.2/ai-launcher-v0.41.2.apk",
-  "changelog": "修复应用中心看不清：背景提到 88% 不透明，字母加深，壁纸不再干扰阅读。",
+  "versionCode": 100,
+  "versionName": "0.41.5",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.5/ai-launcher-v0.41.5.apk",
+  "changelog": "幽灵字母升级：滚动时当前字母悬停在左上角，直到下一个字母出现",
   "forceUpdate": false
 }
