@@ -1,7 +1,7 @@
 {
-  "versionCode": 96,
-  "versionName": "0.41.1",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.1/ai-launcher-v0.41.1.apk",
-  "changelog": "应用中心视觉重设计（呼吸感）：去大标题，搜索收成细线；字母变成淡衬线幽灵字收进左侧；行距拉大、组间更透气；rail 更细更淡，气泡改金环。修复：右侧字母点按后波浪卡住、列表不动。",
+  "versionCode": 97,
+  "versionName": "0.41.2",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.41.2/ai-launcher-v0.41.2.apk",
+  "changelog": "修复应用中心看不清：背景提到 88% 不透明，字母加深，壁纸不再干扰阅读。",
   "forceUpdate": false
 }
