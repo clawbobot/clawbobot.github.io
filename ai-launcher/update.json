@@ -1,7 +1,7 @@
 {
-  "versionCode": 93,
-  "versionName": "0.40.1",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.40.1/ai-launcher-v0.40.1.apk",
-  "changelog": "应用中心字母导航：左右双 rail 常驻（不用再选左右手）、滑动切换字母时有轻震动、切换更平滑跟手",
+  "versionCode": 94,
+  "versionName": "0.40.2",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.40.2/ai-launcher-v0.40.2.apk",
+  "changelog": "字母导航重做：右侧一条可见 rail，左侧隐形滑动同样触发（右侧 rail 跟随亮波浪）；切换震动可用；波浪更轻盈跟手",
   "forceUpdate": false
 }
