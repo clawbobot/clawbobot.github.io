@@ -1,7 +1,7 @@
 {
-  "versionCode": 92,
-  "versionName": "0.40.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.40.0/ai-launcher-v0.40.0.apk",
-  "changelog": "1.低电量守护去掉常驻通知，不再打扰 2.更新下载去重：不会再有两个任务互相等待，下载完自动弹安装 3.应用中心底部上滑回桌面 4.应用中心长按改用真弹窗菜单（位置跟图标走）",
+  "versionCode": 93,
+  "versionName": "0.40.1",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.40.1/ai-launcher-v0.40.1.apk",
+  "changelog": "应用中心字母导航：左右双 rail 常驻（不用再选左右手）、滑动切换字母时有轻震动、切换更平滑跟手",
   "forceUpdate": false
 }
