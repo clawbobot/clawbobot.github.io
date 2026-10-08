@@ -1,7 +1,7 @@
 {
   "versionCode": 148,
-  "versionName": "0.52.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.52.0/ai-launcher-v0.52.0.apk",
-  "changelog": "v0.52.0: 排除 Material2 传递依赖，APK 瘦身",
+  "versionName": "0.51.2",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.51.2/ai-launcher-v0.51.2.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
