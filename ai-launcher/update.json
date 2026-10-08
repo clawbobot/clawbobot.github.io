@@ -1,7 +1,7 @@
 {
-  "versionCode": 148,
-  "versionName": "0.53.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.53.0/ai-launcher-v0.53.0.apk",
-  "changelog": "v0.53.0: R8 混淆，APK 从 62MB 瘦身到 12.6MB",
+  "versionCode": 149,
+  "versionName": "0.54.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.54.0/ai-launcher-v0.54.0.apk",
+  "changelog": "v0.54.0: 收紧 keep 规则，排除 Material2，APK 瘦身",
   "forceUpdate": false
 }
