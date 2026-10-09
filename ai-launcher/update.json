@@ -1,7 +1,7 @@
 {
-  "versionCode": 156,
-  "versionName": "0.57.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.57.0/ai-launcher-v0.57.0.apk",
-  "changelog": "设置页重构：精简为两项，文案用户视角；Dock长按隐藏/上滑叫回；D3和设置页上滑回桌面",
+  "versionCode": 157,
+  "versionName": "0.57.1",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.57.1/ai-launcher-v0.57.1.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
