@@ -1,7 +1,7 @@
 {
-  "versionCode": 167,
-  "versionName": "0.63.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.63.0/ai-launcher-v0.63.0.apk",
+  "versionCode": 168,
+  "versionName": "0.63.1",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.63.1/ai-launcher-v0.63.1.apk",
   "changelog": "常规更新",
   "forceUpdate": false
 }
