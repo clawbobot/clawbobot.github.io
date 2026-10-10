@@ -1,7 +1,7 @@
 {
-  "versionCode": 173,
-  "versionName": "0.64.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.64.2/ai-launcher-v0.64.2.apk",
-  "changelog": "编辑模式开关行可横向滚动不再溢出；TODAY 内容组支持长按拖拽排序（可恢复智能排序）；卡片底部新增版本更新提醒行",
+  "versionCode": 174,
+  "versionName": "0.64.3",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.64.3/ai-launcher-v0.64.3.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
