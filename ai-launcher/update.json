@@ -1,7 +1,7 @@
 {
-  "versionCode": 177,
-  "versionName": "0.64.6",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.64.6/ai-launcher-v0.64.6.apk",
-  "changelog": "常规更新",
+  "versionCode": 178,
+  "versionName": "0.65.0",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.65.0/ai-launcher-v0.65.0.apk",
+  "changelog": "TODAY底部快捷操作组：点+添加常用按钮（应用快捷方式/打开主应用），长按删除，编辑模式可拖拽排序",
   "forceUpdate": false
 }
