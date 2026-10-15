@@ -1,7 +1,7 @@
 {
-  "versionCode": 200,
-  "versionName": "0.67.2",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.67.2/ai-launcher-v0.67.2.apk",
-  "changelog": "常规更新",
+  "versionCode": 201,
+  "versionName": "0.67.3",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.67.3/ai-launcher-v0.67.3.apk",
+  "changelog": "低电量弹窗文案按省电模式状态区分，已开省电模式不再提示去开",
   "forceUpdate": false
 }
