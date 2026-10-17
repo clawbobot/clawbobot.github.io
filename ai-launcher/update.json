@@ -1,7 +1,7 @@
 {
-  "versionCode": 211,
-  "versionName": "0.68.0",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.0/ai-launcher-v0.68.0.apk",
-  "changelog": "盲操：右边缘左滑+停留，快速拍照/录像/录音",
+  "versionCode": 216,
+  "versionName": "0.68.5",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.5/ai-launcher-v0.68.5.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
