@@ -1,7 +1,7 @@
 {
-  "versionCode": 242,
-  "versionName": "0.68.33",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.33/ai-launcher-v0.68.33.apk",
-  "changelog": "盲操扇形两修：右滑方向改主导判定（小勾不再误触发）；扇形提到最顶层绘制，展开时 Dock 淡出，靠近 Dock 时圆心上移",
+  "versionCode": 243,
+  "versionName": "0.68.34",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.34/ai-launcher-v0.68.34.apk",
+  "changelog": "扇形展开时 TODAY 卡片淡出到 0.3（和 Dock 同逻辑视觉让位）",
   "forceUpdate": false
 }
