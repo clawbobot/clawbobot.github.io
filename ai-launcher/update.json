@@ -1,7 +1,7 @@
 {
-  "versionCode": 236,
-  "versionName": "0.68.27",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.27/ai-launcher-v0.68.27.apk",
-  "changelog": "低电量提醒改悬浮窗小气泡：不拽回桌面，不弹模态框",
+  "versionCode": 239,
+  "versionName": "0.68.30",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.30/ai-launcher-v0.68.30.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
