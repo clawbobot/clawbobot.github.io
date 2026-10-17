@@ -1,7 +1,7 @@
 {
-  "versionCode": 246,
-  "versionName": "0.68.37",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.37/ai-launcher-v0.68.37.apk",
-  "changelog": "常规更新",
+  "versionCode": 247,
+  "versionName": "0.68.38",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.38/ai-launcher-v0.68.38.apk",
+  "changelog": "盲操扇形等宽36°：拍照84°收掉，所有段等宽，拍照锚定最顺手位置；标题统一横排",
   "forceUpdate": false
 }
