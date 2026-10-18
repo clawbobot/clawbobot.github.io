@@ -1,7 +1,7 @@
 {
-  "versionCode": 273,
-  "versionName": "0.68.64",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.64/ai-launcher-v0.68.64.apk",
-  "changelog": "盲操扇形·完整编辑模式：扇形展开后手指停留0.8秒整扇钉住——装备段可拖动换位（拖过邻段中线交换+震动）、段上小×删除、虚线+段添加（应用选择器三步）；拍照段钉死正中；点扇形外空白退出。0装备时左滑展开两段扇形（拍照+⊕添加），快滑仍直接拍照。另恢复快捷服务整合（面板已砍，管理只剩扇形内+设置页）。",
+  "versionCode": 274,
+  "versionName": "0.68.65",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.65/ai-launcher-v0.68.65.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
