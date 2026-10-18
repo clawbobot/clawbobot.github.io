@@ -1,7 +1,7 @@
 {
-  "versionCode": 271,
-  "versionName": "0.68.62",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.62/ai-launcher-v0.68.62.apk",
-  "changelog": "快捷服务整合：七仔旁按钮和快捷面板已收掉，左滑扇形是快捷服务的唯一入口；扇形里长按装备可删，设置页可添加排序",
+  "versionCode": 272,
+  "versionName": "0.68.63",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.63/ai-launcher-v0.68.63.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
