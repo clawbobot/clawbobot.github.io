@@ -1,7 +1,7 @@
 {
-  "versionCode": 249,
-  "versionName": "0.68.40",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.40/ai-launcher-v0.68.40.apk",
-  "changelog": "盲操大重构：系统只默认放相机，其他段全部来自你的快捷装备（最多4段）；语音胶囊及录音/转文字/速记全部清除；段标签外移到外圈",
+  "versionCode": 250,
+  "versionName": "0.68.41",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.41/ai-launcher-v0.68.41.apk",
+  "changelog": "盲操扇形精致化：段标签缩小更精致，文字方向跟扇形同角度；拍照选中图标改用本机相机真实图标",
   "forceUpdate": false
 }
