@@ -1,7 +1,7 @@
 {
-  "versionCode": 250,
-  "versionName": "0.68.41",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.41/ai-launcher-v0.68.41.apk",
-  "changelog": "盲操扇形精致化：段标签缩小更精致，文字方向跟扇形同角度；拍照选中图标改用本机相机真实图标",
+  "versionCode": 251,
+  "versionName": "0.68.42",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.42/ai-launcher-v0.68.42.apk",
+  "changelog": "盲操扇形精致化：标签字距+选中字号过渡、段间气隙、暖金选中+投影、收起动画、图标弹跳、拍照快门闪",
   "forceUpdate": false
 }
