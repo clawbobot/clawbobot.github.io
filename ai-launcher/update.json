@@ -1,7 +1,7 @@
 {
-  "versionCode": 274,
-  "versionName": "0.68.65",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.65/ai-launcher-v0.68.65.apk",
-  "changelog": "常规更新",
+  "versionCode": 275,
+  "versionName": "0.68.66",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.66/ai-launcher-v0.68.66.apk",
+  "changelog": "v0.68.66: 设计评审执行层收敛",
   "forceUpdate": false
 }
