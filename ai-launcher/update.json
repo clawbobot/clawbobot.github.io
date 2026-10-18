@@ -1,7 +1,7 @@
 {
-  "versionCode": 252,
-  "versionName": "0.68.43",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.43/ai-launcher-v0.68.43.apk",
-  "changelog": "盲操扇形标签径向旋转修复：文字方向现在跟扇形同角度（bobot ＼ / 扫一扫 ／ / 拍照水平），和原型一致",
+  "versionCode": 253,
+  "versionName": "0.68.44",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.44/ai-launcher-v0.68.44.apk",
+  "changelog": "常规更新",
   "forceUpdate": false
 }
