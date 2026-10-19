@@ -1,7 +1,7 @@
 {
-  "versionCode": 279,
-  "versionName": "0.68.70",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.70/ai-launcher-v0.68.70.apk",
-  "changelog": "常规更新",
+  "versionCode": 280,
+  "versionName": "0.68.72",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.72/ai-launcher-v0.68.72.apk",
+  "changelog": "v0.68.72: 深色模式横向修复（TODAY卡片白底白字）+ 横屏应用中心去掉顶部搜索框",
   "forceUpdate": false
 }
