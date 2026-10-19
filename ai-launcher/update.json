@@ -1,7 +1,7 @@
 {
-  "versionCode": 285,
-  "versionName": "0.68.77",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.77/ai-launcher-v0.68.77.apk",
-  "changelog": "v0.68.77: D2横屏两列收紧，不再散开",
+  "versionCode": 286,
+  "versionName": "0.68.78",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.78/ai-launcher-v0.68.78.apk",
+  "changelog": "v0.68.78: Dock横屏用align强制定位右侧",
   "forceUpdate": false
 }
