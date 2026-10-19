@@ -1,7 +1,7 @@
 {
-  "versionCode": 283,
-  "versionName": "0.68.75",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.75/ai-launcher-v0.68.75.apk",
-  "changelog": "v0.68.75: 横屏行数修正+收藏隐藏回归+去留边+Dock右侧",
+  "versionCode": 284,
+  "versionName": "0.68.76",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.76/ai-launcher-v0.68.76.apk",
+  "changelog": "v0.68.76: 横屏Dock右侧窄竖条，图标竖排不散开",
   "forceUpdate": false
 }
