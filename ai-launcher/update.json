@@ -1,8 +1,8 @@
 {
-  "versionCode": 289,
-  "versionName": "0.68.81",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.81/ai-launcher-v0.68.81.apk",
-  "changelog": "常规更新",
+  "versionCode": 290,
+  "versionName": "0.68.82",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.82/ai-launcher-v0.68.82.apk",
+  "changelog": "横屏三件套：应用中心补齐三套手势（顶栏下滑/左半右滑/底部上滑）、顶栏搜索框可输入、Dock 横屏改右下角横向排列",
   "forceUpdate": false,
   "prerelease": false
 }
