@@ -1,9 +1,9 @@
 {
-  "versionCode": 297,
-  "versionName": "0.68.89",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.89/ai-launcher-v0.68.89.apk",
-  "sha256": "974f8d3138f0b94d9a40981a37096916faff3f1bbde658f12f64d12d22a33f96",
-  "changelog": "安全与文档小修：更新包新增 SHA-256 完整性校验（发布时对安装包计算摘要，下载后对不上就不安装；旧版本清单没有摘要时自动跳过）；大模型 API Key 改为加密存储，旧 Key 首次读取时自动迁移、不会丢失；新建 CHANGELOG 版本档案；README 按现状刷新（补仅限侧载说明与 Live2D SDK 获取说明）。",
+  "versionCode": 298,
+  "versionName": "0.68.90",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.90/ai-launcher-v0.68.90.apk",
+  "sha256": "06914d9089360d8b9f28d3616f5394a9ad85558e7b480c67cd35a4f36e9bf246",
+  "changelog": "内部收拾，体验不变：日历读取和大模型连接测试挪到数据层，界面层不再直连系统与模型；深色配色的全局状态换成标准组合写法，全 App 209 处颜色读取统一走新通道；竖屏顶部状态栏与底部手势区的边距收口到一个统一 helper。长相与行为零变化——本版经 64 项单测与五种机型/模式矩阵逐图比对验证。",
   "forceUpdate": false,
   "prerelease": false
 }
