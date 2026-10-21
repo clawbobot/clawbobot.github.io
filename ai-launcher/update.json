@@ -1,8 +1,9 @@
 {
-  "versionCode": 296,
-  "versionName": "0.68.88",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.88/ai-launcher-v0.68.88.apk",
-  "changelog": "能力改为按你手机实际装的应用绑定：只装腾讯地图也能正常导航；没装的应用不再许诺能办到；新装或卸载应用后，能力和搜索自动跟着更新；深链打不开时会自动换下一家、再兜底打开应用。",
+  "versionCode": 297,
+  "versionName": "0.68.89",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.89/ai-launcher-v0.68.89.apk",
+  "sha256": "974f8d3138f0b94d9a40981a37096916faff3f1bbde658f12f64d12d22a33f96",
+  "changelog": "安全与文档小修：更新包新增 SHA-256 完整性校验（发布时对安装包计算摘要，下载后对不上就不安装；旧版本清单没有摘要时自动跳过）；大模型 API Key 改为加密存储，旧 Key 首次读取时自动迁移、不会丢失；新建 CHANGELOG 版本档案；README 按现状刷新（补仅限侧载说明与 Live2D SDK 获取说明）。",
   "forceUpdate": false,
   "prerelease": false
 }
