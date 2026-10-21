@@ -1,9 +1,9 @@
 {
-  "versionCode": 299,
-  "versionName": "0.68.91",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.91/ai-launcher-v0.68.91.apk",
-  "sha256": "dbd1f6dad19f82bdcde05279a1b58613540a750c612e035b7f5fc882b77e8964",
-  "changelog": "内部收拾，体验不变：最大的界面文件 PetZone 按职责拆成三个文件（TODAY 区块、宠物卡片独立），顺手把字号统一到字阶 token。行为与长相零变化——本版经 64 项单测、冒烟 40/40、五腿矩阵 209 张截图与上一版逐对像素比对验证。",
+  "versionCode": 300,
+  "versionName": "0.68.92",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.92/ai-launcher-v0.68.92.apk",
+  "sha256": "5cdf6be07c47d605eb09477f30ded859749c1f6800128bdbc1ecb7fee82b7e78",
+  "changelog": "常规更新",
   "forceUpdate": false,
   "prerelease": false
 }
