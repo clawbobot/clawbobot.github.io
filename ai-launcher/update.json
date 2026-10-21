@@ -1,9 +1,9 @@
 {
-  "versionCode": 298,
-  "versionName": "0.68.90",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.90/ai-launcher-v0.68.90.apk",
-  "sha256": "06914d9089360d8b9f28d3616f5394a9ad85558e7b480c67cd35a4f36e9bf246",
-  "changelog": "内部收拾，体验不变：日历读取和大模型连接测试挪到数据层，界面层不再直连系统与模型；深色配色的全局状态换成标准组合写法，全 App 209 处颜色读取统一走新通道；竖屏顶部状态栏与底部手势区的边距收口到一个统一 helper。长相与行为零变化——本版经 64 项单测与五种机型/模式矩阵逐图比对验证。",
+  "versionCode": 299,
+  "versionName": "0.68.91",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.91/ai-launcher-v0.68.91.apk",
+  "sha256": "dbd1f6dad19f82bdcde05279a1b58613540a750c612e035b7f5fc882b77e8964",
+  "changelog": "内部收拾，体验不变：最大的界面文件 PetZone 按职责拆成三个文件（TODAY 区块、宠物卡片独立），顺手把字号统一到字阶 token。行为与长相零变化——本版经 64 项单测、冒烟 40/40、五腿矩阵 209 张截图与上一版逐对像素比对验证。",
   "forceUpdate": false,
   "prerelease": false
 }
