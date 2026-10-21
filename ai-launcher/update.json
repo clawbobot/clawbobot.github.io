@@ -1,8 +1,8 @@
 {
-  "versionCode": 291,
-  "versionName": "0.68.83",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.83/ai-launcher-v0.68.83.apk",
-  "changelog": "横屏状态栏两修：应用中心顶部不再与状态栏重叠、横屏左侧不再有空状态栏条",
+  "versionCode": 292,
+  "versionName": "0.68.84",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.84/ai-launcher-v0.68.84.apk",
+  "changelog": "跟七仔说话就能办事：首页意图入口上线（打字秒出应用直达、应用中心搜索合二为一）；深色模式与大字体补齐；七仔有了反应——聚焦凑近倾听、思考冒点点、找到结果开心一跳",
   "forceUpdate": false,
   "prerelease": false
 }
