@@ -1,8 +1,8 @@
 {
-  "versionCode": 293,
-  "versionName": "0.68.85",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.85/ai-launcher-v0.68.85.apk",
-  "changelog": "修复会议卡「点一下加入」点了没反应：有会议链接直达、无链接打开日历；结果条高度保底，显示更稳",
+  "versionCode": 294,
+  "versionName": "0.68.86",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.86/ai-launcher-v0.68.86.apk",
+  "changelog": "意图入口第一批·降输入成本：点开胶囊先出常用应用与下一会议（零打字第一屏）；本地搜索按使用频次排序；提交后自动收起键盘；防重复提交；拼音组合输入防抖。更新下载提速：分片并行下载、断点续传、进度显示实时速度。",
   "forceUpdate": false,
   "prerelease": false
 }
