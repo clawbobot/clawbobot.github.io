@@ -1,8 +1,8 @@
 {
-  "versionCode": 295,
-  "versionName": "0.68.87",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.87/ai-launcher-v0.68.87.apk",
-  "changelog": "意图改进第二批·AI 长脑子：七仔带情境理解你——当前时间、下一场日程、天气、常用与已装应用都会一并喂给模型；能力带参数说明；缺参数时七仔追问补参（如「导航去哪儿？」），不再缺参假执行；深链参数未填全不再打开残缺链接。另：OTA 分片下载加速自本版起正式生效。",
+  "versionCode": 296,
+  "versionName": "0.68.88",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.88/ai-launcher-v0.68.88.apk",
+  "changelog": "能力改为按你手机实际装的应用绑定：只装腾讯地图也能正常导航；没装的应用不再许诺能办到；新装或卸载应用后，能力和搜索自动跟着更新；深链打不开时会自动换下一家、再兜底打开应用。",
   "forceUpdate": false,
   "prerelease": false
 }
