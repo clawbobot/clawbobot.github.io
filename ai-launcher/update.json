@@ -1,9 +1,9 @@
 {
-  "versionCode": 300,
-  "versionName": "0.68.92",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.92/ai-launcher-v0.68.92.apk",
-  "sha256": "5cdf6be07c47d605eb09477f30ded859749c1f6800128bdbc1ecb7fee82b7e78",
-  "changelog": "常规更新",
+  "versionCode": 301,
+  "versionName": "0.68.93",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.93/ai-launcher-v0.68.93.apk",
+  "sha256": "d3b97f4a5823dc2803b8293be9dd94bc548a27104fd08c522e8abcab48d06afe",
+  "changelog": "布局与交互 Loop 第一批，修四个真机点名/截图实锤的问题。①意图输入框聚焦后点页面其他地方不释放焦点、键盘收不掉，被困编辑态——现在点胶囊外任意区域即释放焦点并收起键盘，已输入的文字保留不丢，应用中心输入框同修。②应用中心拖动右侧字母索引时列表刷新感强——改为只认最新字母合并落位，拖动中一次瞬时到位，画面只有滚动在动。③全局震动调轻：日常点按、滑过字母、扇区切换用最轻的 tick，提交、解锁、确认类用稍明确一档但也明显轻于原先的长振，触发时机不变。④同一场会议只在一处呈现：聚焦时的建议面不再复刻 TODAY「接下来」会议卡里的同一场会，建议面回归常用应用加示例句。",
   "forceUpdate": false,
   "prerelease": false
 }
