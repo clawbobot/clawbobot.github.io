@@ -1,9 +1,9 @@
 {
-  "versionCode": 307,
-  "versionName": "0.68.99",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.99/ai-launcher-v0.68.99.apk",
-  "sha256": "0ee0cf02d40910e6788e80a07dd1a24188487a7f11ddae7897afd319570928c1",
-  "changelog": "常规更新",
+  "versionCode": 308,
+  "versionName": "0.68.100",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.100/ai-launcher-v0.68.100.apk",
+  "sha256": "8bedf044099c84d398dfea9dbc72b95da9e78eca3f048e9f704862893af6de3e",
+  "changelog": "卫生批收尾（三件小事）：①崩溃从此看得见——侧载没有应用商店的崩溃后台兜底，本版起 App 自带崩溃记录：未捕获异常会被默认处理器写到本地（版本号、设备信息加完整堆栈，环形保留最近 10 份），下次冷启动时非模态地提示一次；设置页新增「崩溃记录」卡，可以看全文、用系统分享把日志发给开发者、或全部删掉，日志只存本机、不自动上传。②API Key 的存放状态不再静默降级：设置页 Key 区会明示当前是加密存放还是已回退；个别设备 Keystore 异常导致只能明文存放时，会醒目提示并给出恢复路径，降级这件事本身会记进诊断日志（绝不记录 Key 内容）。③关闭系统备份（allowBackup）：应用数据不再进入系统备份通道，避免 Key 等敏感数据随备份外流。",
   "forceUpdate": false,
   "prerelease": false
 }
