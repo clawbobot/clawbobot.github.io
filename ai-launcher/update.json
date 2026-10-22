@@ -1,9 +1,9 @@
 {
-  "versionCode": 304,
-  "versionName": "0.68.96",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.96/ai-launcher-v0.68.96.apk",
-  "sha256": "b6b5ed571e76c7bc418c78cc58d3fb8fcee1655b3dca339784d87591082e2f03",
-  "changelog": "材质与文字一批：玻璃按真机反馈再标定——背景改按区域判档（不再被浅蓝天稀释误判轻霜），照片档叠白降到 0.07/0.08、饱和 1.45、折射带加宽、亮边加亮并补暗描边衬切面；「接下来」会议条换上同款中玻璃；全量 TODAY 列表退役下线（封面与会议条不受影响，待办行不再在首页出现）；六处文字超长改省略号收尾不再硬裁。",
+  "versionCode": 305,
+  "versionName": "0.68.97",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.97/ai-launcher-v0.68.97.apk",
+  "sha256": "3289918899c252b5a49a027a9ecd0530a6ebca3950dd043b06528505cef40790",
+  "changelog": "布局普查批：修复横屏封面重叠——短高横屏下胶囊与「接下来」会议条改为只占左侧区（右侧预留应用面板区），不再被面板盖住/压角，竖屏不变；冒烟矩阵新增横屏手机与平板竖屏两腿，关键元素几何断言（两两不相交、完整在屏）成为常驻检查。",
   "forceUpdate": false,
   "prerelease": false
 }
