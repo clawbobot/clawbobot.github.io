@@ -2,7 +2,7 @@
   "versionCode": 310,
   "versionName": "0.68.102",
   "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.102/ai-launcher-v0.68.102.apk",
-  "sha256": "60750ec8b97bdadc8928acbd2c90c7d5fff2359fb6eb30f17bdf742f9a98c41e",
+  "sha256": "d7cd0d35dc33d0dcd19324a9e8d947522ce51f56ca2118743df3548f7b80032d",
   "changelog": "【测试包·非正式版】v0.68.102 冻结修复线：首次进入输入态卡死已修好（CI 模拟器 §6/7/8 全过、截图验证）。已知风险与欠账：①强制停止后第二次进输入态仍可能卡死（进程死亡、胶囊未现），真机未知；②全量冒烟/七腿矩阵/D-4 验收图未补跑。正式版待修复线收官后再发。\n\n正式更新内容（与 CHANGELOG 一致）：主页重构收官 + 真机热修——输入态五修（Bob 真机点名）：键盘弹起时结果条不再被遮住；键盘不再自己收起、输入态不再误退；点「加入」会议加防多发保险；七仔收归一处——只留一只坐在 Dock 上沿中间，进输入态挪到胶囊旁；会议行加渐变衬底。槽位输入（R-2）：胶囊上方出现甲板，示例句点开变带槽位模板，必填槽位空着点发送会被拦下并定位。",
   "forceUpdate": false,
   "prerelease": true
