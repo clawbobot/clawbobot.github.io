@@ -1,9 +1,9 @@
 {
-  "versionCode": 316,
-  "versionName": "0.68.108",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.108/ai-launcher-v0.68.108.apk",
-  "sha256": "a02ce4852839f43fa961b069be7ac319ba7c541e844cc008aed10be3cf5cb857",
-  "changelog": "应用中心底部那排点不动的问题修好了：以前底部被一条看不见的 88dp 手势条盖着，行看得见却点不开，滚到屏幕中间又能点；现在那条覆盖条已经删掉，底部上滑回桌面的手势改挂到列表容器的祖先观察者上（只观察不抢点击），底部各行恢复可点、上滑回桌面照常可用。本版先行测试通道发布。",
+  "versionCode": 317,
+  "versionName": "0.68.109",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.109/ai-launcher-v0.68.109.apk",
+  "sha256": "9bb6d0210a86972c8d1005d21e638df35ae5651df813d62a647a6ebdacbac324",
+  "changelog": "输入态收紧凑了：七仔变小了、和推荐问排在同一行、离输入框更近，输入框上方不再另起一大块；点推荐问还是整句填进输入框、可以接着改。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
