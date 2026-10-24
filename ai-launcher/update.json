@@ -1,9 +1,9 @@
 {
-  "versionCode": 322,
-  "versionName": "0.68.114",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.114/ai-launcher-v0.68.114.apk",
-  "sha256": "43b66381dc334b426c954b884773f9e802880111c75f5722362c9687319e1557",
-  "changelog": "推荐只推本机能做的事了：推荐问题会按手机上实际装的应用过滤，没装日历应用时不再推「查我明天的日程」这种做不了的建议；装上对应应用后，相关推荐会自动回来。本版先行测试通道发布。",
+  "versionCode": 323,
+  "versionName": "0.68.115",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.115/ai-launcher-v0.68.115.apk",
+  "sha256": "d3bea1401efade95035cc72e757d09a2dd0d20374d546ef027d9bca89c7e8043",
+  "changelog": "七仔活过来了：它现在会看你——说话前先把眼睛和头转向要说的事，普通通知来了只瞥你一眼、不再出声打扰；眨眼改成眼皮压下来的自然动作，不再是换图一闪；输入时它会歪头盯着输入框听你说话；待机时的呼吸和浮动也不再是死板的固定节奏。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
