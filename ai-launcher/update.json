@@ -1,9 +1,9 @@
 {
-  "versionCode": 326,
-  "versionName": "0.68.118",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.118/ai-launcher-v0.68.118.apk",
-  "sha256": "7d3dffb57a3e12061d58acff622d5fb106ffc6d45bcac0aa594d4a97d9820680",
-  "changelog": "主页横屏修了刘海与状态栏避让：顶部内容不再顶到两侧挖孔，首页选择器导航横屏不再顶到状态栏与挖孔；设置页、灵动岛、引导页横屏两侧也做了同样避让。本版先行测试通道发布。",
+  "versionCode": 327,
+  "versionName": "0.68.119",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.119/ai-launcher-v0.68.119.apk",
+  "sha256": "aabe37b9919f6e882fae32ffdb060589f2392e2aa18e8e60645cfebf7ed61e00",
+  "changelog": "点宠物现在一点就进输入，不再先播一段开心动画再进；开心动画只在任务完成时出现。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
