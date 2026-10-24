@@ -1,9 +1,9 @@
 {
-  "versionCode": 317,
-  "versionName": "0.68.109",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.109/ai-launcher-v0.68.109.apk",
-  "sha256": "9bb6d0210a86972c8d1005d21e638df35ae5651df813d62a647a6ebdacbac324",
-  "changelog": "输入态收紧凑了：七仔变小了、和推荐问排在同一行、离输入框更近，输入框上方不再另起一大块；点推荐问还是整句填进输入框、可以接着改。本版先行测试通道发布。",
+  "versionCode": 318,
+  "versionName": "0.68.110",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.110/ai-launcher-v0.68.110.apk",
+  "sha256": "b5fa58fa248d1f7c2bf62fc69d8023fdaf50da85da19e68e9b401c28e4289b0b",
+  "changelog": "横屏应用中心修好了：以前横屏时右侧字母导航上下被截断、字母挤在一起，现在字母导航跟随屏幕高度铺满、不再截断，字母也放大了；导航顶部补上了房子项，和竖屏一致；打开横屏应用中心默认就定位到 A 列，收藏列点 ★ 回去；应用行高收紧后，字母列能放下字母头加 4 个应用。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
