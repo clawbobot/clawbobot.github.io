@@ -1,9 +1,9 @@
 {
-  "versionCode": 325,
-  "versionName": "0.68.117",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.117/ai-launcher-v0.68.117.apk",
-  "sha256": "b1c9257b476cc33e6eb09f588c817bbc3f1d3e856debfafd26ba2a667ab06f8d",
-  "changelog": "横屏首页修了两处：Dock 一行和两行时宽度现在保持一致，不再跳变；从首页字母导航进入应用中心时，不再出现两条字母导航。本版先行测试通道发布。",
+  "versionCode": 326,
+  "versionName": "0.68.118",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.118/ai-launcher-v0.68.118.apk",
+  "sha256": "7d3dffb57a3e12061d58acff622d5fb106ffc6d45bcac0aa594d4a97d9820680",
+  "changelog": "主页横屏修了刘海与状态栏避让：顶部内容不再顶到两侧挖孔，首页选择器导航横屏不再顶到状态栏与挖孔；设置页、灵动岛、引导页横屏两侧也做了同样避让。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
