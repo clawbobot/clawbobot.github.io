@@ -1,9 +1,9 @@
 {
-  "versionCode": 321,
-  "versionName": "0.68.113",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.113/ai-launcher-v0.68.113.apk",
-  "sha256": "42352e2c4b3daab14dead5f6ef5a07086cf76a1d94f1b579019c170691a65d8d",
-  "changelog": "输入框下面的「猜你想问」一行删掉了，输入面板更干净；桌面 Dock 上的七仔大了一倍，坐在面板顶边上更显眼。本版先行测试通道发布。",
+  "versionCode": 322,
+  "versionName": "0.68.114",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.114/ai-launcher-v0.68.114.apk",
+  "sha256": "43b66381dc334b426c954b884773f9e802880111c75f5722362c9687319e1557",
+  "changelog": "推荐只推本机能做的事了：推荐问题会按手机上实际装的应用过滤，没装日历应用时不再推「查我明天的日程」这种做不了的建议；装上对应应用后，相关推荐会自动回来。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
