@@ -1,9 +1,9 @@
 {
-  "versionCode": 352,
-  "versionName": "0.68.144",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.144/ai-launcher-v0.68.144.apk",
-  "sha256": "87ed8f406405b4feeb0c7912b74d55e10e3d8c5e18ed6efc63ddf513be1bc925",
-  "changelog": "意图胶囊去深色：输入态意图卡片里的输入胶囊不再是一颗深黑 pill，改走卡片同一套玻璃质感，与卡片协调；占位文案同步调亮保证可读，金色箭头按钮与输入功能不动。能力问题示例行还在、只是弱化一点（字号收一点、颜色放轻），不再抢输入的戏；另修 346 遗留：示例行此前被面板裁剪到只剩一条缝，现已回到胶囊上方完整显示。胶囊形状尺寸位置、卡片形状、宠物、键盘两态、简报区与 Dock 一律不动。本版先行测试通道发布。",
+  "versionCode": 353,
+  "versionName": "0.68.145",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.145/ai-launcher-v0.68.145.apk",
+  "sha256": "a9db0897d66862920861dbdff0453ee12e08c5663d7e6edc5df7888f1364cbba",
+  "changelog": "简报白字修复：取样改按字实际所在的左半区算亮度（右上深红块不再带偏均值）、双峰带下均值不可信时宁可回退也不猜错档、取带数改连续加权（占比略过边界不再翻转结论）；简报文字加字级阴影兜底（只跟字形走，不是纱）；壁纸读不到时不再回退时间段调色板，改沿用上次字色档，首帧默认浅色档。Dock、宠物、意图卡片、肩线一律不动。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
