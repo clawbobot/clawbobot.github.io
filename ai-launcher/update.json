@@ -1,9 +1,9 @@
 {
-  "versionCode": 333,
-  "versionName": "0.68.125",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.125/ai-launcher-v0.68.125.apk",
-  "sha256": "1bbfc3173db6a54cf5986e49e8be43fcc54de6b2901b219742af5b845073179b",
-  "changelog": "漂浮宠物头后的灰色方框修掉：视频层改用 TextureView 直连，不播时不挂载，播片时圆形裁剪正常。本版先行测试通道发布。",
+  "versionCode": 334,
+  "versionName": "0.68.126",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.126/ai-launcher-v0.68.126.apk",
+  "sha256": "b059dcb52c62e26226e627ce79cd8afc675b4324d6c99f4d445397fadfdb56b4",
+  "changelog": "字母导航彻底统一：首页选择器与应用中心用同一套项目表（字母、★、👁 出现条件一致），块高与项目数双相等，行距严格一致；横屏容器与应用中心同锚点，块高严格相等。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
