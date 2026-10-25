@@ -1,9 +1,9 @@
 {
-  "versionCode": 343,
-  "versionName": "0.68.135",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.135/ai-launcher-v0.68.135.apk",
-  "sha256": "2fc5eeec414a3429da54cf583ae8b5c700ddbc26f84bdf2b7522d5280f235f48",
-  "changelog": "每日简报蒙版框线修复：简报页顶部与左侧不再露出一道蒙版边缘线——罩纱改由出界绘制铺满到屏边，纵向渐变映射不变，简报文字在壁纸上的可读性与之前一致；竖屏简报页与横屏主页 hero 区同改。",
+  "versionCode": 345,
+  "versionName": "0.68.137",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.137/ai-launcher-v0.68.137.apk",
+  "sha256": "4d75a0815e90c749d07d78c42e9acbbba9398eaa50b6f69598ed4b12ce67459c",
+  "changelog": "桌面壁纸不再蒙一层暖纸色：全屏罩纱整层取消，壁纸除简报区外原样透出、更透亮；简报区自己的罩纱（343 版出界绘制）一字未动，简报文字可读性与之前一致；Dock 玻璃卡片与意图卡片、文字颜色、布局手势均不动。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
