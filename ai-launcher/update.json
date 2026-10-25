@@ -1,9 +1,9 @@
 {
-  "versionCode": 331,
-  "versionName": "0.68.123",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.123/ai-launcher-v0.68.123.apk",
-  "sha256": "712d79765c577fb1a89f5439e2a48cee958c6ca3d8d52bb8273be34ccddaef6f",
-  "changelog": "推荐问题改用应用能力：新增「我想听歌」「我想刷视频」「我想和朋友聊天」三条做事问题，删掉「打开微信」「打开支付宝」两条纯打开；听歌现在能搜到英文音乐应用；外卖、地铁等推荐按本机已装应用过滤，没装的应用不再许诺。本版先行测试通道发布。",
+  "versionCode": 332,
+  "versionName": "0.68.124",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.124/ai-launcher-v0.68.124.apk",
+  "sha256": "92901c88498c90b6be57396463ad6a8779c32b7bc9a9dd9c79de5ebce1e27737",
+  "changelog": "首页字母导航容器与应用中心列表容器等高：首页竖屏 rail 高度改按应用中心列表容器实测高推导，两处字母导航块高严格相等。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
