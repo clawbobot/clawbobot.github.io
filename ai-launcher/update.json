@@ -1,9 +1,9 @@
 {
-  "versionCode": 336,
-  "versionName": "0.68.128",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.128/ai-launcher-v0.68.128.apk",
-  "sha256": "6cab7cbc4e15274be4395d0b816cdbeabd471648e719d26fe191644d54774960",
-  "changelog": "闪退应急：彻底关闭宠物视频层，宠物只走代码层（呼吸、眨眼、视线、光晕），先恢复能用；视频层根因待堆栈定论后再修。本版先行测试通道发布。",
+  "versionCode": 338,
+  "versionName": "0.68.130",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.130/ai-launcher-v0.68.130.apk",
+  "sha256": "9baafdf306271e483597f34635634003c248f23b0b5fbfbd3a6f8bcfc547fc38",
+  "changelog": "七仔活物 P0 程序化运动（视觉活化设计 §5，纯 graphicsLayer、零新美术资产，统一挂 motionActive 低电量/减动效门禁）：呼吸改绕脚底锚点、体积守恒、周期游走；新眨眼三段时序并新增 12% 半眨；注视停留期瞳孔微扫视与两段式 saccade、头部跟随改 spring；重心绕脚底摇摆、周期性重心转移、随呼气下沉；微行为池每 20–45s 随机歪头/伸懒腰/抖毛；姿态切换改为 squash 最低点那一帧换图、删除 Crossfade，落地伴随呼气。另修复 PetView 误用不存在的 FastOutLinearEasing（应为 FastOutLinearInEasing）导致的 CI 编译失败。（本版为七仔活物 P0 的实际发布版。）本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
