@@ -1,9 +1,9 @@
 {
-  "versionCode": 327,
-  "versionName": "0.68.119",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.119/ai-launcher-v0.68.119.apk",
-  "sha256": "aabe37b9919f6e882fae32ffdb060589f2392e2aa18e8e60645cfebf7ed61e00",
-  "changelog": "点宠物现在一点就进输入，不再先播一段开心动画再进；开心动画只在任务完成时出现。本版先行测试通道发布。",
+  "versionCode": 328,
+  "versionName": "0.68.120",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.120/ai-launcher-v0.68.120.apk",
+  "sha256": "e6661be5f8deeebca84f7690e4b981160eda276adebafff15736610d17604b59",
+  "changelog": "应用中心与设置页刊头去掉重复的 index/settings 小字行，版面更干净。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
