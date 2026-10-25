@@ -1,9 +1,9 @@
 {
-  "versionCode": 335,
-  "versionName": "0.68.127",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.127/ai-launcher-v0.68.127.apk",
-  "sha256": "308d3ae4227dd0b2ae75c4b0655da616094e8683a7e6cb4b0324f731a1338b26",
-  "changelog": "字母导航波浪改纯位移：去掉原地放大、纵向散开加大，波浪看得出、字不再重叠。本版先行测试通道发布。",
+  "versionCode": 336,
+  "versionName": "0.68.128",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.128/ai-launcher-v0.68.128.apk",
+  "sha256": "6cab7cbc4e15274be4395d0b816cdbeabd471648e719d26fe191644d54774960",
+  "changelog": "闪退应急：彻底关闭宠物视频层，宠物只走代码层（呼吸、眨眼、视线、光晕），先恢复能用；视频层根因待堆栈定论后再修。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
