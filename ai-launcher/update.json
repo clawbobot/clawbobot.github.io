@@ -1,9 +1,9 @@
 {
-  "versionCode": 364,
-  "versionName": "0.68.156",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.156/ai-launcher-v0.68.156.apk",
-  "sha256": "91052e4274faa5d3d3599b1e660ee71206289018d45ac4386687565e3a57188d",
-  "changelog": "盲操扇形与快捷服务——扇形改 Dock 同款玻璃、防误触收严、拍照直开系统相机、宠物长按清单复用快捷服务。",
+  "versionCode": 365,
+  "versionName": "0.68.157",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.157/ai-launcher-v0.68.157.apk",
+  "sha256": "9957d48145ecdebf95f0b06b05f3d0318070dbdc0b5f7d8ef3ef1fa36489c5ef",
+  "changelog": "D1/D2 切换改用拖拽——水平拖拽连续跟手、松手确认、可中途取消；旧左右滑切换触发删除。",
   "forceUpdate": false,
   "prerelease": true
 }
