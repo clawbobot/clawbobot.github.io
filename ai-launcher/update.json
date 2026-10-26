@@ -1,9 +1,9 @@
 {
-  "versionCode": 354,
-  "versionName": "0.68.146",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.146/ai-launcher-v0.68.146.apk",
-  "sha256": "accefdb7c8ead380ed8da62387202b9d513a87fd4134693b4a10ab7dcd0b1287",
-  "changelog": "宠物缩小 B2+A——Dock 宠物缩小一档（D1 约 87dp），肩线边距拉宽至 35dp/侧、rise 提升（D1 约 18dp、D2 约 21.6dp，按比例），意图卡片宠物同步缩小；压入 5dp 与弹性峰值不变。",
+  "versionCode": 355,
+  "versionName": "0.68.147",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.147/ai-launcher-v0.68.147.apk",
+  "sha256": "c242b34655750dceb4774e8ebb863243a4af1a4c33cf2a8ee1c4402d460f4fac",
+  "changelog": "宠物交互重构——点宠物直接问、长按看 8 个表演动作、说话气泡恢复（提醒配下一步动作）、同一只宠物走过去（进态连续位移）、拖拽两处统一、峰值口径统一、引导气泡仅一次。",
   "forceUpdate": false,
   "prerelease": true
 }
