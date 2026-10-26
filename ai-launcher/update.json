@@ -1,9 +1,9 @@
 {
-  "versionCode": 361,
-  "versionName": "0.68.153",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.153/ai-launcher-v0.68.153.apk",
-  "sha256": "ab3fb9768f81b2e33404be8561066ac679227ecb64e36afb51dab9f3857bd9be",
-  "changelog": "聚焦＋整体＋动效统一——聚焦不用黑屏、保留主页壁纸；竖屏进态并成一拍；横屏纯圆角卡片、Dock 隐藏、左侧意图卡片承载身体、切换不移头不双头；动效统一为一套弹簧与淡入家族；接触影与脖子带摘除、头肩改同频物理反应；外延颜色修复。",
+  "versionCode": 362,
+  "versionName": "0.68.154",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.154/ai-launcher-v0.68.154.apk",
+  "sha256": "1f1e406f6bbb03e565428187dd310cae7e4460dd4365c241926571541b496cfb",
+  "changelog": "意图拖拽复用与气泡跟头——意图卡片拖拽与 Dock 同套一体拉伸；说话气泡贴宠物头、拖拽与进场跟头走。",
   "forceUpdate": false,
   "prerelease": true
 }
