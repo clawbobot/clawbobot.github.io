@@ -1,9 +1,9 @@
 {
-  "versionCode": 362,
-  "versionName": "0.68.154",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.154/ai-launcher-v0.68.154.apk",
-  "sha256": "1f1e406f6bbb03e565428187dd310cae7e4460dd4365c241926571541b496cfb",
-  "changelog": "意图拖拽复用与气泡跟头——意图卡片拖拽与 Dock 同套一体拉伸；说话气泡贴宠物头、拖拽与进场跟头走。",
+  "versionCode": 363,
+  "versionName": "0.68.155",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.155/ai-launcher-v0.68.155.apk",
+  "sha256": "de2137486897148e21a9fd4f3d981d038a426c18e392aa682c805a8fdb030e26",
+  "changelog": "宠物动作可爱化——长按动作清单改成圆形按钮格＋形象图标。",
   "forceUpdate": false,
   "prerelease": true
 }
