@@ -1,9 +1,9 @@
 {
-  "versionCode": 358,
-  "versionName": "0.68.150",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.150/ai-launcher-v0.68.150.apk",
-  "sha256": "a79ed66a16cd19477d2945a61be5c01f354ebdf3531db7885c0ade684490f9f5",
-  "changelog": "修复竖屏进出弹闪与横屏闪退——垫高跟键盘动画连续走、玻璃渐变半径钳制防 0 宽崩溃、横屏不推卡片保持原位。",
+  "versionCode": 359,
+  "versionName": "0.68.151",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.151/ai-launcher-v0.68.151.apk",
+  "sha256": "a15ecc10827f9927c6f3283253f0db5b4b9ab93fbc36b22b03ee93f630db5b54",
+  "changelog": "拖拽一体拉伸——面板底部钉住、头与肩同量拉伸、脖子连接带随拉伸收窄永不断开、松手回弹约 20% 过冲带压扁挤压、横拉倾斜约 5°。",
   "forceUpdate": false,
   "prerelease": true
 }
