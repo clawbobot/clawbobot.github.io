@@ -1,9 +1,9 @@
 {
-  "versionCode": 363,
-  "versionName": "0.68.155",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.155/ai-launcher-v0.68.155.apk",
-  "sha256": "de2137486897148e21a9fd4f3d981d038a426c18e392aa682c805a8fdb030e26",
-  "changelog": "宠物动作可爱化——长按动作清单改成圆形按钮格＋形象图标。",
+  "versionCode": 364,
+  "versionName": "0.68.156",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.156/ai-launcher-v0.68.156.apk",
+  "sha256": "91052e4274faa5d3d3599b1e660ee71206289018d45ac4386687565e3a57188d",
+  "changelog": "盲操扇形与快捷服务——扇形改 Dock 同款玻璃、防误触收严、拍照直开系统相机、宠物长按清单复用快捷服务。",
   "forceUpdate": false,
   "prerelease": true
 }
