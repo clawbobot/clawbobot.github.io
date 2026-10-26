@@ -1,9 +1,9 @@
 {
-  "versionCode": 359,
-  "versionName": "0.68.151",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.151/ai-launcher-v0.68.151.apk",
-  "sha256": "a15ecc10827f9927c6f3283253f0db5b4b9ab93fbc36b22b03ee93f630db5b54",
-  "changelog": "拖拽一体拉伸——面板底部钉住、头与肩同量拉伸、脖子连接带随拉伸收窄永不断开、松手回弹约 20% 过冲带压扁挤压、横拉倾斜约 5°。",
+  "versionCode": 360,
+  "versionName": "0.68.152",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.152/ai-launcher-v0.68.152.apk",
+  "sha256": "8e2092b81be84b23f743cde9da590febd259fe7f41846749fd754740441eefbb",
+  "changelog": "活感第一批——头弹簧过冲、接触影随动、注视与注意力、待机小行为、重心转移。",
   "forceUpdate": false,
   "prerelease": true
 }
