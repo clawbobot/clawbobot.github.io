@@ -1,9 +1,9 @@
 {
-  "versionCode": 365,
-  "versionName": "0.68.157",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.157/ai-launcher-v0.68.157.apk",
-  "sha256": "9957d48145ecdebf95f0b06b05f3d0318070dbdc0b5f7d8ef3ef1fa36489c5ef",
-  "changelog": "D1/D2 切换改用拖拽——水平拖拽连续跟手、松手确认、可中途取消；旧左右滑切换触发删除。",
+  "versionCode": 366,
+  "versionName": "0.68.158",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.158/ai-launcher-v0.68.158.apk",
+  "sha256": "141fb66e5e4e0a60bcaae891b41da7f8d648183b65b0f996106ccdfa13b0d638",
+  "changelog": "APK 瘦身——收紧 R8 规则、删除无用资源、图片无损重压。",
   "forceUpdate": false,
   "prerelease": true
 }
