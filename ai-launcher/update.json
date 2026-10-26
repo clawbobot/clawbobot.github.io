@@ -1,9 +1,9 @@
 {
-  "versionCode": 360,
-  "versionName": "0.68.152",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.152/ai-launcher-v0.68.152.apk",
-  "sha256": "8e2092b81be84b23f743cde9da590febd259fe7f41846749fd754740441eefbb",
-  "changelog": "活感第一批——头弹簧过冲、接触影随动、注视与注意力、待机小行为、重心转移。",
+  "versionCode": 361,
+  "versionName": "0.68.153",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.153/ai-launcher-v0.68.153.apk",
+  "sha256": "ab3fb9768f81b2e33404be8561066ac679227ecb64e36afb51dab9f3857bd9be",
+  "changelog": "聚焦＋整体＋动效统一——聚焦不用黑屏、保留主页壁纸；竖屏进态并成一拍；横屏纯圆角卡片、Dock 隐藏、左侧意图卡片承载身体、切换不移头不双头；动效统一为一套弹簧与淡入家族；接触影与脖子带摘除、头肩改同频物理反应；外延颜色修复。",
   "forceUpdate": false,
   "prerelease": true
 }
