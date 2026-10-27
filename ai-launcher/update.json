@@ -1,9 +1,9 @@
 {
-  "versionCode": 375,
-  "versionName": "0.68.167",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.167/ai-launcher-v0.68.167.apk",
-  "sha256": "f523e8dc9da8106434b6dbb2ca351aa8e95473ace8457432d64542ec05edcfb8",
-  "changelog": "意图卡片系统返回修复——滞留态一按退卡片，在场态先关内层再退卡片。",
+  "versionCode": 376,
+  "versionName": "0.68.168",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.168/ai-launcher-v0.68.168.apk",
+  "sha256": "a9152582ac6a3e48a2ac315f61236203e4b4ef4bda3cb5cf70cdd29a7e65b81a",
+  "changelog": "键盘收起自动收卡片——输入态收键盘即自动退出意图卡片。",
   "forceUpdate": false,
   "prerelease": true
 }
