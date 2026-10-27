@@ -1,9 +1,9 @@
 {
-  "versionCode": 377,
-  "versionName": "0.68.169",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.169/ai-launcher-v0.68.169.apk",
-  "sha256": "abd1d5d789388dc3fbf96f58e2e15465a06f9272295f54b11f28d48a5414412c",
-  "changelog": "意图卡片设计精致化——文字衬底、窄屏横滚兜底、输入框减玻璃、收起减重、结果更紧、补齐查找中／没找到。",
+  "versionCode": 378,
+  "versionName": "0.68.170",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.170/ai-launcher-v0.68.170.apk",
+  "sha256": "5f44e72958d127d41671011970e8158d79c6d8f23d1f52dc142b4afa561ad81c",
+  "changelog": "盲操扇形找回——修 Dock 位置抓成整屏致扇形永不触发的问题，壁纸横滑恢复触发。",
   "forceUpdate": false,
   "prerelease": true
 }
