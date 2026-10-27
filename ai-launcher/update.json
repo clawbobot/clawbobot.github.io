@@ -1,9 +1,9 @@
 {
-  "versionCode": 378,
-  "versionName": "0.68.170",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.170/ai-launcher-v0.68.170.apk",
-  "sha256": "5f44e72958d127d41671011970e8158d79c6d8f23d1f52dc142b4afa561ad81c",
-  "changelog": "盲操扇形找回——修 Dock 位置抓成整屏致扇形永不触发的问题，壁纸横滑恢复触发。",
+  "versionCode": 379,
+  "versionName": "0.68.171",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.171/ai-launcher-v0.68.171.apk",
+  "sha256": "b0b2474aa631b312d1b56075bf182677858db800d10af03a3c3e30498d705e19",
+  "changelog": "文案大扫除：设置里的测试开关改叫加入测试计划，七仔的名字在所有地方统一了，出错提示都改成了人话；更新说明以后只讲变了什么，不讲实现细节。其他功能和布局一律不动。",
   "forceUpdate": false,
   "prerelease": true
 }
