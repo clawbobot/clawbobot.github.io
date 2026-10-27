@@ -1,9 +1,9 @@
 {
-  "versionCode": 370,
-  "versionName": "0.68.162",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.162/ai-launcher-v0.68.162.apk",
-  "sha256": "2f3a3dbf5a106f6326c533cc4bc35fa1c54e965be28ce97e38ba1815b6e0cd80",
-  "changelog": "Dock 手势清理——长按隐藏与左右滑删除、横屏 D1/D2 也改提拉。",
+  "versionCode": 371,
+  "versionName": "0.68.163",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.163/ai-launcher-v0.68.163.apk",
+  "sha256": "966a9d726a1f2e7368bd77b5194fa8553773763b8ed373419ad15b70d079fb52",
+  "changelog": "竖屏切换改区块整体显隐——信息区、Dock 区、意图区同帧整块切换，删 funnel 位移与逐元素动画。",
   "forceUpdate": false,
   "prerelease": true
 }
