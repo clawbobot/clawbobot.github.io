@@ -1,9 +1,9 @@
 {
-  "versionCode": 368,
-  "versionName": "0.68.160",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.160/ai-launcher-v0.68.160.apk",
-  "sha256": "9ac77c30f3f9dd220dfe42fb731dc4ecc3cd0c83de939355696cc761ffa27630",
-  "changelog": "D1/D2 切换改提拉宠物——上提身体膨胀进 D2、下压收缩回 D1，竖屏面板横拖删除。",
+  "versionCode": 369,
+  "versionName": "0.68.161",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.161/ai-launcher-v0.68.161.apk",
+  "sha256": "93281fcfbff82b128bc14c3564d3967cacddc90727e1a007e785ca6675058826",
+  "changelog": "横屏 Dock 改右侧——横屏主页 Dock 落右侧、右留边跟挖孔走。",
   "forceUpdate": false,
   "prerelease": true
 }
