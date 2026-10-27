@@ -1,9 +1,9 @@
 {
-  "versionCode": 376,
-  "versionName": "0.68.168",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.168/ai-launcher-v0.68.168.apk",
-  "sha256": "a9152582ac6a3e48a2ac315f61236203e4b4ef4bda3cb5cf70cdd29a7e65b81a",
-  "changelog": "键盘收起自动收卡片——输入态收键盘即自动退出意图卡片。",
+  "versionCode": 377,
+  "versionName": "0.68.169",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.169/ai-launcher-v0.68.169.apk",
+  "sha256": "abd1d5d789388dc3fbf96f58e2e15465a06f9272295f54b11f28d48a5414412c",
+  "changelog": "意图卡片设计精致化——文字衬底、窄屏横滚兜底、输入框减玻璃、收起减重、结果更紧、补齐查找中／没找到。",
   "forceUpdate": false,
   "prerelease": true
 }
