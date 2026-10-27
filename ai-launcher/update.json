@@ -1,9 +1,9 @@
 {
-  "versionCode": 366,
-  "versionName": "0.68.158",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.158/ai-launcher-v0.68.158.apk",
-  "sha256": "141fb66e5e4e0a60bcaae891b41da7f8d648183b65b0f996106ccdfa13b0d638",
-  "changelog": "APK 瘦身——收紧 R8 规则、删除无用资源、图片无损重压。",
+  "versionCode": 367,
+  "versionName": "0.68.159",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.159/ai-launcher-v0.68.159.apk",
+  "sha256": "726658bd1daf30f8be76a21acee4ac67221c1600caf825404a39f59dea410845",
+  "changelog": "竖屏切换闪烁修复——进出跳变补偿、退出落地交接、退出中重进重启。",
   "forceUpdate": false,
   "prerelease": true
 }
