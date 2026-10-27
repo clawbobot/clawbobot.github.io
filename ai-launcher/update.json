@@ -1,9 +1,9 @@
 {
-  "versionCode": 372,
-  "versionName": "0.68.164",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.164/ai-launcher-v0.68.164.apk",
-  "sha256": "04a2975713feb6fc7438dc36331ddc75d456315a598ce848af2276a6222d6088",
-  "changelog": "简报过期日程修复：选会与标签改为分钟 ticker 派生状态——未来会议显示“接下来 · HH:mm”，进行中会议显示“进行中 · HH:mm–HH:mm”；会议结束后 1 分钟内该行消失，不再冻住已结束的会。简报其他行、Dock、宠物、意图卡片不动。本版先行测试通道发布。",
+  "versionCode": 373,
+  "versionName": "0.68.165",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.165/ai-launcher-v0.68.165.apk",
+  "sha256": "7f48cd74f4257ba1ecdfb2bf2256ec887a4fab0f0852e158a1d0fc1efe62585d",
+  "changelog": "意图区底部收起——卡片角 ✕ 改意图区底部收起控件，示例行留白还回去；暗黑文字对比度修复；推荐问法与命中应用改同帧离散切换，不再逐帧动画抖动。",
   "forceUpdate": false,
   "prerelease": true
 }
