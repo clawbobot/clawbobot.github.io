@@ -1,9 +1,9 @@
 {
-  "versionCode": 371,
-  "versionName": "0.68.163",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.163/ai-launcher-v0.68.163.apk",
-  "sha256": "966a9d726a1f2e7368bd77b5194fa8553773763b8ed373419ad15b70d079fb52",
-  "changelog": "竖屏切换改区块整体显隐——信息区、Dock 区、意图区同帧整块切换，删 funnel 位移与逐元素动画。",
+  "versionCode": 372,
+  "versionName": "0.68.164",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.164/ai-launcher-v0.68.164.apk",
+  "sha256": "04a2975713feb6fc7438dc36331ddc75d456315a598ce848af2276a6222d6088",
+  "changelog": "简报过期日程修复：选会与标签改为分钟 ticker 派生状态——未来会议显示“接下来 · HH:mm”，进行中会议显示“进行中 · HH:mm–HH:mm”；会议结束后 1 分钟内该行消失，不再冻住已结束的会。简报其他行、Dock、宠物、意图卡片不动。本版先行测试通道发布。",
   "forceUpdate": false,
   "prerelease": true
 }
