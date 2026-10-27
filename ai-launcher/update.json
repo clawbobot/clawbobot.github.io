@@ -1,9 +1,9 @@
 {
-  "versionCode": 367,
-  "versionName": "0.68.159",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.159/ai-launcher-v0.68.159.apk",
-  "sha256": "726658bd1daf30f8be76a21acee4ac67221c1600caf825404a39f59dea410845",
-  "changelog": "竖屏切换闪烁修复——进出跳变补偿、退出落地交接、退出中重进重启。",
+  "versionCode": 368,
+  "versionName": "0.68.160",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.160/ai-launcher-v0.68.160.apk",
+  "sha256": "9ac77c30f3f9dd220dfe42fb731dc4ecc3cd0c83de939355696cc761ffa27630",
+  "changelog": "D1/D2 切换改提拉宠物——上提身体膨胀进 D2、下压收缩回 D1，竖屏面板横拖删除。",
   "forceUpdate": false,
   "prerelease": true
 }
