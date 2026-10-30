@@ -1,9 +1,9 @@
 {
-  "versionCode": 387,
-  "versionName": "0.68.179",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.179/ai-launcher-v0.68.179.apk",
-  "sha256": "61c9618b6c32ec50e14bcebcb3b815b5434505ca1ea21be1142dba90cb8e9e81",
-  "changelog": "应用中心长按菜单顶部加了「应用管理」：点它直接打开该应用的信息页，和 Dock 长按菜单右上角的信息图标是同一个入口；快捷方式和卸载的位置、用法不变。",
+  "versionCode": 388,
+  "versionName": "0.68.180",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.180/ai-launcher-v0.68.180.apk",
+  "sha256": "ceea051b8157ef1d34c9869c26c2c89819fb602b1b755fb43eb3f490ba49d137",
+  "changelog": "应用中心长按应用时，应用那行最右边会出现一个信息图标，点它直接打开该应用的信息页，和 Dock 长按菜单右上角的信息图标是同一个入口；快捷方式和卸载的位置、用法不变。",
   "forceUpdate": false,
   "prerelease": true
 }
