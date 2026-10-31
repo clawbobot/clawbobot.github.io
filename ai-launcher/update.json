@@ -1,9 +1,9 @@
 {
-  "versionCode": 389,
-  "versionName": "0.68.181",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.181/ai-launcher-v0.68.181.apk",
-  "sha256": "fe8282ca025d2b0a7316f41f8776c96f51a8568b1921616f5d079abf1b98d2dd",
-  "changelog": "引导第一页现在可以先试一试：点一下金色圆钮，就能看到七仔找应用的样子（只是演示，不会真的打开应用），再点一次可以重播；第二页和第三页的说明也变短了。开始和跳过、权限申请、其他页面都没有变化。",
+  "versionCode": 390,
+  "versionName": "0.68.182",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.182/ai-launcher-v0.68.182.apk",
+  "sha256": "54c0083da297c50ad57721b60c80c795f0f4ebf1460a3559eef274b139f87e0a",
+  "changelog": "意图条的文字大小改走统一规范，显示效果和原来一样；另外新增一项代码规范检查，检查失败也不会影响发布。",
   "forceUpdate": false,
   "prerelease": true
 }
