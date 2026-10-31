@@ -1,9 +1,9 @@
 {
-  "versionCode": 390,
-  "versionName": "0.68.182",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.182/ai-launcher-v0.68.182.apk",
-  "sha256": "54c0083da297c50ad57721b60c80c795f0f4ebf1460a3559eef274b139f87e0a",
-  "changelog": "意图条的文字大小改走统一规范，显示效果和原来一样；另外新增一项代码规范检查，检查失败也不会影响发布。",
+  "versionCode": 391,
+  "versionName": "0.68.183",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.183/ai-launcher-v0.68.183.apk",
+  "sha256": "2b59005530fc75b4015226a1e32238e9856e1933cd29bfb02901436821efeb02",
+  "changelog": "意图条剩余文字的大小改走统一规范，显示效果和原来一样。",
   "forceUpdate": false,
   "prerelease": true
 }
