@@ -1,9 +1,9 @@
 {
-  "versionCode": 394,
-  "versionName": "0.68.186",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.186/ai-launcher-v0.68.186.apk",
-  "sha256": "b41569523f19005f65ccf7889c60e6d63dc5630838f4964532b2761887e0fbb8",
-  "changelog": "去掉了开场引导页，打开就是桌面；去掉了低电量保护的询问弹窗。",
+  "versionCode": 395,
+  "versionName": "0.68.187",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.187/ai-launcher-v0.68.187.apk",
+  "sha256": "76216b81b014d347c032c83fa904afed8e988da67c32784dab1f6d4890fb9f1d",
+  "changelog": "盲操扇形：展开后手指停留 800ms 就直接进编辑，不用松手、不限段；800ms 内松手仍是正常触发。",
   "forceUpdate": false,
   "prerelease": true
 }
