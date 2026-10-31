@@ -1,9 +1,9 @@
 {
-  "versionCode": 391,
-  "versionName": "0.68.183",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.183/ai-launcher-v0.68.183.apk",
-  "sha256": "2b59005530fc75b4015226a1e32238e9856e1933cd29bfb02901436821efeb02",
-  "changelog": "意图条剩余文字的大小改走统一规范，显示效果和原来一样。",
+  "versionCode": 392,
+  "versionName": "0.68.184",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v0.68.184/ai-launcher-v0.68.184.apk",
+  "sha256": "4f19ba96b4666960b99adbf0590cfd611b598fb14bd1ef65c217d2920309d77a",
+  "changelog": "胶囊里的星星标记去掉了，输入位置和用法不变。",
   "forceUpdate": false,
   "prerelease": true
 }
