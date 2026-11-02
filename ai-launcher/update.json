@@ -1,9 +1,9 @@
 {
-  "versionCode": 403,
-  "versionName": "1.0.6",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.6/ai-launcher-v1.0.6.apk",
-  "sha256": "32f3879a1847c36d2cbf5265e88611e549722ea5d76a9ae3b54c9737e48034fc",
-  "changelog": "盲操快捷方式选不到修复：非默认桌面时系统不给快捷方式列表，弹窗不再留白，给出原因、去设默认桌面入口和已设好重新加载。",
+  "versionCode": 404,
+  "versionName": "1.0.7",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.7/ai-launcher-v1.0.7.apk",
+  "sha256": "7e8c2a3bcfbcc080800f4409494235d56eeeb08ddb29d7d55eecb03297628bba",
+  "changelog": "盲操快捷方式提示文案精简：设为默认桌面后可以显示更多快捷操作，按钮缩为去设置/重新加载。",
   "forceUpdate": false,
   "prerelease": true
 }
