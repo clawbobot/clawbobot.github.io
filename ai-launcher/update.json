@@ -1,9 +1,9 @@
 {
-  "versionCode": 406,
-  "versionName": "1.0.9",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.9/ai-launcher-v1.0.9.apk",
-  "sha256": "8b1decd5bdc32b19f703df3cbd64c94bdf346d90abbe7a611f6436d9d563d04c",
-  "changelog": "删应用中心底部上滑：D-6 观察者（竖屏列表容器与横屏根容器挂载点）与 Dock 面板 D3 上滑回桌面分支全部删除，避免与系统手势干扰；问七仔离 D3 动作、首页上滑开 D3、标题区右滑回 D2、顶部下滑回 D2 保留。",
+  "versionCode": 407,
+  "versionName": "1.0.10",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.10/ai-launcher-v1.0.10.apk",
+  "sha256": "5cc552c965bc7f5d20ba4ed27ff5b5d11ffdc717e42c35f97add05f97dc8fc19",
+  "changelog": "删设置页底部上滑回主页：swipeUpToHome 手势（底部 1/4 起点、上滑超 120px → 返回）与 LazyColumn 挂载点全部删除，避免操作干扰；设置页返回行调用保留。",
   "forceUpdate": false,
   "prerelease": true
 }
