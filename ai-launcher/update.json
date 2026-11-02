@@ -1,9 +1,9 @@
 {
-  "versionCode": 400,
-  "versionName": "1.0.3",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.3/ai-launcher-v1.0.3.apk",
-  "sha256": "1aa0e766f61b412572612190fc9e9de438efb0aeac25c4bfb5ef7640affdecb6",
-  "changelog": "修 Dock 不显示：面板高度改档位定高（D1 104dp/D2 152dp），不再由内层实测回写压扁面板；玻璃不可用时面板底色常驻不再全透明；Dock 开着但状态卡在 Hidden 时自动回记住的档位。",
+  "versionCode": 401,
+  "versionName": "1.0.4",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.4/ai-launcher-v1.0.4.apk",
+  "sha256": "37b6c186ac5bb3f1c12cd82b3fd6d01599913468d0681f9c406e8fa0ab6bedc5",
+  "changelog": "修 Dock 高度：档位定高修正为 D1 136dp/D2 184dp，补算 400 漏掉的内层 Column 上下内边距 32dp，面板不再比内容矮一截。",
   "forceUpdate": false,
   "prerelease": true
 }
