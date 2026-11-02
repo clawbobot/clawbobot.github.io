@@ -1,9 +1,9 @@
 {
-  "versionCode": 404,
-  "versionName": "1.0.7",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.7/ai-launcher-v1.0.7.apk",
-  "sha256": "7e8c2a3bcfbcc080800f4409494235d56eeeb08ddb29d7d55eecb03297628bba",
-  "changelog": "盲操快捷方式提示文案精简：设为默认桌面后可以显示更多快捷操作，按钮缩为去设置/重新加载。",
+  "versionCode": 405,
+  "versionName": "1.0.8",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.8/ai-launcher-v1.0.8.apk",
+  "sha256": "2f8f6df3a5ab38000940ef2f5e9fb4b1b5ccd772ddd2bbdc544c775bf7ede040",
+  "changelog": "高级感收敛：字阶新增 16sp 档并全量替换裸字号，圆角收敛到 28/20/12，间距收进 8dp 网格，应用中心行距放开到 8dp；盲操扇形金统一为 Accent 金，设置卡片改 8dp 柔阴影；动效收进 PetMotion/MotionTokens 家族；删除无调用点的 WeatherEnv。",
   "forceUpdate": false,
   "prerelease": true
 }
