@@ -1,9 +1,9 @@
 {
-  "versionCode": 408,
-  "versionName": "1.0.11",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.11/ai-launcher-v1.0.11.apk",
-  "sha256": "3fda2c68235610eda0ecef54ff1fcc222712fbdbe712079a4101572f90023caa",
-  "changelog": "删应用中心意图胶囊提交钮：箭头仅收键盘、无实际功能，随首页意图入口一并删；胶囊输入、× 清空、实时过滤、问助手行、键盘 Done 问助手保留；首页胶囊提交仍是真提交，不变。",
+  "versionCode": 409,
+  "versionName": "1.0.12",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.12/ai-launcher-v1.0.12.apk",
+  "sha256": "cfa9a9b5c006071423565123309514ff609ff0d233e388f0cc21234f218d7c1e",
+  "changelog": "应用中心胶囊融合 + 编辑态最小变化：胶囊与页面同底色、细线描边、无阴影，只剩输入和 ×；打字不再换版面，刊头常驻、行距不变、幽灵字母和字母导航不显隐，只刷列表和数字，数字跟过滤结果走；字母导航只含当前列表里有的字母，搜索态点字母落到扁平结果首现行，搜索态隐藏分区不出现。",
   "forceUpdate": false,
   "prerelease": true
 }
