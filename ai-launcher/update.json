@@ -1,9 +1,9 @@
 {
-  "versionCode": 413,
-  "versionName": "1.0.16",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.16/ai-launcher-v1.0.16.apk",
-  "sha256": "9bc7652185ae1fc544f912ff748a909073c71b3df34d2540dbe1cbea82e4af3c",
-  "changelog": "应用中心行尾箭头（Bob 2026-11-03）：展开态只显示 ⓘ、不显示箭头（此前注释承诺但条件没实现，本批补齐）；仅 1 行显示条件，全部手势与交互不动。",
+  "versionCode": 414,
+  "versionName": "1.0.17",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.17/ai-launcher-v1.0.17.apk",
+  "sha256": "040ca32e01c858e3fdbd2a1704089c470ac35fa9b5d49758232c582d45e7ad3d",
+  "changelog": "应用中心一屏 8 个＋意图框原型样式（Bob 2026-11-03）：行 52→60dp（图标仍 44dp、间距仍 4dp），Dock 拖动步进同步 64dp；意图框改 Card 白 pill＋8dp 阴影、无描边、最小高 50dp、框内放大镜（仅应用中心变体，首页不动）；齿轮坐浅色圆盘（竖屏＋横屏）；搜索后隐藏字母导航，搜索结束恢复；仅布局与表面，全部手势与交互不动。",
   "forceUpdate": false,
   "prerelease": true
 }
