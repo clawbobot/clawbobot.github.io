@@ -1,9 +1,9 @@
 {
-  "versionCode": 412,
-  "versionName": "1.0.15",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.15/ai-launcher-v1.0.15.apk",
-  "sha256": "ec07611bcb1f896c4c2a12eee905348f64906a7f7502d4f11e6077f237e4ba0f",
-  "changelog": "应用中心原型比例（Bob 2026-11-03）：rail 字母靠上对齐（字母少时不再居中悬空）；图标 44dp、行高 52dp（纵向 4dp）、步进 56dp，一屏展示更多；行尾轻量箭头；幽灵字母收至 40sp；Dock 拖动步进同步 56dp；仅布局与行尾装饰，全部手势与交互不动。",
+  "versionCode": 413,
+  "versionName": "1.0.16",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.16/ai-launcher-v1.0.16.apk",
+  "sha256": "9bc7652185ae1fc544f912ff748a909073c71b3df34d2540dbe1cbea82e4af3c",
+  "changelog": "应用中心行尾箭头（Bob 2026-11-03）：展开态只显示 ⓘ、不显示箭头（此前注释承诺但条件没实现，本批补齐）；仅 1 行显示条件，全部手势与交互不动。",
   "forceUpdate": false,
   "prerelease": true
 }
