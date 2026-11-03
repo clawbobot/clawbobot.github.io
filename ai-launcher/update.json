@@ -1,9 +1,9 @@
 {
-  "versionCode": 414,
-  "versionName": "1.0.17",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.17/ai-launcher-v1.0.17.apk",
-  "sha256": "040ca32e01c858e3fdbd2a1704089c470ac35fa9b5d49758232c582d45e7ad3d",
-  "changelog": "应用中心一屏 8 个＋意图框原型样式（Bob 2026-11-03）：行 52→60dp（图标仍 44dp、间距仍 4dp），Dock 拖动步进同步 64dp；意图框改 Card 白 pill＋8dp 阴影、无描边、最小高 50dp、框内放大镜（仅应用中心变体，首页不动）；齿轮坐浅色圆盘（竖屏＋横屏）；搜索后隐藏字母导航，搜索结束恢复；仅布局与表面，全部手势与交互不动。",
+  "versionCode": 415,
+  "versionName": "1.0.18",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.18/ai-launcher-v1.0.18.apk",
+  "sha256": "e03f0c0fd0597482e24c2f30ebe54b907fedb4255a74798ddb0e008dc332d916",
+  "changelog": "字母导航回滚到 409 加过滤前（Bob 2026-11-03）：竖屏 letters 回 azGroups 有应用字母集、letterAnchors 回完整列表算法、👁 门回只看隐藏分区非空；横屏删 searchLetterIndex 参数及调用点传参、删 searchListState、星星与字母处理回完整列表落点；帮手函数 railLettersFromVisibleApps 不动（首页选择器还在用）；409 其他东西（胶囊融合、编辑态最小变化、条数跟过滤走）与 414 搜索隐藏 rail 门一律不动；仅回滚，不改手势逻辑。",
   "forceUpdate": false,
   "prerelease": true
 }
