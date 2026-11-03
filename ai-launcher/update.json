@@ -1,9 +1,9 @@
 {
-  "versionCode": 411,
-  "versionName": "1.0.14",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.14/ai-launcher-v1.0.14.apk",
-  "sha256": "235a9699805cf7519ea6ee9a13f2069cb61f2e323cf32b203044ae24723313c7",
-  "changelog": "应用中心密度规范（Bob 2026-11-03）：图标 40→56dp、行高 76dp（纵向 10dp）、行间距 4dp（步进 80dp），一屏约 8–10 个；标题与搜索区垂直间距压缩、分组间隔 24→16dp；仅尺寸间距调整，全部手势与交互不动。",
+  "versionCode": 412,
+  "versionName": "1.0.15",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.15/ai-launcher-v1.0.15.apk",
+  "sha256": "ec07611bcb1f896c4c2a12eee905348f64906a7f7502d4f11e6077f237e4ba0f",
+  "changelog": "应用中心原型比例（Bob 2026-11-03）：rail 字母靠上对齐（字母少时不再居中悬空）；图标 44dp、行高 52dp（纵向 4dp）、步进 56dp，一屏展示更多；行尾轻量箭头；幽灵字母收至 40sp；Dock 拖动步进同步 56dp；仅布局与行尾装饰，全部手势与交互不动。",
   "forceUpdate": false,
   "prerelease": true
 }
