@@ -1,9 +1,9 @@
 {
-  "versionCode": 437,
-  "versionName": "1.0.40",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.40/ai-launcher-v1.0.40.apk",
-  "sha256": "c3287ee8e22a8fc23ad4424bdc02e3893c0057be55fae0bb7a8830abc27149f1",
-  "changelog": "搜索取消后落点统一从 A 开始（Bob 2026-11-05 晚）：搜完取消输入态，列表落到 A 组首行，不再从收藏开始。根因是首帧目录为空时默认定位到 A 的一次滚动被空耗，列表停在收藏区，搜索开始时记下了位置 0，取消后即恢复到收藏。修法：取消时落到 A 组（无 A 组退首个字母组）；默认定位只在字母组就绪时才消耗一次机会。收藏分区本身不动，仍可上滑回去、点 rail ★ 到达。",
+  "versionCode": 439,
+  "versionName": "1.0.42",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.42/ai-launcher-v1.0.42.apk",
+  "sha256": "ff3d09a0a608cee59e3b1c06350948643f97904064119d872c69e09f77653ab4",
+  "changelog": "搜索认同义词＋未找到提示重设计（Bob 2026-11-05 晚）：搜“我想听周杰伦的歌”之前得 0 款（“歌”没进关键词映射），现“歌/歌曲”认音乐能力，与“音乐”同结果；顺带补同类常见说法——“剧/电影”认视频、“机票”认航班、“高铁”认火车票、“健身”认运动。未找到提示改居中对齐、去掉大缩进、尽可能一行（文案略缩），字号不变；“问助手”行不动。",
   "forceUpdate": false,
   "prerelease": true
 }
