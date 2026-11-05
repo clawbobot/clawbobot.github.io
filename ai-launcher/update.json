@@ -1,9 +1,9 @@
 {
-  "versionCode": 435,
-  "versionName": "1.0.38",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.38/ai-launcher-v1.0.38.apk",
-  "sha256": "870ed8200ee1e4a40c8f0e6c6b402a673cecde351f68894697a42175f8aa34c2",
-  "changelog": "输入框滚动关键字变智能（Bob 2026-11-05）：记用户成功打开应用的动作（能力＋目的地，如“导航去机场”，不是包名；成功才记），按频次、时间习惯（星期×小时桶）排列，当前时间最相关的动作（最多 3 条）排进输入框滚动清单最前面，后面接静态能力词；没历史时清单不变。排序与 Dock 智能 v3 同一套（当前桶 ≥3 时 ×10000 主导＋总次数）。点按方式不变（填入＋触发）。",
+  "versionCode": 437,
+  "versionName": "1.0.40",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.0.40/ai-launcher-v1.0.40.apk",
+  "sha256": "c3287ee8e22a8fc23ad4424bdc02e3893c0057be55fae0bb7a8830abc27149f1",
+  "changelog": "搜索取消后落点统一从 A 开始（Bob 2026-11-05 晚）：搜完取消输入态，列表落到 A 组首行，不再从收藏开始。根因是首帧目录为空时默认定位到 A 的一次滚动被空耗，列表停在收藏区，搜索开始时记下了位置 0，取消后即恢复到收藏。修法：取消时落到 A 组（无 A 组退首个字母组）；默认定位只在字母组就绪时才消耗一次机会。收藏分区本身不动，仍可上滑回去、点 rail ★ 到达。",
   "forceUpdate": false,
   "prerelease": true
 }
