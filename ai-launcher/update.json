@@ -1,9 +1,9 @@
 {
-  "versionCode": 474,
-  "versionName": "1.3.17",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.17/ai-launcher-v1.3.17.apk",
-  "sha256": "85bbcfcf7d87d24b6741a36ecfc36a2c173e3844cc97a02d79d73d1f2e357240",
-  "changelog": "设置页“诊断”分区整个拿掉（Bob 2026-11-08 定）：角标诊断卡、崩溃记录、“模拟崩溃循环（测试）”三个入口全没了，设置页只剩助手/版本/智能/关于四个分区。恢复屏不受影响——连崩两次出的恢复屏里仍能看崩溃记录。",
+  "versionCode": 476,
+  "versionName": "1.3.19",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.19/ai-launcher-v1.3.19.apk",
+  "sha256": "9f4cc5c7dcce112e38a1fb890a04c2910807ea81bec471b21bf12c5f55c76501",
+  "changelog": "未读行点按优先发通知自己的跳转目标（Bob 2026-11-08 23:49：点未读行只打开应用主界面，落点不准）：点未读组里一行，现在优先发该应用最新一条在用通知自己的 contentIntent（通知自带的跳转，点通知栏通知时系统就是发它），直接进对应会话/消息——微信进“和和美美”会话、飞书进 Liz Li 那条消息、ChatGPT 进对应对话；没有跳转目标或发送失败时退回正常打开应用，不抛错。点行的同时仍取消该应用的在用通知（发跳转本身不会自动取消），行离开未读组。短信行无跳转目标，只打开短信应用。竖屏 + 横屏同改。上一版同批内容（点行打开 + 清除、清除图标换“已读”）一并在此版。",
   "forceUpdate": false,
   "prerelease": true
 }
