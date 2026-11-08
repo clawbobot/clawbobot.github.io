@@ -1,9 +1,9 @@
 {
-  "versionCode": 469,
-  "versionName": "1.3.12",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.12/ai-launcher-v1.3.12.apk",
-  "sha256": "53cb599ea9409d51bea4fc3edb72ce1c849ed0d9da684f35b1840385bf5acd90",
-  "changelog": "应用中心收藏区拖动排序修好了（Bob 真机反馈）：按住手柄上下拖，行跟手、其他行自动让位、松手保存顺序，重进应用中心顺序还在。",
+  "versionCode": 471,
+  "versionName": "1.3.14",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.14/ai-launcher-v1.3.14.apk",
+  "sha256": "ce359aebf94e48f242a894204245b5d12d57b1130443c38503ece5755308727d",
+  "changelog": "首页下滑开通知中心删除（Bob 2026-11-08 真机令）：首页下滑不再打开通知中心——右下下滑与纯下滑两路都删了，下滑只剩左下开控制中心；上滑开应用中心不动。系统状态栏本身下滑仍能打开通知中心，那是系统手势，与桌面无关。",
   "forceUpdate": false,
   "prerelease": true
 }
