@@ -1,9 +1,9 @@
 {
-  "versionCode": 502,
-  "versionName": "1.3.45",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.45/ai-launcher-v1.3.45.apk",
-  "sha256": "8dc0e32686af25a3a3aca8f1a9a87fd8530ee7f03e2b099bf6dbd7cfc35dc782",
-  "changelog": "Dock 说明页修法二（Bob 2026-11-13 21:33 实拍反馈）：① 转移改算占比——新增 transferDominant，转移 ≥2 且转移 / 衰减后总次数 ≥ 0.5 才算（整数 transfer * 2 >= total），排序 +500、说明页理由、灯泡判定三处共用，不用“枢纽”标签排除，只用占比算；② “近期”定死 30 天——新增 day_<yyyyMMdd>_<pkg> 窗口计数与 recentCount（不参与月度衰减），“常开”分支触发与显示都用它：“常开 · 近 30 天 X 次”，总量 >0 但 30 天内没开显示“最近没怎么开”，绝不出现“近 30 天 0 次”。排序分不动，仍用衰减后总量。过渡：窗口计数从本版开始攒，头几天数字偏小、30 天后才是真窗口。大模型定期处理另写提案，不在这批做。",
+  "versionCode": 503,
+  "versionName": "1.3.46",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.3.46/ai-launcher-v1.3.46.apk",
+  "sha256": "e23246fc2c27331f4f27c78b3380726945a60963b0c058a349127911ebc3ec89",
+  "changelog": "Dock 说明页修法三（Bob 2026-11-13 22:24 亲定）：「近期」窗口从 30 天改成 7 天——Dock 按周走（时段格子按周攒、建议每周跑一次），30 天反映的是上个月的习惯，过渡也要一个月才攒满真窗口。窗口常量 AppUsageTracker.RECENT_WINDOW_DAYS = 7，窗口计数、旧天清理、读数默认窗口都跟常量走；显示文案与常量单源头：“常开 · 近 7 天 X 次”。“最近没怎么开”现在是总量 >0 但 7 天内没开过，一周就有意义。排序分不动（仍用衰减后总量）、转移占比 0.5 不动、月度衰减不动。过渡：502 刚攒了 1 天的窗口数据，改成 7 天后头几天数字仍偏小，7 天后才是真窗口。大模型提案文档里的窗口四处已同步成 7 天。",
   "forceUpdate": false,
   "prerelease": true
 }
