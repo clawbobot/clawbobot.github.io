@@ -1,9 +1,9 @@
 {
-  "versionCode": 559,
-  "versionName": "1.4.15",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.15/ai-launcher-v1.4.15.apk",
-  "sha256": "98c1af3e0ef298e497a382a80a60c599903153002d339ff815a1559a7a121483",
-  "changelog": "Bob 2026-11-20 18:07 拍板：配了 Key 就用大模型，没配 Key 就不用——「今天/明天一览」重设计：结论是正文第一句（加粗），按雨＋出门＞同来源＞空闲×未读＞好天气×大段空闲＞日子形状五条优先级取第一条跨来源结论，结论覆盖的来源不再出配角行；有 Key 时 21:30 复盘顺手用 DeepSeek（deepseek-flash）为明天算好结论存本地，早上直接显示存好的（没 Key／离线／失败静默回落规则版，不报错）；按钮跟结论走（第一场会／未读最多来源／日历应用），目标不可用时顺延。单测：DayOverviewConclusionTest 新增 48 项、DayOverviewTest 增 1 项改结论格式，全量 1090 项，分支 CI 全绿。真机验收：①有 Key 时早上第一眼一览是模型版结论；②没 Key／离线时一览照常出规则版；③结论第一句加粗、配角行去重；④21:30 复盘后次日早上结论已存好；⑤回归：其他卡种、拖动跟手、圆点、自动轮换、光晕都不变。",
+  "versionCode": 561,
+  "versionName": "1.4.17",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.17/ai-launcher-v1.4.17.apk",
+  "sha256": "816e8e7ea809a6ec4f7700dce6aa4f47cf630dc838183abf107929400eb53e7c",
+  "changelog": "Bob 2026-11-21 定审计三项：①未接来电卡小标「电话」去掉——按钮「回拨」已隐含拨号盘，标题行右上角留空，其他卡种小标不动（`shouldShowAppSubscript` 纯函数，MISSED_CALL 返回 false）；②引导卡隐私 prep 行「只读…，不会发到别处」×4 留着、不砍；③日历卡小标账户名（如「豆包日历」）不改，始终显示。②③只记决定、代码不动。单测：SmartCardSubscriptTest 新增 11 项，全量 1101 项，分支 CI 全绿。真机验收：①未接来电卡标题行右上角无小标、其他布局不动；②其他卡种小标都在；③回归：拖动跟手、圆点、自动轮换、光晕、复盘都不变。",
   "forceUpdate": false,
   "prerelease": true
 }
