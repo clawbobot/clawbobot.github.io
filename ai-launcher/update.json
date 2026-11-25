@@ -1,9 +1,9 @@
 {
-  "versionCode": 572,
-  "versionName": "1.4.28",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.28/ai-launcher-v1.4.28.apk",
-  "sha256": "9b51d3119f6da66438636031966e510c4c431fa770702ab110fcab48351270fa",
-  "changelog": "横屏应用中心未读组去掉图标左上角的幽灵信封（465 标记，569 分栏后已多余）；角标与「未读」标签不动；竖屏信封与 rail 信封不动。",
+  "versionCode": 573,
+  "versionName": "1.4.29",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.29/ai-launcher-v1.4.29.apk",
+  "sha256": "3f91b15b5a3f49f0d253ec1be9516a22404b6461854b28088496fcf614a37d96",
+  "changelog": "横屏隐藏组改内联标签（和收藏一样）：解锁态「已隐藏」标签占一格、应用每行 7 个；未解锁也一样，第一格是指纹瓦片「解锁查看」，点按面部/指纹解锁；竖屏隐藏组与不常用组不动。",
   "forceUpdate": false,
   "prerelease": true
 }
