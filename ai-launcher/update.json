@@ -1,9 +1,9 @@
 {
-  "versionCode": 576,
-  "versionName": "1.4.32",
-  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.32/ai-launcher-v1.4.32.apk",
-  "sha256": "5669a9ced38e9516c53d3f623f4d1069cbb0bdb69712760409c9f56aa68438dd",
-  "changelog": "横屏搜索浮层修正：浮层背后去白条（搜索胶囊与 X 直接浮在网格上）；收起态悬浮钮对调（搜索在左、齿轮在右）；顶栏搜索与竖屏不动。",
+  "versionCode": 577,
+  "versionName": "1.4.33",
+  "apkUrl": "https://github.com/0xbobot/ai-launcher/releases/download/v1.4.33/ai-launcher-v1.4.33.apk",
+  "sha256": "fb7bfe442d0170d83608627d8db0e21e0506abd87099818028ec49c10322a31b",
+  "changelog": "横屏搜索结果顶到浮层下方（浮层态结果网格顶距 64dp，「N 款」计数不再压第一个结果应用）；in-flow 顶栏搜索与竖屏不动。",
   "forceUpdate": false,
   "prerelease": true
 }
